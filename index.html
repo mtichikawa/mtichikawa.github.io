@@ -1,0 +1,1051 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mike Ichikawa — Data Scientist</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:       #f7f6f2;
+      --bg2:      #eeecea;
+      --ink:      #1a1814;
+      --ink2:     #6b6760;
+      --ink3:     #a09d99;
+      --accent:   #c84b2f;
+      --accent2:  #1a3a5c;
+      --border:   #d8d5d0;
+      --mono:     'DM Mono', monospace;
+      --serif:    'DM Serif Display', serif;
+      --sans:     'DM Sans', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: var(--sans);
+      font-weight: 300;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 48px;
+      background: var(--bg);
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.3s;
+    }
+    nav.scrolled { border-color: var(--border); }
+
+    .nav-name {
+      font-family: var(--mono);
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      color: var(--ink);
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 400;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--ink2);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--accent); }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 120px 48px 80px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .hero-label {
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 400;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--ink3);
+      margin-bottom: 28px;
+      opacity: 0;
+      animation: fadeUp 0.6s ease forwards 0.1s;
+    }
+
+    .hero-name {
+      font-family: var(--serif);
+      font-size: clamp(52px, 8vw, 96px);
+      font-weight: 400;
+      line-height: 1.0;
+      color: var(--ink);
+      margin-bottom: 8px;
+      opacity: 0;
+      animation: fadeUp 0.7s ease forwards 0.2s;
+    }
+
+    .hero-name em {
+      font-style: italic;
+      color: var(--accent);
+    }
+
+    .hero-title {
+      font-family: var(--serif);
+      font-size: clamp(24px, 4vw, 42px);
+      font-weight: 400;
+      font-style: italic;
+      color: var(--ink2);
+      margin-bottom: 48px;
+      opacity: 0;
+      animation: fadeUp 0.7s ease forwards 0.3s;
+    }
+
+    .hero-bio {
+      max-width: 560px;
+      font-size: 16px;
+      font-weight: 300;
+      color: var(--ink2);
+      line-height: 1.8;
+      margin-bottom: 56px;
+      opacity: 0;
+      animation: fadeUp 0.7s ease forwards 0.4s;
+    }
+
+    .hero-bio strong {
+      color: var(--ink);
+      font-weight: 500;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      opacity: 0;
+      animation: fadeUp 0.7s ease forwards 0.5s;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--ink);
+      color: var(--bg);
+      font-family: var(--mono);
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      text-decoration: none;
+      padding: 14px 28px;
+      border-radius: 2px;
+      transition: background 0.2s, transform 0.15s;
+    }
+    .btn-primary:hover { background: var(--accent); transform: translateY(-1px); }
+
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: transparent;
+      color: var(--ink);
+      font-family: var(--mono);
+      font-size: 12px;
+      font-weight: 400;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      text-decoration: none;
+      padding: 14px 28px;
+      border-radius: 2px;
+      border: 1px solid var(--border);
+      transition: border-color 0.2s, color 0.2s, transform 0.15s;
+    }
+    .btn-secondary:hover { border-color: var(--ink); transform: translateY(-1px); }
+
+    .hero-scroll {
+      margin-top: 80px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--ink3);
+      opacity: 0;
+      animation: fadeUp 0.7s ease forwards 0.7s;
+    }
+
+    .scroll-line {
+      width: 40px;
+      height: 1px;
+      background: var(--ink3);
+    }
+
+    /* ── SECTION BASE ── */
+    section {
+      padding: 100px 48px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-family: var(--mono);
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 16px;
+    }
+
+    .section-title {
+      font-family: var(--serif);
+      font-size: clamp(32px, 4vw, 52px);
+      font-weight: 400;
+      line-height: 1.1;
+      color: var(--ink);
+      margin-bottom: 48px;
+    }
+
+    .section-divider {
+      width: 100%;
+      height: 1px;
+      background: var(--border);
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    /* ── BACKGROUND ── */
+    #background {
+      background: var(--bg2);
+      max-width: 100%;
+      padding: 100px 0;
+    }
+
+    #background .inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 48px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: start;
+    }
+
+    .bg-card {
+      padding: 40px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+    }
+
+    .bg-card-label {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--ink3);
+      margin-bottom: 8px;
+    }
+
+    .bg-card-number {
+      font-family: var(--serif);
+      font-size: 64px;
+      font-weight: 400;
+      color: var(--accent);
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+
+    .bg-card-title {
+      font-family: var(--serif);
+      font-size: 22px;
+      font-weight: 400;
+      color: var(--ink);
+      margin-bottom: 16px;
+    }
+
+    .bg-card-body {
+      font-size: 14px;
+      font-weight: 300;
+      color: var(--ink2);
+      line-height: 1.8;
+    }
+
+    .bg-intro {
+      margin-bottom: 48px;
+    }
+
+    .bg-intro p {
+      font-size: 16px;
+      font-weight: 300;
+      color: var(--ink2);
+      line-height: 1.9;
+      margin-bottom: 16px;
+    }
+
+    .bg-intro p strong {
+      color: var(--ink);
+      font-weight: 500;
+    }
+
+    /* ── PROJECTS ── */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+      margin-top: 0;
+    }
+
+    .project-card {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      padding: 32px;
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .project-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: var(--accent);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.25s ease;
+    }
+
+    .project-card:hover {
+      background: var(--bg2);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.06);
+    }
+
+    .project-card:hover::before { transform: scaleX(1); }
+
+    .project-num {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.15em;
+      color: var(--ink3);
+    }
+
+    .project-name {
+      font-family: var(--serif);
+      font-size: 20px;
+      font-weight: 400;
+      color: var(--ink);
+      line-height: 1.2;
+    }
+
+    .project-desc {
+      font-size: 13px;
+      font-weight: 300;
+      color: var(--ink2);
+      line-height: 1.7;
+      flex: 1;
+    }
+
+    .project-stack {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 4px;
+    }
+
+    .tag {
+      font-family: var(--mono);
+      font-size: 10px;
+      font-weight: 400;
+      letter-spacing: 0.05em;
+      color: var(--ink2);
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      padding: 3px 8px;
+      border-radius: 2px;
+    }
+
+    .project-arrow {
+      font-size: 18px;
+      color: var(--ink3);
+      align-self: flex-end;
+      transition: color 0.2s, transform 0.2s;
+    }
+
+    .project-card:hover .project-arrow {
+      color: var(--accent);
+      transform: translate(2px, -2px);
+    }
+
+    /* ── TRADING ── */
+    #trading {
+      background: var(--accent2);
+      max-width: 100%;
+      padding: 100px 0;
+      color: #e8eef4;
+    }
+
+    #trading .inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 48px;
+    }
+
+    #trading .section-label { color: #7aafd4; }
+    #trading .section-title { color: #f0f4f8; }
+
+    .trading-intro {
+      max-width: 640px;
+      font-size: 15px;
+      font-weight: 300;
+      color: #8faec8;
+      line-height: 1.9;
+      margin-bottom: 56px;
+    }
+
+    .trading-arc {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 0;
+      position: relative;
+    }
+
+    .trading-arc::before {
+      content: '';
+      position: absolute;
+      top: 28px;
+      left: 10%;
+      right: 10%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, #3a6080 20%, #3a6080 80%, transparent);
+    }
+
+    .trading-node {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+      padding: 0 12px;
+      text-align: center;
+      position: relative;
+    }
+
+    .trading-dot {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: var(--accent2);
+      border: 1px solid #3a6080;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--mono);
+      font-size: 12px;
+      font-weight: 500;
+      color: #7aafd4;
+      z-index: 1;
+      transition: background 0.2s, border-color 0.2s;
+    }
+
+    .trading-node:hover .trading-dot {
+      background: #2a4f6e;
+      border-color: #7aafd4;
+    }
+
+    .trading-node-name {
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 500;
+      color: #c8daea;
+      letter-spacing: 0.05em;
+    }
+
+    .trading-node-desc {
+      font-size: 11px;
+      font-weight: 300;
+      color: #5a849e;
+      line-height: 1.6;
+    }
+
+    .trading-status {
+      margin-top: 48px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #5a849e;
+    }
+
+    .status-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #4caf7d;
+      animation: pulse 2s infinite;
+    }
+
+    /* ── SKILLS ── */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px;
+    }
+
+    .skill-group-label {
+      font-family: var(--mono);
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .skill-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .skill-list li {
+      font-family: var(--mono);
+      font-size: 12px;
+      font-weight: 300;
+      color: var(--ink2);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .skill-list li::before {
+      content: '';
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: var(--border);
+      flex-shrink: 0;
+    }
+
+    /* ── CONTACT ── */
+    #contact {
+      background: var(--ink);
+      max-width: 100%;
+      padding: 100px 0;
+      color: #c8c4be;
+    }
+
+    #contact .inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 48px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 48px;
+      flex-wrap: wrap;
+    }
+
+    #contact .section-label { color: #6b6760; }
+
+    .contact-heading {
+      font-family: var(--serif);
+      font-size: clamp(32px, 4vw, 52px);
+      font-weight: 400;
+      color: var(--bg);
+      line-height: 1.1;
+      margin-bottom: 24px;
+    }
+
+    .contact-sub {
+      font-size: 14px;
+      font-weight: 300;
+      color: #6b6760;
+      max-width: 400px;
+      line-height: 1.8;
+    }
+
+    .contact-links {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      flex-shrink: 0;
+    }
+
+    .contact-link {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      text-decoration: none;
+      color: #c8c4be;
+      font-family: var(--mono);
+      font-size: 13px;
+      transition: color 0.2s;
+      padding: 12px 20px;
+      border: 1px solid #2e2c28;
+      border-radius: 2px;
+      transition: border-color 0.2s, color 0.2s;
+    }
+
+    .contact-link:hover { border-color: #6b6760; color: var(--bg); }
+
+    .contact-link-icon {
+      width: 18px;
+      height: 18px;
+      opacity: 0.5;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--ink);
+      border-top: 1px solid #1e1c18;
+      padding: 24px 48px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 100%;
+    }
+
+    footer span {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      color: #3a3830;
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50%       { opacity: 0.4; }
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      nav { padding: 16px 24px; }
+      #hero, section { padding-left: 24px; padding-right: 24px; }
+      #background .inner, #trading .inner, #contact .inner { padding: 0 24px; }
+      footer { padding: 20px 24px; }
+      .projects-grid { grid-template-columns: 1fr 1fr; }
+      .trading-arc { grid-template-columns: 1fr; }
+      .trading-arc::before { display: none; }
+      .skills-grid { grid-template-columns: 1fr 1fr; }
+      #background .inner { grid-template-columns: 1fr; gap: 24px; }
+      .nav-links { display: none; }
+    }
+
+    @media (max-width: 600px) {
+      .projects-grid { grid-template-columns: 1fr; }
+      .skills-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- NAV -->
+  <nav id="nav">
+    <a href="#hero" class="nav-name">Mike Ichikawa</a>
+    <ul class="nav-links">
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#trading">Trading</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <div id="hero">
+    <p class="hero-label">Portland, OR — Open to Work</p>
+    <h1 class="hero-name">Mike<br><em>Ichikawa</em></h1>
+    <p class="hero-title">Data Scientist · Data Engineer · ML Engineer</p>
+    <p class="hero-bio">
+      <strong>BS Mechanical Engineering · MS Mathematics.</strong> Three years as a Physical Design Engineer at Intel. Nine years teaching statistics and mathematics at the college level. Now applying that foundation — quantitative rigor, systems thinking, production engineering experience — to data science and machine learning.
+    </p>
+    <div class="hero-actions">
+      <a href="#projects" class="btn-primary">View Projects ↓</a>
+      <a href="https://github.com/mtichikawa" target="_blank" class="btn-secondary">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+        GitHub
+      </a>
+      <a href="mailto:projects.ichikawa@gmail.com" class="btn-secondary">projects.ichikawa@gmail.com</a>
+    </div>
+    <div class="hero-scroll">
+      <span class="scroll-line"></span>
+      Scroll to explore
+    </div>
+  </div>
+
+  <div class="section-divider"></div>
+
+  <!-- BACKGROUND -->
+  <div id="background">
+    <div class="inner">
+      <div>
+        <p class="section-label">Background</p>
+        <h2 class="section-title" style="font-size: clamp(28px, 3vw, 42px);">Two careers.<br>One throughline.</h2>
+        <div class="bg-intro reveal">
+          <p>At Intel, I spent three years on the Physical Design team contributing to Ivy Bridge CPU development and 22nm process R&D — building automated data mining and validation systems that processed millions of design verification data points.</p>
+          <p>At Santa Rosa Junior College, I spent nine years teaching statistics, calculus, and linear algebra — translating complex mathematical structures into clear, actionable understanding for hundreds of students.</p>
+          <p><strong>The throughline: quantitative reasoning applied to real problems.</strong> Data science is where those two careers converge.</p>
+        </div>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 16px;">
+        <div class="bg-card reveal">
+          <p class="bg-card-label">Intel · Physical Design</p>
+          <p class="bg-card-number">3</p>
+          <p class="bg-card-title">Years Engineering</p>
+          <p class="bg-card-body">Ivy Bridge CPU · 22nm process R&D · Python/Perl automation · statistical analysis of manufacturing data</p>
+        </div>
+        <div class="bg-card reveal">
+          <p class="bg-card-label">Santa Rosa Junior College</p>
+          <p class="bg-card-number">9</p>
+          <p class="bg-card-title">Years Teaching</p>
+          <p class="bg-card-body">Statistics · Calculus · Linear Algebra · curriculum development · data-driven program assessment</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-divider"></div>
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <p class="section-label">Portfolio</p>
+    <h2 class="section-title">9 Projects.<br>One stack.</h2>
+    <div class="projects-grid">
+
+      <a href="https://github.com/mtichikawa/github-trend-forecaster" target="_blank" class="project-card reveal">
+        <span class="project-num">01</span>
+        <h3 class="project-name">GitHub Trend Forecaster</h3>
+        <p class="project-desc">Forecasts GitHub repository star growth using Facebook Prophet time series models, with an LSTM comparison layer for deep learning benchmarking.</p>
+        <div class="project-stack">
+          <span class="tag">Prophet</span>
+          <span class="tag">PyTorch</span>
+          <span class="tag">GitHub API</span>
+        </div>
+        <span class="project-arrow">↗</span>
+      </a>
+
+      <a href="https://github.com/mtichikawa/bandit-ab-testing" target="_blank" class="project-card reveal">
+        <span class="project-num">02</span>
+        <h3 class="project-name">Multi-Armed Bandit A/B Testing</h3>
+        <p class="project-desc">Implements Thompson Sampling, UCB1, and Epsilon-Greedy bandit algorithms with a live Streamlit simulator showing real-time Beta distribution updates.</p>
+        <div class="project-stack">
+          <span class="tag">Thompson Sampling</span>
+          <span class="tag">Bayesian</span>
+          <span class="tag">Streamlit</span>
+        </div>
+        <span class="project-arrow">↗</span>
+      </a>
+
+      <a href="https://github.com/mtichikawa/llm-data-assistant" target="_blank" class="project-card reveal">
+        <span class="project-num">03</span>
+        <h3 class="project-name">LLM Data Analysis Assistant</h3>
+        <p class="project-desc">Hybrid routing system combining rule-based fast-path with Anthropic API fallback. Multi-turn conversation history, agent mode with pandas and chart tool use.</p>
+        <div class="project-stack">
+          <span class="tag">Anthropic API</span>
+          <span class="tag">RAG</span>
+          <span class="tag">Tool Use</span>
+        </div>
+        <span class="project-arrow">↗</span>
+      </a>
+
+      <a href="https://github.com/mtichikawa/llm-bias-detection" target="_blank" class="project-card reveal">
+        <span class="project-num">04</span>
+        <h3 class="project-name">Bias Detection in LLMs</h3>
+        <p class="project-desc">Statistical audit of bias across multiple language models and datasets. ANOVA, Cohen's d effect sizes, and p-value heatmaps across gender, race, and religion dimensions.</p>
+        <div class="project-stack">
+          <span class="tag">ANOVA</span>
+          <span class="tag">Cohen's d</span>
+          <span class="tag">scipy.stats</span>
+        </div>
+        <span class="project-arrow">↗</span>
+      </a>
+
+      <a href="https://github.com/mtichikawa/anomaly-detection" target="_blank" class="project-card reveal">
+        <span class="project-num">05</span>
+        <h3 class="project-name">Real-Time Anomaly Detection</h3>
+        <p class="project-desc">Ensemble ML system using sklearn IsolationForest and LocalOutlierFactor on streaming data. Wrapped in a Dockerized FastAPI service with REST inference endpoint.</p>
+        <div class="project-stack">
+          <span class="tag">IsolationForest</span>
+          <span class="tag">Docker</span>
+          <span class="tag">FastAPI</span>
+        </div>
+        <span class="project-arrow">↗</span>
+      </a>
+
+      <a href="https://github.com/mtichikawa/financial-nlp" target="_blank" class="project-card reveal">
+        <span class="project-num">06</span>
+        <h3 class="project-name">Financial NLP Parser</h3>
+        <p class="project-desc">Parses SEC EDGAR filings for 5+ companies, extracts financial metrics and sentiment. PostgreSQL backend with a Streamlit dashboard for cross-company sector comparison.</p>
+        <div class="project-stack">
+          <span class="tag">SEC EDGAR</span>
+          <span class="tag">PostgreSQL</span>
+          <span class="tag">Streamlit</span>
+        </div>
+        <span class="project-arrow">↗</span>
+      </a>
+
+      <a href="https://github.com/mtichikawa/sql-analytics-pipeline" target="_blank" class="project-card reveal">
+        <span class="project-num">07</span>
+        <h3 class="project-name">SQL Analytics Pipeline</h3>
+        <p class="project-desc">Three-layer data pipeline (staging → clean → marts) with dbt-style transformations, window functions, and data quality checks. SQLAlchemy ORM with PostgreSQL backend.</p>
+        <div class="project-stack">
+          <span class="tag">PostgreSQL</span>
+          <span class="tag">SQLAlchemy</span>
+          <span class="tag">dbt</span>
+        </div>
+        <span class="project-arrow">↗</span>
+      </a>
+
+      <a href="https://github.com/mtichikawa/dockerized-ml-api" target="_blank" class="project-card reveal">
+        <span class="project-num">08</span>
+        <h3 class="project-name">Dockerized ML API</h3>
+        <p class="project-desc">Production ML serving infrastructure: FastAPI REST endpoint, Redis caching with TTL, Pydantic v2 validation, vectorized batch inference, and Docker deployment.</p>
+        <div class="project-stack">
+          <span class="tag">Docker</span>
+          <span class="tag">FastAPI</span>
+          <span class="tag">Redis</span>
+        </div>
+        <span class="project-arrow">↗</span>
+      </a>
+
+      <a href="https://github.com/mtichikawa/cloud-etl-pipeline" target="_blank" class="project-card reveal">
+        <span class="project-num">09</span>
+        <h3 class="project-name">Cloud ETL Pipeline</h3>
+        <p class="project-desc">AWS-native ETL system: S3 data lake with Parquet/Snappy storage, Lambda validation, DynamoDB run logging, tenacity retry logic, and Hive partitioning.</p>
+        <div class="project-stack">
+          <span class="tag">AWS S3</span>
+          <span class="tag">Lambda</span>
+          <span class="tag">DynamoDB</span>
+        </div>
+        <span class="project-arrow">↗</span>
+      </a>
+
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- TRADING -->
+  <div id="trading">
+    <div class="inner">
+      <p class="section-label">In Development</p>
+      <h2 class="section-title">LLM-Driven<br>Trading System</h2>
+      <p class="trading-intro">
+        A five-repo system that uses Claude's vision API to analyze candlestick chart images and generate crypto trading signals on paper. Outcome data feeds back into a prompt optimizer — the system improves its own analysis over time. Built on real Binance market data.
+      </p>
+
+      <div class="trading-arc">
+        <div class="trading-node reveal">
+          <div class="trading-dot">T1</div>
+          <p class="trading-node-name">crypto-data-pipeline</p>
+          <p class="trading-node-desc">ccxt · Binance API · PostgreSQL · multi-pair OHLCV ingestion</p>
+        </div>
+        <div class="trading-node reveal">
+          <div class="trading-dot">T2</div>
+          <p class="trading-node-name">trading-chart-generator</p>
+          <p class="trading-node-desc">mplfinance · annotated candlestick PNG factory · batch backtesting</p>
+        </div>
+        <div class="trading-node reveal">
+          <div class="trading-dot">T3</div>
+          <p class="trading-node-name">trading-signal-engine</p>
+          <p class="trading-node-desc">Anthropic vision API · structured signal output · prompt versioning</p>
+        </div>
+        <div class="trading-node reveal">
+          <div class="trading-dot">T4</div>
+          <p class="trading-node-name">trading-backtester</p>
+          <p class="trading-node-desc">vectorbt · P&L · Sharpe ratio · drawdown · outcome feedback loop</p>
+        </div>
+        <div class="trading-node reveal">
+          <div class="trading-dot">T5</div>
+          <p class="trading-node-name">trading-dashboard</p>
+          <p class="trading-node-desc">Streamlit · live paper trading · prompt review UI · oversight layer</p>
+        </div>
+      </div>
+
+      <p class="trading-status">
+        <span class="status-dot"></span>
+        Active development · Starting March 2026
+      </p>
+    </div>
+  </div>
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <p class="section-label">Technical Skills</p>
+    <h2 class="section-title">Stack</h2>
+    <div class="skills-grid">
+
+      <div class="reveal">
+        <p class="skill-group-label">Languages</p>
+        <ul class="skill-list">
+          <li>Python</li>
+          <li>SQL</li>
+          <li>R</li>
+        </ul>
+      </div>
+
+      <div class="reveal">
+        <p class="skill-group-label">ML · Statistics</p>
+        <ul class="skill-list">
+          <li>scikit-learn · IsolationForest · LOF</li>
+          <li>Prophet · PyTorch · LSTM</li>
+          <li>scipy · statsmodels · ANOVA</li>
+          <li>Bayesian inference · Thompson Sampling</li>
+          <li>Sharpe ratio · drawdown analysis</li>
+        </ul>
+      </div>
+
+      <div class="reveal">
+        <p class="skill-group-label">Data Engineering</p>
+        <ul class="skill-list">
+          <li>PostgreSQL · SQLAlchemy · dbt</li>
+          <li>Apache Parquet · pandas · NumPy</li>
+          <li>Apache Kafka</li>
+          <li>ccxt · OHLCV pipelines</li>
+        </ul>
+      </div>
+
+      <div class="reveal">
+        <p class="skill-group-label">Cloud · Infrastructure</p>
+        <ul class="skill-list">
+          <li>AWS S3 · Lambda · DynamoDB</li>
+          <li>Docker · FastAPI · Redis</li>
+          <li>Pydantic v2 · boto3</li>
+        </ul>
+      </div>
+
+      <div class="reveal">
+        <p class="skill-group-label">LLM · NLP</p>
+        <ul class="skill-list">
+          <li>Anthropic API · vision API</li>
+          <li>RAG · multi-turn conversation</li>
+          <li>Tool use · agent mode</li>
+          <li>Prompt engineering · versioning</li>
+          <li>SEC EDGAR · sentiment analysis</li>
+        </ul>
+      </div>
+
+      <div class="reveal">
+        <p class="skill-group-label">Visualization · Tools</p>
+        <ul class="skill-list">
+          <li>Streamlit · Plotly · Dash</li>
+          <li>Matplotlib · mplfinance</li>
+          <li>Jupyter · nbconvert</li>
+          <li>Git · Selenium</li>
+        </ul>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- CONTACT -->
+  <div id="contact">
+    <div class="inner">
+      <div>
+        <p class="section-label">Contact</p>
+        <h2 class="contact-heading">Open to<br>opportunities.</h2>
+        <p class="contact-sub">Targeting Data Scientist, Data Engineer, ML Engineer, and Analytics roles. Based in Portland, OR. Open to remote.</p>
+      </div>
+      <div class="contact-links">
+        <a href="mailto:projects.ichikawa@gmail.com" class="contact-link">
+          <svg class="contact-link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+          projects.ichikawa@gmail.com
+        </a>
+        <a href="https://github.com/mtichikawa" target="_blank" class="contact-link">
+          <svg class="contact-link-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+          github.com/mtichikawa
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <span>Mike Ichikawa · Portland, OR</span>
+    <span>mtichikawa.github.io</span>
+  </footer>
+
+  <script>
+    // Nav scroll effect
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 20);
+    });
+
+    // Scroll reveal
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => {
+            entry.target.classList.add('visible');
+          }, i * 80);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  </script>
+
+</body>
+</html>
