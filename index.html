@@ -6,23 +6,26 @@
   <title>Mike Ichikawa — Data Scientist</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@300;400;500&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet" />
 
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg:       #f7f6f2;
-      --bg2:      #eeecea;
-      --ink:      #1a1814;
-      --ink2:     #6b6760;
-      --ink3:     #a09d99;
-      --accent:   #c84b2f;
-      --accent2:  #1a3a5c;
-      --border:   #d8d5d0;
-      --mono:     'DM Mono', monospace;
-      --serif:    'DM Serif Display', serif;
-      --sans:     'DM Sans', sans-serif;
+      --bg:      #f7f6f2;
+      --bg2:     #eeecea;
+      --bg3:     #e5e2de;
+      --ink:     #1a1814;
+      --ink2:    #6b6760;
+      --ink3:    #a09d99;
+      --red:     #c84b2f;
+      --navy:    #1a3a5c;
+      --gold:    #b8892a;
+      --green:   #2d6a4f;
+      --border:  #d8d5d0;
+      --mono:    'DM Mono', monospace;
+      --serif:   'DM Serif Display', serif;
+      --sans:    'DM Sans', sans-serif;
     }
 
     html { scroll-behavior: smooth; }
@@ -38,1014 +41,924 @@
 
     /* ── NAV ── */
     nav {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 100;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 20px 48px;
-      background: var(--bg);
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 18px 48px;
+      background: rgba(247,246,242,0.92);
+      backdrop-filter: blur(12px);
       border-bottom: 1px solid transparent;
       transition: border-color 0.3s;
     }
     nav.scrolled { border-color: var(--border); }
-
-    .nav-name {
-      font-family: var(--mono);
-      font-size: 13px;
-      font-weight: 500;
-      letter-spacing: 0.05em;
-      color: var(--ink);
-      text-decoration: none;
-    }
-
-    .nav-links {
-      display: flex;
-      gap: 32px;
-      list-style: none;
-    }
-
-    .nav-links a {
-      font-family: var(--mono);
-      font-size: 11px;
-      font-weight: 400;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--ink2);
-      text-decoration: none;
-      transition: color 0.2s;
-    }
-    .nav-links a:hover { color: var(--accent); }
+    .nav-name { font-family: var(--mono); font-size: 13px; font-weight: 500; color: var(--ink); text-decoration: none; }
+    .nav-links { display: flex; gap: 28px; list-style: none; }
+    .nav-links a { font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink2); text-decoration: none; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--red); }
 
     /* ── HERO ── */
     #hero {
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      padding: 120px 48px 80px;
-      max-width: 1100px;
-      margin: 0 auto;
+      min-height: 100vh; display: flex; flex-direction: column; justify-content: center;
+      padding: 120px 48px 80px; max-width: 1100px; margin: 0 auto;
     }
-
-    .hero-label {
-      font-family: var(--mono);
-      font-size: 11px;
-      font-weight: 400;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--ink3);
-      margin-bottom: 28px;
-      opacity: 0;
-      animation: fadeUp 0.6s ease forwards 0.1s;
-    }
-
-    .hero-name {
-      font-family: var(--serif);
-      font-size: clamp(52px, 8vw, 96px);
-      font-weight: 400;
-      line-height: 1.0;
-      color: var(--ink);
-      margin-bottom: 8px;
-      opacity: 0;
-      animation: fadeUp 0.7s ease forwards 0.2s;
-    }
-
-    .hero-name em {
-      font-style: italic;
-      color: var(--accent);
-    }
-
-    .hero-title {
-      font-family: var(--serif);
-      font-size: clamp(24px, 4vw, 42px);
-      font-weight: 400;
-      font-style: italic;
-      color: var(--ink2);
-      margin-bottom: 48px;
-      opacity: 0;
-      animation: fadeUp 0.7s ease forwards 0.3s;
-    }
-
-    .hero-bio {
-      max-width: 560px;
-      font-size: 16px;
-      font-weight: 300;
-      color: var(--ink2);
-      line-height: 1.8;
-      margin-bottom: 56px;
-      opacity: 0;
-      animation: fadeUp 0.7s ease forwards 0.4s;
-    }
-
-    .hero-bio strong {
-      color: var(--ink);
-      font-weight: 500;
-    }
-
-    .hero-actions {
-      display: flex;
-      gap: 16px;
-      flex-wrap: wrap;
-      opacity: 0;
-      animation: fadeUp 0.7s ease forwards 0.5s;
-    }
-
-    .btn-primary {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: var(--ink);
-      color: var(--bg);
-      font-family: var(--mono);
-      font-size: 12px;
-      font-weight: 500;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      text-decoration: none;
-      padding: 14px 28px;
-      border-radius: 2px;
-      transition: background 0.2s, transform 0.15s;
-    }
-    .btn-primary:hover { background: var(--accent); transform: translateY(-1px); }
-
-    .btn-secondary {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: transparent;
-      color: var(--ink);
-      font-family: var(--mono);
-      font-size: 12px;
-      font-weight: 400;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      text-decoration: none;
-      padding: 14px 28px;
-      border-radius: 2px;
-      border: 1px solid var(--border);
-      transition: border-color 0.2s, color 0.2s, transform 0.15s;
-    }
+    .hero-label { font-family: var(--mono); font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ink3); margin-bottom: 28px; opacity: 0; animation: fadeUp 0.6s ease forwards 0.1s; }
+    .hero-name { font-family: var(--serif); font-size: clamp(52px, 8vw, 96px); font-weight: 400; line-height: 1.0; color: var(--ink); margin-bottom: 8px; opacity: 0; animation: fadeUp 0.7s ease forwards 0.2s; }
+    .hero-name em { font-style: italic; color: var(--red); }
+    .hero-title { font-family: var(--serif); font-size: clamp(22px, 3.5vw, 38px); font-weight: 400; font-style: italic; color: var(--ink2); margin-bottom: 40px; opacity: 0; animation: fadeUp 0.7s ease forwards 0.3s; }
+    .hero-bio { max-width: 580px; font-size: 15px; color: var(--ink2); line-height: 1.9; margin-bottom: 48px; opacity: 0; animation: fadeUp 0.7s ease forwards 0.4s; }
+    .hero-bio strong { color: var(--ink); font-weight: 500; }
+    .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; opacity: 0; animation: fadeUp 0.7s ease forwards 0.5s; }
+    .btn { display: inline-flex; align-items: center; gap: 8px; font-family: var(--mono); font-size: 12px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; padding: 13px 26px; border-radius: 2px; transition: all 0.2s; }
+    .btn-primary { background: var(--ink); color: var(--bg); }
+    .btn-primary:hover { background: var(--red); transform: translateY(-1px); }
+    .btn-secondary { background: transparent; color: var(--ink); border: 1px solid var(--border); }
     .btn-secondary:hover { border-color: var(--ink); transform: translateY(-1px); }
 
-    .hero-scroll {
-      margin-top: 80px;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      font-family: var(--mono);
-      font-size: 10px;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--ink3);
-      opacity: 0;
-      animation: fadeUp 0.7s ease forwards 0.7s;
-    }
-
-    .scroll-line {
-      width: 40px;
-      height: 1px;
-      background: var(--ink3);
-    }
-
     /* ── SECTION BASE ── */
-    section {
-      padding: 100px 48px;
-      max-width: 1100px;
-      margin: 0 auto;
-    }
+    .section-label { font-family: var(--mono); font-size: 10px; font-weight: 500; letter-spacing: 0.25em; text-transform: uppercase; color: var(--red); margin-bottom: 12px; }
+    .section-title { font-family: var(--serif); font-size: clamp(30px, 4vw, 50px); font-weight: 400; line-height: 1.1; color: var(--ink); margin-bottom: 40px; }
+    .divider { width: 100%; height: 1px; background: var(--border); }
 
-    .section-label {
-      font-family: var(--mono);
-      font-size: 10px;
-      font-weight: 500;
-      letter-spacing: 0.25em;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 16px;
+    /* ── NOW BUILDING ── */
+    #now-building {
+      background: var(--ink); padding: 56px 48px; max-width: 100%;
     }
-
-    .section-title {
-      font-family: var(--serif);
-      font-size: clamp(32px, 4vw, 52px);
-      font-weight: 400;
-      line-height: 1.1;
-      color: var(--ink);
-      margin-bottom: 48px;
-    }
-
-    .section-divider {
-      width: 100%;
-      height: 1px;
-      background: var(--border);
-      max-width: 1100px;
-      margin: 0 auto;
-    }
+    #now-building .inner { max-width: 1100px; margin: 0 auto; }
+    #now-building .section-label { color: #5a849e; }
+    .building-header { display: flex; align-items: center; gap: 16px; margin-bottom: 32px; }
+    .building-title { font-family: var(--serif); font-size: 28px; color: #e8eef4; }
+    .live-badge { display: flex; align-items: center; gap: 6px; font-family: var(--mono); font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: #4caf7d; background: rgba(76,175,125,0.1); border: 1px solid rgba(76,175,125,0.3); padding: 4px 10px; border-radius: 2px; }
+    .live-dot { width: 5px; height: 5px; border-radius: 50%; background: #4caf7d; animation: pulse 2s infinite; }
+    .building-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1px; background: #1e1c18; border: 1px solid #1e1c18; }
+    .building-item { background: #0f0e0b; padding: 20px; }
+    .building-code { font-family: var(--mono); font-size: 10px; color: #3a6080; letter-spacing: 0.1em; margin-bottom: 8px; }
+    .building-name { font-family: var(--mono); font-size: 12px; font-weight: 500; color: #c8daea; margin-bottom: 8px; }
+    .building-desc { font-size: 11px; color: #4a6a80; line-height: 1.6; margin-bottom: 12px; }
+    .building-progress { height: 2px; background: #1e1c18; border-radius: 1px; }
+    .building-progress-fill { height: 100%; background: linear-gradient(90deg, #2a6080, #5aafd4); border-radius: 1px; transition: width 0.3s; }
+    .building-pct { font-family: var(--mono); font-size: 9px; color: #3a6080; margin-top: 6px; }
 
     /* ── BACKGROUND ── */
-    #background {
-      background: var(--bg2);
-      max-width: 100%;
-      padding: 100px 0;
-    }
-
-    #background .inner {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 0 48px;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 80px;
-      align-items: start;
-    }
-
-    .bg-card {
-      padding: 40px;
-      background: var(--bg);
-      border: 1px solid var(--border);
-      border-radius: 4px;
-    }
-
-    .bg-card-label {
-      font-family: var(--mono);
-      font-size: 10px;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--ink3);
-      margin-bottom: 8px;
-    }
-
-    .bg-card-number {
-      font-family: var(--serif);
-      font-size: 64px;
-      font-weight: 400;
-      color: var(--accent);
-      line-height: 1;
-      margin-bottom: 4px;
-    }
-
-    .bg-card-title {
-      font-family: var(--serif);
-      font-size: 22px;
-      font-weight: 400;
-      color: var(--ink);
-      margin-bottom: 16px;
-    }
-
-    .bg-card-body {
-      font-size: 14px;
-      font-weight: 300;
-      color: var(--ink2);
-      line-height: 1.8;
-    }
-
-    .bg-intro {
-      margin-bottom: 48px;
-    }
-
-    .bg-intro p {
-      font-size: 16px;
-      font-weight: 300;
-      color: var(--ink2);
-      line-height: 1.9;
-      margin-bottom: 16px;
-    }
-
-    .bg-intro p strong {
-      color: var(--ink);
-      font-weight: 500;
-    }
+    #background { background: var(--bg2); padding: 100px 0; }
+    #background .inner { max-width: 1100px; margin: 0 auto; padding: 0 48px; display: grid; grid-template-columns: 1.2fr 1fr; gap: 80px; align-items: start; }
+    .bg-intro p { font-size: 15px; color: var(--ink2); line-height: 1.9; margin-bottom: 16px; }
+    .bg-intro p strong { color: var(--ink); font-weight: 500; }
+    .bg-cards { display: flex; flex-direction: column; gap: 16px; }
+    .bg-card { padding: 32px; background: var(--bg); border: 1px solid var(--border); border-radius: 3px; }
+    .bg-card-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ink3); margin-bottom: 6px; }
+    .bg-card-number { font-family: var(--serif); font-size: 56px; color: var(--red); line-height: 1; margin-bottom: 4px; }
+    .bg-card-title { font-family: var(--serif); font-size: 20px; color: var(--ink); margin-bottom: 10px; }
+    .bg-card-body { font-size: 13px; color: var(--ink2); line-height: 1.7; }
 
     /* ── PROJECTS ── */
-    .projects-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 2px;
-      margin-top: 0;
-    }
-
-    .project-card {
-      background: var(--bg);
-      border: 1px solid var(--border);
-      padding: 32px;
-      text-decoration: none;
-      color: inherit;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .project-card::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 2px;
-      background: var(--accent);
-      transform: scaleX(0);
-      transform-origin: left;
-      transition: transform 0.25s ease;
-    }
-
-    .project-card:hover {
-      background: var(--bg2);
-      transform: translateY(-2px);
-      box-shadow: 0 8px 32px rgba(0,0,0,0.06);
-    }
-
+    #projects { padding: 100px 48px; max-width: 1100px; margin: 0 auto; }
+    .projects-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; }
+    .project-card { background: var(--bg); border: 1px solid var(--border); padding: 28px 28px 24px; text-decoration: none; color: inherit; display: flex; flex-direction: column; gap: 10px; transition: all 0.2s; position: relative; overflow: hidden; }
+    .project-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--red); transform: scaleX(0); transform-origin: left; transition: transform 0.25s ease; }
+    .project-card:hover { background: var(--bg2); transform: translateY(-2px); box-shadow: 0 8px 32px rgba(0,0,0,0.06); }
     .project-card:hover::before { transform: scaleX(1); }
+    .project-num { font-family: var(--mono); font-size: 10px; letter-spacing: 0.15em; color: var(--ink3); }
+    .project-name { font-family: var(--serif); font-size: 19px; color: var(--ink); line-height: 1.2; }
+    .project-desc { font-size: 13px; color: var(--ink2); line-height: 1.7; flex: 1; }
+    .project-writeup { font-size: 12px; color: var(--ink3); line-height: 1.6; font-style: italic; padding-top: 6px; border-top: 1px solid var(--border); margin-top: 2px; }
+    .project-stack { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 4px; }
+    .tag { font-family: var(--mono); font-size: 10px; color: var(--ink2); background: var(--bg2); border: 1px solid var(--border); padding: 2px 7px; border-radius: 2px; }
+    .project-footer { display: flex; justify-content: space-between; align-items: center; margin-top: 4px; }
+    .project-arrow { font-size: 16px; color: var(--ink3); transition: all 0.2s; }
+    .project-card:hover .project-arrow { color: var(--red); transform: translate(2px,-2px); }
+    .project-updated { font-family: var(--mono); font-size: 9px; color: var(--ink3); letter-spacing: 0.05em; }
 
-    .project-num {
-      font-family: var(--mono);
-      font-size: 10px;
-      letter-spacing: 0.15em;
-      color: var(--ink3);
-    }
+    /* ── DEMOS ── */
+    #demos { background: var(--bg2); padding: 100px 0; }
+    #demos .inner { max-width: 1100px; margin: 0 auto; padding: 0 48px; }
+    .demos-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+    .demo-card { background: var(--bg); border: 1px solid var(--border); border-radius: 4px; overflow: hidden; }
+    .demo-header { padding: 24px 28px 0; }
+    .demo-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--red); margin-bottom: 6px; }
+    .demo-title { font-family: var(--serif); font-size: 22px; color: var(--ink); margin-bottom: 8px; }
+    .demo-desc { font-size: 13px; color: var(--ink2); line-height: 1.7; margin-bottom: 16px; }
+    .demo-body { padding: 0 28px 28px; }
 
-    .project-name {
-      font-family: var(--serif);
-      font-size: 20px;
-      font-weight: 400;
-      color: var(--ink);
-      line-height: 1.2;
-    }
+    /* ── BANDIT DEMO ── */
+    .bandit-controls { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 16px; }
+    .ctrl-group label { display: block; font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink3); margin-bottom: 5px; }
+    .ctrl-group select, .ctrl-group input[type=range] { width: 100%; }
+    .ctrl-group select { background: var(--bg); border: 1px solid var(--border); color: var(--ink); font-family: var(--mono); font-size: 12px; padding: 6px 10px; border-radius: 2px; }
+    .ctrl-group input[type=range] { accent-color: var(--red); }
+    .ctrl-group .range-val { font-family: var(--mono); font-size: 11px; color: var(--ink2); margin-top: 3px; }
+    .bandit-arms { display: flex; gap: 8px; margin-bottom: 14px; }
+    .arm-bar { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 4px; }
+    .arm-bar-label { font-family: var(--mono); font-size: 9px; color: var(--ink3); }
+    .arm-bar-outer { width: 100%; height: 80px; background: var(--bg2); border: 1px solid var(--border); border-radius: 2px; position: relative; display: flex; align-items: flex-end; }
+    .arm-bar-fill { width: 100%; border-radius: 2px 2px 0 0; transition: height 0.4s ease; position: absolute; bottom: 0; }
+    .arm-bar-count { font-family: var(--mono); font-size: 9px; color: var(--ink3); }
+    .bandit-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 14px; }
+    .bstat { background: var(--bg2); border: 1px solid var(--border); padding: 8px 10px; border-radius: 2px; }
+    .bstat-label { font-family: var(--mono); font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink3); margin-bottom: 3px; }
+    .bstat-val { font-family: var(--mono); font-size: 15px; font-weight: 500; color: var(--ink); }
+    .bandit-btn { width: 100%; background: var(--ink); color: var(--bg); border: none; font-family: var(--mono); font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; padding: 12px; cursor: pointer; border-radius: 2px; transition: background 0.2s; }
+    .bandit-btn:hover { background: var(--red); }
+    .bandit-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+    .regret-chart { width: 100%; height: 60px; margin-bottom: 12px; }
 
-    .project-desc {
-      font-size: 13px;
-      font-weight: 300;
-      color: var(--ink2);
-      line-height: 1.7;
-      flex: 1;
-    }
-
-    .project-stack {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      margin-top: 4px;
-    }
-
-    .tag {
-      font-family: var(--mono);
-      font-size: 10px;
-      font-weight: 400;
-      letter-spacing: 0.05em;
-      color: var(--ink2);
-      background: var(--bg2);
-      border: 1px solid var(--border);
-      padding: 3px 8px;
-      border-radius: 2px;
-    }
-
-    .project-arrow {
-      font-size: 18px;
-      color: var(--ink3);
-      align-self: flex-end;
-      transition: color 0.2s, transform 0.2s;
-    }
-
-    .project-card:hover .project-arrow {
-      color: var(--accent);
-      transform: translate(2px, -2px);
-    }
+    /* ── ANOMALY DEMO ── */
+    .anomaly-canvas-wrap { position: relative; width: 100%; height: 140px; background: var(--bg2); border: 1px solid var(--border); border-radius: 2px; margin-bottom: 12px; overflow: hidden; }
+    .anomaly-canvas { width: 100%; height: 100%; display: block; }
+    .anomaly-legend { display: flex; gap: 16px; margin-bottom: 12px; }
+    .legend-item { display: flex; align-items: center; gap: 6px; font-family: var(--mono); font-size: 10px; color: var(--ink3); }
+    .legend-dot { width: 8px; height: 8px; border-radius: 50%; }
+    .anomaly-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 14px; }
+    .anomaly-controls { display: flex; gap: 8px; }
+    .anomaly-btn { flex: 1; padding: 10px; font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; border: 1px solid var(--border); background: transparent; color: var(--ink2); cursor: pointer; border-radius: 2px; transition: all 0.2s; }
+    .anomaly-btn:hover { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+    .anomaly-btn.active { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+    .anomaly-log { font-family: var(--mono); font-size: 10px; color: var(--ink3); max-height: 52px; overflow-y: auto; background: var(--bg2); border: 1px solid var(--border); padding: 8px; border-radius: 2px; }
+    .anomaly-log .log-entry { margin-bottom: 2px; }
+    .anomaly-log .log-entry.flagged { color: var(--red); }
 
     /* ── TRADING ── */
-    #trading {
-      background: var(--accent2);
-      max-width: 100%;
-      padding: 100px 0;
-      color: #e8eef4;
-    }
-
-    #trading .inner {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 0 48px;
-    }
-
-    #trading .section-label { color: #7aafd4; }
-    #trading .section-title { color: #f0f4f8; }
-
-    .trading-intro {
-      max-width: 640px;
-      font-size: 15px;
-      font-weight: 300;
-      color: #8faec8;
-      line-height: 1.9;
-      margin-bottom: 56px;
-    }
-
-    .trading-arc {
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      gap: 0;
-      position: relative;
-    }
-
-    .trading-arc::before {
-      content: '';
-      position: absolute;
-      top: 28px;
-      left: 10%;
-      right: 10%;
-      height: 1px;
-      background: linear-gradient(90deg, transparent, #3a6080 20%, #3a6080 80%, transparent);
-    }
-
-    .trading-node {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 16px;
-      padding: 0 12px;
-      text-align: center;
-      position: relative;
-    }
-
-    .trading-dot {
-      width: 56px;
-      height: 56px;
-      border-radius: 50%;
-      background: var(--accent2);
-      border: 1px solid #3a6080;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: var(--mono);
-      font-size: 12px;
-      font-weight: 500;
-      color: #7aafd4;
-      z-index: 1;
-      transition: background 0.2s, border-color 0.2s;
-    }
-
-    .trading-node:hover .trading-dot {
-      background: #2a4f6e;
-      border-color: #7aafd4;
-    }
-
-    .trading-node-name {
-      font-family: var(--mono);
-      font-size: 11px;
-      font-weight: 500;
-      color: #c8daea;
-      letter-spacing: 0.05em;
-    }
-
-    .trading-node-desc {
-      font-size: 11px;
-      font-weight: 300;
-      color: #5a849e;
-      line-height: 1.6;
-    }
-
-    .trading-status {
-      margin-top: 48px;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      font-family: var(--mono);
-      font-size: 11px;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: #5a849e;
-    }
-
-    .status-dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: #4caf7d;
-      animation: pulse 2s infinite;
-    }
+    #trading { background: var(--navy); padding: 100px 0; color: #e8eef4; }
+    #trading .inner { max-width: 1100px; margin: 0 auto; padding: 0 48px; }
+    #trading .section-label { color: #5a849e; }
+    #trading .section-title { color: #f0f4f8; margin-bottom: 20px; }
+    .trading-intro { max-width: 620px; font-size: 14px; color: #7090a8; line-height: 1.9; margin-bottom: 48px; }
+    .trading-pipeline { display: grid; grid-template-columns: repeat(5, 1fr); position: relative; gap: 0; }
+    .trading-pipeline::after { content: ''; position: absolute; top: 32px; left: 8%; right: 8%; height: 1px; background: linear-gradient(90deg, transparent, #2a5070 15%, #2a5070 85%, transparent); pointer-events: none; }
+    .t-node { display: flex; flex-direction: column; align-items: center; gap: 14px; padding: 0 8px; text-align: center; }
+    .t-dot { width: 64px; height: 64px; border-radius: 50%; background: rgba(26,58,92,0.8); border: 1px solid #2a5070; display: flex; align-items: center; justify-content: center; font-family: var(--mono); font-size: 13px; font-weight: 500; color: #5a849e; z-index: 1; transition: all 0.2s; cursor: default; }
+    .t-dot.active { border-color: #5aafd4; color: #5aafd4; background: rgba(26,58,92,0.95); }
+    .t-name { font-family: var(--mono); font-size: 11px; font-weight: 500; color: #a8c8e0; }
+    .t-stack { font-size: 11px; color: #3a6080; line-height: 1.5; }
+    .t-date { font-family: var(--mono); font-size: 9px; color: #2a4a60; letter-spacing: 0.1em; }
+    .trading-note { margin-top: 48px; padding: 20px 24px; background: rgba(0,0,0,0.2); border-left: 2px solid #2a5070; }
+    .trading-note p { font-size: 13px; color: #5a849e; line-height: 1.8; }
+    .trading-note strong { color: #7aafd4; font-weight: 500; }
+    .t-status { display: inline-flex; align-items: center; gap: 6px; font-family: var(--mono); font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: #4a6a80; margin-top: 32px; }
+    .t-status-dot { width: 5px; height: 5px; border-radius: 50%; background: #4caf7d; animation: pulse 2s infinite; }
 
     /* ── SKILLS ── */
-    .skills-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 32px;
-    }
-
-    .skill-group-label {
-      font-family: var(--mono);
-      font-size: 10px;
-      font-weight: 500;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 16px;
-      padding-bottom: 12px;
-      border-bottom: 1px solid var(--border);
-    }
-
-    .skill-list {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-
-    .skill-list li {
-      font-family: var(--mono);
-      font-size: 12px;
-      font-weight: 300;
-      color: var(--ink2);
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .skill-list li::before {
-      content: '';
-      width: 4px;
-      height: 4px;
-      border-radius: 50%;
-      background: var(--border);
-      flex-shrink: 0;
-    }
+    #skills { padding: 100px 48px; max-width: 1100px; margin: 0 auto; }
+    .skills-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 36px; }
+    .skill-group-label { font-family: var(--mono); font-size: 10px; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: var(--red); margin-bottom: 14px; padding-bottom: 10px; border-bottom: 1px solid var(--border); }
+    .skill-list { list-style: none; display: flex; flex-direction: column; gap: 7px; }
+    .skill-list li { font-family: var(--mono); font-size: 12px; color: var(--ink2); display: flex; align-items: center; gap: 9px; }
+    .skill-list li::before { content: ''; width: 3px; height: 3px; border-radius: 50%; background: var(--border); flex-shrink: 0; }
 
     /* ── CONTACT ── */
-    #contact {
-      background: var(--ink);
-      max-width: 100%;
-      padding: 100px 0;
-      color: #c8c4be;
-    }
+    #contact { background: var(--ink); padding: 100px 0; }
+    #contact .inner { max-width: 1100px; margin: 0 auto; padding: 0 48px; display: flex; justify-content: space-between; align-items: center; gap: 48px; flex-wrap: wrap; }
+    #contact .section-label { color: #3a3830; }
+    .contact-heading { font-family: var(--serif); font-size: clamp(30px, 4vw, 50px); color: var(--bg); line-height: 1.1; margin-bottom: 20px; }
+    .contact-sub { font-size: 14px; color: #5a5650; max-width: 380px; line-height: 1.8; }
+    .contact-links { display: flex; flex-direction: column; gap: 12px; flex-shrink: 0; }
+    .contact-link { display: flex; align-items: center; gap: 14px; text-decoration: none; color: #8a8680; font-family: var(--mono); font-size: 13px; padding: 12px 20px; border: 1px solid #2a2820; border-radius: 2px; transition: all 0.2s; }
+    .contact-link:hover { border-color: #5a5650; color: var(--bg); }
+    .contact-icon { width: 16px; height: 16px; opacity: 0.4; flex-shrink: 0; }
 
-    #contact .inner {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 0 48px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 48px;
-      flex-wrap: wrap;
-    }
-
-    #contact .section-label { color: #6b6760; }
-
-    .contact-heading {
-      font-family: var(--serif);
-      font-size: clamp(32px, 4vw, 52px);
-      font-weight: 400;
-      color: var(--bg);
-      line-height: 1.1;
-      margin-bottom: 24px;
-    }
-
-    .contact-sub {
-      font-size: 14px;
-      font-weight: 300;
-      color: #6b6760;
-      max-width: 400px;
-      line-height: 1.8;
-    }
-
-    .contact-links {
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-      flex-shrink: 0;
-    }
-
-    .contact-link {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      text-decoration: none;
-      color: #c8c4be;
-      font-family: var(--mono);
-      font-size: 13px;
-      transition: color 0.2s;
-      padding: 12px 20px;
-      border: 1px solid #2e2c28;
-      border-radius: 2px;
-      transition: border-color 0.2s, color 0.2s;
-    }
-
-    .contact-link:hover { border-color: #6b6760; color: var(--bg); }
-
-    .contact-link-icon {
-      width: 18px;
-      height: 18px;
-      opacity: 0.5;
-    }
-
-    /* ── FOOTER ── */
-    footer {
-      background: var(--ink);
-      border-top: 1px solid #1e1c18;
-      padding: 24px 48px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      max-width: 100%;
-    }
-
-    footer span {
-      font-family: var(--mono);
-      font-size: 10px;
-      letter-spacing: 0.1em;
-      color: #3a3830;
-    }
+    footer { background: var(--ink); border-top: 1px solid #1a1810; padding: 20px 48px; display: flex; justify-content: space-between; }
+    footer span { font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; color: #2a2820; }
 
     /* ── ANIMATIONS ── */
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(16px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
+    @keyframes fadeUp { from { opacity:0; transform:translateY(16px); } to { opacity:1; transform:translateY(0); } }
+    @keyframes pulse { 0%,100% { opacity:1; } 50% { opacity:0.35; } }
+    .reveal { opacity:0; transform:translateY(20px); transition:opacity 0.6s ease, transform 0.6s ease; }
+    .reveal.visible { opacity:1; transform:translateY(0); }
 
-    @keyframes pulse {
-      0%, 100% { opacity: 1; }
-      50%       { opacity: 0.4; }
+    @media(max-width:900px) {
+      nav { padding:14px 24px; } .nav-links { display:none; }
+      #hero, #projects, #skills { padding-left:24px; padding-right:24px; }
+      #background .inner, #demos .inner, #trading .inner, #contact .inner, #now-building { padding:0 24px; }
+      .projects-grid { grid-template-columns:1fr 1fr; }
+      .demos-grid { grid-template-columns:1fr; }
+      .trading-pipeline { grid-template-columns:1fr; }
+      .trading-pipeline::after { display:none; }
+      .skills-grid { grid-template-columns:1fr 1fr; }
+      #background .inner { grid-template-columns:1fr; gap:24px; }
+      .building-grid { grid-template-columns:1fr 1fr; }
     }
-
-    .reveal {
-      opacity: 0;
-      transform: translateY(20px);
-      transition: opacity 0.6s ease, transform 0.6s ease;
-    }
-
-    .reveal.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    /* ── RESPONSIVE ── */
-    @media (max-width: 900px) {
-      nav { padding: 16px 24px; }
-      #hero, section { padding-left: 24px; padding-right: 24px; }
-      #background .inner, #trading .inner, #contact .inner { padding: 0 24px; }
-      footer { padding: 20px 24px; }
-      .projects-grid { grid-template-columns: 1fr 1fr; }
-      .trading-arc { grid-template-columns: 1fr; }
-      .trading-arc::before { display: none; }
-      .skills-grid { grid-template-columns: 1fr 1fr; }
-      #background .inner { grid-template-columns: 1fr; gap: 24px; }
-      .nav-links { display: none; }
-    }
-
-    @media (max-width: 600px) {
-      .projects-grid { grid-template-columns: 1fr; }
-      .skills-grid { grid-template-columns: 1fr; }
+    @media(max-width:600px) {
+      .projects-grid, .skills-grid { grid-template-columns:1fr; }
+      .bandit-controls { grid-template-columns:1fr; }
     }
   </style>
 </head>
-
 <body>
 
-  <!-- NAV -->
-  <nav id="nav">
-    <a href="#hero" class="nav-name">Mike Ichikawa</a>
-    <ul class="nav-links">
-      <li><a href="#projects">Projects</a></li>
-      <li><a href="#trading">Trading</a></li>
-      <li><a href="#skills">Skills</a></li>
-      <li><a href="#contact">Contact</a></li>
-    </ul>
-  </nav>
+<nav id="nav">
+  <a href="#hero" class="nav-name">Mike Ichikawa</a>
+  <ul class="nav-links">
+    <li><a href="#now-building">Now Building</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#demos">Live Demos</a></li>
+    <li><a href="#trading">Trading System</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
 
-  <!-- HERO -->
-  <div id="hero">
-    <p class="hero-label">Portland, OR — Open to Work</p>
-    <h1 class="hero-name">Mike<br><em>Ichikawa</em></h1>
-    <p class="hero-title">Data Scientist · Data Engineer · ML Engineer</p>
-    <p class="hero-bio">
-      <strong>BS Mechanical Engineering · MS Mathematics.</strong> Three years as a Physical Design Engineer at Intel. Nine years teaching statistics and mathematics at the college level. Now applying that foundation — quantitative rigor, systems thinking, production engineering experience — to data science and machine learning.
+<!-- HERO -->
+<div id="hero">
+  <p class="hero-label">Portland, OR · Open to Work · Data Science · ML Engineering</p>
+  <h1 class="hero-name">Mike<br><em>Ichikawa</em></h1>
+  <p class="hero-title">Data Scientist · Data Engineer · ML Engineer</p>
+  <p class="hero-bio">
+    <strong>BS Mechanical Engineering · MS Mathematics · 3 years at Intel · 9 years teaching statistics.</strong>
+    Building production ML systems that bridge mathematical rigor with engineering discipline.
+    Currently developing a 14-project portfolio covering time series forecasting, Bayesian inference,
+    LLM engineering, anomaly detection, cloud ETL, and an end-to-end LLM-driven trading system.
+  </p>
+  <div class="hero-actions">
+    <a href="#projects" class="btn btn-primary">View Projects ↓</a>
+    <a href="https://github.com/mtichikawa" target="_blank" class="btn btn-secondary">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+      GitHub
+    </a>
+    <a href="mailto:projects.ichikawa@gmail.com" class="btn btn-secondary">projects.ichikawa@gmail.com</a>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- NOW BUILDING -->
+<div id="now-building">
+  <div class="inner">
+    <p class="section-label">Active Development</p>
+    <div class="building-header">
+      <h2 class="building-title">Now Building</h2>
+      <span class="live-badge"><span class="live-dot"></span>Live · March 2026</span>
+    </div>
+    <div class="building-grid">
+      <div class="building-item">
+        <p class="building-code">T1 · In Progress</p>
+        <p class="building-name">crypto-data-pipeline</p>
+        <p class="building-desc">Real OHLCV ingestion from Binance via ccxt. Multi-pair, multi-timeframe, PostgreSQL storage.</p>
+        <div class="building-progress"><div class="building-progress-fill" style="width:55%"></div></div>
+        <p class="building-pct">~55% complete</p>
+      </div>
+      <div class="building-item">
+        <p class="building-code">T2 · Starting Mar 18</p>
+        <p class="building-name">trading-chart-generator</p>
+        <p class="building-desc">Annotated candlestick PNG factory via mplfinance. Batch generation for backtesting at scale.</p>
+        <div class="building-progress"><div class="building-progress-fill" style="width:0%"></div></div>
+        <p class="building-pct">Not started</p>
+      </div>
+      <div class="building-item">
+        <p class="building-code">T3 · Starting Apr 1</p>
+        <p class="building-name">trading-signal-engine</p>
+        <p class="building-desc">Anthropic vision API analyzes chart images → BUY/SELL/HOLD with confidence and reasoning. Prompt versioning.</p>
+        <div class="building-progress"><div class="building-progress-fill" style="width:0%"></div></div>
+        <p class="building-pct">Not started</p>
+      </div>
+      <div class="building-item">
+        <p class="building-code">T4 · Starting Apr 27</p>
+        <p class="building-name">trading-backtester</p>
+        <p class="building-desc">Replay historical signals against real price outcomes. Sharpe ratio, drawdown, win rate, P&L per prompt version.</p>
+        <div class="building-progress"><div class="building-progress-fill" style="width:0%"></div></div>
+        <p class="building-pct">Not started</p>
+      </div>
+      <div class="building-item">
+        <p class="building-code">T5 · Starting May 18</p>
+        <p class="building-name">trading-dashboard</p>
+        <p class="building-desc">Streamlit oversight UI. Live signals, paper portfolio, prompt diff review + approve/reject interface.</p>
+        <div class="building-progress"><div class="building-progress-fill" style="width:0%"></div></div>
+        <p class="building-pct">Not started</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- BACKGROUND -->
+<div id="background">
+  <div class="inner">
+    <div class="bg-intro reveal">
+      <p class="section-label">Background</p>
+      <h2 class="section-title" style="font-size:clamp(28px,3.5vw,44px)">Two careers.<br>One throughline.</h2>
+      <p>At Intel, I spent three years on Physical Design contributing to Ivy Bridge CPU development and 22nm process R&D — building automated validation systems that processed millions of design verification data points and flagging yield issues before tape-out.</p>
+      <p>At Santa Rosa Junior College, I spent nine years teaching statistics, calculus, and linear algebra. Not just delivering lectures — developing curriculum, building assessment systems, tracking which teaching approaches actually moved student outcomes.</p>
+      <p><strong>Data science is where these converge.</strong> The engineering habit of validating assumptions. The math background to understand what the models are actually doing. The teaching instinct to communicate findings clearly.</p>
+    </div>
+    <div class="bg-cards">
+      <div class="bg-card reveal">
+        <p class="bg-card-label">Intel · Physical Design</p>
+        <p class="bg-card-number">3</p>
+        <p class="bg-card-title">Years Engineering</p>
+        <p class="bg-card-body">Ivy Bridge CPU · 22nm process R&D · Python/Perl automation · statistical validation at manufacturing scale</p>
+      </div>
+      <div class="bg-card reveal">
+        <p class="bg-card-label">Santa Rosa Junior College</p>
+        <p class="bg-card-number">9</p>
+        <p class="bg-card-title">Years Teaching</p>
+        <p class="bg-card-body">Statistics · Calculus · Linear Algebra · MS Mathematics · data-driven curriculum assessment</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <p class="section-label">Portfolio</p>
+  <h2 class="section-title">9 Completed Projects</h2>
+  <div class="projects-grid">
+
+    <a href="https://github.com/mtichikawa/github-trend-forecaster" target="_blank" class="project-card reveal">
+      <span class="project-num">01</span>
+      <h3 class="project-name">GitHub Trend Forecaster</h3>
+      <p class="project-desc">Forecasts GitHub repository star growth using Facebook Prophet time series models. Includes a PyTorch LSTM comparison layer benchmarked head-to-head on MAE and RMSE.</p>
+      <p class="project-writeup">The interesting problem: Prophet handles seasonality elegantly but assumes additive trends. LSTM can capture non-linear growth patterns Prophet misses. The comparison quantifies when each wins.</p>
+      <div class="project-stack">
+        <span class="tag">Prophet</span><span class="tag">PyTorch LSTM</span><span class="tag">GitHub API</span><span class="tag">time series</span>
+      </div>
+      <div class="project-footer">
+        <span class="project-updated">Updated Mar 2026</span>
+        <span class="project-arrow">↗</span>
+      </div>
+    </a>
+
+    <a href="https://github.com/mtichikawa/bandit-ab-testing" target="_blank" class="project-card reveal">
+      <span class="project-num">02</span>
+      <h3 class="project-name">Multi-Armed Bandit A/B Testing</h3>
+      <p class="project-desc">Implements Thompson Sampling, UCB1, and Epsilon-Greedy algorithms with a live Streamlit simulator. Animates Beta distribution updates in real time as the bandit explores.</p>
+      <p class="project-writeup">Traditional A/B testing freezes traffic allocation during the learning period. Multi-armed bandits explore and exploit simultaneously — the simulator makes this tradeoff visible and intuitive.</p>
+      <div class="project-stack">
+        <span class="tag">Thompson Sampling</span><span class="tag">Bayesian</span><span class="tag">Streamlit</span>
+      </div>
+      <div class="project-footer">
+        <span class="project-updated">Live demo below ↓</span>
+        <span class="project-arrow">↗</span>
+      </div>
+    </a>
+
+    <a href="https://github.com/mtichikawa/llm-data-assistant" target="_blank" class="project-card reveal">
+      <span class="project-num">03</span>
+      <h3 class="project-name">LLM Data Analysis Assistant</h3>
+      <p class="project-desc">Hybrid routing system: rule-based fast path for common queries, Anthropic API with agent mode and tool use for complex analysis. Multi-turn conversation with pandas and chart tools.</p>
+      <p class="project-writeup">The routing decision is the key engineering choice — calling the API for every simple query is slow and expensive. The system classifies intent first and only escalates to the LLM when needed.</p>
+      <div class="project-stack">
+        <span class="tag">Anthropic API</span><span class="tag">Agent mode</span><span class="tag">Tool use</span><span class="tag">RAG</span>
+      </div>
+      <div class="project-footer">
+        <span class="project-updated">Aug 2025 – Feb 2026</span>
+        <span class="project-arrow">↗</span>
+      </div>
+    </a>
+
+    <a href="https://github.com/mtichikawa/llm-bias-detection" target="_blank" class="project-card reveal">
+      <span class="project-num">04</span>
+      <h3 class="project-name">Bias Detection in LLMs</h3>
+      <p class="project-desc">Statistical audit of bias across multiple language models and datasets (Winogender, BOLD). ANOVA, Cohen's d effect sizes, and cross-model p-value heatmaps by bias dimension.</p>
+      <p class="project-writeup">Effect size matters as much as p-value. A bias that's statistically significant in a large sample may be practically irrelevant. Cohen's d contextualizes what the numbers actually mean.</p>
+      <div class="project-stack">
+        <span class="tag">ANOVA</span><span class="tag">Cohen's d</span><span class="tag">scipy.stats</span><span class="tag">multi-model</span>
+      </div>
+      <div class="project-footer">
+        <span class="project-updated">Updated Apr 2026</span>
+        <span class="project-arrow">↗</span>
+      </div>
+    </a>
+
+    <a href="https://github.com/mtichikawa/anomaly-detection" target="_blank" class="project-card reveal">
+      <span class="project-num">05</span>
+      <h3 class="project-name">Real-Time Anomaly Detection</h3>
+      <p class="project-desc">Ensemble of sklearn IsolationForest and LocalOutlierFactor on streaming time series data. Dockerized FastAPI service with REST inference endpoint and Redis caching.</p>
+      <p class="project-writeup">IsolationForest and LOF flag different kinds of anomalies — isolation-based vs density-based. Ensembling reduces false positives. The demo below shows this in action on live-generated data.</p>
+      <div class="project-stack">
+        <span class="tag">IsolationForest</span><span class="tag">LOF</span><span class="tag">Docker</span><span class="tag">FastAPI</span>
+      </div>
+      <div class="project-footer">
+        <span class="project-updated">Live demo below ↓</span>
+        <span class="project-arrow">↗</span>
+      </div>
+    </a>
+
+    <a href="https://github.com/mtichikawa/financial-nlp" target="_blank" class="project-card reveal">
+      <span class="project-num">06</span>
+      <h3 class="project-name">Financial NLP Parser</h3>
+      <p class="project-desc">Parses SEC EDGAR filings for 5+ companies, extracts financial metrics and sentiment. PostgreSQL backend with a Streamlit dashboard for cross-company sector comparison.</p>
+      <p class="project-writeup">EDGAR filings are semi-structured text at best. The parsing challenge is extracting consistent metrics across companies that use different table formats and labeling conventions.</p>
+      <div class="project-stack">
+        <span class="tag">SEC EDGAR</span><span class="tag">PostgreSQL</span><span class="tag">Streamlit</span><span class="tag">NLP</span>
+      </div>
+      <div class="project-footer">
+        <span class="project-updated">Updated May 2026</span>
+        <span class="project-arrow">↗</span>
+      </div>
+    </a>
+
+    <a href="https://github.com/mtichikawa/sql-analytics-pipeline" target="_blank" class="project-card reveal">
+      <span class="project-num">07</span>
+      <h3 class="project-name">SQL Analytics Pipeline</h3>
+      <p class="project-desc">Three-layer data pipeline (staging → clean → marts) with dbt-style transformations, window functions, CTEs, and data quality checks. SQLAlchemy ORM with PostgreSQL backend.</p>
+      <p class="project-writeup">Staging layer preserves raw data unchanged. The clean layer handles normalization and type casting. Marts are purpose-built for specific analytical queries — the layering keeps transformations auditable.</p>
+      <div class="project-stack">
+        <span class="tag">PostgreSQL</span><span class="tag">SQLAlchemy</span><span class="tag">dbt</span><span class="tag">window functions</span>
+      </div>
+      <div class="project-footer">
+        <span class="project-updated">Dec 2025 – Feb 2026</span>
+        <span class="project-arrow">↗</span>
+      </div>
+    </a>
+
+    <a href="https://github.com/mtichikawa/dockerized-ml-api" target="_blank" class="project-card reveal">
+      <span class="project-num">08</span>
+      <h3 class="project-name">Dockerized ML API</h3>
+      <p class="project-desc">Production ML serving: FastAPI REST endpoint, Redis caching with TTL, Pydantic v2 request validation, vectorized batch inference, and Docker deployment with health checks.</p>
+      <p class="project-writeup">Caching with TTL prevents redundant inference on repeated identical inputs. Pydantic v2 catches malformed requests before they reach the model. Vectorized batch inference amortizes overhead across requests.</p>
+      <div class="project-stack">
+        <span class="tag">Docker</span><span class="tag">FastAPI</span><span class="tag">Redis</span><span class="tag">Pydantic v2</span>
+      </div>
+      <div class="project-footer">
+        <span class="project-updated">Jan – Mar 2026</span>
+        <span class="project-arrow">↗</span>
+      </div>
+    </a>
+
+    <a href="https://github.com/mtichikawa/cloud-etl-pipeline" target="_blank" class="project-card reveal">
+      <span class="project-num">09</span>
+      <h3 class="project-name">Cloud ETL Pipeline</h3>
+      <p class="project-desc">AWS-native ETL: S3 data lake with Parquet/Snappy storage, Lambda validation, DynamoDB run logging, tenacity retry logic, and Hive-style partitioning by date.</p>
+      <p class="project-writeup">Parquet with Snappy compression cuts storage cost and dramatically speeds up columnar reads. DynamoDB run logging means every pipeline execution is auditable with its input/output metadata.</p>
+      <div class="project-stack">
+        <span class="tag">AWS S3</span><span class="tag">Lambda</span><span class="tag">DynamoDB</span><span class="tag">Parquet</span>
+      </div>
+      <div class="project-footer">
+        <span class="project-updated">Feb – Apr 2026</span>
+        <span class="project-arrow">↗</span>
+      </div>
+    </a>
+
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- LIVE DEMOS -->
+<div id="demos">
+  <div class="inner">
+    <p class="section-label">Interactive</p>
+    <h2 class="section-title">Live Demos</h2>
+    <div class="demos-grid">
+
+      <!-- BANDIT DEMO -->
+      <div class="demo-card reveal">
+        <div class="demo-header">
+          <p class="demo-label">Project 02 · Multi-Armed Bandit</p>
+          <h3 class="demo-title">Bandit Algorithm Simulator</h3>
+          <p class="demo-desc">Run a multi-armed bandit simulation and watch the algorithm allocate pulls in real time. Thompson Sampling uses Bayesian Beta distributions — the uncertainty about each arm's true win rate drives exploration.</p>
+        </div>
+        <div class="demo-body">
+          <div class="bandit-controls">
+            <div class="ctrl-group">
+              <label>Algorithm</label>
+              <select id="b-algo">
+                <option value="thompson">Thompson Sampling</option>
+                <option value="ucb">UCB1</option>
+                <option value="epsilon">Epsilon-Greedy (ε=0.1)</option>
+              </select>
+            </div>
+            <div class="ctrl-group">
+              <label>Rounds: <span id="b-rounds-val">500</span></label>
+              <input type="range" id="b-rounds" min="100" max="2000" value="500" step="100" oninput="document.getElementById('b-rounds-val').textContent=this.value" />
+            </div>
+          </div>
+          <div class="bandit-stats">
+            <div class="bstat"><p class="bstat-label">Total Reward</p><p class="bstat-val" id="b-reward">—</p></div>
+            <div class="bstat"><p class="bstat-label">Regret</p><p class="bstat-val" id="b-regret">—</p></div>
+            <div class="bstat"><p class="bstat-label">Best Arm</p><p class="bstat-val" id="b-best">—</p></div>
+          </div>
+          <svg class="regret-chart" id="b-chart" viewBox="0 0 400 60" preserveAspectRatio="none"></svg>
+          <div class="bandit-arms" id="b-arms">
+            <!-- generated by JS -->
+          </div>
+          <button class="bandit-btn" id="b-run" onclick="runBandit()">Run Simulation →</button>
+        </div>
+      </div>
+
+      <!-- ANOMALY DEMO -->
+      <div class="demo-card reveal">
+        <div class="demo-header">
+          <p class="demo-label">Project 05 · Anomaly Detection</p>
+          <h3 class="demo-title">Live Anomaly Detector</h3>
+          <p class="demo-desc">Streaming time series with simulated anomalies. The detector uses a rolling statistical model — points more than 3σ from the local mean are flagged. Watch it adapt as the signal changes.</p>
+        </div>
+        <div class="demo-body">
+          <div class="anomaly-canvas-wrap">
+            <canvas class="anomaly-canvas" id="a-canvas"></canvas>
+          </div>
+          <div class="anomaly-legend">
+            <span class="legend-item"><span class="legend-dot" style="background:#2d6a4f"></span>Normal</span>
+            <span class="legend-item"><span class="legend-dot" style="background:#c84b2f"></span>Anomaly flagged</span>
+            <span class="legend-item"><span class="legend-dot" style="background:#b8892a; opacity:0.5"></span>σ band</span>
+          </div>
+          <div class="anomaly-stats">
+            <div class="bstat"><p class="bstat-label">Points</p><p class="bstat-val" id="a-points">0</p></div>
+            <div class="bstat"><p class="bstat-label">Flagged</p><p class="bstat-val" id="a-flagged" style="color:var(--red)">0</p></div>
+            <div class="bstat"><p class="bstat-label">Rate</p><p class="bstat-val" id="a-rate">0%</p></div>
+          </div>
+          <div class="anomaly-controls" style="margin-bottom:10px;">
+            <button class="anomaly-btn active" id="a-start-btn" onclick="toggleAnomaly()">■ Stop Stream</button>
+            <button class="anomaly-btn" onclick="injectAnomaly()">Inject Anomaly !</button>
+            <button class="anomaly-btn" onclick="resetAnomaly()">Reset</button>
+          </div>
+          <div class="anomaly-log" id="a-log"><p style="color:var(--ink3)">Stream starting...</p></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- TRADING SYSTEM -->
+<div id="trading">
+  <div class="inner">
+    <p class="section-label">In Development · Mar–Jun 2026</p>
+    <h2 class="section-title">LLM-Driven Trading System</h2>
+    <p class="trading-intro">
+      Five interconnected repositories building an end-to-end paper trading system.
+      Real Binance market data flows through chart generation, LLM signal analysis,
+      backtesting, and a human oversight dashboard — with losing trades feeding back
+      to optimize the prompts that generate future signals.
     </p>
-    <div class="hero-actions">
-      <a href="#projects" class="btn-primary">View Projects ↓</a>
-      <a href="https://github.com/mtichikawa" target="_blank" class="btn-secondary">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
-        GitHub
-      </a>
-      <a href="mailto:projects.ichikawa@gmail.com" class="btn-secondary">projects.ichikawa@gmail.com</a>
+    <div class="trading-pipeline">
+      <div class="t-node reveal">
+        <div class="t-dot active">T1</div>
+        <p class="t-name">crypto-data-pipeline</p>
+        <p class="t-stack">ccxt · Binance API<br>PostgreSQL · pandas<br>multi-pair OHLCV</p>
+        <p class="t-date">Started Mar 2</p>
+      </div>
+      <div class="t-node reveal">
+        <div class="t-dot">T2</div>
+        <p class="t-name">trading-chart-generator</p>
+        <p class="t-stack">mplfinance · PIL<br>annotated PNG factory<br>batch backtesting</p>
+        <p class="t-date">Starts Mar 18</p>
+      </div>
+      <div class="t-node reveal">
+        <div class="t-dot">T3</div>
+        <p class="t-name">trading-signal-engine</p>
+        <p class="t-stack">Anthropic vision API<br>structured JSON signals<br>prompt versioning</p>
+        <p class="t-date">Starts Apr 1</p>
+      </div>
+      <div class="t-node reveal">
+        <div class="t-dot">T4</div>
+        <p class="t-name">trading-backtester</p>
+        <p class="t-stack">vectorbt · pandas<br>Sharpe · drawdown<br>outcome feedback loop</p>
+        <p class="t-date">Starts Apr 27</p>
+      </div>
+      <div class="t-node reveal">
+        <div class="t-dot">T5</div>
+        <p class="t-name">trading-dashboard</p>
+        <p class="t-stack">Streamlit · Plotly<br>live signals · P&L<br>prompt review UI</p>
+        <p class="t-date">Starts May 18</p>
+      </div>
     </div>
-    <div class="hero-scroll">
-      <span class="scroll-line"></span>
-      Scroll to explore
+    <div class="trading-note reveal">
+      <p><strong>The feedback loop:</strong> T4 records whether each signal led to a winning or losing paper trade. T3's prompt optimizer reads those outcomes, identifies patterns in losing trades, and suggests revised prompts. T5's oversight UI lets me review the diff and approve or reject each proposed change. The system improves its own analysis — I stay in the loop as the decision-maker.</p>
+    </div>
+    <p class="t-status"><span class="t-status-dot"></span>T1 in active development</p>
+  </div>
+</div>
+
+<!-- SKILLS -->
+<section id="skills">
+  <p class="section-label">Technical Skills</p>
+  <h2 class="section-title">Stack</h2>
+  <div class="skills-grid">
+    <div class="reveal">
+      <p class="skill-group-label">Languages</p>
+      <ul class="skill-list"><li>Python</li><li>SQL</li><li>R</li></ul>
+    </div>
+    <div class="reveal">
+      <p class="skill-group-label">ML · Statistics</p>
+      <ul class="skill-list"><li>scikit-learn · IsolationForest · LOF</li><li>Prophet · PyTorch · LSTM</li><li>scipy · statsmodels · ANOVA</li><li>Bayesian inference · Thompson Sampling</li><li>Sharpe ratio · drawdown analysis</li></ul>
+    </div>
+    <div class="reveal">
+      <p class="skill-group-label">Data Engineering</p>
+      <ul class="skill-list"><li>PostgreSQL · SQLAlchemy · dbt</li><li>Apache Parquet · pandas · NumPy</li><li>ccxt · OHLCV pipelines</li></ul>
+    </div>
+    <div class="reveal">
+      <p class="skill-group-label">Cloud · Infrastructure</p>
+      <ul class="skill-list"><li>AWS S3 · Lambda · DynamoDB</li><li>Docker · FastAPI · Redis</li><li>Pydantic v2 · boto3</li></ul>
+    </div>
+    <div class="reveal">
+      <p class="skill-group-label">LLM · NLP</p>
+      <ul class="skill-list"><li>Anthropic API · vision API</li><li>RAG · multi-turn conversation</li><li>Tool use · agent mode</li><li>Prompt engineering · versioning</li><li>SEC EDGAR · sentiment analysis</li></ul>
+    </div>
+    <div class="reveal">
+      <p class="skill-group-label">Visualization · Tools</p>
+      <ul class="skill-list"><li>Streamlit · Plotly · Dash</li><li>Matplotlib · mplfinance</li><li>Jupyter · nbconvert · Git</li></ul>
     </div>
   </div>
+</section>
 
-  <div class="section-divider"></div>
+<div class="divider"></div>
 
-  <!-- BACKGROUND -->
-  <div id="background">
-    <div class="inner">
-      <div>
-        <p class="section-label">Background</p>
-        <h2 class="section-title" style="font-size: clamp(28px, 3vw, 42px);">Two careers.<br>One throughline.</h2>
-        <div class="bg-intro reveal">
-          <p>At Intel, I spent three years on the Physical Design team contributing to Ivy Bridge CPU development and 22nm process R&D — building automated data mining and validation systems that processed millions of design verification data points.</p>
-          <p>At Santa Rosa Junior College, I spent nine years teaching statistics, calculus, and linear algebra — translating complex mathematical structures into clear, actionable understanding for hundreds of students.</p>
-          <p><strong>The throughline: quantitative reasoning applied to real problems.</strong> Data science is where those two careers converge.</p>
-        </div>
-      </div>
-      <div style="display: flex; flex-direction: column; gap: 16px;">
-        <div class="bg-card reveal">
-          <p class="bg-card-label">Intel · Physical Design</p>
-          <p class="bg-card-number">3</p>
-          <p class="bg-card-title">Years Engineering</p>
-          <p class="bg-card-body">Ivy Bridge CPU · 22nm process R&D · Python/Perl automation · statistical analysis of manufacturing data</p>
-        </div>
-        <div class="bg-card reveal">
-          <p class="bg-card-label">Santa Rosa Junior College</p>
-          <p class="bg-card-number">9</p>
-          <p class="bg-card-title">Years Teaching</p>
-          <p class="bg-card-body">Statistics · Calculus · Linear Algebra · curriculum development · data-driven program assessment</p>
-        </div>
-      </div>
+<!-- CONTACT -->
+<div id="contact">
+  <div class="inner">
+    <div>
+      <p class="section-label">Contact</p>
+      <h2 class="contact-heading">Open to<br>opportunities.</h2>
+      <p class="contact-sub">Targeting Data Scientist, Data Engineer, ML Engineer, and Data Analyst roles. Portland, OR. Open to remote.</p>
+    </div>
+    <div class="contact-links">
+      <a href="mailto:projects.ichikawa@gmail.com" class="contact-link">
+        <svg class="contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+        projects.ichikawa@gmail.com
+      </a>
+      <a href="https://github.com/mtichikawa" target="_blank" class="contact-link">
+        <svg class="contact-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+        github.com/mtichikawa
+      </a>
     </div>
   </div>
+</div>
 
-  <div class="section-divider"></div>
+<footer>
+  <span>Mike Ichikawa · Portland, OR</span>
+  <span>mtichikawa.github.io</span>
+</footer>
 
-  <!-- PROJECTS -->
-  <section id="projects">
-    <p class="section-label">Portfolio</p>
-    <h2 class="section-title">9 Projects.<br>One stack.</h2>
-    <div class="projects-grid">
+<script>
+// ── NAV ──
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => nav.classList.toggle('scrolled', scrollY > 20));
 
-      <a href="https://github.com/mtichikawa/github-trend-forecaster" target="_blank" class="project-card reveal">
-        <span class="project-num">01</span>
-        <h3 class="project-name">GitHub Trend Forecaster</h3>
-        <p class="project-desc">Forecasts GitHub repository star growth using Facebook Prophet time series models, with an LSTM comparison layer for deep learning benchmarking.</p>
-        <div class="project-stack">
-          <span class="tag">Prophet</span>
-          <span class="tag">PyTorch</span>
-          <span class="tag">GitHub API</span>
-        </div>
-        <span class="project-arrow">↗</span>
-      </a>
+// ── SCROLL REVEAL ──
+const observer = new IntersectionObserver(entries => {
+  entries.forEach((e, i) => {
+    if (e.isIntersecting) {
+      setTimeout(() => e.target.classList.add('visible'), i * 70);
+      observer.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-      <a href="https://github.com/mtichikawa/bandit-ab-testing" target="_blank" class="project-card reveal">
-        <span class="project-num">02</span>
-        <h3 class="project-name">Multi-Armed Bandit A/B Testing</h3>
-        <p class="project-desc">Implements Thompson Sampling, UCB1, and Epsilon-Greedy bandit algorithms with a live Streamlit simulator showing real-time Beta distribution updates.</p>
-        <div class="project-stack">
-          <span class="tag">Thompson Sampling</span>
-          <span class="tag">Bayesian</span>
-          <span class="tag">Streamlit</span>
-        </div>
-        <span class="project-arrow">↗</span>
-      </a>
+// ── BANDIT SIMULATION ──
+const ARM_PROBS = [0.25, 0.45, 0.35, 0.55, 0.30];
+const ARM_COLORS = ['#c84b2f','#1a3a5c','#2d6a4f','#b8892a','#6b6760'];
 
-      <a href="https://github.com/mtichikawa/llm-data-assistant" target="_blank" class="project-card reveal">
-        <span class="project-num">03</span>
-        <h3 class="project-name">LLM Data Analysis Assistant</h3>
-        <p class="project-desc">Hybrid routing system combining rule-based fast-path with Anthropic API fallback. Multi-turn conversation history, agent mode with pandas and chart tool use.</p>
-        <div class="project-stack">
-          <span class="tag">Anthropic API</span>
-          <span class="tag">RAG</span>
-          <span class="tag">Tool Use</span>
-        </div>
-        <span class="project-arrow">↗</span>
-      </a>
-
-      <a href="https://github.com/mtichikawa/llm-bias-detection" target="_blank" class="project-card reveal">
-        <span class="project-num">04</span>
-        <h3 class="project-name">Bias Detection in LLMs</h3>
-        <p class="project-desc">Statistical audit of bias across multiple language models and datasets. ANOVA, Cohen's d effect sizes, and p-value heatmaps across gender, race, and religion dimensions.</p>
-        <div class="project-stack">
-          <span class="tag">ANOVA</span>
-          <span class="tag">Cohen's d</span>
-          <span class="tag">scipy.stats</span>
-        </div>
-        <span class="project-arrow">↗</span>
-      </a>
-
-      <a href="https://github.com/mtichikawa/anomaly-detection" target="_blank" class="project-card reveal">
-        <span class="project-num">05</span>
-        <h3 class="project-name">Real-Time Anomaly Detection</h3>
-        <p class="project-desc">Ensemble ML system using sklearn IsolationForest and LocalOutlierFactor on streaming data. Wrapped in a Dockerized FastAPI service with REST inference endpoint.</p>
-        <div class="project-stack">
-          <span class="tag">IsolationForest</span>
-          <span class="tag">Docker</span>
-          <span class="tag">FastAPI</span>
-        </div>
-        <span class="project-arrow">↗</span>
-      </a>
-
-      <a href="https://github.com/mtichikawa/financial-nlp" target="_blank" class="project-card reveal">
-        <span class="project-num">06</span>
-        <h3 class="project-name">Financial NLP Parser</h3>
-        <p class="project-desc">Parses SEC EDGAR filings for 5+ companies, extracts financial metrics and sentiment. PostgreSQL backend with a Streamlit dashboard for cross-company sector comparison.</p>
-        <div class="project-stack">
-          <span class="tag">SEC EDGAR</span>
-          <span class="tag">PostgreSQL</span>
-          <span class="tag">Streamlit</span>
-        </div>
-        <span class="project-arrow">↗</span>
-      </a>
-
-      <a href="https://github.com/mtichikawa/sql-analytics-pipeline" target="_blank" class="project-card reveal">
-        <span class="project-num">07</span>
-        <h3 class="project-name">SQL Analytics Pipeline</h3>
-        <p class="project-desc">Three-layer data pipeline (staging → clean → marts) with dbt-style transformations, window functions, and data quality checks. SQLAlchemy ORM with PostgreSQL backend.</p>
-        <div class="project-stack">
-          <span class="tag">PostgreSQL</span>
-          <span class="tag">SQLAlchemy</span>
-          <span class="tag">dbt</span>
-        </div>
-        <span class="project-arrow">↗</span>
-      </a>
-
-      <a href="https://github.com/mtichikawa/dockerized-ml-api" target="_blank" class="project-card reveal">
-        <span class="project-num">08</span>
-        <h3 class="project-name">Dockerized ML API</h3>
-        <p class="project-desc">Production ML serving infrastructure: FastAPI REST endpoint, Redis caching with TTL, Pydantic v2 validation, vectorized batch inference, and Docker deployment.</p>
-        <div class="project-stack">
-          <span class="tag">Docker</span>
-          <span class="tag">FastAPI</span>
-          <span class="tag">Redis</span>
-        </div>
-        <span class="project-arrow">↗</span>
-      </a>
-
-      <a href="https://github.com/mtichikawa/cloud-etl-pipeline" target="_blank" class="project-card reveal">
-        <span class="project-num">09</span>
-        <h3 class="project-name">Cloud ETL Pipeline</h3>
-        <p class="project-desc">AWS-native ETL system: S3 data lake with Parquet/Snappy storage, Lambda validation, DynamoDB run logging, tenacity retry logic, and Hive partitioning.</p>
-        <div class="project-stack">
-          <span class="tag">AWS S3</span>
-          <span class="tag">Lambda</span>
-          <span class="tag">DynamoDB</span>
-        </div>
-        <span class="project-arrow">↗</span>
-      </a>
-
+function initBanditArms() {
+  const c = document.getElementById('b-arms');
+  c.innerHTML = ARM_PROBS.map((p, i) => `
+    <div class="arm-bar">
+      <div class="arm-bar-label">Arm ${i+1}<br><span style="color:#a09d99;font-size:9px">p=${p}</span></div>
+      <div class="arm-bar-outer">
+        <div class="arm-bar-fill" id="bf-${i}" style="background:${ARM_COLORS[i]};height:0%"></div>
+      </div>
+      <span class="arm-bar-count" id="bc-${i}">0</span>
     </div>
-  </section>
+  `).join('');
+}
+initBanditArms();
 
-  <div class="section-divider"></div>
+function runBandit() {
+  const algo = document.getElementById('b-algo').value;
+  const rounds = parseInt(document.getElementById('b-rounds').value);
+  const btn = document.getElementById('b-run');
+  btn.disabled = true;
+  btn.textContent = 'Running...';
 
-  <!-- TRADING -->
-  <div id="trading">
-    <div class="inner">
-      <p class="section-label">In Development</p>
-      <h2 class="section-title">LLM-Driven<br>Trading System</h2>
-      <p class="trading-intro">
-        A five-repo system that uses Claude's vision API to analyze candlestick chart images and generate crypto trading signals on paper. Outcome data feeds back into a prompt optimizer — the system improves its own analysis over time. Built on real Binance market data.
-      </p>
+  const n = ARM_PROBS.length;
+  const counts = new Array(n).fill(0);
+  const rewards = new Array(n).fill(0);
+  const alpha = new Array(n).fill(1); // Thompson Beta alpha
+  const beta  = new Array(n).fill(1); // Thompson Beta beta
+  let totalReward = 0;
+  let regret = 0;
+  const maxProb = Math.max(...ARM_PROBS);
+  const regretHistory = [];
 
-      <div class="trading-arc">
-        <div class="trading-node reveal">
-          <div class="trading-dot">T1</div>
-          <p class="trading-node-name">crypto-data-pipeline</p>
-          <p class="trading-node-desc">ccxt · Binance API · PostgreSQL · multi-pair OHLCV ingestion</p>
-        </div>
-        <div class="trading-node reveal">
-          <div class="trading-dot">T2</div>
-          <p class="trading-node-name">trading-chart-generator</p>
-          <p class="trading-node-desc">mplfinance · annotated candlestick PNG factory · batch backtesting</p>
-        </div>
-        <div class="trading-node reveal">
-          <div class="trading-dot">T3</div>
-          <p class="trading-node-name">trading-signal-engine</p>
-          <p class="trading-node-desc">Anthropic vision API · structured signal output · prompt versioning</p>
-        </div>
-        <div class="trading-node reveal">
-          <div class="trading-dot">T4</div>
-          <p class="trading-node-name">trading-backtester</p>
-          <p class="trading-node-desc">vectorbt · P&L · Sharpe ratio · drawdown · outcome feedback loop</p>
-        </div>
-        <div class="trading-node reveal">
-          <div class="trading-dot">T5</div>
-          <p class="trading-node-name">trading-dashboard</p>
-          <p class="trading-node-desc">Streamlit · live paper trading · prompt review UI · oversight layer</p>
-        </div>
-      </div>
+  function betaSample(a, b) {
+    // Approximation using normal for speed
+    const mean = a / (a + b);
+    const variance = (a * b) / ((a+b)*(a+b)*(a+b+1));
+    return Math.max(0, Math.min(1, mean + Math.sqrt(variance) * (Math.random() + Math.random() + Math.random() - 1.5) * 1.73));
+  }
 
-      <p class="trading-status">
-        <span class="status-dot"></span>
-        Active development · Starting March 2026
-      </p>
-    </div>
-  </div>
-
-  <!-- SKILLS -->
-  <section id="skills">
-    <p class="section-label">Technical Skills</p>
-    <h2 class="section-title">Stack</h2>
-    <div class="skills-grid">
-
-      <div class="reveal">
-        <p class="skill-group-label">Languages</p>
-        <ul class="skill-list">
-          <li>Python</li>
-          <li>SQL</li>
-          <li>R</li>
-        </ul>
-      </div>
-
-      <div class="reveal">
-        <p class="skill-group-label">ML · Statistics</p>
-        <ul class="skill-list">
-          <li>scikit-learn · IsolationForest · LOF</li>
-          <li>Prophet · PyTorch · LSTM</li>
-          <li>scipy · statsmodels · ANOVA</li>
-          <li>Bayesian inference · Thompson Sampling</li>
-          <li>Sharpe ratio · drawdown analysis</li>
-        </ul>
-      </div>
-
-      <div class="reveal">
-        <p class="skill-group-label">Data Engineering</p>
-        <ul class="skill-list">
-          <li>PostgreSQL · SQLAlchemy · dbt</li>
-          <li>Apache Parquet · pandas · NumPy</li>
-          <li>Apache Kafka</li>
-          <li>ccxt · OHLCV pipelines</li>
-        </ul>
-      </div>
-
-      <div class="reveal">
-        <p class="skill-group-label">Cloud · Infrastructure</p>
-        <ul class="skill-list">
-          <li>AWS S3 · Lambda · DynamoDB</li>
-          <li>Docker · FastAPI · Redis</li>
-          <li>Pydantic v2 · boto3</li>
-        </ul>
-      </div>
-
-      <div class="reveal">
-        <p class="skill-group-label">LLM · NLP</p>
-        <ul class="skill-list">
-          <li>Anthropic API · vision API</li>
-          <li>RAG · multi-turn conversation</li>
-          <li>Tool use · agent mode</li>
-          <li>Prompt engineering · versioning</li>
-          <li>SEC EDGAR · sentiment analysis</li>
-        </ul>
-      </div>
-
-      <div class="reveal">
-        <p class="skill-group-label">Visualization · Tools</p>
-        <ul class="skill-list">
-          <li>Streamlit · Plotly · Dash</li>
-          <li>Matplotlib · mplfinance</li>
-          <li>Jupyter · nbconvert</li>
-          <li>Git · Selenium</li>
-        </ul>
-      </div>
-
-    </div>
-  </section>
-
-  <div class="section-divider"></div>
-
-  <!-- CONTACT -->
-  <div id="contact">
-    <div class="inner">
-      <div>
-        <p class="section-label">Contact</p>
-        <h2 class="contact-heading">Open to<br>opportunities.</h2>
-        <p class="contact-sub">Targeting Data Scientist, Data Engineer, ML Engineer, and Analytics roles. Based in Portland, OR. Open to remote.</p>
-      </div>
-      <div class="contact-links">
-        <a href="mailto:projects.ichikawa@gmail.com" class="contact-link">
-          <svg class="contact-link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
-          projects.ichikawa@gmail.com
-        </a>
-        <a href="https://github.com/mtichikawa" target="_blank" class="contact-link">
-          <svg class="contact-link-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
-          github.com/mtichikawa
-        </a>
-      </div>
-    </div>
-  </div>
-
-  <!-- FOOTER -->
-  <footer>
-    <span>Mike Ichikawa · Portland, OR</span>
-    <span>mtichikawa.github.io</span>
-  </footer>
-
-  <script>
-    // Nav scroll effect
-    const nav = document.getElementById('nav');
-    window.addEventListener('scroll', () => {
-      nav.classList.toggle('scrolled', window.scrollY > 20);
-    });
-
-    // Scroll reveal
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry, i) => {
-        if (entry.isIntersecting) {
-          setTimeout(() => {
-            entry.target.classList.add('visible');
-          }, i * 80);
-          observer.unobserve(entry.target);
-        }
+  function selectArm(round) {
+    if (algo === 'thompson') {
+      const samples = alpha.map((a,i) => betaSample(a, beta[i]));
+      return samples.indexOf(Math.max(...samples));
+    } else if (algo === 'ucb') {
+      const ucbVals = counts.map((c, i) => {
+        if (c === 0) return Infinity;
+        return rewards[i]/c + Math.sqrt(2*Math.log(round+1)/c);
       });
-    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+      return ucbVals.indexOf(Math.max(...ucbVals));
+    } else {
+      if (Math.random() < 0.1) return Math.floor(Math.random() * n);
+      const means = counts.map((c,i) => c === 0 ? 0 : rewards[i]/c);
+      return means.indexOf(Math.max(...means));
+    }
+  }
 
-    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-  </script>
+  for (let r = 0; r < rounds; r++) {
+    const arm = selectArm(r);
+    const reward = Math.random() < ARM_PROBS[arm] ? 1 : 0;
+    counts[arm]++;
+    rewards[arm] += reward;
+    totalReward += reward;
+    regret += maxProb - ARM_PROBS[arm];
+    if (algo === 'thompson') {
+      if (reward) alpha[arm]++; else beta[arm]++;
+    }
+    if (r % 20 === 0) regretHistory.push(regret);
+  }
+
+  // Update UI
+  const maxCount = Math.max(...counts);
+  counts.forEach((c, i) => {
+    document.getElementById(`bf-${i}`).style.height = `${maxCount > 0 ? (c/maxCount*90) : 0}%`;
+    document.getElementById(`bc-${i}`).textContent = `${c} pulls`;
+  });
+
+  document.getElementById('b-reward').textContent = totalReward;
+  document.getElementById('b-regret').textContent = regret.toFixed(1);
+  const bestArm = counts.indexOf(Math.max(...counts));
+  document.getElementById('b-best').textContent = `Arm ${bestArm+1}`;
+
+  // Draw regret curve
+  const svg = document.getElementById('b-chart');
+  const maxReg = regretHistory[regretHistory.length-1];
+  const pts = regretHistory.map((v,i) => `${(i/regretHistory.length)*400},${60-((v/maxReg)*54)}`).join(' ');
+  svg.innerHTML = `
+    <polyline points="${pts}" fill="none" stroke="#c84b2f" stroke-width="1.5" opacity="0.7"/>
+    <text x="2" y="10" font-family="monospace" font-size="7" fill="#a09d99">Cumulative Regret</text>
+  `;
+
+  btn.disabled = false;
+  btn.textContent = 'Run Again →';
+}
+
+// ── ANOMALY DETECTION DEMO ──
+const aCanvas = document.getElementById('a-canvas');
+const aCtx = aCanvas.getContext('2d');
+let aRunning = true;
+let aData = [];
+let aAnomalyCount = 0;
+let aTotalPoints = 0;
+let aNextInject = false;
+let aAnimId = null;
+let aT = 0;
+
+function resizeCanvas() {
+  const dpr = window.devicePixelRatio || 1;
+  const rect = aCanvas.parentElement.getBoundingClientRect();
+  aCanvas.width = rect.width * dpr;
+  aCanvas.height = 140 * dpr;
+  aCtx.scale(dpr, dpr);
+  aCanvas.style.width = rect.width + 'px';
+  aCanvas.style.height = '140px';
+}
+resizeCanvas();
+window.addEventListener('resize', resizeCanvas);
+
+function generatePoint() {
+  const t = aT++;
+  const base = Math.sin(t * 0.08) * 20 + Math.sin(t * 0.15) * 10 + 70;
+  const noise = (Math.random() - 0.5) * 14;
+  let val = base + noise;
+  let injected = false;
+  if (aNextInject) { val += (Math.random() > 0.5 ? 1 : -1) * (45 + Math.random() * 25); injected = true; aNextInject = false; }
+  return { val, injected };
+}
+
+function addLog(msg, flagged) {
+  const log = document.getElementById('a-log');
+  const entry = document.createElement('p');
+  entry.className = 'log-entry' + (flagged ? ' flagged' : '');
+  entry.textContent = msg;
+  log.insertBefore(entry, log.firstChild);
+  while (log.children.length > 8) log.removeChild(log.lastChild);
+}
+
+function drawAnomaly() {
+  const W = aCanvas.parentElement.getBoundingClientRect().width;
+  const H = 140;
+  aCtx.clearRect(0, 0, W, H);
+
+  if (aData.length < 2) { if (aRunning) aAnimId = requestAnimationFrame(drawAnomaly); return; }
+
+  // Compute rolling stats (window=20)
+  const window = 20;
+  const recent = aData.slice(-window);
+  const mean = recent.reduce((s,d) => s+d.val, 0) / recent.length;
+  const std = Math.sqrt(recent.reduce((s,d) => s+(d.val-mean)**2, 0) / recent.length) || 8;
+
+  // Scale to canvas
+  const vals = aData.map(d => d.val);
+  const minV = Math.min(...vals) - 10;
+  const maxV = Math.max(...vals) + 10;
+  const scaleY = v => H - ((v - minV) / (maxV - minV)) * (H - 16) - 8;
+  const scaleX = (i, total) => (i / (total - 1)) * W;
+
+  const total = aData.length;
+
+  // σ band
+  aCtx.fillStyle = 'rgba(184,137,42,0.08)';
+  aCtx.beginPath();
+  aData.forEach((d, i) => {
+    const x = scaleX(i, total);
+    const y = scaleY(mean + 3*std);
+    if (i === 0) aCtx.moveTo(x, y); else aCtx.lineTo(x, y);
+  });
+  for (let i = total-1; i >= 0; i--) {
+    aCtx.lineTo(scaleX(i, total), scaleY(mean - 3*std));
+  }
+  aCtx.closePath();
+  aCtx.fill();
+
+  // Mean line
+  aCtx.strokeStyle = 'rgba(184,137,42,0.35)';
+  aCtx.lineWidth = 1;
+  aCtx.setLineDash([4, 4]);
+  aCtx.beginPath();
+  aCtx.moveTo(0, scaleY(mean));
+  aCtx.lineTo(W, scaleY(mean));
+  aCtx.stroke();
+  aCtx.setLineDash([]);
+
+  // Signal line
+  aCtx.strokeStyle = '#2d6a4f';
+  aCtx.lineWidth = 1.5;
+  aCtx.beginPath();
+  aData.forEach((d, i) => {
+    const x = scaleX(i, total);
+    const y = scaleY(d.val);
+    if (i === 0) aCtx.moveTo(x, y); else aCtx.lineTo(x, y);
+  });
+  aCtx.stroke();
+
+  // Anomaly dots
+  aData.forEach((d, i) => {
+    if (d.flagged) {
+      aCtx.beginPath();
+      aCtx.arc(scaleX(i, total), scaleY(d.val), 5, 0, Math.PI * 2);
+      aCtx.fillStyle = '#c84b2f';
+      aCtx.fill();
+      aCtx.strokeStyle = 'rgba(200,75,47,0.3)';
+      aCtx.lineWidth = 3;
+      aCtx.stroke();
+      aCtx.lineWidth = 1;
+    }
+  });
+
+  if (aRunning) aAnimId = requestAnimationFrame(drawAnomaly);
+}
+
+function anomalyTick() {
+  if (!aRunning) return;
+  const pt = generatePoint();
+  aTotalPoints++;
+
+  const window = 20;
+  const recent = aData.slice(-window);
+  let flagged = false;
+  if (recent.length >= 5) {
+    const mean = recent.reduce((s,d) => s+d.val, 0) / recent.length;
+    const std = Math.sqrt(recent.reduce((s,d) => s+(d.val-mean)**2, 0) / recent.length) || 8;
+    if (Math.abs(pt.val - mean) > 3 * std) {
+      flagged = true;
+      aAnomalyCount++;
+      const ts = new Date().toLocaleTimeString('en-US', {hour12:false, hour:'2-digit', minute:'2-digit', second:'2-digit'});
+      addLog(`${ts} ⚠ ANOMALY t=${aTotalPoints} val=${pt.val.toFixed(1)} (${((pt.val-mean)/std).toFixed(1)}σ)`, true);
+    }
+  }
+
+  aData.push({ val: pt.val, flagged, injected: pt.injected });
+  if (aData.length > 120) aData.shift();
+
+  document.getElementById('a-points').textContent = aTotalPoints;
+  document.getElementById('a-flagged').textContent = aAnomalyCount;
+  document.getElementById('a-rate').textContent = aTotalPoints > 0 ? (aAnomalyCount/aTotalPoints*100).toFixed(1)+'%' : '0%';
+}
+
+function toggleAnomaly() {
+  aRunning = !aRunning;
+  const btn = document.getElementById('a-start-btn');
+  btn.textContent = aRunning ? '■ Stop Stream' : '▶ Start Stream';
+  btn.classList.toggle('active', aRunning);
+  if (aRunning) { drawAnomaly(); }
+}
+
+function injectAnomaly() { aNextInject = true; addLog(`Manual anomaly injected at next tick`, false); }
+
+function resetAnomaly() {
+  aData = []; aAnomalyCount = 0; aTotalPoints = 0; aT = 0; aNextInject = false;
+  document.getElementById('a-points').textContent = '0';
+  document.getElementById('a-flagged').textContent = '0';
+  document.getElementById('a-rate').textContent = '0%';
+  document.getElementById('a-log').innerHTML = '<p style="color:var(--ink3)">Stream reset.</p>';
+}
+
+// Start anomaly ticker
+setInterval(anomalyTick, 180);
+drawAnomaly();
+</script>
 
 </body>
 </html>
