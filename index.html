@@ -186,6 +186,7 @@
     .t-node { display: flex; flex-direction: column; align-items: center; gap: 14px; padding: 0 8px; text-align: center; }
     .t-dot { width: 64px; height: 64px; border-radius: 50%; background: rgba(26,58,92,0.8); border: 1px solid #2a5070; display: flex; align-items: center; justify-content: center; font-family: var(--mono); font-size: 13px; font-weight: 500; color: #5a849e; z-index: 1; transition: all 0.2s; cursor: default; }
     .t-dot.active { border-color: #5aafd4; color: #5aafd4; background: rgba(26,58,92,0.95); }
+    .t-dot.live { border-color: #4caf7d; color: #4caf7d; background: rgba(26,58,92,0.95); }
     .t-name { font-family: var(--mono); font-size: 11px; font-weight: 500; color: #a8c8e0; }
     .t-stack { font-size: 11px; color: #3a6080; line-height: 1.5; }
     .t-date { font-family: var(--mono); font-size: 9px; color: #2a4a60; letter-spacing: 0.1em; }
@@ -287,11 +288,11 @@
     </div>
     <div class="building-grid">
       <div class="building-item">
-        <p class="building-code">T1 · In Progress</p>
-        <p class="building-name">crypto-data-pipeline</p>
-        <p class="building-desc">Real OHLCV ingestion from Binance via ccxt. Multi-pair, multi-timeframe, PostgreSQL storage.</p>
-        <div class="building-progress"><div class="building-progress-fill" style="width:55%"></div></div>
-        <p class="building-pct">~55% complete</p>
+        <p class="building-code">T1 · Live</p>
+        <p class="building-name"><a href="https://github.com/mtichikawa/crypto-data-pipeline" target="_blank" rel="noopener">crypto-data-pipeline</a></p>
+        <p class="building-desc">Live OHLCV pipeline for BTC/ETH/SOL via ccxt (Kraken). Market event tagging and news ingestion for T3 FinBERT path. PostgreSQL storage.</p>
+        <div class="building-progress"><div class="building-progress-fill" style="width:100%"></div></div>
+        <p class="building-pct">Shipped Mar 6</p>
       </div>
       <div class="building-item">
         <p class="building-code">T2 · Starting Mar 18</p>
@@ -578,16 +579,16 @@
     <h2 class="section-title">LLM-Driven Trading System</h2>
     <p class="trading-intro">
       Five interconnected repositories building an end-to-end paper trading system.
-      Real Binance market data flows through chart generation, LLM signal analysis,
+      Real Kraken market data flows through chart generation, LLM signal analysis,
       backtesting, and a human oversight dashboard — with losing trades feeding back
       to optimize the prompts that generate future signals.
     </p>
     <div class="trading-pipeline">
       <div class="t-node reveal">
-        <div class="t-dot active">T1</div>
-        <p class="t-name">crypto-data-pipeline</p>
-        <p class="t-stack">ccxt · Binance API<br>PostgreSQL · pandas<br>multi-pair OHLCV</p>
-        <p class="t-date">Started Mar 2</p>
+        <div class="t-dot live">T1</div>
+        <p class="t-name"><a href="https://github.com/mtichikawa/crypto-data-pipeline" target="_blank" rel="noopener">crypto-data-pipeline</a></p>
+        <p class="t-stack">ccxt · Kraken API<br>PostgreSQL · pandas<br>multi-pair OHLCV</p>
+        <p class="t-date">Shipped Mar 6</p>
       </div>
       <div class="t-node reveal">
         <div class="t-dot">T2</div>
@@ -617,7 +618,7 @@
     <div class="trading-note reveal">
       <p><strong>The feedback loop:</strong> T4 records whether each signal led to a winning or losing paper trade. T3's prompt optimizer reads those outcomes, identifies patterns in losing trades, and suggests revised prompts. T5's oversight UI lets me review the diff and approve or reject each proposed change. The system improves its own analysis — I stay in the loop as the decision-maker.</p>
     </div>
-    <p class="t-status"><span class="t-status-dot"></span>T1 in active development</p>
+    <p class="t-status"><span class="t-status-dot"></span>T2 trading-chart-generator — in development</p>
   </div>
 </div>
 
