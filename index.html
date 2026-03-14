@@ -263,8 +263,8 @@
   <p class="hero-bio">
     <strong>BS Mechanical Engineering · MS Mathematics · 3 years at Intel · 9 years teaching statistics.</strong>
     Building production ML systems that bridge mathematical rigor with engineering discipline.
-    Currently developing a 14-project portfolio covering time series forecasting, Bayesian inference,
-    LLM engineering, anomaly detection, cloud ETL, and an end-to-end LLM-driven trading system.
+    Currently developing a portfolio covering time series forecasting, Bayesian inference,
+    LLM engineering, anomaly detection, cloud ETL, and an end-to-end trading system.
   </p>
   <div class="hero-actions">
     <a href="#projects" class="btn btn-primary">View Projects ↓</a>
@@ -366,10 +366,10 @@
     <a href="https://github.com/mtichikawa/github-trend-forecaster" target="_blank" class="project-card reveal">
       <span class="project-num">01</span>
       <h3 class="project-name">GitHub Trend Forecaster</h3>
-      <p class="project-desc">Forecasts GitHub repository star growth using Facebook Prophet time series models. Includes a PyTorch LSTM comparison layer benchmarked head-to-head on MAE and RMSE.</p>
-      <p class="project-writeup">The interesting problem: Prophet handles seasonality elegantly but assumes additive trends. LSTM can capture non-linear growth patterns Prophet misses. The comparison quantifies when each wins.</p>
+      <p class="project-desc">Collects GitHub repository star history via the API and forecasts growth using Facebook Prophet with configurable changepoint sensitivity and named presets.</p>
+      <p class="project-writeup">The interesting problem: star growth is bursty — a viral tweet or HN post creates a step function Prophet's default changepoint detection can miss. Tuning changepoint_prior_scale per repo type gives materially better forecasts.</p>
       <div class="project-stack">
-        <span class="tag">Prophet</span><span class="tag">PyTorch LSTM</span><span class="tag">GitHub API</span><span class="tag">time series</span>
+        <span class="tag">Prophet</span><span class="tag">GitHub API</span><span class="tag">pandas</span><span class="tag">time series</span>
       </div>
       <div class="project-footer">
         <span class="project-updated">Updated Mar 2026</span>
@@ -408,13 +408,13 @@
     <a href="https://github.com/mtichikawa/llm-bias-detection" target="_blank" class="project-card reveal">
       <span class="project-num">04</span>
       <h3 class="project-name">Bias Detection in LLMs</h3>
-      <p class="project-desc">Statistical audit of bias across multiple language models and datasets (Winogender, BOLD). ANOVA, Cohen's d effect sizes, and cross-model p-value heatmaps by bias dimension.</p>
+      <p class="project-desc">Statistical audit of demographic bias in LLM responses. Generates prompts across gender, age, and race dimensions, then scores for agentic/communal/competence/warmth lexicon patterns using ANOVA and Cohen's d.</p>
       <p class="project-writeup">Effect size matters as much as p-value. A bias that's statistically significant in a large sample may be practically irrelevant. Cohen's d contextualizes what the numbers actually mean.</p>
       <div class="project-stack">
-        <span class="tag">ANOVA</span><span class="tag">Cohen's d</span><span class="tag">scipy.stats</span><span class="tag">multi-model</span>
+        <span class="tag">ANOVA</span><span class="tag">Cohen's d</span><span class="tag">scipy.stats</span><span class="tag">lexicon scoring</span>
       </div>
       <div class="project-footer">
-        <span class="project-updated">Updated Apr 2026</span>
+        <span class="project-updated">Oct 2025 – Feb 2026</span>
         <span class="project-arrow">↗</span>
       </div>
     </a>
@@ -436,13 +436,13 @@
     <a href="https://github.com/mtichikawa/financial-nlp" target="_blank" class="project-card reveal">
       <span class="project-num">06</span>
       <h3 class="project-name">Financial NLP Parser</h3>
-      <p class="project-desc">Parses SEC EDGAR filings for 5+ companies, extracts financial metrics and sentiment. PostgreSQL backend with a Streamlit dashboard for cross-company sector comparison.</p>
+      <p class="project-desc">Parses SEC EDGAR filings to extract financial metrics (revenue, net income, EPS) and sentiment. Regex-based extraction with lexicon scoring on MD&A sections across multiple companies.</p>
       <p class="project-writeup">EDGAR filings are semi-structured text at best. The parsing challenge is extracting consistent metrics across companies that use different table formats and labeling conventions.</p>
       <div class="project-stack">
-        <span class="tag">SEC EDGAR</span><span class="tag">PostgreSQL</span><span class="tag">Streamlit</span><span class="tag">NLP</span>
+        <span class="tag">SEC EDGAR</span><span class="tag">regex</span><span class="tag">sentiment lexicon</span><span class="tag">NLP</span>
       </div>
       <div class="project-footer">
-        <span class="project-updated">Updated May 2026</span>
+        <span class="project-updated">Nov 2025 – Feb 2026</span>
         <span class="project-arrow">↗</span>
       </div>
     </a>
@@ -450,10 +450,10 @@
     <a href="https://github.com/mtichikawa/sql-analytics-pipeline" target="_blank" class="project-card reveal">
       <span class="project-num">07</span>
       <h3 class="project-name">SQL Analytics Pipeline</h3>
-      <p class="project-desc">Three-layer data pipeline (staging → clean → marts) with dbt-style transformations, window functions, CTEs, and data quality checks. SQLAlchemy ORM with PostgreSQL backend.</p>
+      <p class="project-desc">Three-layer data pipeline (staging → clean → marts) with dbt-style SQL transformations, window functions, and CTEs. SQLAlchemy ORM with swappable SQLite/PostgreSQL backend.</p>
       <p class="project-writeup">Staging layer preserves raw data unchanged. The clean layer handles normalization and type casting. Marts are purpose-built for specific analytical queries — the layering keeps transformations auditable.</p>
       <div class="project-stack">
-        <span class="tag">PostgreSQL</span><span class="tag">SQLAlchemy</span><span class="tag">dbt</span><span class="tag">window functions</span>
+        <span class="tag">SQLAlchemy</span><span class="tag">SQLite</span><span class="tag">dbt-style</span><span class="tag">window functions</span>
       </div>
       <div class="project-footer">
         <span class="project-updated">Dec 2025 – Feb 2026</span>
@@ -575,8 +575,8 @@
 <!-- TRADING SYSTEM -->
 <div id="trading">
   <div class="inner">
-    <p class="section-label">In Development · Mar–Jun 2026</p>
-    <h2 class="section-title">LLM-Driven Trading System</h2>
+    <p class="section-label">In Development · Mar–Apr 2026</p>
+    <h2 class="section-title">Trading System Arc</h2>
     <p class="trading-intro">
       Five interconnected repositories building an end-to-end paper trading system.
       Real Kraken market data flows through chart generation, dual-path signal analysis
@@ -605,7 +605,7 @@
       <div class="t-node reveal">
         <div class="t-dot">T4</div>
         <p class="t-name">trading-backtester</p>
-        <p class="t-stack">vectorbt · pandas<br>Sharpe · drawdown<br>prompt feedback loop</p>
+        <p class="t-stack">vectorbt · pandas<br>Sharpe · drawdown<br>signal feedback loop</p>
         <p class="t-date">Starts Mar 23</p>
       </div>
       <div class="t-node reveal">
@@ -616,7 +616,7 @@
       </div>
     </div>
     <div class="trading-note reveal">
-      <p><strong>The feedback loop:</strong> T4 records whether each signal led to a winning or losing paper trade. T3's signal parameters (indicator thresholds, sentiment weights) are tuned based on those outcomes. T5's oversight UI lets me review proposed changes and approve or reject them. The system improves its own analysis — I stay in the loop as the decision-maker. Entirely free to run: no paid APIs, local FinBERT, public market data.</p>
+      <p><strong>The feedback loop:</strong> T4 records whether each signal configuration led to a winning or losing paper trade. T3's parameters (indicator thresholds, sentiment weights, fusion ratio) are tuned based on those outcomes. T5's dashboard lets me review signal performance and approve parameter changes. The system improves its own signal generation — I stay in the loop as the decision-maker. Entirely free to run: no paid APIs, local FinBERT, public market data.</p>
     </div>
     <p class="t-status"><span class="t-status-dot"></span>T3 trading-signal-engine — building week of Mar 16</p>
   </div>
@@ -649,7 +649,7 @@
     </div>
     <div class="reveal">
       <p class="skill-group-label">Visualization · Tools</p>
-      <ul class="skill-list"><li>Streamlit · Plotly · Dash</li><li>Matplotlib · mplfinance</li><li>Jupyter · nbconvert · Git</li></ul>
+      <ul class="skill-list"><li>Streamlit · Plotly</li><li>Matplotlib · mplfinance</li><li>Jupyter · nbconvert · Git</li></ul>
     </div>
   </div>
 </section>
