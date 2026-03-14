@@ -295,30 +295,30 @@
         <p class="building-pct">Shipped Mar 6</p>
       </div>
       <div class="building-item">
-        <p class="building-code">T2 · Starting Mar 18</p>
-        <p class="building-name">trading-chart-generator</p>
-        <p class="building-desc">Annotated candlestick PNG factory via mplfinance. Batch generation for backtesting at scale.</p>
-        <div class="building-progress"><div class="building-progress-fill" style="width:0%"></div></div>
-        <p class="building-pct">Not started</p>
+        <p class="building-code">T2 · Complete</p>
+        <p class="building-name"><a href="https://github.com/mtichikawa/trading-chart-generator" target="_blank" rel="noopener">trading-chart-generator</a></p>
+        <p class="building-desc">mplfinance candlestick PNGs with JSON sidecars. Reads T1 PostgreSQL, batch generates charts for backtesting. 25/25 tests passing.</p>
+        <div class="building-progress"><div class="building-progress-fill" style="width:100%"></div></div>
+        <p class="building-pct">Shipped Mar 10</p>
       </div>
       <div class="building-item">
-        <p class="building-code">T3 · Starting Apr 1</p>
+        <p class="building-code">T3 · Building Now</p>
         <p class="building-name">trading-signal-engine</p>
-        <p class="building-desc">Anthropic vision API analyzes chart images → BUY/SELL/HOLD with confidence and reasoning. Prompt versioning.</p>
-        <div class="building-progress"><div class="building-progress-fill" style="width:0%"></div></div>
-        <p class="building-pct">Not started</p>
+        <p class="building-desc">Dual-path signal engine: technical indicators (RSI, MACD, Bollinger) + local FinBERT sentiment analysis, fused 0.6/0.4. Zero API cost.</p>
+        <div class="building-progress"><div class="building-progress-fill" style="width:20%"></div></div>
+        <p class="building-pct">Starting Mar 16</p>
       </div>
       <div class="building-item">
-        <p class="building-code">T4 · Starting Apr 27</p>
+        <p class="building-code">T4 · Starting Mar 23</p>
         <p class="building-name">trading-backtester</p>
-        <p class="building-desc">Replay historical signals against real price outcomes. Sharpe ratio, drawdown, win rate, P&L per prompt version.</p>
+        <p class="building-desc">vectorbt backtesting with T3 prompt feedback loop. Sharpe ratio, drawdown, win rate, P&L per signal configuration.</p>
         <div class="building-progress"><div class="building-progress-fill" style="width:0%"></div></div>
         <p class="building-pct">Not started</p>
       </div>
       <div class="building-item">
-        <p class="building-code">T5 · Starting May 18</p>
+        <p class="building-code">T5 · Starting Mar 30</p>
         <p class="building-name">trading-dashboard</p>
-        <p class="building-desc">Streamlit oversight UI. Live signals, paper portfolio, prompt diff review + approve/reject interface.</p>
+        <p class="building-desc">Streamlit multi-page app: live signals, portfolio tracking, performance analytics, and prompt review UI.</p>
         <div class="building-progress"><div class="building-progress-fill" style="width:0%"></div></div>
         <p class="building-pct">Not started</p>
       </div>
@@ -422,10 +422,10 @@
     <a href="https://github.com/mtichikawa/anomaly-detection" target="_blank" class="project-card reveal">
       <span class="project-num">05</span>
       <h3 class="project-name">Real-Time Anomaly Detection</h3>
-      <p class="project-desc">Ensemble of sklearn IsolationForest and LocalOutlierFactor on streaming time series data. Dockerized FastAPI service with REST inference endpoint and Redis caching.</p>
-      <p class="project-writeup">IsolationForest and LOF flag different kinds of anomalies — isolation-based vs density-based. Ensembling reduces false positives. The demo below shows this in action on live-generated data.</p>
+      <p class="project-desc">Streaming ensemble: Isolation Forest, LSTM autoencoder, and Z-score detectors with majority voting. Dockerized FastAPI REST API with health checks, plus a streaming pipeline for continuous monitoring.</p>
+      <p class="project-writeup">Each detector catches different anomaly types — isolation-based, reconstruction-error, and statistical. Ensemble voting (flag if 2/3 agree) reduces false positives. Containerized for deployment with Docker Compose.</p>
       <div class="project-stack">
-        <span class="tag">IsolationForest</span><span class="tag">LOF</span><span class="tag">Docker</span><span class="tag">FastAPI</span>
+        <span class="tag">IsolationForest</span><span class="tag">LSTM</span><span class="tag">Docker</span><span class="tag">FastAPI</span><span class="tag">REST API</span>
       </div>
       <div class="project-footer">
         <span class="project-updated">Live demo below ↓</span>
@@ -579,9 +579,9 @@
     <h2 class="section-title">LLM-Driven Trading System</h2>
     <p class="trading-intro">
       Five interconnected repositories building an end-to-end paper trading system.
-      Real Kraken market data flows through chart generation, LLM signal analysis,
-      backtesting, and a human oversight dashboard — with losing trades feeding back
-      to optimize the prompts that generate future signals.
+      Real Kraken market data flows through chart generation, dual-path signal analysis
+      (technical indicators + FinBERT sentiment), backtesting, and a human oversight
+      dashboard — with losing trades feeding back to optimize signal parameters.
     </p>
     <div class="trading-pipeline">
       <div class="t-node reveal">
@@ -591,34 +591,34 @@
         <p class="t-date">Shipped Mar 6</p>
       </div>
       <div class="t-node reveal">
-        <div class="t-dot">T2</div>
-        <p class="t-name">trading-chart-generator</p>
-        <p class="t-stack">mplfinance · PIL<br>annotated PNG factory<br>batch backtesting</p>
-        <p class="t-date">Starts Mar 18</p>
+        <div class="t-dot live">T2</div>
+        <p class="t-name"><a href="https://github.com/mtichikawa/trading-chart-generator" target="_blank" rel="noopener" style="color:inherit">trading-chart-generator</a></p>
+        <p class="t-stack">mplfinance · PIL<br>PNG + JSON sidecars<br>25/25 tests passing</p>
+        <p class="t-date">Shipped Mar 10</p>
       </div>
       <div class="t-node reveal">
-        <div class="t-dot">T3</div>
+        <div class="t-dot active">T3</div>
         <p class="t-name">trading-signal-engine</p>
-        <p class="t-stack">Anthropic vision API<br>structured JSON signals<br>prompt versioning</p>
-        <p class="t-date">Starts Apr 1</p>
+        <p class="t-stack">technical indicators<br>FinBERT sentiment<br>0.6/0.4 fusion</p>
+        <p class="t-date">Building Mar 16</p>
       </div>
       <div class="t-node reveal">
         <div class="t-dot">T4</div>
         <p class="t-name">trading-backtester</p>
-        <p class="t-stack">vectorbt · pandas<br>Sharpe · drawdown<br>outcome feedback loop</p>
-        <p class="t-date">Starts Apr 27</p>
+        <p class="t-stack">vectorbt · pandas<br>Sharpe · drawdown<br>prompt feedback loop</p>
+        <p class="t-date">Starts Mar 23</p>
       </div>
       <div class="t-node reveal">
         <div class="t-dot">T5</div>
         <p class="t-name">trading-dashboard</p>
         <p class="t-stack">Streamlit · Plotly<br>live signals · P&L<br>prompt review UI</p>
-        <p class="t-date">Starts May 18</p>
+        <p class="t-date">Starts Mar 30</p>
       </div>
     </div>
     <div class="trading-note reveal">
-      <p><strong>The feedback loop:</strong> T4 records whether each signal led to a winning or losing paper trade. T3's prompt optimizer reads those outcomes, identifies patterns in losing trades, and suggests revised prompts. T5's oversight UI lets me review the diff and approve or reject each proposed change. The system improves its own analysis — I stay in the loop as the decision-maker.</p>
+      <p><strong>The feedback loop:</strong> T4 records whether each signal led to a winning or losing paper trade. T3's signal parameters (indicator thresholds, sentiment weights) are tuned based on those outcomes. T5's oversight UI lets me review proposed changes and approve or reject them. The system improves its own analysis — I stay in the loop as the decision-maker. Entirely free to run: no paid APIs, local FinBERT, public market data.</p>
     </div>
-    <p class="t-status"><span class="t-status-dot"></span>T2 trading-chart-generator — in development</p>
+    <p class="t-status"><span class="t-status-dot"></span>T3 trading-signal-engine — building week of Mar 16</p>
   </div>
 </div>
 
@@ -645,7 +645,7 @@
     </div>
     <div class="reveal">
       <p class="skill-group-label">LLM · NLP</p>
-      <ul class="skill-list"><li>Anthropic API · vision API</li><li>RAG · multi-turn conversation</li><li>Tool use · agent mode</li><li>Prompt engineering · versioning</li><li>SEC EDGAR · sentiment analysis</li></ul>
+      <ul class="skill-list"><li>Anthropic API · Claude Code</li><li>HuggingFace · FinBERT</li><li>RAG · multi-turn conversation</li><li>Tool use · agent mode</li><li>Prompt engineering · versioning</li><li>SEC EDGAR · sentiment analysis</li></ul>
     </div>
     <div class="reveal">
       <p class="skill-group-label">Visualization · Tools</p>
