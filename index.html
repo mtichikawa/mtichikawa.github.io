@@ -88,10 +88,12 @@
     .building-title { font-family: var(--serif); font-size: 28px; color: #e8eef4; }
     .live-badge { display: flex; align-items: center; gap: 6px; font-family: var(--mono); font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: #4caf7d; background: rgba(76,175,125,0.1); border: 1px solid rgba(76,175,125,0.3); padding: 4px 10px; border-radius: 2px; }
     .live-dot { width: 5px; height: 5px; border-radius: 50%; background: #4caf7d; animation: pulse 2s infinite; }
-    .building-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1px; background: #1e1c18; border: 1px solid #1e1c18; }
+    .building-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1px; background: #1e1c18; border: 1px solid #1e1c18; }
     .building-item { background: #0f0e0b; padding: 20px; }
     .building-code { font-family: var(--mono); font-size: 10px; color: #7098b0; letter-spacing: 0.1em; margin-bottom: 8px; }
     .building-name { font-family: var(--mono); font-size: 12px; font-weight: 500; color: #c8daea; margin-bottom: 8px; }
+    .building-name a, .building-name a:visited { color: #c8daea; text-decoration: underline; text-underline-offset: 3px; text-decoration-color: #4a7898; }
+    .building-name a:hover { color: #e0f0ff; text-decoration-color: #7aaec8; }
     .building-desc { font-size: 11px; color: #90b0c8; line-height: 1.6; margin-bottom: 12px; }
     .building-progress { height: 2px; background: #1e1c18; border-radius: 1px; }
     .building-progress-fill { height: 100%; background: linear-gradient(90deg, #2a6080, #5aafd4); border-radius: 1px; transition: width 0.3s; }
@@ -291,37 +293,44 @@
     </div>
     <div class="building-grid">
       <div class="building-item">
-        <p class="building-code">T1 · Live</p>
-        <p class="building-name"><a href="https://github.com/mtichikawa/crypto-data-pipeline" target="_blank" rel="noopener">crypto-data-pipeline</a></p>
-        <p class="building-desc">Live OHLCV pipeline for BTC/ETH/SOL via ccxt (Kraken). Market event tagging and news ingestion for T3 FinBERT path. PostgreSQL storage.</p>
-        <div class="building-progress"><div class="building-progress-fill" style="width:100%"></div></div>
-        <p class="building-pct">Shipped Mar 6</p>
+        <p class="building-code">Trading Arc · T1–T5</p>
+        <p class="building-name">End-to-end paper trading system</p>
+        <p class="building-desc">Five repos: live Kraken data → chart generation → dual-path signals (technical + FinBERT) → backtesting → oversight dashboard. T1–T2 shipped, T3 building now.</p>
+        <div class="building-progress"><div class="building-progress-fill" style="width:40%"></div></div>
+        <p class="building-pct">2 of 5 shipped · T3 starting Mar 16</p>
       </div>
       <div class="building-item">
-        <p class="building-code">T2 · Complete</p>
-        <p class="building-name"><a href="https://github.com/mtichikawa/trading-chart-generator" target="_blank" rel="noopener">trading-chart-generator</a></p>
-        <p class="building-desc">mplfinance candlestick PNGs with JSON sidecars. Reads T1 PostgreSQL, batch generates charts for backtesting. 25/25 tests passing.</p>
-        <div class="building-progress"><div class="building-progress-fill" style="width:100%"></div></div>
-        <p class="building-pct">Shipped Mar 10</p>
-      </div>
-      <div class="building-item">
-        <p class="building-code">T3 · Building Now</p>
-        <p class="building-name">trading-signal-engine</p>
-        <p class="building-desc">Dual-path signal engine: technical indicators (RSI, MACD, Bollinger) + local FinBERT sentiment analysis, fused 0.6/0.4. Zero API cost.</p>
-        <div class="building-progress"><div class="building-progress-fill" style="width:20%"></div></div>
-        <p class="building-pct">Starting Mar 16</p>
-      </div>
-      <div class="building-item">
-        <p class="building-code">T4 · Starting Mar 23</p>
-        <p class="building-name">trading-backtester</p>
-        <p class="building-desc">vectorbt backtesting with T3 signal feedback loop. Sharpe ratio, drawdown, win rate, P&L per signal configuration.</p>
+        <p class="building-code">Upgrade · Mar 19</p>
+        <p class="building-name"><a href="https://github.com/mtichikawa/dockerized-ml-api" target="_blank" rel="noopener">dockerized-ml-api</a></p>
+        <p class="building-desc">Async endpoints + request queuing. Moving from synchronous inference to non-blocking request handling.</p>
         <div class="building-progress"><div class="building-progress-fill" style="width:0%"></div></div>
         <p class="building-pct">Not started</p>
       </div>
       <div class="building-item">
-        <p class="building-code">T5 · Starting Mar 30</p>
-        <p class="building-name">trading-dashboard</p>
-        <p class="building-desc">Streamlit multi-page app: live signals, portfolio tracking, performance analytics, and parameter review UI.</p>
+        <p class="building-code">Upgrade · Mar 23</p>
+        <p class="building-name"><a href="https://github.com/mtichikawa/ml-experiments" target="_blank" rel="noopener">ml-experiments</a></p>
+        <p class="building-desc">C++ pybind11 rolling statistics — Welford's algorithm for streaming mean/std/z-score, benchmarked against NumPy and pandas.</p>
+        <div class="building-progress"><div class="building-progress-fill" style="width:0%"></div></div>
+        <p class="building-pct">Not started</p>
+      </div>
+      <div class="building-item">
+        <p class="building-code">Upgrade · Apr 2</p>
+        <p class="building-name"><a href="https://github.com/mtichikawa/bandit-ab-testing" target="_blank" rel="noopener">bandit-ab-testing</a></p>
+        <p class="building-desc">Streamlit interactive simulator — animate Beta distribution updates and regret curves in real time.</p>
+        <div class="building-progress"><div class="building-progress-fill" style="width:0%"></div></div>
+        <p class="building-pct">Not started</p>
+      </div>
+      <div class="building-item">
+        <p class="building-code">Upgrade · Apr 9</p>
+        <p class="building-name"><a href="https://github.com/mtichikawa/llm-bias-detection" target="_blank" rel="noopener">llm-bias-detection</a></p>
+        <p class="building-desc">Second dataset + cross-model comparison. Extending the bias audit to multiple LLMs with side-by-side effect size analysis.</p>
+        <div class="building-progress"><div class="building-progress-fill" style="width:0%"></div></div>
+        <p class="building-pct">Not started</p>
+      </div>
+      <div class="building-item">
+        <p class="building-code">Upgrade · May 7</p>
+        <p class="building-name"><a href="https://github.com/mtichikawa/github-trend-forecaster" target="_blank" rel="noopener">github-trend-forecaster</a></p>
+        <p class="building-desc">PyTorch LSTM comparison model — 2-layer LSTM trained on the same star history data, evaluated against Prophet on MAE/RMSE/MAPE.</p>
         <div class="building-progress"><div class="building-progress-fill" style="width:0%"></div></div>
         <p class="building-pct">Not started</p>
       </div>
