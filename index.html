@@ -83,19 +83,19 @@
       background: var(--ink); padding: 56px 48px; max-width: 100%;
     }
     #now-building .inner { max-width: 1100px; margin: 0 auto; }
-    #now-building .section-label { color: #5a849e; }
+    #now-building .section-label { color: #7aaec8; }
     .building-header { display: flex; align-items: center; gap: 16px; margin-bottom: 32px; }
     .building-title { font-family: var(--serif); font-size: 28px; color: #e8eef4; }
     .live-badge { display: flex; align-items: center; gap: 6px; font-family: var(--mono); font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: #4caf7d; background: rgba(76,175,125,0.1); border: 1px solid rgba(76,175,125,0.3); padding: 4px 10px; border-radius: 2px; }
     .live-dot { width: 5px; height: 5px; border-radius: 50%; background: #4caf7d; animation: pulse 2s infinite; }
     .building-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1px; background: #1e1c18; border: 1px solid #1e1c18; }
     .building-item { background: #0f0e0b; padding: 20px; }
-    .building-code { font-family: var(--mono); font-size: 10px; color: #3a6080; letter-spacing: 0.1em; margin-bottom: 8px; }
+    .building-code { font-family: var(--mono); font-size: 10px; color: #7098b0; letter-spacing: 0.1em; margin-bottom: 8px; }
     .building-name { font-family: var(--mono); font-size: 12px; font-weight: 500; color: #c8daea; margin-bottom: 8px; }
-    .building-desc { font-size: 11px; color: #4a6a80; line-height: 1.6; margin-bottom: 12px; }
+    .building-desc { font-size: 11px; color: #90b0c8; line-height: 1.6; margin-bottom: 12px; }
     .building-progress { height: 2px; background: #1e1c18; border-radius: 1px; }
     .building-progress-fill { height: 100%; background: linear-gradient(90deg, #2a6080, #5aafd4); border-radius: 1px; transition: width 0.3s; }
-    .building-pct { font-family: var(--mono); font-size: 9px; color: #3a6080; margin-top: 6px; }
+    .building-pct { font-family: var(--mono); font-size: 9px; color: #7098b0; margin-top: 6px; }
 
     /* ── BACKGROUND ── */
     #background { background: var(--bg2); padding: 100px 0; }
@@ -178,22 +178,22 @@
     /* ── TRADING ── */
     #trading { background: var(--navy); padding: 100px 0; color: #e8eef4; }
     #trading .inner { max-width: 1100px; margin: 0 auto; padding: 0 48px; }
-    #trading .section-label { color: #5a849e; }
+    #trading .section-label { color: #7aaec8; }
     #trading .section-title { color: #f0f4f8; margin-bottom: 20px; }
-    .trading-intro { max-width: 620px; font-size: 14px; color: #7090a8; line-height: 1.9; margin-bottom: 48px; }
+    .trading-intro { max-width: 620px; font-size: 14px; color: #a0c0d8; line-height: 1.9; margin-bottom: 48px; }
     .trading-pipeline { display: grid; grid-template-columns: repeat(5, 1fr); position: relative; gap: 0; }
-    .trading-pipeline::after { content: ''; position: absolute; top: 32px; left: 8%; right: 8%; height: 1px; background: linear-gradient(90deg, transparent, #2a5070 15%, #2a5070 85%, transparent); pointer-events: none; }
+    .trading-pipeline::after { content: ''; position: absolute; top: 32px; left: 8%; right: 8%; height: 1px; background: linear-gradient(90deg, transparent, #3a6888 15%, #3a6888 85%, transparent); pointer-events: none; }
     .t-node { display: flex; flex-direction: column; align-items: center; gap: 14px; padding: 0 8px; text-align: center; }
-    .t-dot { width: 64px; height: 64px; border-radius: 50%; background: rgba(26,58,92,0.8); border: 1px solid #2a5070; display: flex; align-items: center; justify-content: center; font-family: var(--mono); font-size: 13px; font-weight: 500; color: #5a849e; z-index: 1; transition: all 0.2s; cursor: default; }
-    .t-dot.active { border-color: #5aafd4; color: #5aafd4; background: rgba(26,58,92,0.95); }
-    .t-dot.live { border-color: #4caf7d; color: #4caf7d; background: rgba(26,58,92,0.95); }
-    .t-name { font-family: var(--mono); font-size: 11px; font-weight: 500; color: #a8c8e0; }
-    .t-stack { font-size: 11px; color: #3a6080; line-height: 1.5; }
-    .t-date { font-family: var(--mono); font-size: 9px; color: #2a4a60; letter-spacing: 0.1em; }
-    .trading-note { margin-top: 48px; padding: 20px 24px; background: rgba(0,0,0,0.2); border-left: 2px solid #2a5070; }
-    .trading-note p { font-size: 13px; color: #5a849e; line-height: 1.8; }
-    .trading-note strong { color: #7aafd4; font-weight: 500; }
-    .t-status { display: inline-flex; align-items: center; gap: 6px; font-family: var(--mono); font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: #4a6a80; margin-top: 32px; }
+    .t-dot { width: 64px; height: 64px; border-radius: 50%; background: rgba(26,58,92,0.8); border: 1px solid #3a6888; display: flex; align-items: center; justify-content: center; font-family: var(--mono); font-size: 13px; font-weight: 500; color: #7aaec8; z-index: 1; transition: all 0.2s; cursor: default; }
+    .t-dot.active { border-color: #6cc0e0; color: #6cc0e0; background: rgba(26,58,92,0.95); }
+    .t-dot.live { border-color: #5cc090; color: #5cc090; background: rgba(26,58,92,0.95); }
+    .t-name { font-family: var(--mono); font-size: 11px; font-weight: 500; color: #c0daea; }
+    .t-stack { font-size: 11px; color: #90b0c8; line-height: 1.5; }
+    .t-date { font-family: var(--mono); font-size: 9px; color: #7098b0; letter-spacing: 0.1em; }
+    .trading-note { margin-top: 48px; padding: 20px 24px; background: rgba(0,0,0,0.15); border-left: 2px solid #3a6888; }
+    .trading-note p { font-size: 13px; color: #a0c0d8; line-height: 1.8; }
+    .trading-note strong { color: #90d0f0; font-weight: 500; }
+    .t-status { display: inline-flex; align-items: center; gap: 6px; font-family: var(--mono); font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: #7098b0; margin-top: 32px; }
     .t-status-dot { width: 5px; height: 5px; border-radius: 50%; background: #4caf7d; animation: pulse 2s infinite; }
 
     /* ── SKILLS ── */
@@ -312,14 +312,14 @@
       <div class="building-item">
         <p class="building-code">T4 · Starting Mar 23</p>
         <p class="building-name">trading-backtester</p>
-        <p class="building-desc">vectorbt backtesting with T3 prompt feedback loop. Sharpe ratio, drawdown, win rate, P&L per signal configuration.</p>
+        <p class="building-desc">vectorbt backtesting with T3 signal feedback loop. Sharpe ratio, drawdown, win rate, P&L per signal configuration.</p>
         <div class="building-progress"><div class="building-progress-fill" style="width:0%"></div></div>
         <p class="building-pct">Not started</p>
       </div>
       <div class="building-item">
         <p class="building-code">T5 · Starting Mar 30</p>
         <p class="building-name">trading-dashboard</p>
-        <p class="building-desc">Streamlit multi-page app: live signals, portfolio tracking, performance analytics, and prompt review UI.</p>
+        <p class="building-desc">Streamlit multi-page app: live signals, portfolio tracking, performance analytics, and parameter review UI.</p>
         <div class="building-progress"><div class="building-progress-fill" style="width:0%"></div></div>
         <p class="building-pct">Not started</p>
       </div>
