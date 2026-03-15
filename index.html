@@ -262,9 +262,10 @@
   <p class="hero-title">Data Scientist · Data Engineer · ML Engineer</p>
   <p class="hero-bio">
     <strong>BS Mechanical Engineering · MS Mathematics · 3 years at Intel · 9 years teaching statistics.</strong>
-    Building production ML systems that bridge mathematical rigor with engineering discipline.
-    Currently developing a portfolio covering time series forecasting, Bayesian inference,
-    LLM engineering, anomaly detection, cloud ETL, and an end-to-end trading system.
+    I spent three years doing physical design at Intel on 22nm, then nine years teaching
+    the math that underpins ML — statistics, calculus, linear algebra. Now I'm building
+    the systems I used to teach the theory behind: forecasting, Bayesian experimentation,
+    streaming anomaly detection, cloud pipelines, and a live trading system.
   </p>
   <div class="hero-actions">
     <a href="#projects" class="btn btn-primary">View Projects ↓</a>
@@ -380,10 +381,10 @@
     <a href="https://github.com/mtichikawa/bandit-ab-testing" target="_blank" class="project-card reveal">
       <span class="project-num">02</span>
       <h3 class="project-name">Multi-Armed Bandit A/B Testing</h3>
-      <p class="project-desc">Implements Thompson Sampling, UCB1, and Epsilon-Greedy algorithms with a live Streamlit simulator. Animates Beta distribution updates in real time as the bandit explores.</p>
-      <p class="project-writeup">Traditional A/B testing freezes traffic allocation during the learning period. Multi-armed bandits explore and exploit simultaneously — the simulator makes this tradeoff visible and intuitive.</p>
+      <p class="project-desc">Implements Thompson Sampling, UCB1, and Epsilon-Greedy algorithms from scratch. Each maintains its own selection and update logic — no sklearn, no library bandits. Interactive demo below on this page.</p>
+      <p class="project-writeup">Traditional A/B testing freezes traffic allocation during the learning period. Multi-armed bandits explore and exploit simultaneously — Thompson's Beta-distribution updates make the uncertainty reduction visible round by round.</p>
       <div class="project-stack">
-        <span class="tag">Thompson Sampling</span><span class="tag">Bayesian</span><span class="tag">Streamlit</span>
+        <span class="tag">Thompson Sampling</span><span class="tag">UCB1</span><span class="tag">Bayesian inference</span>
       </div>
       <div class="project-footer">
         <span class="project-updated">Live demo below ↓</span>
@@ -394,10 +395,10 @@
     <a href="https://github.com/mtichikawa/llm-data-assistant" target="_blank" class="project-card reveal">
       <span class="project-num">03</span>
       <h3 class="project-name">LLM Data Analysis Assistant</h3>
-      <p class="project-desc">Hybrid routing system: rule-based fast path for common queries, Anthropic API with agent mode and tool use for complex analysis. Multi-turn conversation with pandas and chart tools.</p>
-      <p class="project-writeup">The routing decision is the key engineering choice — calling the API for every simple query is slow and expensive. The system classifies intent first and only escalates to the LLM when needed.</p>
+      <p class="project-desc">Two-path query routing: a rule-based fast path handles correlations, group-bys, and aggregations deterministically. Queries below a confidence threshold escalate to the Anthropic API with DataFrame context injection and multi-turn conversation history.</p>
+      <p class="project-writeup">The fast path answers ~70% of common data questions with zero API cost and sub-second latency. The LLM path gets a ContextBuilder-assembled summary of the DataFrame — shape, dtypes, stats, sample rows — so it can reason about data it never directly touches.</p>
       <div class="project-stack">
-        <span class="tag">Anthropic API</span><span class="tag">Agent mode</span><span class="tag">Tool use</span><span class="tag">RAG</span>
+        <span class="tag">Anthropic API</span><span class="tag">hybrid routing</span><span class="tag">multi-turn</span><span class="tag">pandas</span>
       </div>
       <div class="project-footer">
         <span class="project-updated">Aug 2025 – Feb 2026</span>
@@ -409,7 +410,7 @@
       <span class="project-num">04</span>
       <h3 class="project-name">Bias Detection in LLMs</h3>
       <p class="project-desc">Statistical audit of demographic bias in LLM responses. Generates prompts across gender, age, and race dimensions, then scores for agentic/communal/competence/warmth lexicon patterns using ANOVA and Cohen's d.</p>
-      <p class="project-writeup">Effect size matters as much as p-value. A bias that's statistically significant in a large sample may be practically irrelevant. Cohen's d contextualizes what the numbers actually mean.</p>
+      <p class="project-writeup">The trap in bias research is confusing statistical significance with practical significance — with enough samples, any difference is "significant." Cohen's d separates the signal from the noise: a d of 0.2 means the bias exists but barely matters; a d of 0.8 means it's shaping outcomes.</p>
       <div class="project-stack">
         <span class="tag">ANOVA</span><span class="tag">Cohen's d</span><span class="tag">scipy.stats</span><span class="tag">lexicon scoring</span>
       </div>
@@ -423,7 +424,7 @@
       <span class="project-num">05</span>
       <h3 class="project-name">Real-Time Anomaly Detection</h3>
       <p class="project-desc">Streaming ensemble: Isolation Forest, LSTM autoencoder, and Z-score detectors with majority voting. Dockerized FastAPI REST API with health checks, plus a streaming pipeline for continuous monitoring.</p>
-      <p class="project-writeup">Each detector catches different anomaly types — isolation-based, reconstruction-error, and statistical. Ensemble voting (flag if 2/3 agree) reduces false positives. Containerized for deployment with Docker Compose.</p>
+      <p class="project-writeup">No single detector catches everything — Isolation Forest finds global outliers, LSTM catches sequence-breaking patterns, Z-score flags statistical spikes. The 2-of-3 voting rule is the real design choice: it cuts false positives without hiding true anomalies. Containerized with Docker Compose for one-command deployment.</p>
       <div class="project-stack">
         <span class="tag">IsolationForest</span><span class="tag">LSTM</span><span class="tag">Docker</span><span class="tag">FastAPI</span><span class="tag">REST API</span>
       </div>
@@ -451,7 +452,7 @@
       <span class="project-num">07</span>
       <h3 class="project-name">SQL Analytics Pipeline</h3>
       <p class="project-desc">Three-layer data pipeline (staging → clean → marts) with dbt-style SQL transformations, window functions, and CTEs. SQLAlchemy ORM with swappable SQLite/PostgreSQL backend.</p>
-      <p class="project-writeup">Staging layer preserves raw data unchanged. The clean layer handles normalization and type casting. Marts are purpose-built for specific analytical queries — the layering keeps transformations auditable.</p>
+      <p class="project-writeup">The three-layer pattern enforces a discipline: staging preserves raw data untouched, clean handles normalization and type casting, marts serve specific analytical questions. When a mart query returns wrong results, you can trace the data backwards through each layer to find where it broke.</p>
       <div class="project-stack">
         <span class="tag">SQLAlchemy</span><span class="tag">SQLite</span><span class="tag">dbt-style</span><span class="tag">window functions</span>
       </div>
@@ -465,7 +466,7 @@
       <span class="project-num">08</span>
       <h3 class="project-name">Dockerized ML API</h3>
       <p class="project-desc">Production ML serving: FastAPI REST endpoint, Redis caching with TTL, Pydantic v2 request validation, vectorized batch inference, and Docker deployment with health checks.</p>
-      <p class="project-writeup">Caching with TTL prevents redundant inference on repeated identical inputs. Pydantic v2 catches malformed requests before they reach the model. Vectorized batch inference amortizes overhead across requests.</p>
+      <p class="project-writeup">The architecture mirrors production ML serving: Redis intercepts repeated predictions (cache hit → skip inference entirely), Pydantic v2 rejects bad inputs before they reach the model, and Docker Compose wires the app, model, and cache into a single deployable unit.</p>
       <div class="project-stack">
         <span class="tag">Docker</span><span class="tag">FastAPI</span><span class="tag">Redis</span><span class="tag">Pydantic v2</span>
       </div>
@@ -479,7 +480,7 @@
       <span class="project-num">09</span>
       <h3 class="project-name">Cloud ETL Pipeline</h3>
       <p class="project-desc">AWS-native ETL: S3 data lake with Parquet/Snappy storage, Lambda validation, DynamoDB run logging, tenacity retry logic, and Hive-style partitioning by date.</p>
-      <p class="project-writeup">Parquet with Snappy compression cuts storage cost and dramatically speeds up columnar reads. DynamoDB run logging means every pipeline execution is auditable with its input/output metadata.</p>
+      <p class="project-writeup">Hive-style partitioning (year=/month=/day=) means queries only scan the date range they need — no full-table scans. Tenacity retries with exponential backoff handle the reality that external APIs fail transiently. DynamoDB logs every run so failures are traceable, not silent.</p>
       <div class="project-stack">
         <span class="tag">AWS S3</span><span class="tag">Lambda</span><span class="tag">DynamoDB</span><span class="tag">Parquet</span>
       </div>
@@ -611,7 +612,7 @@
       <div class="t-node reveal">
         <div class="t-dot">T5</div>
         <p class="t-name">trading-dashboard</p>
-        <p class="t-stack">Streamlit · Plotly<br>live signals · P&L<br>prompt review UI</p>
+        <p class="t-stack">Streamlit · Plotly<br>live signals · P&L<br>parameter review UI</p>
         <p class="t-date">Starts Mar 30</p>
       </div>
     </div>
@@ -633,11 +634,11 @@
     </div>
     <div class="reveal">
       <p class="skill-group-label">ML · Statistics</p>
-      <ul class="skill-list"><li>scikit-learn · IsolationForest · LOF</li><li>Prophet · PyTorch · LSTM</li><li>scipy · statsmodels · ANOVA</li><li>Bayesian inference · Thompson Sampling</li><li>Sharpe ratio · drawdown analysis</li></ul>
+      <ul class="skill-list"><li>scikit-learn · IsolationForest · LOF</li><li>Prophet · XGBoost · LightGBM</li><li>scipy · statsmodels · ANOVA</li><li>Bayesian inference · Thompson Sampling</li><li>Cohen's d · effect size analysis</li></ul>
     </div>
     <div class="reveal">
       <p class="skill-group-label">Data Engineering</p>
-      <ul class="skill-list"><li>PostgreSQL · SQLAlchemy · dbt</li><li>Apache Parquet · pandas · NumPy</li><li>ccxt · OHLCV pipelines</li></ul>
+      <ul class="skill-list"><li>PostgreSQL · SQLAlchemy · dbt-style transforms</li><li>Apache Parquet · pandas · NumPy</li><li>ccxt · OHLCV pipelines</li></ul>
     </div>
     <div class="reveal">
       <p class="skill-group-label">Cloud · Infrastructure</p>
@@ -645,7 +646,7 @@
     </div>
     <div class="reveal">
       <p class="skill-group-label">LLM · NLP</p>
-      <ul class="skill-list"><li>Anthropic API · Claude Code</li><li>HuggingFace · FinBERT</li><li>RAG · multi-turn conversation</li><li>Tool use · agent mode</li><li>Prompt engineering · versioning</li><li>SEC EDGAR · sentiment analysis</li></ul>
+      <ul class="skill-list"><li>Anthropic API · Claude Code</li><li>HuggingFace · FinBERT</li><li>multi-turn conversation · context injection</li><li>prompt engineering · hybrid routing</li><li>SEC EDGAR · sentiment lexicons</li></ul>
     </div>
     <div class="reveal">
       <p class="skill-group-label">Visualization · Tools</p>
