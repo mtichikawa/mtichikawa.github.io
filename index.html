@@ -293,11 +293,18 @@
     </div>
     <div class="building-grid">
       <div class="building-item">
+        <p class="building-code">Upgrade · Mar 12</p>
+        <p class="building-name"><a href="https://github.com/mtichikawa/anomaly-detection" target="_blank" rel="noopener">anomaly-detection</a></p>
+        <p class="building-desc">Dockerize + FastAPI REST endpoint. Production-ready container with health checks and streaming inference.</p>
+        <div class="building-progress"><div class="building-progress-fill" style="width:100%"></div></div>
+        <p class="building-pct">Done</p>
+      </div>
+      <div class="building-item">
         <p class="building-code">Trading Arc · T1–T5</p>
         <p class="building-name">End-to-end paper trading system</p>
-        <p class="building-desc">Five repos: live Kraken data → chart generation → dual-path signals (technical + FinBERT) → backtesting → oversight dashboard. T1–T2 shipped, T3 building now.</p>
-        <div class="building-progress"><div class="building-progress-fill" style="width:40%"></div></div>
-        <p class="building-pct">2 of 5 shipped · T3 starting Mar 16</p>
+        <p class="building-desc">Five repos: live Kraken data → chart generation → dual-path signals (technical + FinBERT) → backtesting → oversight dashboard. T1–T3 shipped, T4 building week of Mar 23.</p>
+        <div class="building-progress"><div class="building-progress-fill" style="width:60%"></div></div>
+        <p class="building-pct">3 of 5 shipped · T4 trading-backtester building week of Mar 23</p>
       </div>
       <div class="building-item">
         <p class="building-code">Upgrade · Mar 19</p>
@@ -310,27 +317,6 @@
         <p class="building-code">Upgrade · Mar 23</p>
         <p class="building-name"><a href="https://github.com/mtichikawa/ml-experiments" target="_blank" rel="noopener">ml-experiments</a></p>
         <p class="building-desc">C++ pybind11 rolling statistics — Welford's algorithm for streaming mean/std/z-score, benchmarked against NumPy and pandas.</p>
-        <div class="building-progress"><div class="building-progress-fill" style="width:0%"></div></div>
-        <p class="building-pct">Not started</p>
-      </div>
-      <div class="building-item">
-        <p class="building-code">Upgrade · Apr 2</p>
-        <p class="building-name"><a href="https://github.com/mtichikawa/bandit-ab-testing" target="_blank" rel="noopener">bandit-ab-testing</a></p>
-        <p class="building-desc">Streamlit interactive simulator — animate Beta distribution updates and regret curves in real time.</p>
-        <div class="building-progress"><div class="building-progress-fill" style="width:0%"></div></div>
-        <p class="building-pct">Not started</p>
-      </div>
-      <div class="building-item">
-        <p class="building-code">Upgrade · Apr 9</p>
-        <p class="building-name"><a href="https://github.com/mtichikawa/llm-bias-detection" target="_blank" rel="noopener">llm-bias-detection</a></p>
-        <p class="building-desc">Second dataset + cross-model comparison. Extending the bias audit to multiple LLMs with side-by-side effect size analysis.</p>
-        <div class="building-progress"><div class="building-progress-fill" style="width:0%"></div></div>
-        <p class="building-pct">Not started</p>
-      </div>
-      <div class="building-item">
-        <p class="building-code">Upgrade · May 7</p>
-        <p class="building-name"><a href="https://github.com/mtichikawa/github-trend-forecaster" target="_blank" rel="noopener">github-trend-forecaster</a></p>
-        <p class="building-desc">PyTorch LSTM comparison model — 2-layer LSTM trained on the same star history data, evaluated against Prophet on MAE/RMSE/MAPE.</p>
         <div class="building-progress"><div class="building-progress-fill" style="width:0%"></div></div>
         <p class="building-pct">Not started</p>
       </div>
@@ -609,10 +595,10 @@
         <p class="t-date">Shipped Mar 10</p>
       </div>
       <div class="t-node reveal">
-        <div class="t-dot active">T3</div>
-        <p class="t-name">trading-signal-engine</p>
-        <p class="t-stack">technical indicators<br>FinBERT sentiment<br>0.6/0.4 fusion</p>
-        <p class="t-date">Building Mar 16</p>
+        <div class="t-dot live">T3</div>
+        <p class="t-name"><a href="https://github.com/mtichikawa/trading-signal-engine" target="_blank" rel="noopener">trading-signal-engine</a></p>
+        <p class="t-stack">EMA · RSI · MACD · BB<br>FinBERT sentiment<br>51/51 tests passing</p>
+        <p class="t-date">Shipped Mar 16</p>
       </div>
       <div class="t-node reveal">
         <div class="t-dot">T4</div>
@@ -630,7 +616,7 @@
     <div class="trading-note reveal">
       <p><strong>The feedback loop:</strong> T4 records whether each signal configuration led to a winning or losing paper trade. T3's parameters (indicator thresholds, sentiment weights, fusion ratio) are tuned based on those outcomes. T5's dashboard lets me review signal performance and approve parameter changes. The system improves its own signal generation — I stay in the loop as the decision-maker. Entirely free to run: no paid APIs, local FinBERT, public market data.</p>
     </div>
-    <p class="t-status"><span class="t-status-dot"></span>T3 trading-signal-engine — building week of Mar 16</p>
+    <p class="t-status"><span class="t-status-dot"></span>T1–T3 shipped · T4 trading-backtester — building week of Mar 23</p>
   </div>
 </div>
 
