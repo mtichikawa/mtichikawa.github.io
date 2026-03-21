@@ -49,7 +49,7 @@
       border-bottom: 1px solid transparent;
       transition: border-color 0.3s;
     }
-    nav.scrolled { border-color: var(--border); }
+    nav.scrolled { border-color: var(--border); box-shadow: 0 1px 12px rgba(0,0,0,0.04); }
     .nav-name { font-family: var(--mono); font-size: 13px; font-weight: 500; color: var(--ink); text-decoration: none; }
     .nav-links { display: flex; gap: 28px; list-style: none; }
     .nav-links a { font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink2); text-decoration: none; transition: color 0.2s; }
@@ -76,7 +76,7 @@
     /* ── SECTION BASE ── */
     .section-label { font-family: var(--mono); font-size: 10px; font-weight: 500; letter-spacing: 0.25em; text-transform: uppercase; color: var(--red); margin-bottom: 12px; }
     .section-title { font-family: var(--serif); font-size: clamp(30px, 4vw, 50px); font-weight: 400; line-height: 1.1; color: var(--ink); margin-bottom: 40px; }
-    .divider { width: 100%; height: 1px; background: var(--border); }
+    .divider { width: 100%; height: 1px; background: linear-gradient(90deg, transparent, var(--border) 20%, var(--border) 80%, transparent); }
 
     /* ── NOW BUILDING ── */
     #now-building {
@@ -114,16 +114,15 @@
     /* ── PROJECTS ── */
     #projects { padding: 100px 48px; max-width: 1100px; margin: 0 auto; }
     .projects-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; }
-    .project-card { background: var(--bg); border: 1px solid var(--border); padding: 28px 28px 24px; text-decoration: none; color: inherit; display: flex; flex-direction: column; gap: 10px; transition: all 0.2s; position: relative; overflow: hidden; }
-    .project-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--red); transform: scaleX(0); transform-origin: left; transition: transform 0.25s ease; }
-    .project-card:hover { background: var(--bg2); transform: translateY(-2px); box-shadow: 0 8px 32px rgba(0,0,0,0.06); }
-    .project-card:hover::before { transform: scaleX(1); }
+    .project-card { background: var(--bg); border: 1px solid var(--border); border-left: 3px solid transparent; padding: 28px 28px 24px; text-decoration: none; color: inherit; display: flex; flex-direction: column; gap: 10px; transition: all 0.25s ease; position: relative; overflow: hidden; }
+    .project-card:hover { background: var(--bg2); border-left-color: var(--red); transform: translateY(-2px); box-shadow: 0 8px 32px rgba(0,0,0,0.06); }
     .project-num { font-family: var(--mono); font-size: 10px; letter-spacing: 0.15em; color: var(--ink3); }
     .project-name { font-family: var(--serif); font-size: 19px; color: var(--ink); line-height: 1.2; }
     .project-desc { font-size: 13px; color: var(--ink2); line-height: 1.7; flex: 1; }
     .project-writeup { font-size: 12px; color: var(--ink3); line-height: 1.6; font-style: italic; padding-top: 6px; border-top: 1px solid var(--border); margin-top: 2px; }
     .project-stack { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 4px; }
-    .tag { font-family: var(--mono); font-size: 10px; color: var(--ink2); background: var(--bg2); border: 1px solid var(--border); padding: 2px 7px; border-radius: 2px; }
+    .tag { font-family: var(--mono); font-size: 10px; color: var(--ink2); background: var(--bg2); border: 1px solid var(--border); padding: 3px 8px; border-radius: 3px; transition: all 0.2s; }
+    .project-card:hover .tag { background: var(--bg3); border-color: var(--ink3); }
     .project-footer { display: flex; justify-content: space-between; align-items: center; margin-top: 4px; }
     .project-arrow { font-size: 16px; color: var(--ink3); transition: all 0.2s; }
     .project-card:hover .project-arrow { color: var(--red); transform: translate(2px,-2px); }
@@ -205,8 +204,10 @@
     .skills-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 36px; }
     .skill-group-label { font-family: var(--mono); font-size: 10px; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: var(--red); margin-bottom: 14px; padding-bottom: 10px; border-bottom: 1px solid var(--border); }
     .skill-list { list-style: none; display: flex; flex-direction: column; gap: 7px; }
-    .skill-list li { font-family: var(--mono); font-size: 12px; color: var(--ink2); display: flex; align-items: center; gap: 9px; }
-    .skill-list li::before { content: ''; width: 3px; height: 3px; border-radius: 50%; background: var(--border); flex-shrink: 0; }
+    .skill-list li { font-family: var(--mono); font-size: 12px; color: var(--ink2); display: flex; align-items: center; gap: 9px; padding: 4px 0; transition: color 0.2s; }
+    .skill-list li:hover { color: var(--ink); }
+    .skill-list li::before { content: ''; width: 4px; height: 4px; border-radius: 1px; background: var(--red); opacity: 0.35; flex-shrink: 0; transition: opacity 0.2s; }
+    .skill-list li:hover::before { opacity: 1; }
 
     /* ── CONTACT ── */
     #contact { background: var(--ink); padding: 100px 0; }
@@ -215,8 +216,8 @@
     .contact-heading { font-family: var(--serif); font-size: clamp(30px, 4vw, 50px); color: var(--bg); line-height: 1.1; margin-bottom: 20px; }
     .contact-sub { font-size: 14px; color: #5a5650; max-width: 380px; line-height: 1.8; }
     .contact-links { display: flex; flex-direction: column; gap: 12px; flex-shrink: 0; }
-    .contact-link { display: flex; align-items: center; gap: 14px; text-decoration: none; color: #8a8680; font-family: var(--mono); font-size: 13px; padding: 12px 20px; border: 1px solid #2a2820; border-radius: 2px; transition: all 0.2s; }
-    .contact-link:hover { border-color: #5a5650; color: var(--bg); }
+    .contact-link { display: flex; align-items: center; gap: 14px; text-decoration: none; color: #8a8680; font-family: var(--mono); font-size: 13px; padding: 12px 20px; border: 1px solid #2a2820; border-left: 3px solid transparent; border-radius: 2px; transition: all 0.2s; }
+    .contact-link:hover { border-color: #5a5650; border-left-color: var(--red); color: var(--bg); transform: translateX(4px); }
     .contact-icon { width: 16px; height: 16px; opacity: 0.4; flex-shrink: 0; }
 
     footer { background: var(--ink); border-top: 1px solid #1a1810; padding: 20px 48px; display: flex; justify-content: space-between; }
@@ -309,12 +310,12 @@
       <div class="building-item">
         <p class="building-code">Upgrade · Mar 19</p>
         <p class="building-name"><a href="https://github.com/mtichikawa/dockerized-ml-api" target="_blank" rel="noopener">dockerized-ml-api</a></p>
-        <p class="building-desc">Async endpoints + request queuing. Moving from synchronous inference to non-blocking request handling.</p>
-        <div class="building-progress"><div class="building-progress-fill" style="width:0%"></div></div>
-        <p class="building-pct">Not started</p>
+        <p class="building-desc">Added async inference with thread pool, job queue with TTL, and poll-for-result endpoints. 32 tests passing.</p>
+        <div class="building-progress"><div class="building-progress-fill" style="width:100%"></div></div>
+        <p class="building-pct">Done</p>
       </div>
       <div class="building-item">
-        <p class="building-code">Upgrade · Mar 23</p>
+        <p class="building-code">Upgrade · Apr 6</p>
         <p class="building-name"><a href="https://github.com/mtichikawa/ml-experiments" target="_blank" rel="noopener">ml-experiments</a></p>
         <p class="building-desc">C++ pybind11 rolling statistics — Welford's algorithm for streaming mean/std/z-score, benchmarked against NumPy and pandas.</p>
         <div class="building-progress"><div class="building-progress-fill" style="width:0%"></div></div>
@@ -462,10 +463,10 @@
     <a href="https://github.com/mtichikawa/dockerized-ml-api" target="_blank" class="project-card reveal">
       <span class="project-num">08</span>
       <h3 class="project-name">Dockerized ML API</h3>
-      <p class="project-desc">Production ML serving: FastAPI REST endpoint, Redis caching with TTL, Pydantic v2 request validation, vectorized batch inference, and Docker deployment with health checks.</p>
-      <p class="project-writeup">The architecture mirrors production ML serving: Redis intercepts repeated predictions (cache hit → skip inference entirely), Pydantic v2 rejects bad inputs before they reach the model, and Docker Compose wires the app, model, and cache into a single deployable unit.</p>
+      <p class="project-desc">Production ML serving: FastAPI REST endpoint, Redis caching with TTL, Pydantic v2 request validation, vectorized batch inference, async job queue with polling, and Docker deployment with health checks.</p>
+      <p class="project-writeup">The architecture mirrors production ML serving: Redis intercepts repeated predictions (cache hit → skip inference entirely), Pydantic v2 rejects bad inputs before they reach the model, async endpoints use asyncio.to_thread() to keep the event loop free during CPU-bound inference, and Docker Compose wires the app, model, and cache into a single deployable unit.</p>
       <div class="project-stack">
-        <span class="tag">Docker</span><span class="tag">FastAPI</span><span class="tag">Redis</span><span class="tag">Pydantic v2</span>
+        <span class="tag">Docker</span><span class="tag">FastAPI</span><span class="tag">Redis</span><span class="tag">Pydantic v2</span><span class="tag">asyncio</span>
       </div>
       <div class="project-footer">
         <span class="project-updated">Jan – Mar 2026</span>
@@ -677,7 +678,7 @@
 
 <footer>
   <span>Mike Ichikawa · Portland, OR</span>
-  <span>mtichikawa.github.io</span>
+  <span>Updated Mar 21, 2026</span>
 </footer>
 
 <script>
