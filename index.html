@@ -303,9 +303,9 @@
       <div class="building-item">
         <p class="building-code">Trading Arc · T1–T5</p>
         <p class="building-name">End-to-end paper trading system</p>
-        <p class="building-desc">Five repos: live Kraken data → chart generation → dual-path signals (technical + FinBERT) → backtesting → oversight dashboard. T1–T3 shipped, T4 building week of Mar 23.</p>
-        <div class="building-progress"><div class="building-progress-fill" style="width:60%"></div></div>
-        <p class="building-pct">3 of 5 shipped · T4 trading-backtester building week of Mar 23</p>
+        <p class="building-desc">Five repos: live Kraken data → chart generation → dual-path signals (technical + FinBERT) → backtesting → oversight dashboard. T1–T4 shipped, T5 building week of Mar 30.</p>
+        <div class="building-progress"><div class="building-progress-fill" style="width:80%"></div></div>
+        <p class="building-pct">4 of 5 shipped · T5 trading-dashboard building week of Mar 30</p>
       </div>
       <div class="building-item">
         <p class="building-code">Upgrade · Mar 19</p>
@@ -602,10 +602,10 @@
         <p class="t-date">Shipped Mar 16</p>
       </div>
       <div class="t-node reveal">
-        <div class="t-dot">T4</div>
-        <p class="t-name">trading-backtester</p>
-        <p class="t-stack">vectorbt · pandas<br>Sharpe · drawdown<br>signal feedback loop</p>
-        <p class="t-date">Starts Mar 23</p>
+        <div class="t-dot live">T4</div>
+        <p class="t-name"><a href="https://github.com/mtichikawa/trading-backtester" target="_blank" rel="noopener">trading-backtester</a></p>
+        <p class="t-stack">pandas · numpy<br>Sharpe · drawdown<br>72/72 tests passing</p>
+        <p class="t-date">Shipped Mar 26</p>
       </div>
       <div class="t-node reveal">
         <div class="t-dot">T5</div>
@@ -617,7 +617,7 @@
     <div class="trading-note reveal">
       <p><strong>The feedback loop:</strong> T4 records whether each signal configuration led to a winning or losing paper trade. T3's parameters (indicator thresholds, sentiment weights, fusion ratio) are tuned based on those outcomes. T5's dashboard lets me review signal performance and approve parameter changes. The system improves its own signal generation — I stay in the loop as the decision-maker. Entirely free to run: no paid APIs, local FinBERT, public market data.</p>
     </div>
-    <p class="t-status"><span class="t-status-dot"></span>T1–T3 shipped · T4 trading-backtester — building week of Mar 23</p>
+    <p class="t-status"><span class="t-status-dot"></span>T1–T4 shipped · T5 trading-dashboard — building week of Mar 30</p>
   </div>
 </div>
 
@@ -678,7 +678,7 @@
 
 <footer>
   <span>Mike Ichikawa · Portland, OR</span>
-  <span>Updated Mar 21, 2026</span>
+  <span>Updated Mar 28, 2026</span>
 </footer>
 
 <script>
