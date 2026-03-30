@@ -151,8 +151,8 @@
     }
 
     .edu-row {
-      display: flex;
-      justify-content: space-between;
+      display: grid;
+      grid-template-columns: 220px 1fr 50px;
       align-items: baseline;
       margin-bottom: 4px;
     }
@@ -161,13 +161,13 @@
       font-family: Arial, Helvetica, sans-serif;
       font-size: 9.5pt;
       color: var(--ink2);
-      flex: 1;
       text-align: center;
     }
     .edu-year {
       font-family: Arial, Helvetica, sans-serif;
       font-size: 9pt;
       color: var(--ink3);
+      text-align: right;
     }
 
     /* ── PRINT ── */
