@@ -324,8 +324,21 @@
   <h2 class="section-title">Completed Projects</h2>
   <div class="projects-grid">
 
-    <a href="https://github.com/mtichikawa/github-trend-forecaster" target="_blank" class="project-card reveal">
+    <div class="project-card reveal" style="cursor:default;">
       <span class="project-num">01</span>
+      <h3 class="project-name">M365 Enterprise Software</h3>
+      <p class="project-desc">Full-stack enterprise software for the Microsoft 365 ecosystem, built on Azure. Single-process Node.js backend with Azure OpenAI smart routing, Microsoft Graph API integration, OAuth2/MSAL auth, and event-driven webhooks.</p>
+      <p class="project-writeup">Private commercial project. 152 tests (Vitest), TypeScript strict mode, ESLint + Prettier, pre-commit hooks. Targets deployment on Azure.</p>
+      <div class="project-stack">
+        <span class="tag">TypeScript</span><span class="tag">Node.js</span><span class="tag">Azure OpenAI</span><span class="tag">Microsoft Graph</span><span class="tag">MSAL</span><span class="tag">Bot Framework</span>
+      </div>
+      <div class="project-footer">
+        <span class="project-updated">Private · In Development</span>
+      </div>
+    </div>
+
+    <a href="https://github.com/mtichikawa/github-trend-forecaster" target="_blank" class="project-card reveal">
+      <span class="project-num">02</span>
       <h3 class="project-name">GitHub Trend Forecaster</h3>
       <p class="project-desc">Collects GitHub repository star history via the API and forecasts growth using Facebook Prophet with configurable changepoint sensitivity and named presets.</p>
       <p class="project-writeup">The interesting problem: star growth is bursty — a viral tweet or HN post creates a step function Prophet's default changepoint detection can miss. Tuning changepoint_prior_scale per repo type gives materially better forecasts.</p>
@@ -339,7 +352,7 @@
     </a>
 
     <a href="https://github.com/mtichikawa/bandit-ab-testing" target="_blank" class="project-card reveal">
-      <span class="project-num">02</span>
+      <span class="project-num">03</span>
       <h3 class="project-name">Multi-Armed Bandit A/B Testing</h3>
       <p class="project-desc">Implements Thompson Sampling, UCB1, and Epsilon-Greedy algorithms from scratch. Each maintains its own selection and update logic — no sklearn, no library bandits. Interactive demo below on this page.</p>
       <p class="project-writeup">Traditional A/B testing freezes traffic allocation during the learning period. Multi-armed bandits explore and exploit simultaneously — Thompson's Beta-distribution updates make the uncertainty reduction visible round by round.</p>
@@ -353,7 +366,7 @@
     </a>
 
     <a href="https://github.com/mtichikawa/llm-data-assistant" target="_blank" class="project-card reveal">
-      <span class="project-num">03</span>
+      <span class="project-num">04</span>
       <h3 class="project-name">LLM Data Analysis Assistant</h3>
       <p class="project-desc">Two-path query routing: a rule-based fast path handles correlations, group-bys, and aggregations deterministically. Queries below a confidence threshold escalate to the Anthropic API with DataFrame context injection and multi-turn conversation history.</p>
       <p class="project-writeup">The fast path answers ~70% of common data questions with zero API cost and sub-second latency. The LLM path gets a ContextBuilder-assembled summary of the DataFrame — shape, dtypes, stats, sample rows — so it can reason about data it never directly touches.</p>
@@ -367,7 +380,7 @@
     </a>
 
     <a href="https://github.com/mtichikawa/llm-bias-detection" target="_blank" class="project-card reveal">
-      <span class="project-num">04</span>
+      <span class="project-num">05</span>
       <h3 class="project-name">Bias Detection in LLMs</h3>
       <p class="project-desc">Statistical audit of demographic bias in LLM responses. Generates prompts across gender, age, and race dimensions, then scores for agentic/communal/competence/warmth lexicon patterns using ANOVA and Cohen's d.</p>
       <p class="project-writeup">The trap in bias research is confusing statistical significance with practical significance — with enough samples, any difference is "significant." Cohen's d separates the signal from the noise: a d of 0.2 means the bias exists but barely matters; a d of 0.8 means it's shaping outcomes.</p>
@@ -381,7 +394,7 @@
     </a>
 
     <a href="https://github.com/mtichikawa/anomaly-detection" target="_blank" class="project-card reveal">
-      <span class="project-num">05</span>
+      <span class="project-num">06</span>
       <h3 class="project-name">Real-Time Anomaly Detection</h3>
       <p class="project-desc">Streaming ensemble: Isolation Forest, LSTM autoencoder, and Z-score detectors with majority voting. Dockerized FastAPI REST API with health checks, plus a streaming pipeline for continuous monitoring.</p>
       <p class="project-writeup">No single detector catches everything — Isolation Forest finds global outliers, LSTM catches sequence-breaking patterns, Z-score flags statistical spikes. The 2-of-3 voting rule is the real design choice: it cuts false positives without hiding true anomalies. Containerized with Docker Compose for one-command deployment.</p>
@@ -395,7 +408,7 @@
     </a>
 
     <a href="https://github.com/mtichikawa/financial-nlp" target="_blank" class="project-card reveal">
-      <span class="project-num">06</span>
+      <span class="project-num">07</span>
       <h3 class="project-name">Financial NLP Parser</h3>
       <p class="project-desc">Parses SEC EDGAR filings to extract financial metrics (revenue, net income, EPS) and sentiment. Regex-based extraction with lexicon scoring on MD&A sections across multiple companies.</p>
       <p class="project-writeup">EDGAR filings are semi-structured text at best. The parsing challenge is extracting consistent metrics across companies that use different table formats and labeling conventions.</p>
@@ -409,7 +422,7 @@
     </a>
 
     <a href="https://github.com/mtichikawa/sql-analytics-pipeline" target="_blank" class="project-card reveal">
-      <span class="project-num">07</span>
+      <span class="project-num">08</span>
       <h3 class="project-name">SQL Analytics Pipeline</h3>
       <p class="project-desc">Three-layer data pipeline (staging → clean → marts) with dbt-style SQL transformations, window functions, and CTEs. SQLAlchemy ORM with swappable SQLite/PostgreSQL backend.</p>
       <p class="project-writeup">The three-layer pattern enforces a discipline: staging preserves raw data untouched, clean handles normalization and type casting, marts serve specific analytical questions. When a mart query returns wrong results, you can trace the data backwards through each layer to find where it broke.</p>
@@ -423,7 +436,7 @@
     </a>
 
     <a href="https://github.com/mtichikawa/dockerized-ml-api" target="_blank" class="project-card reveal">
-      <span class="project-num">08</span>
+      <span class="project-num">09</span>
       <h3 class="project-name">Dockerized ML API</h3>
       <p class="project-desc">Production ML serving: FastAPI REST endpoint, Redis caching with TTL, Pydantic v2 request validation, vectorized batch inference, async job queue with polling, and Docker deployment with health checks.</p>
       <p class="project-writeup">The architecture mirrors production ML serving: Redis intercepts repeated predictions (cache hit → skip inference entirely), Pydantic v2 rejects bad inputs before they reach the model, async endpoints use asyncio.to_thread() to keep the event loop free during CPU-bound inference, and Docker Compose wires the app, model, and cache into a single deployable unit.</p>
@@ -437,7 +450,7 @@
     </a>
 
     <a href="https://github.com/mtichikawa/cloud-etl-pipeline" target="_blank" class="project-card reveal">
-      <span class="project-num">09</span>
+      <span class="project-num">10</span>
       <h3 class="project-name">Cloud ETL Pipeline</h3>
       <p class="project-desc">AWS-native ETL: S3 data lake with Parquet/Snappy storage, Lambda validation, DynamoDB run logging, tenacity retry logic, and Hive-style partitioning by date.</p>
       <p class="project-writeup">Hive-style partitioning (year=/month=/day=) means queries only scan the date range they need — no full-table scans. Tenacity retries with exponential backoff handle the reality that external APIs fail transiently. DynamoDB logs every run so failures are traceable, not silent.</p>
@@ -450,18 +463,6 @@
       </div>
     </a>
 
-    <div class="project-card reveal" style="cursor:default;">
-      <span class="project-num">10</span>
-      <h3 class="project-name">M365 Enterprise Software</h3>
-      <p class="project-desc">Full-stack enterprise software for the Microsoft 365 ecosystem, built on Azure. Single-process Node.js backend with Azure OpenAI smart routing, Microsoft Graph API integration, OAuth2/MSAL auth, and event-driven webhooks.</p>
-      <p class="project-writeup">Private commercial project. 152 tests (Vitest), TypeScript strict mode, ESLint + Prettier, pre-commit hooks. Targets deployment on Azure.</p>
-      <div class="project-stack">
-        <span class="tag">TypeScript</span><span class="tag">Node.js</span><span class="tag">Azure OpenAI</span><span class="tag">Microsoft Graph</span><span class="tag">MSAL</span><span class="tag">Bot Framework</span>
-      </div>
-      <div class="project-footer">
-        <span class="project-updated">Private · In Development</span>
-      </div>
-    </div>
 
   </div>
 </section>
