@@ -3,7 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Mike Ichikawa — Data Scientist</title>
+  <title>Mike Ichikawa — Data Scientist · ML Engineer</title>
+  <meta property="og:title" content="Mike Ichikawa — Data Scientist · ML Engineer" />
+  <meta property="og:description" content="9 completed projects across data science, ML engineering, and cloud infrastructure. MS Mathematics · 3 years Intel · 9 years teaching. Open to work." />
+  <meta property="og:url" content="https://mtichikawa.github.io" />
+  <meta property="og:type" content="website" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@300;400;500&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet" />
@@ -252,7 +256,6 @@
 <nav id="nav">
   <a href="#hero" class="nav-name">Mike Ichikawa</a>
   <ul class="nav-links">
-    <li><a href="#now-building">Now Building</a></li>
     <li><a href="#projects">Projects</a></li>
     <li><a href="#demos">Live Demos</a></li>
     <li><a href="#trading">Trading System</a></li>
@@ -274,54 +277,12 @@
   </p>
   <div class="hero-actions">
     <a href="#projects" class="btn btn-primary">View Projects ↓</a>
+    <a href="/resume.html" target="_blank" class="btn btn-secondary">Resume ↗</a>
     <a href="https://github.com/mtichikawa" target="_blank" class="btn btn-secondary">
       <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
       GitHub
     </a>
     <a href="mailto:projects.ichikawa@gmail.com" class="btn btn-secondary">projects.ichikawa@gmail.com</a>
-  </div>
-</div>
-
-<div class="divider"></div>
-
-<!-- NOW BUILDING -->
-<div id="now-building">
-  <div class="inner">
-    <p class="section-label">Active Development</p>
-    <div class="building-header">
-      <h2 class="building-title">Now Building</h2>
-      <span class="live-badge"><span class="live-dot"></span>Live · March 2026</span>
-    </div>
-    <div class="building-grid">
-      <div class="building-item">
-        <p class="building-code">Upgrade · Mar 12</p>
-        <p class="building-name"><a href="https://github.com/mtichikawa/anomaly-detection" target="_blank" rel="noopener">anomaly-detection</a></p>
-        <p class="building-desc">Dockerize + FastAPI REST endpoint. Production-ready container with health checks and streaming inference.</p>
-        <div class="building-progress"><div class="building-progress-fill" style="width:100%"></div></div>
-        <p class="building-pct">Done</p>
-      </div>
-      <div class="building-item">
-        <p class="building-code">Trading Arc · T1–T5</p>
-        <p class="building-name">End-to-end paper trading system</p>
-        <p class="building-desc">Five repos: live Kraken data → chart generation → dual-path signals (technical + FinBERT) → backtesting → oversight dashboard. T1–T4 shipped, T5 building week of Mar 30.</p>
-        <div class="building-progress"><div class="building-progress-fill" style="width:80%"></div></div>
-        <p class="building-pct">4 of 5 shipped · T5 trading-dashboard building week of Mar 30</p>
-      </div>
-      <div class="building-item">
-        <p class="building-code">Upgrade · Mar 19</p>
-        <p class="building-name"><a href="https://github.com/mtichikawa/dockerized-ml-api" target="_blank" rel="noopener">dockerized-ml-api</a></p>
-        <p class="building-desc">Added async inference with thread pool, job queue with TTL, and poll-for-result endpoints. 32 tests passing.</p>
-        <div class="building-progress"><div class="building-progress-fill" style="width:100%"></div></div>
-        <p class="building-pct">Done</p>
-      </div>
-      <div class="building-item">
-        <p class="building-code">Upgrade · Apr 6</p>
-        <p class="building-name"><a href="https://github.com/mtichikawa/ml-experiments" target="_blank" rel="noopener">ml-experiments</a></p>
-        <p class="building-desc">C++ pybind11 rolling statistics — Welford's algorithm for streaming mean/std/z-score, benchmarked against NumPy and pandas.</p>
-        <div class="building-progress"><div class="building-progress-fill" style="width:0%"></div></div>
-        <p class="building-pct">Not started</p>
-      </div>
-    </div>
   </div>
 </div>
 
@@ -333,9 +294,10 @@
     <div class="bg-intro reveal">
       <p class="section-label">Background</p>
       <h2 class="section-title" style="font-size:clamp(28px,3.5vw,44px)">Two careers.<br>One throughline.</h2>
-      <p>At Intel, I spent three years on microprocessor Physical Design — building automated validation systems that processed millions of design verification data points and flagging yield issues before tape-out.</p>
-      <p>At Santa Rosa Junior College, I spent nine years teaching undergraduate mathematics — algebra through calculus III, linear algebra, differential equations, and statistics. Not just delivering lectures — developing curriculum, building assessment systems, tracking which teaching approaches actually moved student outcomes.</p>
-      <p><strong>Data science is where these converge.</strong> The engineering habit of validating assumptions. The math background to understand what the models are actually doing. The teaching instinct to communicate findings clearly.</p>
+      <p>At Intel, three years in microprocessor Physical Design — building automated validation systems that processed millions of design verification data points and flagged yield issues before tape-out.</p>
+      <p>At Santa Rosa Junior College, nine years teaching undergraduate mathematics: algebra through calculus III, linear algebra, differential equations, statistics. Not just lecturing — developing curriculum, building assessment systems, tracking which teaching approaches actually moved student outcomes.</p>
+      <p>The past eighteen months have been a self-directed sprint through the full data and ML stack. Nine production-quality projects built from scratch — time series forecasting, Bayesian experimentation, NLP, streaming anomaly detection, cloud ETL, ML serving infrastructure — plus a five-repo trading system currently in progress. Every one: architecture designed, tests written, systems deployed. No coursework path, no structured program. Learning by building.</p>
+      <p><strong>The common thread:</strong> engineering precision from Intel, mathematical depth from fifteen years with the subject, and the communication instinct that teaching forces you to develop.</p>
     </div>
     <div class="bg-cards">
       <div class="bg-card reveal">
@@ -359,7 +321,7 @@
 <!-- PROJECTS -->
 <section id="projects">
   <p class="section-label">Portfolio</p>
-  <h2 class="section-title">9 Completed Projects</h2>
+  <h2 class="section-title">Completed Projects</h2>
   <div class="projects-grid">
 
     <a href="https://github.com/mtichikawa/github-trend-forecaster" target="_blank" class="project-card reveal">
@@ -371,7 +333,7 @@
         <span class="tag">Prophet</span><span class="tag">GitHub API</span><span class="tag">pandas</span><span class="tag">time series</span>
       </div>
       <div class="project-footer">
-        <span class="project-updated">Updated Mar 2026</span>
+        <span class="project-updated">Built Aug 2025</span>
         <span class="project-arrow">↗</span>
       </div>
     </a>
@@ -385,7 +347,7 @@
         <span class="tag">Thompson Sampling</span><span class="tag">UCB1</span><span class="tag">Bayesian inference</span>
       </div>
       <div class="project-footer">
-        <span class="project-updated">Live demo below ↓</span>
+        <span class="project-updated">Built Sep 2025</span>
         <span class="project-arrow">↗</span>
       </div>
     </a>
@@ -399,7 +361,7 @@
         <span class="tag">Anthropic API</span><span class="tag">hybrid routing</span><span class="tag">multi-turn</span><span class="tag">pandas</span>
       </div>
       <div class="project-footer">
-        <span class="project-updated">Aug 2025 – Feb 2026</span>
+        <span class="project-updated">Built Aug 2025</span>
         <span class="project-arrow">↗</span>
       </div>
     </a>
@@ -413,7 +375,7 @@
         <span class="tag">ANOVA</span><span class="tag">Cohen's d</span><span class="tag">scipy.stats</span><span class="tag">lexicon scoring</span>
       </div>
       <div class="project-footer">
-        <span class="project-updated">Oct 2025 – Feb 2026</span>
+        <span class="project-updated">Built Oct 2025</span>
         <span class="project-arrow">↗</span>
       </div>
     </a>
@@ -427,7 +389,7 @@
         <span class="tag">IsolationForest</span><span class="tag">LSTM</span><span class="tag">Docker</span><span class="tag">FastAPI</span><span class="tag">REST API</span>
       </div>
       <div class="project-footer">
-        <span class="project-updated">Live demo below ↓</span>
+        <span class="project-updated">Built Jan 2026</span>
         <span class="project-arrow">↗</span>
       </div>
     </a>
@@ -441,7 +403,7 @@
         <span class="tag">SEC EDGAR</span><span class="tag">regex</span><span class="tag">sentiment lexicon</span><span class="tag">NLP</span>
       </div>
       <div class="project-footer">
-        <span class="project-updated">Nov 2025 – Feb 2026</span>
+        <span class="project-updated">Built Nov 2025</span>
         <span class="project-arrow">↗</span>
       </div>
     </a>
@@ -455,7 +417,7 @@
         <span class="tag">SQLAlchemy</span><span class="tag">SQLite</span><span class="tag">dbt-style</span><span class="tag">window functions</span>
       </div>
       <div class="project-footer">
-        <span class="project-updated">Dec 2025 – Feb 2026</span>
+        <span class="project-updated">Built Dec 2025</span>
         <span class="project-arrow">↗</span>
       </div>
     </a>
@@ -469,7 +431,7 @@
         <span class="tag">Docker</span><span class="tag">FastAPI</span><span class="tag">Redis</span><span class="tag">Pydantic v2</span><span class="tag">asyncio</span>
       </div>
       <div class="project-footer">
-        <span class="project-updated">Jan – Mar 2026</span>
+        <span class="project-updated">Built Jan 2026</span>
         <span class="project-arrow">↗</span>
       </div>
     </a>
@@ -483,7 +445,7 @@
         <span class="tag">AWS S3</span><span class="tag">Lambda</span><span class="tag">DynamoDB</span><span class="tag">Parquet</span>
       </div>
       <div class="project-footer">
-        <span class="project-updated">Feb – Apr 2026</span>
+        <span class="project-updated">Built Feb 2026</span>
         <span class="project-arrow">↗</span>
       </div>
     </a>
@@ -574,7 +536,7 @@
 <!-- TRADING SYSTEM -->
 <div id="trading">
   <div class="inner">
-    <p class="section-label">In Development · Mar–Apr 2026</p>
+    <p class="section-label">In Development · Mar–May 2026</p>
     <h2 class="section-title">Trading System Arc</h2>
     <p class="trading-intro">
       Five interconnected repositories building an end-to-end paper trading system.
@@ -608,10 +570,10 @@
         <p class="t-date">Shipped Mar 26</p>
       </div>
       <div class="t-node reveal">
-        <div class="t-dot">T5</div>
+        <div class="t-dot active">T5</div>
         <p class="t-name">trading-dashboard</p>
         <p class="t-stack">Streamlit · Plotly<br>live signals · P&L<br>parameter review UI</p>
-        <p class="t-date">Starts Mar 30</p>
+        <p class="t-date">Building week of Mar 30</p>
       </div>
     </div>
     <div class="trading-note reveal">
@@ -678,7 +640,7 @@
 
 <footer>
   <span>Mike Ichikawa · Portland, OR</span>
-  <span>Updated Mar 28, 2026</span>
+  <span>Updated Mar 29, 2026</span>
 </footer>
 
 <script>

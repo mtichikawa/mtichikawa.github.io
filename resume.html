@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mike Ichikawa — Resume</title>
+  <style>
+    /* ── PRINT: open in browser, Cmd+P → Save as PDF, margins: Default or None ── */
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --ink:    #1a1814;
+      --ink2:   #4a4844;
+      --ink3:   #7a7774;
+      --rule:   #d0cdc8;
+      --accent: #b03020;
+    }
+
+    body {
+      font-family: 'Georgia', 'Times New Roman', serif;
+      font-size: 10.5pt;
+      line-height: 1.5;
+      color: var(--ink);
+      background: #fff;
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 52px 56px;
+    }
+
+    /* ── HEADER ── */
+    .r-name {
+      font-size: 26pt;
+      font-weight: normal;
+      letter-spacing: -0.5px;
+      color: var(--ink);
+      margin-bottom: 4px;
+    }
+    .r-title {
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 9.5pt;
+      font-weight: normal;
+      color: var(--ink2);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+    .r-contact {
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 9pt;
+      color: var(--ink2);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0 18px;
+    }
+    .r-contact a { color: var(--ink2); text-decoration: none; }
+    .r-contact a:hover { color: var(--accent); }
+
+    hr { border: none; border-top: 1.5px solid var(--ink); margin: 14px 0 12px; }
+    .rule-light { border: none; border-top: 1px solid var(--rule); margin: 10px 0 10px; }
+
+    /* ── SECTIONS ── */
+    .r-section { margin-bottom: 18px; }
+    .r-section-head {
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 8pt;
+      font-weight: bold;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 8px;
+      padding-bottom: 4px;
+      border-bottom: 1px solid var(--rule);
+    }
+
+    /* ── SKILLS ── */
+    .skill-row {
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 9.5pt;
+      color: var(--ink);
+      margin-bottom: 4px;
+      display: flex;
+      gap: 8px;
+    }
+    .skill-label {
+      color: var(--ink2);
+      font-weight: normal;
+      min-width: 148px;
+      flex-shrink: 0;
+    }
+
+    /* ── PROJECTS ── */
+    .proj { margin-bottom: 12px; }
+    .proj-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 12px;
+    }
+    .proj-name {
+      font-weight: bold;
+      font-size: 10.5pt;
+    }
+    .proj-link {
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 8.5pt;
+      color: var(--ink3);
+      text-decoration: none;
+      white-space: nowrap;
+    }
+    .proj-link:hover { color: var(--accent); }
+    .proj-desc {
+      font-size: 9.5pt;
+      color: var(--ink2);
+      line-height: 1.55;
+      margin: 2px 0 3px;
+    }
+    .proj-stack {
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 8.5pt;
+      color: var(--ink3);
+      font-style: italic;
+    }
+
+    /* ── EXPERIENCE / EDUCATION ── */
+    .exp { margin-bottom: 14px; }
+    .exp-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+    }
+    .exp-title { font-weight: bold; font-size: 10.5pt; }
+    .exp-dates {
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 9pt;
+      color: var(--ink3);
+      white-space: nowrap;
+    }
+    .exp-org {
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 9.5pt;
+      color: var(--ink2);
+      margin-bottom: 5px;
+    }
+    .exp-bullets { padding-left: 16px; }
+    .exp-bullets li {
+      font-size: 9.5pt;
+      color: var(--ink2);
+      line-height: 1.55;
+      margin-bottom: 2px;
+    }
+
+    .edu-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 4px;
+    }
+    .edu-degree { font-weight: bold; font-size: 10.5pt; }
+    .edu-school {
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 9.5pt;
+      color: var(--ink2);
+    }
+    .edu-year {
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 9pt;
+      color: var(--ink3);
+    }
+
+    /* ── PRINT ── */
+    @media print {
+      body { padding: 0; max-width: 100%; font-size: 10pt; }
+      @page { margin: 0.7in 0.75in; size: letter; }
+      a { color: inherit !important; text-decoration: none !important; }
+      .proj-link, .exp-dates, .edu-year { color: var(--ink3) !important; }
+      .no-break { page-break-inside: avoid; }
+    }
+
+    /* ── SCREEN: print hint ── */
+    .print-hint {
+      font-family: Arial, sans-serif;
+      font-size: 9pt;
+      color: #999;
+      text-align: center;
+      margin-bottom: 24px;
+    }
+    @media print { .print-hint { display: none; } }
+  </style>
+</head>
+<body>
+
+<p class="print-hint">To save as PDF: Cmd+P → Destination: Save as PDF → Margins: Default → Save</p>
+
+<!-- HEADER -->
+<h1 class="r-name">Mike Ichikawa</h1>
+<p class="r-title">Data Scientist &nbsp;·&nbsp; ML Engineer &nbsp;·&nbsp; Data Engineer</p>
+<div class="r-contact">
+  <span>Portland, OR</span>
+  <a href="mailto:projects.ichikawa@gmail.com">projects.ichikawa@gmail.com</a>
+  <a href="https://mtichikawa.github.io" target="_blank">mtichikawa.github.io</a>
+  <a href="https://github.com/mtichikawa" target="_blank">github.com/mtichikawa</a>
+</div>
+
+<hr />
+
+<!-- SUMMARY -->
+<div class="r-section no-break">
+  <p class="r-section-head">Summary</p>
+  <p style="font-size:9.5pt; color:#4a4844; line-height:1.6;">
+    MS Mathematics (CCNY, 2014) and BS Mechanical Engineering (UC Berkeley). Three years in
+    semiconductor Physical Design at Intel; nine years teaching undergraduate mathematics at
+    Santa Rosa Junior College. Over the past eighteen months, a self-directed transition into
+    data science and ML engineering — nine production-quality portfolio projects built from
+    scratch across time series forecasting, anomaly detection, NLP, cloud ETL, and ML serving,
+    plus a five-repo trading system arc currently in progress.
+  </p>
+</div>
+
+<!-- SKILLS -->
+<div class="r-section no-break">
+  <p class="r-section-head">Technical Skills</p>
+  <div class="skill-row">
+    <span class="skill-label">Languages</span>
+    <span>Python &nbsp;·&nbsp; SQL &nbsp;·&nbsp; R</span>
+  </div>
+  <div class="skill-row">
+    <span class="skill-label">ML / Statistics</span>
+    <span>scikit-learn &nbsp;·&nbsp; Prophet &nbsp;·&nbsp; PyTorch &nbsp;·&nbsp; XGBoost &nbsp;·&nbsp; LightGBM &nbsp;·&nbsp; LSTM &nbsp;·&nbsp; scipy &nbsp;·&nbsp; statsmodels &nbsp;·&nbsp; ANOVA &nbsp;·&nbsp; Thompson Sampling &nbsp;·&nbsp; Bayesian inference</span>
+  </div>
+  <div class="skill-row">
+    <span class="skill-label">Data Engineering</span>
+    <span>PostgreSQL &nbsp;·&nbsp; SQLAlchemy &nbsp;·&nbsp; dbt-style transforms &nbsp;·&nbsp; Apache Parquet &nbsp;·&nbsp; pandas &nbsp;·&nbsp; NumPy &nbsp;·&nbsp; ccxt</span>
+  </div>
+  <div class="skill-row">
+    <span class="skill-label">Cloud / Infra</span>
+    <span>AWS (S3 &nbsp;·&nbsp; Lambda &nbsp;·&nbsp; DynamoDB &nbsp;·&nbsp; CloudWatch) &nbsp;·&nbsp; Docker &nbsp;·&nbsp; FastAPI &nbsp;·&nbsp; Redis &nbsp;·&nbsp; Pydantic v2 &nbsp;·&nbsp; boto3</span>
+  </div>
+  <div class="skill-row">
+    <span class="skill-label">Tools</span>
+    <span>Git &nbsp;·&nbsp; pytest &nbsp;·&nbsp; Jupyter &nbsp;·&nbsp; HuggingFace Transformers &nbsp;·&nbsp; Streamlit</span>
+  </div>
+</div>
+
+<!-- PROJECTS -->
+<div class="r-section">
+  <p class="r-section-head">Portfolio Projects &nbsp;<span style="font-weight:normal; text-transform:none; letter-spacing:0; font-size:8pt; color:#7a7774;">— full portfolio at mtichikawa.github.io</span></p>
+
+  <div class="proj no-break">
+    <div class="proj-header">
+      <span class="proj-name">Trading System Arc &nbsp;<span style="font-weight:normal; font-size:9.5pt; color:#7a7774;">(T1–T4 shipped, T5 in progress)</span></span>
+      <a class="proj-link" href="https://github.com/mtichikawa" target="_blank">github.com/mtichikawa — 5 repos</a>
+    </div>
+    <p class="proj-desc">Five interconnected repositories: live OHLCV pipeline (ccxt/Kraken + PostgreSQL) → candlestick chart generation (mplfinance) → dual-path signal engine (EMA/RSI/MACD/BB + local FinBERT sentiment, 0.6/0.4 weighted fusion) → parameter-optimizing backtester (Sharpe/Sortino/drawdown metrics, staged grid search, T3 feedback loop). 148/148 tests across T2–T4.</p>
+    <p class="proj-stack">ccxt &nbsp;·&nbsp; PostgreSQL &nbsp;·&nbsp; mplfinance &nbsp;·&nbsp; FinBERT &nbsp;·&nbsp; pandas &nbsp;·&nbsp; NumPy &nbsp;·&nbsp; pytest</p>
+  </div>
+
+  <div class="rule-light"></div>
+
+  <div class="proj no-break">
+    <div class="proj-header">
+      <span class="proj-name">Real-Time Anomaly Detection</span>
+      <a class="proj-link" href="https://github.com/mtichikawa/anomaly-detection" target="_blank">github.com/mtichikawa/anomaly-detection</a>
+    </div>
+    <p class="proj-desc">Streaming ensemble detector: Isolation Forest, LSTM autoencoder, and Z-score with 2-of-3 majority voting. Dockerized FastAPI REST API with health checks and configurable detector selection. Live interactive demo on portfolio site.</p>
+    <p class="proj-stack">Docker &nbsp;·&nbsp; FastAPI &nbsp;·&nbsp; scikit-learn &nbsp;·&nbsp; PyTorch &nbsp;·&nbsp; Redis &nbsp;·&nbsp; pytest</p>
+  </div>
+
+  <div class="rule-light"></div>
+
+  <div class="proj no-break">
+    <div class="proj-header">
+      <span class="proj-name">Cloud ETL Pipeline</span>
+      <a class="proj-link" href="https://github.com/mtichikawa/cloud-etl-pipeline" target="_blank">github.com/mtichikawa/cloud-etl-pipeline</a>
+    </div>
+    <p class="proj-desc">AWS-native ETL: tenacity-based REST API ingestion with exponential backoff → Parquet/Snappy storage on S3 with Hive date partitioning → Lambda validation → DynamoDB run logging for failure traceability. Tests mock all AWS calls with moto.</p>
+    <p class="proj-stack">AWS S3 &nbsp;·&nbsp; Lambda &nbsp;·&nbsp; DynamoDB &nbsp;·&nbsp; boto3 &nbsp;·&nbsp; pandas &nbsp;·&nbsp; Apache Parquet &nbsp;·&nbsp; moto</p>
+  </div>
+
+  <div class="rule-light"></div>
+
+  <div class="proj no-break">
+    <div class="proj-header">
+      <span class="proj-name">Dockerized ML API</span>
+      <a class="proj-link" href="https://github.com/mtichikawa/dockerized-ml-api" target="_blank">github.com/mtichikawa/dockerized-ml-api</a>
+    </div>
+    <p class="proj-desc">Production ML serving: async thread pool inference, Redis TTL caching (cache hit skips model entirely), Pydantic v2 request validation, async job queue with polling endpoints, Docker Compose deployment. 32 tests.</p>
+    <p class="proj-stack">FastAPI &nbsp;·&nbsp; Docker &nbsp;·&nbsp; Redis &nbsp;·&nbsp; asyncio &nbsp;·&nbsp; Pydantic v2 &nbsp;·&nbsp; scikit-learn</p>
+  </div>
+
+  <div class="rule-light"></div>
+
+  <div class="proj no-break">
+    <div class="proj-header">
+      <span class="proj-name">SQL Analytics Pipeline</span>
+      <a class="proj-link" href="https://github.com/mtichikawa/sql-analytics-pipeline" target="_blank">github.com/mtichikawa/sql-analytics-pipeline</a>
+    </div>
+    <p class="proj-desc">Three-layer dbt-style pipeline (staging → clean → marts) on NYC Airbnb data. Window functions, CTEs, SQLAlchemy ORM with swappable SQLite/PostgreSQL backend. Layered transform pattern enforces raw data immutability.</p>
+    <p class="proj-stack">PostgreSQL &nbsp;·&nbsp; SQLAlchemy &nbsp;·&nbsp; dbt-style transforms &nbsp;·&nbsp; SQLite &nbsp;·&nbsp; pandas</p>
+  </div>
+
+  <div class="rule-light"></div>
+
+  <div class="proj no-break">
+    <div class="proj-header">
+      <span class="proj-name">LLM Data Analysis Assistant</span>
+      <a class="proj-link" href="https://github.com/mtichikawa/llm-data-assistant" target="_blank">github.com/mtichikawa/llm-data-assistant</a>
+    </div>
+    <p class="proj-desc">Two-path query routing: rule-based fast path handles ~70% of queries (correlations, aggregations, group-bys) with zero API cost. Queries below confidence threshold escalate to Anthropic API with DataFrame context injection and multi-turn conversation history.</p>
+    <p class="proj-stack">Anthropic API &nbsp;·&nbsp; pandas &nbsp;·&nbsp; hybrid routing &nbsp;·&nbsp; multi-turn conversation</p>
+  </div>
+
+  <p style="font-family:Arial,sans-serif; font-size:8.5pt; color:#7a7774; margin-top:8px; font-style:italic;">
+    Additional: Multi-Armed Bandit A/B Testing (Thompson Sampling · UCB1 · Bayesian inference) &nbsp;·&nbsp;
+    Bias Detection in LLMs (ANOVA · Cohen's d) &nbsp;·&nbsp;
+    Financial NLP Parser (SEC EDGAR · regex · sentiment lexicon) &nbsp;·&nbsp;
+    GitHub Trend Forecaster (Prophet · PyTorch LSTM in progress)
+  </p>
+</div>
+
+<!-- EXPERIENCE -->
+<div class="r-section">
+  <p class="r-section-head">Experience</p>
+
+  <div class="exp no-break">
+    <div class="exp-header">
+      <span class="exp-title">Mathematics Faculty</span>
+      <span class="exp-dates">2015 – 2023</span>
+    </div>
+    <p class="exp-org">Santa Rosa Junior College &nbsp;·&nbsp; Santa Rosa, CA</p>
+    <ul class="exp-bullets">
+      <li>Taught undergraduate mathematics for nine years: Algebra through Calculus III, Linear Algebra, Differential Equations, Statistics</li>
+      <li>Designed and maintained curriculum assessment systems to track student outcomes across multiple cohorts</li>
+      <li>Developed data-driven iterative improvements to course materials based on longitudinal performance analysis</li>
+      <li>Routinely explained complex mathematical concepts clearly to students with varying preparation levels</li>
+    </ul>
+  </div>
+
+  <div class="exp no-break">
+    <div class="exp-header">
+      <span class="exp-title">Physical Design Engineer</span>
+      <span class="exp-dates">Jul 2008 – Jul 2011</span>
+    </div>
+    <p class="exp-org">Intel Corporation &nbsp;·&nbsp; Semiconductor R&D</p>
+    <ul class="exp-bullets">
+      <li>Microprocessor physical design in semiconductor R&D</li>
+      <li>Built Python and Perl automation for design verification, processing millions of data points per validation run</li>
+      <li>Identified and flagged yield-risk patterns in pre-tape-out statistical data</li>
+    </ul>
+  </div>
+</div>
+
+<!-- EDUCATION -->
+<div class="r-section no-break">
+  <p class="r-section-head">Education</p>
+  <div class="edu-row">
+    <span class="edu-degree">MS Mathematics</span>
+    <span class="edu-school">The City College of New York</span>
+    <span class="edu-year">2014</span>
+  </div>
+  <div class="edu-row">
+    <span class="edu-degree">BS Mechanical Engineering</span>
+    <span class="edu-school">University of California, Berkeley</span>
+    <span class="edu-year"></span>
+  </div>
+</div>
+
+</body>
+</html>
