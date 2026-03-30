@@ -170,15 +170,19 @@
 
     /* ── PRINT ── */
     @media print {
-      body { padding: 0; max-width: 100%; font-size: 10pt; }
-      @page { margin: 0.6in 0.7in; size: letter; }
+      body { padding: 0; max-width: 100%; font-size: 9.5pt; line-height: 1.45; }
+      @page { margin: 0.55in 0.7in; size: letter; }
       a { color: inherit !important; text-decoration: none !important; }
       .proj-link, .exp-dates, .edu-year { color: var(--ink3) !important; }
       .no-break { page-break-inside: avoid; }
-      .r-section { margin-bottom: 12px; }
-      .proj { margin-bottom: 8px; }
-      .exp { margin-bottom: 10px; }
+      .r-section { margin-bottom: 10px; }
+      .r-section-head { margin-bottom: 6px; }
+      .proj { margin-bottom: 7px; }
+      .exp { margin-bottom: 8px; }
       .proj-desc, .proj-stack { margin-bottom: 2px; }
+      hr { margin: 8px 0; }
+      .r-name { font-size: 22pt; }
+      .skill-row { margin-bottom: 3px; }
     }
 
     /* ── SCREEN: print hint ── */
