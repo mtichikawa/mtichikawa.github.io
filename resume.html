@@ -211,6 +211,7 @@
   <a href="mailto:projects.ichikawa@gmail.com">projects.ichikawa@gmail.com</a>
   <a href="https://mtichikawa.github.io" target="_blank">mtichikawa.github.io</a>
   <a href="https://github.com/mtichikawa" target="_blank">github.com/mtichikawa</a>
+  <a href="https://linkedin.com/in/mike-ichikawa-9144a73b5" target="_blank">linkedin.com/in/mike-ichikawa</a>
 </div>
 
 <hr />
@@ -224,7 +225,8 @@
     Santa Rosa Junior College. Over the past eighteen months, a self-directed transition into
     data science and ML engineering — nine production-quality portfolio projects built from
     scratch across time series forecasting, anomaly detection, NLP, cloud ETL, and ML serving,
-    plus a five-repo trading system arc currently in progress.
+    plus a complete five-repo paper trading system: live market data ingestion through dual-path
+    signal generation, parameter-optimizing backtesting, and a live Streamlit oversight dashboard.
   </p>
 </div>
 
@@ -263,11 +265,11 @@
 
   <div class="proj no-break">
     <div class="proj-header">
-      <span class="proj-name">Trading System Arc &nbsp;<span style="font-weight:normal; font-size:9.5pt; color:#7a7774;">(T1–T4 shipped, T5 in progress)</span></span>
-      <a class="proj-link" href="https://github.com/mtichikawa" target="_blank">github.com/mtichikawa — 5 repos</a>
+      <span class="proj-name">Trading System Arc</span>
+      <a class="proj-link" href="https://mtichikawa-trading.streamlit.app" target="_blank">Live Demo &nbsp;·&nbsp; github.com/mtichikawa — 5 repos</a>
     </div>
-    <p class="proj-desc">Five interconnected repositories: live OHLCV pipeline (ccxt/Kraken + PostgreSQL) → candlestick chart generation (mplfinance) → dual-path signal engine (EMA/RSI/MACD/BB + local FinBERT sentiment, 0.6/0.4 weighted fusion) → parameter-optimizing backtester (Sharpe/Sortino/drawdown metrics, staged grid search, T3 feedback loop). 148/148 tests across T2–T4.</p>
-    <p class="proj-stack">ccxt &nbsp;·&nbsp; PostgreSQL &nbsp;·&nbsp; mplfinance &nbsp;·&nbsp; FinBERT &nbsp;·&nbsp; pandas &nbsp;·&nbsp; NumPy &nbsp;·&nbsp; pytest</p>
+    <p class="proj-desc">Five interconnected repositories: live OHLCV pipeline (ccxt/Kraken + PostgreSQL) → candlestick chart generation (mplfinance) → dual-path signal engine (EMA/RSI/MACD/BB + local FinBERT sentiment, 0.6/0.4 fusion) → parameter-optimizing backtester (Sharpe/Sortino/drawdown, staged grid search, T3 feedback loop) → Streamlit multi-page oversight dashboard with live signal display, equity curve, and parameter review. 156/156 tests across T2–T5.</p>
+    <p class="proj-stack">ccxt &nbsp;·&nbsp; PostgreSQL &nbsp;·&nbsp; mplfinance &nbsp;·&nbsp; FinBERT &nbsp;·&nbsp; pandas &nbsp;·&nbsp; NumPy &nbsp;·&nbsp; Streamlit &nbsp;·&nbsp; Plotly &nbsp;·&nbsp; pytest</p>
   </div>
 
   <div class="rule-light"></div>
@@ -368,9 +370,9 @@
     </div>
     <p class="exp-org">Intel Corporation &nbsp;·&nbsp; Semiconductor R&D</p>
     <ul class="exp-bullets">
-      <li>Microprocessor physical design in semiconductor R&D</li>
-      <li>Built Python and Perl automation for design verification, processing millions of data points per validation run</li>
-      <li>Identified and flagged yield-risk patterns in pre-tape-out statistical data</li>
+      <li>Microprocessor physical design on Intel Ivy Bridge (22nm) — timing closure, power analysis, design rule verification</li>
+      <li>Built Python and Perl automation for physical verification workflows, processing millions of layout data points per run</li>
+      <li>Identified and flagged yield-risk patterns in pre-tape-out statistical data, contributing to sign-off decisions</li>
     </ul>
   </div>
 </div>
