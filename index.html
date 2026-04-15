@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Mike Ichikawa — Data Scientist · ML Engineer</title>
   <meta property="og:title" content="Mike Ichikawa — Data Scientist · ML Engineer" />
-  <meta property="og:description" content="14 completed projects across data science, ML engineering, and cloud infrastructure — including a 5-repo end-to-end trading system arc. MS Mathematics · 3 years Intel · 9 years teaching. Open to work." />
+  <meta property="og:description" content="16 completed projects across data science, ML engineering, and cloud infrastructure — including a 5-repo end-to-end trading system arc. MS Mathematics · 3 years Intel · 9 years teaching. Open to work." />
   <meta property="og:url" content="https://mtichikawa.github.io" />
   <meta property="og:type" content="website" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -296,7 +296,7 @@
       <h2 class="section-title" style="font-size:clamp(28px,3.5vw,44px)">Two careers.<br>One throughline.</h2>
       <p>At Intel, three years in microprocessor Physical Design — building automated validation systems that processed millions of design verification data points and flagged yield issues before tape-out.</p>
       <p>At Santa Rosa Junior College, nine years teaching undergraduate mathematics: algebra through calculus III, linear algebra, differential equations, statistics. Not just lecturing — developing curriculum, building assessment systems, tracking which teaching approaches actually moved student outcomes.</p>
-      <p>The past eighteen months have been a self-directed sprint through the full data and ML stack. Fourteen production-quality projects built from scratch — time series forecasting, Bayesian experimentation, NLP, streaming anomaly detection, cloud ETL, ML serving infrastructure, and a complete five-repo trading system from live market data through backtesting to dashboard. Every one: architecture designed, tests written, systems deployed. No coursework path, no structured program. Learning by building.</p>
+      <p>The past eighteen months have been a self-directed sprint through the full data and ML stack. Sixteen production-quality projects built from scratch — time series forecasting, Bayesian experimentation, NLP, streaming anomaly detection, cloud ETL, ML serving infrastructure, C++ performance extensions, Databricks lakehouse architecture, and a complete five-repo trading system from live market data through backtesting to dashboard. Every one: architecture designed, tests written, systems deployed. No coursework path, no structured program. Learning by building.</p>
       <p><strong>The common thread:</strong> engineering precision from Intel, mathematical depth from fifteen years with the subject, and the communication instinct that teaching forces you to develop.</p>
     </div>
     <div class="bg-cards">
@@ -463,6 +463,32 @@
       </div>
     </a>
 
+    <a href="https://github.com/mtichikawa/ml-experiments" target="_blank" class="project-card reveal">
+      <span class="project-num">11</span>
+      <h3 class="project-name">ML Experiments — C++ Extensions</h3>
+      <p class="project-desc">C++ rolling statistics (mean, std, z-score) via Welford's single-pass algorithm, exposed to Python through pybind11 with zero-copy numpy buffer protocol. Benchmarked against NumPy and pandas rolling on n=1M.</p>
+      <p class="project-writeup">The performance story: Welford's algorithm computes variance in a single pass without storing all values — critical for streaming use cases. The pybind11 binding eliminates the Python overhead on every call and avoids copying the numpy array into a C++ container.</p>
+      <div class="project-stack">
+        <span class="tag">C++</span><span class="tag">pybind11</span><span class="tag">NumPy</span><span class="tag">Welford's algorithm</span>
+      </div>
+      <div class="project-footer">
+        <span class="project-updated">Built Apr 2026</span>
+        <span class="project-arrow">↗</span>
+      </div>
+    </a>
+
+    <div class="project-card reveal" style="cursor:default;">
+      <span class="project-num">12</span>
+      <h3 class="project-name">Databricks Lakehouse</h3>
+      <p class="project-desc">Medallion architecture (bronze/silver/gold) on Databricks Community Edition with Delta Lake. PySpark transformations, Delta time-travel queries, streaming ingest, and a SQL analytics layer across all three tiers.</p>
+      <p class="project-writeup">The medallion pattern enforces data quality incrementally: bronze lands raw data exactly as-is, silver applies schema enforcement and deduplication, gold serves aggregated views optimized for specific queries. Delta Lake's transaction log makes every transformation auditable and reversible.</p>
+      <div class="project-stack">
+        <span class="tag">Databricks</span><span class="tag">Delta Lake</span><span class="tag">PySpark</span><span class="tag">medallion</span>
+      </div>
+      <div class="project-footer">
+        <span class="project-updated">In progress · Apr 2026</span>
+      </div>
+    </div>
 
   </div>
 </section>
@@ -550,10 +576,10 @@
 <!-- TRADING SYSTEM -->
 <div id="trading">
   <div class="inner">
-    <p class="section-label">In Development · Mar–May 2026</p>
+    <p class="section-label">Complete · All 5 repos shipped · Mar–Mar 2026</p>
     <h2 class="section-title">Trading System Arc</h2>
     <p class="trading-intro">
-      Five interconnected repositories building an end-to-end paper trading system.
+      Five interconnected repositories building an end-to-end paper trading system — fully shipped.
       Real Kraken market data flows through chart generation, dual-path signal analysis
       (technical indicators + FinBERT sentiment), backtesting, and a human oversight
       dashboard — with losing trades feeding back to optimize signal parameters.
@@ -603,28 +629,134 @@
     <div class="building-header">
       <div>
         <p class="section-label">Now Building</p>
-        <h2 class="building-title">Week of Apr 6</h2>
+        <h2 class="building-title">Week of Apr 13</h2>
       </div>
       <div class="live-badge"><span class="live-dot"></span>In progress</div>
     </div>
     <div class="building-grid">
       <div class="building-item">
-        <p class="building-code">ml-experiments · Apr 6–8</p>
-        <p class="building-name"><a href="https://github.com/mtichikawa/ml-experiments" target="_blank" rel="noopener">C++ pybind11 Rolling Stats</a></p>
-        <p class="building-desc">Rolling mean, std, and z-score in C++ via Welford's single-pass algorithm. pybind11 wrapper with zero-copy numpy buffer protocol. Benchmarked against NumPy and pandas on n=1M.</p>
-        <div class="building-progress"><div class="building-progress-fill" style="width:65%"></div></div>
-        <p class="building-pct">65% — C++ ext + notebook in progress</p>
+        <p class="building-code">databricks-lakehouse · Apr 13–16</p>
+        <p class="building-name"><a href="https://github.com/mtichikawa/databricks-lakehouse" target="_blank" rel="noopener">Databricks Medallion Lakehouse</a></p>
+        <p class="building-desc">Medallion architecture (bronze/silver/gold) on Databricks Community Edition with Delta Lake. Streaming ingest, PySpark transformations, Delta time-travel, and SQL analytics layer on top.</p>
+        <div class="building-progress"><div class="building-progress-fill" style="width:15%"></div></div>
+        <p class="building-pct">15% — architecture scaffolding in progress</p>
       </div>
       <div class="building-item">
-        <p class="building-code">bandit-ab-testing · Apr 9</p>
+        <p class="building-code">ml-experiments · Shipped Apr 6–8</p>
+        <p class="building-name"><a href="https://github.com/mtichikawa/ml-experiments" target="_blank" rel="noopener">C++ pybind11 Rolling Stats</a></p>
+        <p class="building-desc">Rolling mean, std, and z-score in C++ via Welford's single-pass algorithm. pybind11 wrapper with zero-copy numpy buffer protocol. Benchmarked against NumPy and pandas on n=1M.</p>
+        <div class="building-progress"><div class="building-progress-fill" style="width:100%"></div></div>
+        <p class="building-pct">100% — shipped Apr 8</p>
+      </div>
+      <div class="building-item">
+        <p class="building-code">bandit-ab-testing · Shipped Apr 9</p>
         <p class="building-name"><a href="https://github.com/mtichikawa/bandit-ab-testing" target="_blank" rel="noopener">Streamlit Interactive Demo</a></p>
         <p class="building-desc">Interactive multi-armed bandit simulator with live arm-pull visualization, regret curves, and head-to-head algorithm comparison (Thompson Sampling, UCB1, Epsilon-Greedy).</p>
-        <div class="building-progress"><div class="building-progress-fill" style="width:20%"></div></div>
-        <p class="building-pct">20% — implementation queued</p>
+        <div class="building-progress"><div class="building-progress-fill" style="width:100%"></div></div>
+        <p class="building-pct">100% — shipped Apr 9</p>
       </div>
     </div>
   </div>
 </div>
+
+<div class="divider"></div>
+
+<!-- ROADMAP -->
+<section id="roadmap" style="padding:100px 48px; max-width:1100px; margin:0 auto;">
+  <p class="section-label">Roadmap</p>
+  <h2 class="section-title">Scheduled Work</h2>
+  <div style="display:grid; grid-template-columns:1fr 1fr; gap:48px;">
+
+    <div class="reveal">
+      <p style="font-family:var(--mono);font-size:10px;font-weight:500;letter-spacing:0.2em;text-transform:uppercase;color:var(--navy);margin-bottom:16px;padding-bottom:10px;border-bottom:1px solid var(--border);">Upcoming Upgrades</p>
+      <table style="width:100%;border-collapse:collapse;font-size:13px;">
+        <tbody>
+          <tr style="border-bottom:1px solid var(--border);">
+            <td style="font-family:var(--mono);font-size:10px;color:var(--ink3);padding:10px 0 10px 0;width:80px;">Apr 21</td>
+            <td style="color:var(--ink2);padding:10px 12px;">crypto-data-pipeline — T1→T2 live feed integration</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--border);">
+            <td style="font-family:var(--mono);font-size:10px;color:var(--ink3);padding:10px 0;width:80px;">Apr 21</td>
+            <td style="color:var(--ink2);padding:10px 12px;">trading-chart-generator — live T1 data feed</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--border);">
+            <td style="font-family:var(--mono);font-size:10px;color:var(--ink3);padding:10px 0;width:80px;">Apr 24</td>
+            <td style="color:var(--ink2);padding:10px 12px;">llm-bias-detection — second dataset evaluation</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--border);">
+            <td style="font-family:var(--mono);font-size:10px;color:var(--ink3);padding:10px 0;width:80px;">Apr 28</td>
+            <td style="color:var(--ink2);padding:10px 12px;">cloud-etl-pipeline — data quality validation layer</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--border);">
+            <td style="font-family:var(--mono);font-size:10px;color:var(--ink3);padding:10px 0;width:80px;">May 4</td>
+            <td style="color:var(--ink2);padding:10px 12px;">trading-signal-engine — FinBERT tuning</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--border);">
+            <td style="font-family:var(--mono);font-size:10px;color:var(--ink3);padding:10px 0;width:80px;">May 7</td>
+            <td style="color:var(--ink2);padding:10px 12px;">llm-data-assistant — newer model integration</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--border);">
+            <td style="font-family:var(--mono);font-size:10px;color:var(--ink3);padding:10px 0;width:80px;">May 12</td>
+            <td style="color:var(--ink2);padding:10px 12px;">trading-backtester — walk-forward validation</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--border);">
+            <td style="font-family:var(--mono);font-size:10px;color:var(--ink3);padding:10px 0;width:80px;">May 14</td>
+            <td style="color:var(--ink2);padding:10px 12px;">github-trend-forecaster — PyTorch LSTM model</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--border);">
+            <td style="font-family:var(--mono);font-size:10px;color:var(--ink3);padding:10px 0;width:80px;">May 21</td>
+            <td style="color:var(--ink2);padding:10px 12px;">sql-analytics-pipeline — dbt integration</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--border);">
+            <td style="font-family:var(--mono);font-size:10px;color:var(--ink3);padding:10px 0;width:80px;">May 26</td>
+            <td style="color:var(--ink2);padding:10px 12px;">trading-dashboard — WebSocket live data</td>
+          </tr>
+          <tr>
+            <td style="font-family:var(--mono);font-size:10px;color:var(--ink3);padding:10px 0;width:80px;">May 28</td>
+            <td style="color:var(--ink2);padding:10px 12px;">financial-nlp — PostgreSQL backend</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="reveal">
+      <p style="font-family:var(--mono);font-size:10px;font-weight:500;letter-spacing:0.2em;text-transform:uppercase;color:var(--red);margin-bottom:16px;padding-bottom:10px;border-bottom:1px solid var(--border);">Future Builds</p>
+      <table style="width:100%;border-collapse:collapse;font-size:13px;">
+        <tbody>
+          <tr style="border-bottom:1px solid var(--border);">
+            <td style="font-family:var(--mono);font-size:10px;color:var(--ink3);padding:10px 0;width:80px;">Jun 1–5</td>
+            <td style="padding:10px 12px;">
+              <span style="color:var(--ink);font-weight:500;">streaming-analytics-pipeline</span>
+              <p style="color:var(--ink2);font-size:12px;margin-top:2px;">Redpanda + Spark Structured Streaming + Delta Lake</p>
+            </td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--border);">
+            <td style="font-family:var(--mono);font-size:10px;color:var(--ink3);padding:10px 0;width:80px;">Jun 15–19</td>
+            <td style="padding:10px 12px;">
+              <span style="color:var(--ink);font-weight:500;">recommendation-system</span>
+              <p style="color:var(--ink2);font-size:12px;margin-top:2px;">Collaborative + content-based hybrid recommender</p>
+            </td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--border);">
+            <td style="font-family:var(--mono);font-size:10px;color:var(--ink3);padding:10px 0;width:80px;">Jun 29–Jul 3</td>
+            <td style="padding:10px 12px;">
+              <span style="color:var(--ink);font-weight:500;">mlops-pipeline</span>
+              <p style="color:var(--ink2);font-size:12px;margin-top:2px;">MLflow + DVC + model registry with experiment tracking</p>
+            </td>
+          </tr>
+          <tr>
+            <td style="font-family:var(--mono);font-size:10px;color:var(--ink3);padding:10px 0;width:80px;">Jul 13–17</td>
+            <td style="padding:10px 12px;">
+              <span style="color:var(--ink);font-weight:500;">graph-analytics</span>
+              <p style="color:var(--ink2);font-size:12px;margin-top:2px;">NetworkX — Louvain community detection, PageRank, centrality</p>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</section>
 
 <div class="divider"></div>
 
@@ -685,7 +817,7 @@
 
 <footer>
   <span>Mike Ichikawa · Portland, OR</span>
-  <span>Updated Apr 6, 2026</span>
+  <span>Updated Apr 14, 2026</span>
 </footer>
 
 <script>
