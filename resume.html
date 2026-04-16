@@ -222,9 +222,10 @@
     MS Mathematics (CCNY, 2014) and BS Mechanical Engineering (UC Berkeley). Three years in
     semiconductor Physical Design at Intel; nine years teaching undergraduate mathematics at
     Santa Rosa Junior College. Over the past eighteen months, a self-directed transition into
-    data science and ML engineering — nine production-quality portfolio projects built from
-    scratch across time series forecasting, anomaly detection, NLP, cloud ETL, and ML serving,
-    plus a complete five-repo paper trading system: live market data ingestion through dual-path
+    data science and ML engineering — sixteen production-quality portfolio projects built from
+    scratch across time series forecasting, anomaly detection, NLP, cloud ETL, ML serving,
+    a Databricks medallion lakehouse, and C++ performance extensions via pybind11, plus a
+    complete five-repo paper trading system: live market data ingestion through dual-path
     signal generation, parameter-optimizing backtesting, and a live Streamlit oversight dashboard.
   </p>
 </div>
@@ -234,7 +235,7 @@
   <p class="r-section-head">Technical Skills</p>
   <div class="skill-row">
     <span class="skill-label">Languages</span>
-    <span>Python &nbsp;·&nbsp; SQL &nbsp;·&nbsp; R &nbsp;·&nbsp; TypeScript &nbsp;·&nbsp; Node.js</span>
+    <span>Python &nbsp;·&nbsp; SQL &nbsp;·&nbsp; C++ &nbsp;·&nbsp; R &nbsp;·&nbsp; TypeScript &nbsp;·&nbsp; Node.js</span>
   </div>
   <div class="skill-row">
     <span class="skill-label">ML / Statistics</span>
@@ -246,7 +247,7 @@
   </div>
   <div class="skill-row">
     <span class="skill-label">Data Engineering</span>
-    <span>PostgreSQL &nbsp;·&nbsp; SQLAlchemy &nbsp;·&nbsp; dbt &nbsp;·&nbsp; Apache Parquet &nbsp;·&nbsp; pandas &nbsp;·&nbsp; NumPy</span>
+    <span>PostgreSQL &nbsp;·&nbsp; Databricks &nbsp;·&nbsp; Delta Lake &nbsp;·&nbsp; medallion &nbsp;·&nbsp; dbt &nbsp;·&nbsp; SQLAlchemy &nbsp;·&nbsp; pandas</span>
   </div>
   <div class="skill-row">
     <span class="skill-label">Cloud / Infra</span>
@@ -269,6 +270,17 @@
     </div>
     <p class="proj-desc">Five interconnected repositories: live OHLCV pipeline (ccxt/Kraken + PostgreSQL) → candlestick chart generation (mplfinance) → dual-path signal engine (EMA/RSI/MACD/BB + local FinBERT sentiment, 0.6/0.4 fusion) → parameter-optimizing backtester (Sharpe/Sortino/drawdown, staged grid search, T3 feedback loop) → Streamlit multi-page oversight dashboard with live signal display, equity curve, and parameter review. 156/156 tests across T2–T5.</p>
     <p class="proj-stack">ccxt &nbsp;·&nbsp; PostgreSQL &nbsp;·&nbsp; mplfinance &nbsp;·&nbsp; FinBERT &nbsp;·&nbsp; pandas &nbsp;·&nbsp; NumPy &nbsp;·&nbsp; Streamlit &nbsp;·&nbsp; Plotly &nbsp;·&nbsp; pytest</p>
+  </div>
+
+  <div class="rule-light"></div>
+
+  <div class="proj no-break">
+    <div class="proj-header">
+      <span class="proj-name">Databricks Medallion Lakehouse</span>
+      <a class="proj-link" href="https://github.com/mtichikawa/databricks-lakehouse" target="_blank">github.com/mtichikawa/databricks-lakehouse</a>
+    </div>
+    <p class="proj-desc">Medallion lakehouse (bronze → silver → gold) on 10M NYC taxi rows with Delta Lake. Append-only bronze with provenance metadata; silver types, dedupes, and quarantines invalid rows rather than dropping them; gold serves query-specific aggregates. Row-level data quality gates between layers halt the pipeline on schema drift or null-rate breaches. 95 tests across bronze/silver/gold/quality/pipeline. Runs locally via deltalake; deployable to Databricks Community Edition.</p>
+    <p class="proj-stack">Delta Lake &nbsp;·&nbsp; medallion architecture &nbsp;·&nbsp; pandas &nbsp;·&nbsp; pyarrow &nbsp;·&nbsp; data quality gates &nbsp;·&nbsp; pytest</p>
   </div>
 
   <div class="rule-light"></div>
