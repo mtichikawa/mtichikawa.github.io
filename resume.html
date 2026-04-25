@@ -172,19 +172,21 @@
 
     /* ── PRINT ── */
     @media print {
-      body { padding: 0; max-width: 100%; font-size: 9.5pt; line-height: 1.45; }
-      @page { margin: 0.55in 0.7in; size: letter; }
+      body { padding: 0; max-width: 100%; font-size: 9pt; line-height: 1.4; }
+      @page { margin: 0.45in 0.6in; size: letter; }
       a { color: inherit !important; text-decoration: none !important; }
       .proj-link, .exp-dates, .edu-year { color: var(--ink3) !important; }
       .no-break { page-break-inside: avoid; }
-      .r-section { margin-bottom: 10px; }
-      .r-section-head { margin-bottom: 6px; }
-      .proj { margin-bottom: 7px; }
-      .exp { margin-bottom: 8px; }
+      .r-section { margin-bottom: 8px; }
+      .r-section-head { margin-bottom: 5px; }
+      .proj { margin-bottom: 5px; }
+      .exp { margin-bottom: 6px; }
       .proj-desc, .proj-stack { margin-bottom: 2px; }
-      hr { margin: 8px 0; }
-      .r-name { font-size: 22pt; }
-      .skill-row { margin-bottom: 3px; font-size: 8.5pt; }
+      .exp-bullets li { margin-bottom: 1px; }
+      .rule-light { margin: 5px 0; }
+      hr { margin: 6px 0; }
+      .r-name { font-size: 21pt; }
+      .skill-row { margin-bottom: 2px; font-size: 8.5pt; }
       .skill-label { min-width: 110px; font-size: 8.5pt; }
     }
 
@@ -222,11 +224,12 @@
     MS Mathematics (CCNY, 2014) and BS Mechanical Engineering (UC Berkeley). Three years in
     semiconductor Physical Design at Intel; nine years teaching undergraduate mathematics at
     Santa Rosa Junior College. Over the past eighteen months, a self-directed transition into
-    data science and ML engineering — sixteen production-quality portfolio projects built from
-    scratch across time series forecasting, anomaly detection, NLP, cloud ETL, ML serving,
-    a Databricks medallion lakehouse, and C++ performance extensions via pybind11, plus a
-    complete five-repo paper trading system: live market data ingestion through dual-path
-    signal generation, parameter-optimizing backtesting, and a live Streamlit oversight dashboard.
+    data science and ML engineering — culminating in Microclaw, a production AI agent for
+    Microsoft 365 (KNN tool selection, function-calling across 12 services) that I built
+    solo, launching on the Microsoft Commercial Marketplace. Complementary portfolio covers
+    time series forecasting, anomaly detection, NLP, cloud ETL, ML serving, a Databricks
+    medallion lakehouse, C++ performance extensions via pybind11, and a five-repo paper
+    trading system.
   </p>
 </div>
 
@@ -251,11 +254,70 @@
   </div>
   <div class="skill-row">
     <span class="skill-label">Cloud / Infra</span>
-    <span>AWS (S3 &nbsp;·&nbsp; Lambda &nbsp;·&nbsp; DynamoDB &nbsp;·&nbsp; CloudWatch) &nbsp;·&nbsp; Docker &nbsp;·&nbsp; FastAPI &nbsp;·&nbsp; Redis &nbsp;·&nbsp; Pydantic v2 &nbsp;·&nbsp; boto3</span>
+    <span>AWS (S3 &nbsp;·&nbsp; Lambda &nbsp;·&nbsp; DynamoDB &nbsp;·&nbsp; CloudWatch) &nbsp;·&nbsp; Docker &nbsp;·&nbsp; FastAPI &nbsp;·&nbsp; Redis &nbsp;·&nbsp; Pydantic v2 &nbsp;·&nbsp; boto3 &nbsp;·&nbsp; Microsoft Commercial Marketplace</span>
   </div>
   <div class="skill-row">
     <span class="skill-label">Tools</span>
     <span>Git &nbsp;·&nbsp; pytest &nbsp;·&nbsp; Vitest &nbsp;·&nbsp; Jupyter &nbsp;·&nbsp; Streamlit &nbsp;·&nbsp; Docker Compose</span>
+  </div>
+</div>
+
+<!-- EXPERIENCE -->
+<div class="r-section">
+  <p class="r-section-head">Experience</p>
+
+  <div class="exp no-break">
+    <div class="exp-header">
+      <span class="exp-title">Founder &amp; Engineer</span>
+      <span class="exp-dates">2026 – present</span>
+    </div>
+    <p class="exp-org">Microclaw LLC &nbsp;·&nbsp; Portland, OR</p>
+    <ul class="exp-bullets">
+      <li>Built a production AI agent on Microsoft Teams (Azure OpenAI GPT-4o + function-calling) operating across 12 Microsoft 365 services through 54 tool functions on Microsoft Graph; launching on Microsoft AppSource</li>
+      <li>Implemented KNN tool selection over 1,020 synthetic training examples (k=7, 0.80 confidence threshold, cosine-similarity fallback): 95.0% recall vs 92.7% embedding-only baseline, 6.4 tools selected per request vs 18, ~60% input-token reduction</li>
+      <li>Designed semantic memory retrieval (cosine similarity over per-user persistent context) and a smart model router (GPT-4o-mini default, escalation to GPT-4o on complexity signals); built an in-house eval framework scoring agent output across 75 tasks against a baseline bot</li>
+      <li>Built a natural-language automations layer where users describe IFTTT-style rules in plain English; the agent parses intent into structured rules persisted to SQLite, fired in real-time via Microsoft Graph change-notification webhooks</li>
+    </ul>
+  </div>
+
+  <div class="exp no-break">
+    <div class="exp-header">
+      <span class="exp-title">Mathematics Faculty</span>
+      <span class="exp-dates">2015 – 2023</span>
+    </div>
+    <p class="exp-org">Santa Rosa Junior College &nbsp;·&nbsp; Santa Rosa, CA</p>
+    <ul class="exp-bullets">
+      <li>Taught undergraduate mathematics for nine years: Algebra through Calculus III, Linear Algebra, Differential Equations, Statistics</li>
+      <li>Designed assessment systems and drove data-driven iterative improvements to course materials based on longitudinal performance analysis across multiple cohorts</li>
+      <li>Routinely explained complex mathematical concepts clearly to students with varying preparation levels</li>
+    </ul>
+  </div>
+
+  <div class="exp no-break">
+    <div class="exp-header">
+      <span class="exp-title">Physical Design Engineer</span>
+      <span class="exp-dates">2008 – 2011</span>
+    </div>
+    <p class="exp-org">Intel Corporation &nbsp;·&nbsp; Semiconductor R&D</p>
+    <ul class="exp-bullets">
+      <li>Microprocessor physical design on Intel Ivy Bridge (22nm) — timing closure, power analysis, design rule verification</li>
+      <li>Built Python and Perl automation for physical verification workflows, processing millions of layout data points per run</li>
+    </ul>
+  </div>
+</div>
+
+<!-- EDUCATION -->
+<div class="r-section no-break">
+  <p class="r-section-head">Education</p>
+  <div class="edu-row">
+    <span class="edu-degree">MS Mathematics</span>
+    <span class="edu-school">The City College of New York</span>
+    <span class="edu-year">2014</span>
+  </div>
+  <div class="edu-row">
+    <span class="edu-degree">BS Mechanical Engineering</span>
+    <span class="edu-school">University of California, Berkeley</span>
+    <span class="edu-year">2008</span>
   </div>
 </div>
 
@@ -309,17 +371,6 @@
 
   <div class="proj no-break">
     <div class="proj-header">
-      <span class="proj-name">Dockerized ML API</span>
-      <a class="proj-link" href="https://github.com/mtichikawa/dockerized-ml-api" target="_blank">github.com/mtichikawa/dockerized-ml-api</a>
-    </div>
-    <p class="proj-desc">Production ML serving: async thread pool inference, Redis TTL caching (cache hit skips model entirely), Pydantic v2 request validation, async job queue with polling endpoints, Docker Compose deployment. 32 tests.</p>
-    <p class="proj-stack">FastAPI &nbsp;·&nbsp; Docker &nbsp;·&nbsp; Redis &nbsp;·&nbsp; asyncio &nbsp;·&nbsp; Pydantic v2 &nbsp;·&nbsp; scikit-learn</p>
-  </div>
-
-  <div class="rule-light"></div>
-
-  <div class="proj no-break">
-    <div class="proj-header">
       <span class="proj-name">SQL Analytics Pipeline</span>
       <a class="proj-link" href="https://github.com/mtichikawa/sql-analytics-pipeline" target="_blank">github.com/mtichikawa/sql-analytics-pipeline</a>
     </div>
@@ -338,85 +389,12 @@
     <p class="proj-stack">Anthropic API &nbsp;·&nbsp; pandas &nbsp;·&nbsp; hybrid routing &nbsp;·&nbsp; multi-turn conversation</p>
   </div>
 
-  <div class="rule-light"></div>
-
-  <div class="proj no-break">
-    <div class="proj-header">
-      <span class="proj-name">Microclaw &nbsp;<span style="font-weight:normal; font-size:9.5pt; color:#7a7774;">(microclaw.app)</span></span>
-    </div>
-    <p class="proj-desc">AI assistant for Microsoft 365 inside Microsoft Teams. Transactable SaaS on the Microsoft Commercial Marketplace (submitted to AppSource, certification in review). Node.js backend with Azure OpenAI smart routing, Microsoft Graph API across 12 M365 services, delegated Microsoft Entra authentication, Fulfillment API v2 + Marketplace Metering Service API for billing (Microsoft as merchant of record), event-driven Graph webhooks, two-layer permission system, per-tenant isolation. 200+ tests (Vitest), TypeScript strict mode.</p>
-    <p class="proj-stack">TypeScript &nbsp;·&nbsp; Node.js &nbsp;·&nbsp; Azure OpenAI &nbsp;·&nbsp; Microsoft Graph &nbsp;·&nbsp; Teams Bot Framework &nbsp;·&nbsp; Marketplace Fulfillment API v2 &nbsp;·&nbsp; Marketplace Metering Service &nbsp;·&nbsp; Vitest</p>
-  </div>
-
   <p style="font-family:Arial,sans-serif; font-size:8.5pt; color:#7a7774; margin-top:8px; font-style:italic;">
     Additional: Multi-Armed Bandit A/B Testing (Thompson Sampling · UCB1 · Bayesian inference) &nbsp;·&nbsp;
     Bias Detection in LLMs (ANOVA · Cohen's d) &nbsp;·&nbsp;
     Financial NLP Parser (SEC EDGAR · regex · sentiment lexicon) &nbsp;·&nbsp;
     GitHub Trend Forecaster (Prophet · PyTorch LSTM in progress)
   </p>
-</div>
-
-<!-- EXPERIENCE -->
-<div class="r-section">
-  <p class="r-section-head">Experience</p>
-
-  <div class="exp no-break">
-    <div class="exp-header">
-      <span class="exp-title">Founder &amp; Engineer</span>
-      <span class="exp-dates">2026 – present</span>
-    </div>
-    <p class="exp-org">Microclaw LLC &nbsp;·&nbsp; Portland, OR</p>
-    <ul class="exp-bullets">
-      <li>Architected and shipped a transactable SaaS AI assistant on the Microsoft Commercial Marketplace (submitted to AppSource, certification in review), serving Microsoft 365 users through Microsoft Teams with 54 tools spanning 12 M365 services</li>
-      <li>Integrated Microsoft Commercial Marketplace Fulfillment API v2 and the Marketplace Metering Service API for transactable SaaS billing with per-message metered overage — Microsoft as merchant of record — across an 8-tier bracket pricing model (Solo through Team-100, $25 per seat, 1,500 messages per seat pooled across the team) with application-enforced seat caps</li>
-      <li>Designed smart GPT-4o / GPT-4o-mini routing and keyword-based tool selection targeting ~65% inference cost and ~60% input token reductions at projected query mix</li>
-      <li>Delivered 200+ unit tests (all passing), 29 iterative testing rounds, two-layer permission system (organization + app-level toggles), and per-tenant data isolation</li>
-      <li>Conducted primary-source policy research on Microsoft Commercial Marketplace certification rules mid-implementation; identified that the planned third-party payment overage design would violate the merchant-of-record requirement and pivoted to the compliant Marketplace Metering Service path before submission</li>
-      <li>Led end-to-end GTM: Oregon LLC formation, EIN, USPTO trademark filing, Microsoft Partner Center and D&amp;B DUNS onboarding, brand identity, and three showcase videos for launch</li>
-    </ul>
-  </div>
-
-  <div class="exp no-break">
-    <div class="exp-header">
-      <span class="exp-title">Mathematics Faculty</span>
-      <span class="exp-dates">2015 – 2023</span>
-    </div>
-    <p class="exp-org">Santa Rosa Junior College &nbsp;·&nbsp; Santa Rosa, CA</p>
-    <ul class="exp-bullets">
-      <li>Taught undergraduate mathematics for nine years: Algebra through Calculus III, Linear Algebra, Differential Equations, Statistics</li>
-      <li>Designed and maintained curriculum assessment systems to track student outcomes across multiple cohorts</li>
-      <li>Developed data-driven iterative improvements to course materials based on longitudinal performance analysis</li>
-      <li>Routinely explained complex mathematical concepts clearly to students with varying preparation levels</li>
-    </ul>
-  </div>
-
-  <div class="exp no-break">
-    <div class="exp-header">
-      <span class="exp-title">Physical Design Engineer</span>
-      <span class="exp-dates">2008 – 2011</span>
-    </div>
-    <p class="exp-org">Intel Corporation &nbsp;·&nbsp; Semiconductor R&D</p>
-    <ul class="exp-bullets">
-      <li>Microprocessor physical design on Intel Ivy Bridge (22nm) — timing closure, power analysis, design rule verification</li>
-      <li>Built Python and Perl automation for physical verification workflows, processing millions of layout data points per run</li>
-      <li>Identified and flagged yield-risk patterns in pre-tape-out statistical data, contributing to sign-off decisions</li>
-    </ul>
-  </div>
-</div>
-
-<!-- EDUCATION -->
-<div class="r-section no-break">
-  <p class="r-section-head">Education</p>
-  <div class="edu-row">
-    <span class="edu-degree">MS Mathematics</span>
-    <span class="edu-school">The City College of New York</span>
-    <span class="edu-year">2014</span>
-  </div>
-  <div class="edu-row">
-    <span class="edu-degree">BS Mechanical Engineering</span>
-    <span class="edu-school">University of California, Berkeley</span>
-    <span class="edu-year">2008</span>
-  </div>
 </div>
 
 </body>
