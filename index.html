@@ -349,13 +349,13 @@
     <a href="https://github.com/mtichikawa/bandit-ab-testing" target="_blank" class="project-card reveal">
       <span class="project-num">02</span>
       <h3 class="project-name">Multi-Armed Bandit A/B Testing</h3>
-      <p class="project-desc">Implements Thompson Sampling, UCB1, and Epsilon-Greedy algorithms from scratch. Each maintains its own selection and update logic — no sklearn, no library bandits. Interactive demo below on this page.</p>
+      <p class="project-desc">Implements Thompson Sampling, UCB1, and Epsilon-Greedy algorithms from scratch. Each maintains its own selection and update logic — no sklearn, no library bandits. Streamlit simulator below lets you tune arm reward distributions and watch the algorithms converge round by round.</p>
       <p class="project-writeup">Traditional A/B testing freezes traffic allocation during the learning period. Multi-armed bandits explore and exploit simultaneously — Thompson's Beta-distribution updates make the uncertainty reduction visible round by round.</p>
       <div class="project-stack">
-        <span class="tag">Thompson Sampling</span><span class="tag">UCB1</span><span class="tag">Bayesian inference</span>
+        <span class="tag">Thompson Sampling</span><span class="tag">UCB1</span><span class="tag">Bayesian inference</span><span class="tag">Streamlit</span>
       </div>
       <div class="project-footer">
-        <span class="project-updated">Built Sep 2025</span>
+        <span class="project-updated">Updated Apr 2026</span>
         <span class="project-arrow">↗</span>
       </div>
     </a>
@@ -377,13 +377,13 @@
     <a href="https://github.com/mtichikawa/llm-bias-detection" target="_blank" class="project-card reveal">
       <span class="project-num">04</span>
       <h3 class="project-name">Bias Detection in LLMs</h3>
-      <p class="project-desc">Statistical audit of demographic bias in LLM responses. Generates prompts across gender, age, and race dimensions, then scores for agentic/communal/competence/warmth lexicon patterns using ANOVA and Cohen's d.</p>
-      <p class="project-writeup">The trap in bias research is confusing statistical significance with practical significance — with enough samples, any difference is "significant." Cohen's d separates the signal from the noise: a d of 0.2 means the bias exists but barely matters; a d of 0.8 means it's shaping outcomes.</p>
+      <p class="project-desc">Statistical audit of demographic bias in LLM responses across two prompt datasets. Generates prompts across gender, age, and race dimensions, then scores for agentic/communal/competence/warmth lexicon patterns using ANOVA and Cohen's d. Cross-model comparison surfaces which biases are model-specific vs systemic.</p>
+      <p class="project-writeup">The trap in bias research is confusing statistical significance with practical significance — with enough samples, any difference is "significant." Cohen's d separates the signal from the noise: a d of 0.2 means the bias exists but barely matters; a d of 0.8 means it's shaping outcomes. Running the same prompts across multiple models tells you whether you've found a model bug or a structural pattern.</p>
       <div class="project-stack">
-        <span class="tag">ANOVA</span><span class="tag">Cohen's d</span><span class="tag">scipy.stats</span><span class="tag">lexicon scoring</span>
+        <span class="tag">ANOVA</span><span class="tag">Cohen's d</span><span class="tag">scipy.stats</span><span class="tag">lexicon scoring</span><span class="tag">cross-model comparison</span>
       </div>
       <div class="project-footer">
-        <span class="project-updated">Built Oct 2025</span>
+        <span class="project-updated">Updated Apr 2026</span>
         <span class="project-arrow">↗</span>
       </div>
     </a>
