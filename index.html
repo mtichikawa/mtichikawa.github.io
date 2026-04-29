@@ -21,8 +21,8 @@
       --bg3:     #e5e2de;
       --ink:     #1a1814;
       --ink2:    #6b6760;
-      --ink3:    #a09d99;
-      --red:     #c84b2f;
+      --ink3:    #807c75;
+      --red:     #a83d22;
       --navy:    #1a3a5c;
       --gold:    #b8892a;
       --green:   #2d6a4f;
@@ -109,7 +109,7 @@
     .project-footer { display: flex; justify-content: space-between; align-items: center; margin-top: 4px; }
     .project-arrow { font-size: 16px; color: var(--ink3); transition: all 0.2s; }
     .project-card:hover .project-arrow { color: var(--red); transform: translate(2px,-2px); }
-    .project-updated { font-family: var(--mono); font-size: 9px; color: var(--ink3); letter-spacing: 0.05em; }
+    .project-updated { font-family: var(--mono); font-size: 11px; color: var(--ink3); letter-spacing: 0.05em; }
 
     /* ── DEMOS ── */
     #demos { background: var(--bg2); padding: 100px 0; }
@@ -131,13 +131,13 @@
     .ctrl-group .range-val { font-family: var(--mono); font-size: 11px; color: var(--ink2); margin-top: 3px; }
     .bandit-arms { display: flex; gap: 8px; margin-bottom: 14px; }
     .arm-bar { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 4px; }
-    .arm-bar-label { font-family: var(--mono); font-size: 9px; color: var(--ink3); }
+    .arm-bar-label { font-family: var(--mono); font-size: 11px; color: var(--ink3); }
     .arm-bar-outer { width: 100%; height: 80px; background: var(--bg2); border: 1px solid var(--border); border-radius: 2px; position: relative; display: flex; align-items: flex-end; }
     .arm-bar-fill { width: 100%; border-radius: 2px 2px 0 0; transition: height 0.4s ease; position: absolute; bottom: 0; }
-    .arm-bar-count { font-family: var(--mono); font-size: 9px; color: var(--ink3); }
+    .arm-bar-count { font-family: var(--mono); font-size: 11px; color: var(--ink3); }
     .bandit-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 14px; }
     .bstat { background: var(--bg2); border: 1px solid var(--border); padding: 8px 10px; border-radius: 2px; }
-    .bstat-label { font-family: var(--mono); font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink3); margin-bottom: 3px; }
+    .bstat-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink3); margin-bottom: 3px; }
     .bstat-val { font-family: var(--mono); font-size: 15px; font-weight: 500; color: var(--ink); }
     .bandit-btn { width: 100%; background: var(--ink); color: var(--bg); border: none; font-family: var(--mono); font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; padding: 12px; cursor: pointer; border-radius: 2px; transition: background 0.2s; }
     .bandit-btn:hover { background: var(--red); }
@@ -175,7 +175,7 @@
     .t-name a, .t-name a:visited { color: #c0daea; text-decoration: underline; text-underline-offset: 3px; text-decoration-color: #4a7898; }
     .t-name a:hover { color: #e0f0ff; text-decoration-color: #7aaec8; }
     .t-stack { font-size: 11px; color: #90b0c8; line-height: 1.5; }
-    .t-date { font-family: var(--mono); font-size: 9px; color: #7098b0; letter-spacing: 0.1em; }
+    .t-date { font-family: var(--mono); font-size: 10px; color: #7098b0; letter-spacing: 0.1em; }
     .trading-note { margin-top: 48px; padding: 20px 24px; background: rgba(0,0,0,0.15); border-left: 2px solid #3a6888; }
     .trading-note p { font-size: 13px; color: #a0c0d8; line-height: 1.8; }
     .trading-note strong { color: #90d0f0; font-weight: 500; }
@@ -765,7 +765,7 @@ function initBanditArms() {
   const c = document.getElementById('b-arms');
   c.innerHTML = ARM_PROBS.map((p, i) => `
     <div class="arm-bar">
-      <div class="arm-bar-label">Arm ${i+1}<br><span style="color:#a09d99;font-size:9px">p=${p}</span></div>
+      <div class="arm-bar-label">Arm ${i+1}<br><span style="color:var(--ink3);font-size:11px">p=${p}</span></div>
       <div class="arm-bar-outer">
         <div class="arm-bar-fill" id="bf-${i}" style="background:${ARM_COLORS[i]};height:0%"></div>
       </div>
