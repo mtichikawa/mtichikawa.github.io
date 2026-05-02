@@ -32,6 +32,30 @@
       --sans:    'DM Sans', sans-serif;
     }
 
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg:      #1a1814;
+        --bg2:     #25221e;
+        --bg3:     #2e2a26;
+        --ink:     #f0ede6;
+        --ink2:    #c0bcb3;
+        --ink3:    #8a857b;
+        --red:     #d96b50;
+        --border:  #3a3530;
+      }
+      nav { background: rgba(26,24,20,0.88); }
+      nav.scrolled { box-shadow: 0 1px 12px rgba(0,0,0,0.4); }
+      #contact { background: #0e0b08; }
+      #contact .section-label { color: #5a5650; }
+      #contact .contact-heading { color: #f0ede6; }
+      #contact .contact-sub { color: #8a857b; }
+      #contact .contact-link { color: #b0aba0; border-color: #2a2820; }
+      #contact .contact-link:hover { border-color: #5a5650; color: #f0ede6; }
+      footer { background: #0e0b08; border-top-color: #2a2820; }
+      footer span { color: #5a5650; }
+      .anomaly-log .log-entry.flagged { color: #d96b50; }
+    }
+
     html { scroll-behavior: smooth; }
 
     body {
@@ -96,6 +120,12 @@
 
     /* ── PROJECTS ── */
     #projects { padding: 100px 48px; max-width: 1100px; margin: 0 auto; }
+    .tag-filter-bar { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 28px; align-items: center; }
+    .tag-filter-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink3); margin-right: 6px; }
+    .tag-pill { font-family: var(--mono); font-size: 11px; color: var(--ink2); background: var(--bg); border: 1px solid var(--border); padding: 5px 11px; border-radius: 999px; cursor: pointer; transition: all 0.15s; }
+    .tag-pill:hover { border-color: var(--ink2); color: var(--ink); }
+    .tag-pill.active { background: var(--ink); border-color: var(--ink); color: var(--bg); }
+    .tag-pill-all { font-weight: 500; }
     .projects-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; }
     .project-card { background: var(--bg); border: 1px solid var(--border); border-left: 3px solid transparent; padding: 28px 28px 24px; text-decoration: none; color: inherit; display: flex; flex-direction: column; gap: 10px; transition: all 0.25s ease; position: relative; overflow: hidden; }
     .project-card:hover { background: var(--bg2); border-left-color: var(--red); transform: translateY(-2px); box-shadow: 0 8px 32px rgba(0,0,0,0.06); }
@@ -110,6 +140,15 @@
     .project-arrow { font-size: 16px; color: var(--ink3); transition: all 0.2s; }
     .project-card:hover .project-arrow { color: var(--red); transform: translate(2px,-2px); }
     .project-updated { font-family: var(--mono); font-size: 11px; color: var(--ink3); letter-spacing: 0.05em; }
+
+    /* ── STACK ── */
+    #stack { padding: 80px 48px; max-width: 1100px; margin: 0 auto; }
+    .stack-intro { font-size: 14px; color: var(--ink2); line-height: 1.8; max-width: 640px; margin-bottom: 36px; }
+    .stack-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px 36px; }
+    .stack-cat-label { font-family: var(--mono); font-size: 10px; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: var(--red); margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid var(--border); }
+    .stack-chips { display: flex; flex-wrap: wrap; gap: 5px; }
+    .stack-chip { font-family: var(--mono); font-size: 11px; color: var(--ink2); background: var(--bg2); border: 1px solid var(--border); padding: 4px 10px; border-radius: 3px; cursor: pointer; transition: all 0.15s; user-select: none; }
+    .stack-chip:hover { background: var(--ink); color: var(--bg); border-color: var(--ink); }
 
     /* ── DEMOS ── */
     #demos { background: var(--bg2); padding: 100px 0; }
@@ -330,6 +369,9 @@
 <section id="projects">
   <p class="section-label">Portfolio</p>
   <h2 class="section-title">Completed Projects</h2>
+  <div class="tag-filter-bar" id="tag-filter-bar" role="toolbar" aria-label="Filter projects by tag">
+    <span class="tag-filter-label">Filter</span>
+  </div>
   <div class="projects-grid">
 
     <a href="https://github.com/mtichikawa/github-trend-forecaster" target="_blank" class="project-card reveal">
@@ -341,7 +383,7 @@
         <span class="tag">Prophet</span><span class="tag">GitHub API</span><span class="tag">pandas</span><span class="tag">time series</span>
       </div>
       <div class="project-footer">
-        <span class="project-updated">Built Aug 2025</span>
+        <span class="project-updated">Updated Apr 2026</span>
         <span class="project-arrow">↗</span>
       </div>
     </a>
@@ -391,13 +433,13 @@
     <a href="https://github.com/mtichikawa/anomaly-detection" target="_blank" class="project-card reveal">
       <span class="project-num">05</span>
       <h3 class="project-name">Real-Time Anomaly Detection</h3>
-      <p class="project-desc">Streaming ensemble: Isolation Forest, LSTM autoencoder, and Z-score detectors with majority voting. Dockerized FastAPI REST API with health checks, plus a streaming pipeline for continuous monitoring.</p>
-      <p class="project-writeup">No single detector catches everything — Isolation Forest finds global outliers, LSTM catches sequence-breaking patterns, Z-score flags statistical spikes. The 2-of-3 voting rule is the real design choice: it cuts false positives without hiding true anomalies. Containerized with Docker Compose for one-command deployment.</p>
+      <p class="project-desc">Streaming ensemble: Isolation Forest, LSTM autoencoder, Z-score, and a LightGBM gradient-boosted classifier voting together. Dockerized FastAPI REST API with health checks, plus a streaming pipeline for continuous monitoring.</p>
+      <p class="project-writeup">Each detector covers a different failure mode — Isolation Forest finds global outliers, LSTM catches sequence-breaking patterns, Z-score flags statistical spikes, and the new LightGBM detector adds a supervised signal trained on labeled history with engineered rolling-window features. Mixing supervised and unsupervised in a single ensemble keeps recall high without inflating false positives.</p>
       <div class="project-stack">
-        <span class="tag">IsolationForest</span><span class="tag">LSTM</span><span class="tag">Docker</span><span class="tag">FastAPI</span><span class="tag">REST API</span>
+        <span class="tag">IsolationForest</span><span class="tag">LSTM</span><span class="tag">LightGBM</span><span class="tag">Docker</span><span class="tag">FastAPI</span><span class="tag">REST API</span>
       </div>
       <div class="project-footer">
-        <span class="project-updated">Built Jan 2026</span>
+        <span class="project-updated">Updated Apr 2026</span>
         <span class="project-arrow">↗</span>
       </div>
     </a>
@@ -439,7 +481,7 @@
         <span class="tag">Docker</span><span class="tag">FastAPI</span><span class="tag">Redis</span><span class="tag">Pydantic v2</span><span class="tag">asyncio</span>
       </div>
       <div class="project-footer">
-        <span class="project-updated">Built Jan 2026</span>
+        <span class="project-updated">Updated Mar 2026</span>
         <span class="project-arrow">↗</span>
       </div>
     </a>
@@ -447,13 +489,13 @@
     <a href="https://github.com/mtichikawa/cloud-etl-pipeline" target="_blank" class="project-card reveal">
       <span class="project-num">09</span>
       <h3 class="project-name">Cloud ETL Pipeline</h3>
-      <p class="project-desc">AWS-native ETL: S3 data lake with Parquet/Snappy storage, Lambda validation, DynamoDB run logging, tenacity retry logic, and Hive-style partitioning by date.</p>
-      <p class="project-writeup">Hive-style partitioning (year=/month=/day=) means queries only scan the date range they need — no full-table scans. Tenacity retries with exponential backoff handle the reality that external APIs fail transiently. DynamoDB logs every run so failures are traceable, not silent.</p>
+      <p class="project-desc">AWS-native ETL: S3 data lake with Parquet/Snappy storage, Lambda validation, DynamoDB run logging, tenacity retry logic, and Hive-style partitioning by date. In-pipeline data quality layer quarantines invalid rows and flags the run when the quarantine rate trips a threshold.</p>
+      <p class="project-writeup">Hive-style partitioning (year=/month=/day=) keeps queries scoped to the date range they need. Tenacity retries with exponential backoff handle transient API failures. The DQ layer runs schema, range, and null-rate checks before load, writes a quarantine sidecar, and the Lambda cross-checks that sidecar to fail the run loud if invalid-record rate exceeds the budget.</p>
       <div class="project-stack">
-        <span class="tag">AWS S3</span><span class="tag">Lambda</span><span class="tag">DynamoDB</span><span class="tag">Parquet</span>
+        <span class="tag">AWS S3</span><span class="tag">Lambda</span><span class="tag">DynamoDB</span><span class="tag">Parquet</span><span class="tag">data quality</span>
       </div>
       <div class="project-footer">
-        <span class="project-updated">Built Feb 2026</span>
+        <span class="project-updated">Updated Apr 2026</span>
         <span class="project-arrow">↗</span>
       </div>
     </a>
@@ -484,6 +526,110 @@
         <span class="project-updated">Built Apr 2026</span>
       </div>
     </a>
+
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- STACK -->
+<section id="stack">
+  <p class="section-label">Stack</p>
+  <h2 class="section-title">Tools across these projects</h2>
+  <p class="stack-intro">Click any chip to filter the project grid above by that tool. Categories below reflect what actually shows up in the eleven cards — not a marketing list.</p>
+  <div class="stack-grid">
+
+    <div class="reveal">
+      <p class="stack-cat-label">Languages · Native</p>
+      <div class="stack-chips">
+        <span class="stack-chip" data-stack-tag="C++">C++</span>
+        <span class="stack-chip" data-stack-tag="pybind11">pybind11</span>
+        <span class="stack-chip" data-stack-tag="NumPy">NumPy</span>
+      </div>
+    </div>
+
+    <div class="reveal">
+      <p class="stack-cat-label">ML · Detectors</p>
+      <div class="stack-chips">
+        <span class="stack-chip" data-stack-tag="IsolationForest">IsolationForest</span>
+        <span class="stack-chip" data-stack-tag="LSTM">LSTM</span>
+        <span class="stack-chip" data-stack-tag="LightGBM">LightGBM</span>
+        <span class="stack-chip" data-stack-tag="Prophet">Prophet</span>
+        <span class="stack-chip" data-stack-tag="Welford's algorithm">Welford</span>
+      </div>
+    </div>
+
+    <div class="reveal">
+      <p class="stack-cat-label">Statistics · Bayesian</p>
+      <div class="stack-chips">
+        <span class="stack-chip" data-stack-tag="Thompson Sampling">Thompson Sampling</span>
+        <span class="stack-chip" data-stack-tag="UCB1">UCB1</span>
+        <span class="stack-chip" data-stack-tag="Bayesian inference">Bayesian inference</span>
+        <span class="stack-chip" data-stack-tag="ANOVA">ANOVA</span>
+        <span class="stack-chip" data-stack-tag="Cohen's d">Cohen's d</span>
+        <span class="stack-chip" data-stack-tag="scipy.stats">scipy.stats</span>
+      </div>
+    </div>
+
+    <div class="reveal">
+      <p class="stack-cat-label">LLMs · NLP</p>
+      <div class="stack-chips">
+        <span class="stack-chip" data-stack-tag="Anthropic API">Anthropic API</span>
+        <span class="stack-chip" data-stack-tag="hybrid routing">hybrid routing</span>
+        <span class="stack-chip" data-stack-tag="multi-turn">multi-turn</span>
+        <span class="stack-chip" data-stack-tag="lexicon scoring">lexicon scoring</span>
+        <span class="stack-chip" data-stack-tag="cross-model comparison">cross-model</span>
+        <span class="stack-chip" data-stack-tag="SEC EDGAR">SEC EDGAR</span>
+        <span class="stack-chip" data-stack-tag="sentiment lexicon">sentiment lexicon</span>
+        <span class="stack-chip" data-stack-tag="NLP">NLP</span>
+      </div>
+    </div>
+
+    <div class="reveal">
+      <p class="stack-cat-label">Data Engineering</p>
+      <div class="stack-chips">
+        <span class="stack-chip" data-stack-tag="pandas">pandas</span>
+        <span class="stack-chip" data-stack-tag="Parquet">Parquet</span>
+        <span class="stack-chip" data-stack-tag="Delta Lake">Delta Lake</span>
+        <span class="stack-chip" data-stack-tag="SQLAlchemy">SQLAlchemy</span>
+        <span class="stack-chip" data-stack-tag="SQLite">SQLite</span>
+        <span class="stack-chip" data-stack-tag="dbt-style">dbt-style</span>
+        <span class="stack-chip" data-stack-tag="window functions">window functions</span>
+        <span class="stack-chip" data-stack-tag="medallion">medallion</span>
+        <span class="stack-chip" data-stack-tag="data quality">data quality</span>
+      </div>
+    </div>
+
+    <div class="reveal">
+      <p class="stack-cat-label">Cloud · Infra</p>
+      <div class="stack-chips">
+        <span class="stack-chip" data-stack-tag="AWS S3">AWS S3</span>
+        <span class="stack-chip" data-stack-tag="Lambda">Lambda</span>
+        <span class="stack-chip" data-stack-tag="DynamoDB">DynamoDB</span>
+        <span class="stack-chip" data-stack-tag="Docker">Docker</span>
+        <span class="stack-chip" data-stack-tag="FastAPI">FastAPI</span>
+        <span class="stack-chip" data-stack-tag="Redis">Redis</span>
+        <span class="stack-chip" data-stack-tag="Pydantic v2">Pydantic v2</span>
+        <span class="stack-chip" data-stack-tag="REST API">REST API</span>
+        <span class="stack-chip" data-stack-tag="asyncio">asyncio</span>
+      </div>
+    </div>
+
+    <div class="reveal">
+      <p class="stack-cat-label">Front-end · Demos</p>
+      <div class="stack-chips">
+        <span class="stack-chip" data-stack-tag="Streamlit">Streamlit</span>
+      </div>
+    </div>
+
+    <div class="reveal">
+      <p class="stack-cat-label">Other</p>
+      <div class="stack-chips">
+        <span class="stack-chip" data-stack-tag="GitHub API">GitHub API</span>
+        <span class="stack-chip" data-stack-tag="regex">regex</span>
+        <span class="stack-chip" data-stack-tag="time series">time series</span>
+      </div>
+    </div>
 
   </div>
 </section>
@@ -614,7 +760,19 @@
     <div class="trading-note reveal">
       <p><strong>The feedback loop:</strong> T4 records whether each signal configuration led to a winning or losing paper trade. T3's parameters (indicator thresholds, sentiment weights, fusion ratio) are tuned based on those outcomes. T5's dashboard lets me review signal performance and approve parameter changes. The system improves its own signal generation — I stay in the loop as the decision-maker. Entirely free to run: no paid APIs, local FinBERT, public market data.</p>
     </div>
-    <p class="t-status"><span class="t-status-dot"></span>T1–T5 complete · <a href="https://mtichikawa-trading.streamlit.app" target="_blank" rel="noopener" style="color:#90d0f0;">Live Demo</a></p>
+    <div style="margin-top:40px; display:flex; justify-content:center;">
+      <a href="https://mtichikawa-trading.streamlit.app" target="_blank" rel="noopener"
+         style="display:inline-flex; align-items:center; gap:12px; font-family:var(--mono);
+                font-size:13px; font-weight:500; letter-spacing:0.12em; text-transform:uppercase;
+                text-decoration:none; padding:18px 36px; background:#6cc0e0; color:#0a1828;
+                border-radius:3px; transition:all 0.2s;"
+         onmouseover="this.style.background='#90d0f0'; this.style.transform='translateY(-2px)';"
+         onmouseout="this.style.background='#6cc0e0'; this.style.transform='translateY(0)';">
+        Open the Live Trading Dashboard
+        <span style="font-size:18px;">→</span>
+      </a>
+    </div>
+    <p class="t-status"><span class="t-status-dot"></span>T1–T5 complete · streamlit · live</p>
   </div>
 </div>
 
@@ -738,7 +896,7 @@
 
 <footer>
   <span>Mike Ichikawa · Portland, OR</span>
-  <span>Updated Apr 25, 2026</span>
+  <span>Updated May 2, 2026</span>
 </footer>
 
 <script>
@@ -756,6 +914,85 @@ const observer = new IntersectionObserver(entries => {
   });
 }, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
 document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// ── TAG FILTER ──
+(function () {
+  const cards = Array.from(document.querySelectorAll('#projects .project-card'));
+  const cardTags = new Map();
+  const allTagSet = new Set();
+  cards.forEach(card => {
+    const tags = Array.from(card.querySelectorAll('.tag')).map(t => t.textContent.trim());
+    cardTags.set(card, new Set(tags));
+    tags.forEach(t => allTagSet.add(t));
+  });
+
+  const bar = document.getElementById('tag-filter-bar');
+  if (!bar) return;
+  const allBtn = document.createElement('button');
+  allBtn.className = 'tag-pill tag-pill-all active';
+  allBtn.textContent = 'All';
+  allBtn.dataset.tag = '__all__';
+  bar.appendChild(allBtn);
+  Array.from(allTagSet).sort((a, b) => a.localeCompare(b)).forEach(t => {
+    const pill = document.createElement('button');
+    pill.className = 'tag-pill';
+    pill.textContent = t;
+    pill.dataset.tag = t;
+    bar.appendChild(pill);
+  });
+
+  const selected = new Set();
+
+  function apply() {
+    const allEl = bar.querySelector('.tag-pill-all');
+    if (selected.size === 0) {
+      cards.forEach(c => { c.style.display = ''; });
+      allEl.classList.add('active');
+      return;
+    }
+    allEl.classList.remove('active');
+    cards.forEach(card => {
+      const tags = cardTags.get(card);
+      const matches = Array.from(selected).every(t => tags.has(t));
+      card.style.display = matches ? '' : 'none';
+    });
+  }
+
+  bar.addEventListener('click', e => {
+    const pill = e.target.closest('.tag-pill');
+    if (!pill) return;
+    const tag = pill.dataset.tag;
+    if (tag === '__all__') {
+      selected.clear();
+      bar.querySelectorAll('.tag-pill').forEach(p => p.classList.remove('active'));
+      pill.classList.add('active');
+      apply();
+      return;
+    }
+    if (selected.has(tag)) {
+      selected.delete(tag);
+      pill.classList.remove('active');
+    } else {
+      selected.add(tag);
+      pill.classList.add('active');
+    }
+    apply();
+  });
+
+  // Stack chips → activate the corresponding filter pill
+  document.querySelectorAll('.stack-chip[data-stack-tag]').forEach(chip => {
+    chip.addEventListener('click', () => {
+      const tag = chip.dataset.stackTag;
+      selected.clear();
+      selected.add(tag);
+      bar.querySelectorAll('.tag-pill').forEach(p => {
+        p.classList.toggle('active', p.dataset.tag === tag);
+      });
+      apply();
+      document.getElementById('projects').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+})();
 
 // ── BANDIT SIMULATION ──
 const ARM_PROBS = [0.25, 0.45, 0.35, 0.55, 0.30];
