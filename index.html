@@ -2,1261 +2,2372 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="color-scheme" content="light dark" />
   <title>Mike Ichikawa — Data Scientist · ML Engineer</title>
+  <meta name="description" content="Mike Ichikawa — Data Scientist, Data Engineer, ML Engineer. Sixteen production-quality projects. Trading system arc, streaming anomaly detection, cloud ETL, Bayesian experimentation. Open to work." />
   <meta property="og:title" content="Mike Ichikawa — Data Scientist · ML Engineer" />
-  <meta property="og:description" content="16 completed projects across data science, ML engineering, and cloud infrastructure — including a 5-repo end-to-end trading system arc. MS Mathematics · 3 years Intel · 9 years teaching. Open to work." />
+  <meta property="og:description" content="Sixteen production-quality data and ML projects, including a five-repo end-to-end trading system. Open to work." />
   <meta property="og:url" content="https://mtichikawa.github.io" />
   <meta property="og:type" content="website" />
+
+  <!-- Inline theme bootstrap to avoid flash on load -->
+  <script>
+    (function () {
+      var stored = localStorage.getItem('theme');
+      var theme = (stored === 'light' || stored === 'dark')
+        ? stored
+        : (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      document.documentElement.setAttribute('data-theme', theme);
+    })();
+  </script>
+
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@300;400;500&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" />
 
   <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    :root {
-      --bg:      #f7f6f2;
-      --bg2:     #eeecea;
-      --bg3:     #e5e2de;
-      --ink:     #1a1814;
-      --ink2:    #6b6760;
-      --ink3:    #807c75;
-      --red:     #a83d22;
-      --navy:    #1a3a5c;
-      --gold:    #b8892a;
-      --green:   #2d6a4f;
-      --border:  #d8d5d0;
-      --mono:    'DM Mono', monospace;
-      --serif:   'DM Serif Display', serif;
-      --sans:    'DM Sans', sans-serif;
-    }
+    /* ============================================================
+       RESET
+       ============================================================ */
+    *,
+    *::before,
+    *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     html { scroll-behavior: smooth; }
 
+    img, svg { display: block; }
+
+    button { font: inherit; cursor: pointer; }
+
+    a { color: inherit; }
+
+    /* ============================================================
+       DESIGN TOKENS — every color, size, and spacing lives here
+       ============================================================ */
+    :root {
+      /* Surfaces (light defaults) */
+      --bg:           #f7f6f2;
+      --bg-soft:      #efece6;
+      --bg-elev:      #e8e4dd;
+
+      /* Always-dark surface (footer + contact in BOTH modes) */
+      --surface-deep:      #1a1814;
+      --surface-deep-text: #f4efe5;
+      --surface-deep-muted:#bdb5a5;
+      --surface-deep-faint:#7d766a;
+      --surface-deep-accent:#e8d4b8;
+      --surface-deep-border:#3a3530;
+
+      /* Ink */
+      --ink:        #1a1814;
+      --ink-muted:  #57534c;
+      --ink-soft:   #6e6960;
+
+      /* Accent */
+      --red:    #a83d22;
+      --navy:   #1a3a5c;
+      --accent: #1a3a5c;
+
+      /* Borders */
+      --border:      #d2cec8;
+      --border-soft: #e3dfd8;
+
+      /* Nav */
+      --nav-bg:     rgba(247, 246, 242, 0.92);
+      --nav-shadow: rgba(0, 0, 0, 0.06);
+
+      /* Trading section uses fixed navy palette in both modes */
+      --t-bg:       #15324f;
+      --t-text:     #e8eef4;
+      --t-muted:    #c8d8e6;
+      --t-faint:    #9eb8ce;
+      --t-accent:   #8ad0ee;
+      --t-rule:     #2f526e;
+      --t-live:     #6dd5a4;
+      --t-live-bg:  rgba(109, 213, 164, 0.15);
+
+      /* Type stack */
+      --serif: 'DM Serif Display', 'Iowan Old Style', Georgia, serif;
+      --mono:  'DM Mono', 'SF Mono', Menlo, Consolas, monospace;
+      --sans:  'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+
+      /* Type scale — minimum size is 12px for UI labels, 14px for prose.
+         Anything smaller is a bug. */
+      --fs-display:     clamp(56px, 9vw, 104px);
+      --fs-display-sub: clamp(22px, 3.2vw, 36px);
+      --fs-h1:          clamp(32px, 4.5vw, 52px);
+      --fs-h2:          26px;
+      --fs-h3:          20px;
+      --fs-lead:        18px;   /* hero-bio, intros */
+      --fs-body:        16px;   /* default body */
+      --fs-body-sm:     14px;   /* dense body, card copy */
+      --fs-label:       12px;   /* mono uppercase labels */
+      --fs-meta:        13px;   /* mono metadata (dates, counts) */
+
+      /* Line heights */
+      --lh-tight:  1.15;
+      --lh-snug:   1.4;
+      --lh-normal: 1.6;
+      --lh-loose:  1.8;
+
+      /* Spacing scale */
+      --sp-1:  6px;
+      --sp-2:  10px;
+      --sp-3:  16px;
+      --sp-4:  24px;
+      --sp-5:  36px;
+      --sp-6:  56px;
+      --sp-7:  88px;
+      --sp-8:  120px;
+
+      /* Layout */
+      --page-max: 1120px;
+      --gutter:   clamp(20px, 4vw, 48px);
+
+      /* Effects */
+      --radius-sm: 3px;
+      --radius-md: 6px;
+      --tx-fast:   0.15s ease;
+      --tx-med:    0.25s ease;
+    }
+
+    /* Dark mode (auto, via OS preference) */
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg:        #1a1814;
+        --bg-soft:   #221f1b;
+        --bg-elev:   #2a2622;
+
+        --surface-deep:       #0d0b08;
+        --surface-deep-text:  #f4efe5;
+        --surface-deep-muted: #c4bcac;
+        --surface-deep-faint: #8c8475;
+        --surface-deep-accent:#e8d4b8;
+        --surface-deep-border:#332f2a;
+
+        --ink:        #f0ede6;
+        --ink-muted:  #cdc7bb;
+        --ink-soft:   #aaa399;
+
+        --red:    #e07d62;
+        --navy:   #1a3a5c;
+        --accent: #6cc0e0;
+
+        --border:      #383330;
+        --border-soft: #2a2622;
+
+        --nav-bg:     rgba(26, 24, 20, 0.85);
+        --nav-shadow: rgba(0, 0, 0, 0.4);
+      }
+    }
+
+    /* Manual override (toggle button) — beats @media because attribute
+       selector has higher specificity than :root */
+    html[data-theme="light"] {
+      --bg: #f7f6f2; --bg-soft: #efece6; --bg-elev: #e8e4dd;
+      --surface-deep: #1a1814; --surface-deep-text: #f4efe5;
+      --surface-deep-muted: #bdb5a5; --surface-deep-faint: #7d766a;
+      --surface-deep-accent: #e8d4b8; --surface-deep-border: #3a3530;
+      --ink: #1a1814; --ink-muted: #57534c; --ink-soft: #6e6960;
+      --red: #a83d22; --accent: #1a3a5c;
+      --border: #d2cec8; --border-soft: #e3dfd8;
+      --nav-bg: rgba(247, 246, 242, 0.92); --nav-shadow: rgba(0, 0, 0, 0.06);
+    }
+    html[data-theme="dark"] {
+      --bg: #1a1814; --bg-soft: #221f1b; --bg-elev: #2a2622;
+      --surface-deep: #0d0b08; --surface-deep-text: #f4efe5;
+      --surface-deep-muted: #c4bcac; --surface-deep-faint: #8c8475;
+      --surface-deep-accent: #e8d4b8; --surface-deep-border: #332f2a;
+      --ink: #f0ede6; --ink-muted: #cdc7bb; --ink-soft: #aaa399;
+      --red: #e07d62; --accent: #6cc0e0;
+      --border: #383330; --border-soft: #2a2622;
+      --nav-bg: rgba(26, 24, 20, 0.85); --nav-shadow: rgba(0, 0, 0, 0.4);
+    }
+
+    /* ============================================================
+       BASE
+       ============================================================ */
     body {
       background: var(--bg);
       color: var(--ink);
       font-family: var(--sans);
       font-weight: 300;
-      line-height: 1.6;
+      font-size: var(--fs-body);
+      line-height: var(--lh-normal);
       -webkit-font-smoothing: antialiased;
+      transition: background 0.2s ease, color 0.2s ease;
     }
 
-    /* ── NAV ── */
-    nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-      display: flex; justify-content: space-between; align-items: center;
-      padding: 18px 48px;
-      background: rgba(247,246,242,0.92);
-      backdrop-filter: blur(12px);
+    a:focus-visible,
+    button:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 3px;
+      border-radius: 2px;
+    }
+
+    .wrap {
+      max-width: var(--page-max);
+      margin: 0 auto;
+      padding: 0 var(--gutter);
+    }
+
+    .section { padding: var(--sp-7) 0; }
+    .section--alt { background: var(--bg-soft); }
+
+    /* ============================================================
+       NAV
+       ============================================================ */
+    .nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 50;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 16px var(--gutter);
+      background: var(--nav-bg);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
       border-bottom: 1px solid transparent;
-      transition: border-color 0.3s;
+      transition: border-color 0.25s, box-shadow 0.25s, background 0.2s;
     }
-    nav.scrolled { border-color: var(--border); box-shadow: 0 1px 12px rgba(0,0,0,0.04); }
-    .nav-name { font-family: var(--mono); font-size: 13px; font-weight: 500; color: var(--ink); text-decoration: none; }
-    .nav-links { display: flex; gap: 28px; list-style: none; }
-    .nav-links a { font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink2); text-decoration: none; transition: color 0.2s; }
-    .nav-links a:hover { color: var(--red); }
-
-    /* ── HERO ── */
-    #hero {
-      min-height: 100vh; display: flex; flex-direction: column; justify-content: center;
-      padding: 120px 48px 80px; max-width: 1100px; margin: 0 auto;
+    .nav.is-scrolled {
+      border-bottom-color: var(--border);
+      box-shadow: 0 1px 12px var(--nav-shadow);
     }
-    .hero-label { font-family: var(--mono); font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ink3); margin-bottom: 28px; opacity: 0; animation: fadeUp 0.6s ease forwards 0.1s; }
-    .hero-name { font-family: var(--serif); font-size: clamp(52px, 8vw, 96px); font-weight: 400; line-height: 1.0; color: var(--ink); margin-bottom: 8px; opacity: 0; animation: fadeUp 0.7s ease forwards 0.2s; }
-    .hero-name em { font-style: italic; color: var(--red); }
-    .hero-title { font-family: var(--serif); font-size: clamp(22px, 3.5vw, 38px); font-weight: 400; font-style: italic; color: var(--ink2); margin-bottom: 40px; opacity: 0; animation: fadeUp 0.7s ease forwards 0.3s; }
-    .hero-bio { max-width: 580px; font-size: 15px; color: var(--ink2); line-height: 1.9; margin-bottom: 48px; opacity: 0; animation: fadeUp 0.7s ease forwards 0.4s; }
-    .hero-bio strong { color: var(--ink); font-weight: 500; }
-    .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; opacity: 0; animation: fadeUp 0.7s ease forwards 0.5s; }
-    .btn { display: inline-flex; align-items: center; gap: 8px; font-family: var(--mono); font-size: 12px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; padding: 13px 26px; border-radius: 2px; transition: all 0.2s; }
-    .btn-primary { background: var(--ink); color: var(--bg); }
-    .btn-primary:hover { background: var(--red); transform: translateY(-1px); }
-    .btn-secondary { background: transparent; color: var(--ink); border: 1px solid var(--border); }
-    .btn-secondary:hover { border-color: var(--ink); transform: translateY(-1px); }
 
-    /* ── SECTION BASE ── */
-    .section-label { font-family: var(--mono); font-size: 10px; font-weight: 500; letter-spacing: 0.25em; text-transform: uppercase; color: var(--red); margin-bottom: 12px; }
-    .section-title { font-family: var(--serif); font-size: clamp(30px, 4vw, 50px); font-weight: 400; line-height: 1.1; color: var(--ink); margin-bottom: 40px; }
-    .divider { width: 100%; height: 1px; background: linear-gradient(90deg, transparent, var(--border) 20%, var(--border) 80%, transparent); }
+    .nav__brand {
+      font-family: var(--mono);
+      font-weight: 500;
+      font-size: 14px;
+      letter-spacing: 0.02em;
+      text-decoration: none;
+      color: var(--ink);
+    }
 
-    /* ── BACKGROUND ── */
-    #background { background: var(--bg2); padding: 100px 0; }
-    #background .inner { max-width: 1100px; margin: 0 auto; padding: 0 48px; display: grid; grid-template-columns: 1.2fr 1fr; gap: 80px; align-items: start; }
-    .bg-intro p { font-size: 15px; color: var(--ink2); line-height: 1.9; margin-bottom: 16px; }
-    .bg-intro p strong { color: var(--ink); font-weight: 500; }
-    .bg-cards { display: flex; flex-direction: column; gap: 16px; }
-    .bg-card { padding: 32px; background: var(--bg); border: 1px solid var(--border); border-radius: 3px; }
-    .bg-card-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ink3); margin-bottom: 6px; }
-    .bg-card-number { font-family: var(--serif); font-size: 56px; color: var(--red); line-height: 1; margin-bottom: 4px; }
-    .bg-card-title { font-family: var(--serif); font-size: 20px; color: var(--ink); margin-bottom: 10px; }
-    .bg-card-body { font-size: 13px; color: var(--ink2); line-height: 1.7; }
+    .nav__links {
+      display: flex; align-items: center; gap: 26px;
+      list-style: none;
+    }
+    .nav__links a {
+      font-family: var(--mono);
+      font-size: var(--fs-label);
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      text-decoration: none;
+      color: var(--ink-muted);
+      transition: color var(--tx-fast);
+    }
+    .nav__links a:hover { color: var(--red); }
 
-    /* ── PROJECTS ── */
-    #projects { padding: 100px 48px; max-width: 1100px; margin: 0 auto; }
-    .tag-filter-bar { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 28px; align-items: center; }
-    .tag-filter-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink3); margin-right: 6px; }
-    .tag-pill { font-family: var(--mono); font-size: 11px; color: var(--ink2); background: var(--bg); border: 1px solid var(--border); padding: 5px 11px; border-radius: 999px; cursor: pointer; transition: all 0.15s; }
-    .tag-pill:hover { border-color: var(--ink2); color: var(--ink); }
-    .tag-pill.active { background: var(--ink); border-color: var(--ink); color: var(--bg); }
-    .tag-pill-all { font-weight: 500; }
-    .projects-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; }
-    .project-card { background: var(--bg); border: 1px solid var(--border); border-left: 3px solid transparent; padding: 28px 28px 24px; text-decoration: none; color: inherit; display: flex; flex-direction: column; gap: 10px; transition: all 0.25s ease; position: relative; overflow: hidden; }
-    .project-card:hover { background: var(--bg2); border-left-color: var(--red); transform: translateY(-2px); box-shadow: 0 8px 32px rgba(0,0,0,0.06); }
-    .project-num { font-family: var(--mono); font-size: 10px; letter-spacing: 0.15em; color: var(--ink3); }
-    .project-name { font-family: var(--serif); font-size: 19px; color: var(--ink); line-height: 1.2; }
-    .project-desc { font-size: 13px; color: var(--ink2); line-height: 1.7; flex: 1; }
-    .project-writeup { font-size: 12px; color: var(--ink3); line-height: 1.6; font-style: italic; padding-top: 6px; border-top: 1px solid var(--border); margin-top: 2px; }
-    .project-stack { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 4px; }
-    .tag { font-family: var(--mono); font-size: 10px; color: var(--ink2); background: var(--bg2); border: 1px solid var(--border); padding: 3px 8px; border-radius: 3px; transition: all 0.2s; }
-    .project-card:hover .tag { background: var(--bg3); border-color: var(--ink3); }
-    .project-footer { display: flex; justify-content: space-between; align-items: center; margin-top: 4px; }
-    .project-arrow { font-size: 16px; color: var(--ink3); transition: all 0.2s; }
-    .project-card:hover .project-arrow { color: var(--red); transform: translate(2px,-2px); }
-    .project-updated { font-family: var(--mono); font-size: 11px; color: var(--ink3); letter-spacing: 0.05em; }
+    .theme-toggle {
+      width: 34px; height: 34px;
+      display: inline-flex; align-items: center; justify-content: center;
+      background: transparent;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      color: var(--ink-muted);
+      transition: color var(--tx-fast), border-color var(--tx-fast), background var(--tx-fast);
+    }
+    .theme-toggle:hover { color: var(--ink); border-color: var(--ink-soft); background: var(--bg-elev); }
+    .theme-toggle svg { width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 1.8; }
 
-    /* ── STACK ── */
-    #stack { padding: 80px 48px; max-width: 1100px; margin: 0 auto; }
-    .stack-intro { font-size: 14px; color: var(--ink2); line-height: 1.8; max-width: 640px; margin-bottom: 36px; }
-    .stack-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px 36px; }
-    .stack-cat-label { font-family: var(--mono); font-size: 10px; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: var(--red); margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid var(--border); }
-    .stack-chips { display: flex; flex-wrap: wrap; gap: 5px; }
-    .stack-chip { font-family: var(--mono); font-size: 11px; color: var(--ink2); background: var(--bg2); border: 1px solid var(--border); padding: 4px 10px; border-radius: 3px; cursor: pointer; transition: all 0.15s; user-select: none; }
-    .stack-chip:hover { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+    /* ============================================================
+       SECTION HEADERS (eyebrow + title)
+       ============================================================ */
+    .eyebrow {
+      font-family: var(--mono);
+      font-size: var(--fs-label);
+      font-weight: 500;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 14px;
+    }
+    .eyebrow--muted { color: var(--ink-muted); }
 
-    /* ── DEMOS ── */
-    #demos { background: var(--bg2); padding: 100px 0; }
-    #demos .inner { max-width: 1100px; margin: 0 auto; padding: 0 48px; }
-    .demos-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
-    .demo-card { background: var(--bg); border: 1px solid var(--border); border-radius: 4px; overflow: hidden; }
-    .demo-header { padding: 24px 28px 0; }
-    .demo-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--red); margin-bottom: 6px; }
-    .demo-title { font-family: var(--serif); font-size: 22px; color: var(--ink); margin-bottom: 8px; }
-    .demo-desc { font-size: 13px; color: var(--ink2); line-height: 1.7; margin-bottom: 16px; }
-    .demo-body { padding: 0 28px 28px; }
+    .title {
+      font-family: var(--serif);
+      font-size: var(--fs-h1);
+      font-weight: 400;
+      line-height: var(--lh-tight);
+      color: var(--ink);
+      margin-bottom: var(--sp-5);
+    }
 
-    /* ── BANDIT DEMO ── */
-    .bandit-controls { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 16px; }
-    .ctrl-group label { display: block; font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink3); margin-bottom: 5px; }
-    .ctrl-group select, .ctrl-group input[type=range] { width: 100%; }
-    .ctrl-group select { background: var(--bg); border: 1px solid var(--border); color: var(--ink); font-family: var(--mono); font-size: 12px; padding: 6px 10px; border-radius: 2px; }
-    .ctrl-group input[type=range] { accent-color: var(--red); }
-    .ctrl-group .range-val { font-family: var(--mono); font-size: 11px; color: var(--ink2); margin-top: 3px; }
-    .bandit-arms { display: flex; gap: 8px; margin-bottom: 14px; }
-    .arm-bar { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 4px; }
-    .arm-bar-label { font-family: var(--mono); font-size: 11px; color: var(--ink3); }
-    .arm-bar-outer { width: 100%; height: 80px; background: var(--bg2); border: 1px solid var(--border); border-radius: 2px; position: relative; display: flex; align-items: flex-end; }
-    .arm-bar-fill { width: 100%; border-radius: 2px 2px 0 0; transition: height 0.4s ease; position: absolute; bottom: 0; }
-    .arm-bar-count { font-family: var(--mono); font-size: 11px; color: var(--ink3); }
-    .bandit-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 14px; }
-    .bstat { background: var(--bg2); border: 1px solid var(--border); padding: 8px 10px; border-radius: 2px; }
-    .bstat-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink3); margin-bottom: 3px; }
-    .bstat-val { font-family: var(--mono); font-size: 15px; font-weight: 500; color: var(--ink); }
-    .bandit-btn { width: 100%; background: var(--ink); color: var(--bg); border: none; font-family: var(--mono); font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; padding: 12px; cursor: pointer; border-radius: 2px; transition: background 0.2s; }
-    .bandit-btn:hover { background: var(--red); }
-    .bandit-btn:disabled { opacity: 0.4; cursor: not-allowed; }
-    .regret-chart { width: 100%; height: 60px; margin-bottom: 12px; }
+    .divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--border) 18%, var(--border) 82%, transparent);
+    }
 
-    /* ── ANOMALY DEMO ── */
-    .anomaly-canvas-wrap { position: relative; width: 100%; height: 140px; background: var(--bg2); border: 1px solid var(--border); border-radius: 2px; margin-bottom: 12px; overflow: hidden; }
-    .anomaly-canvas { width: 100%; height: 100%; display: block; }
-    .anomaly-legend { display: flex; gap: 16px; margin-bottom: 12px; }
-    .legend-item { display: flex; align-items: center; gap: 6px; font-family: var(--mono); font-size: 10px; color: var(--ink3); }
-    .legend-dot { width: 8px; height: 8px; border-radius: 50%; }
-    .anomaly-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 14px; }
-    .anomaly-controls { display: flex; gap: 8px; }
-    .anomaly-btn { flex: 1; padding: 10px; font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; border: 1px solid var(--border); background: transparent; color: var(--ink2); cursor: pointer; border-radius: 2px; transition: all 0.2s; }
-    .anomaly-btn:hover { background: var(--ink); color: var(--bg); border-color: var(--ink); }
-    .anomaly-btn.active { background: var(--ink); color: var(--bg); border-color: var(--ink); }
-    .anomaly-log { font-family: var(--mono); font-size: 10px; color: var(--ink3); max-height: 52px; overflow-y: auto; background: var(--bg2); border: 1px solid var(--border); padding: 8px; border-radius: 2px; }
-    .anomaly-log .log-entry { margin-bottom: 2px; }
-    .anomaly-log .log-entry.flagged { color: var(--red); }
+    /* ============================================================
+       BUTTONS
+       ============================================================ */
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-family: var(--mono);
+      font-size: var(--fs-meta);
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      text-decoration: none;
+      padding: 11px 18px;
+      border-radius: var(--radius-sm);
+      border: 1px solid transparent;
+      transition: all var(--tx-fast);
+      line-height: 1;
+    }
+    .btn:hover { transform: translateY(-1px); }
+    .btn__icon { width: 15px; height: 15px; flex-shrink: 0; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
 
-    /* ── TRADING ── */
-    #trading { background: var(--navy); padding: 100px 0; color: #e8eef4; }
-    #trading .inner { max-width: 1100px; margin: 0 auto; padding: 0 48px; }
-    #trading .section-label { color: #7aaec8; }
-    #trading .section-title { color: #f0f4f8; margin-bottom: 20px; }
-    .trading-intro { max-width: 620px; font-size: 14px; color: #a0c0d8; line-height: 1.9; margin-bottom: 48px; }
-    .trading-pipeline { display: grid; grid-template-columns: repeat(5, 1fr); position: relative; gap: 0; }
-    .trading-pipeline::after { content: ''; position: absolute; top: 32px; left: 8%; right: 8%; height: 1px; background: linear-gradient(90deg, transparent, #3a6888 15%, #3a6888 85%, transparent); pointer-events: none; }
-    .t-node { display: flex; flex-direction: column; align-items: center; gap: 14px; padding: 0 8px; text-align: center; }
-    .t-dot { width: 64px; height: 64px; border-radius: 50%; background: rgba(26,58,92,0.8); border: 1px solid #3a6888; display: flex; align-items: center; justify-content: center; font-family: var(--mono); font-size: 13px; font-weight: 500; color: #7aaec8; z-index: 1; transition: all 0.2s; cursor: default; }
-    .t-dot.active { border-color: #6cc0e0; color: #6cc0e0; background: rgba(26,58,92,0.95); }
-    .t-dot.live { border-color: #5cc090; color: #5cc090; background: rgba(26,58,92,0.95); }
-    .t-name { font-family: var(--mono); font-size: 11px; font-weight: 500; color: #c0daea; }
-    .t-name a, .t-name a:visited { color: #c0daea; text-decoration: underline; text-underline-offset: 3px; text-decoration-color: #4a7898; }
-    .t-name a:hover { color: #e0f0ff; text-decoration-color: #7aaec8; }
-    .t-stack { font-size: 11px; color: #90b0c8; line-height: 1.5; }
-    .t-date { font-family: var(--mono); font-size: 10px; color: #7098b0; letter-spacing: 0.1em; }
-    .trading-note { margin-top: 48px; padding: 20px 24px; background: rgba(0,0,0,0.15); border-left: 2px solid #3a6888; }
-    .trading-note p { font-size: 13px; color: #a0c0d8; line-height: 1.8; }
-    .trading-note strong { color: #90d0f0; font-weight: 500; }
-    .t-status { display: inline-flex; align-items: center; gap: 6px; font-family: var(--mono); font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: #7098b0; margin-top: 32px; }
-    .t-status-dot { width: 5px; height: 5px; border-radius: 50%; background: #4caf7d; animation: pulse 2s infinite; }
+    .btn--primary {
+      background: var(--ink);
+      color: var(--bg);
+    }
+    .btn--primary:hover { background: var(--red); color: var(--bg); }
 
-    /* ── SKILLS ── */
-    #skills { padding: 100px 48px; max-width: 1100px; margin: 0 auto; }
-    .skills-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 36px; }
-    .skill-group-label { font-family: var(--mono); font-size: 10px; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: var(--red); margin-bottom: 14px; padding-bottom: 10px; border-bottom: 1px solid var(--border); }
-    .skill-list { list-style: none; display: flex; flex-direction: column; gap: 7px; }
-    .skill-list li { font-family: var(--mono); font-size: 12px; color: var(--ink2); display: flex; align-items: center; gap: 9px; padding: 4px 0; transition: color 0.2s; }
+    .btn--secondary {
+      background: transparent;
+      color: var(--ink);
+      border-color: var(--border);
+    }
+    .btn--secondary:hover { border-color: var(--ink); }
+
+    .btn--cta {
+      background: var(--accent);
+      color: var(--surface-deep);
+      padding: 13px 24px;
+      font-size: 14px;
+      letter-spacing: 0.08em;
+    }
+    .btn--cta:hover {
+      background: var(--ink);
+      color: var(--bg);
+      transform: translateY(-2px);
+    }
+
+    /* ============================================================
+       HERO
+       ============================================================ */
+    .hero {
+      min-height: 100vh;
+      display: flex; flex-direction: column; justify-content: center;
+      padding-top: 130px; padding-bottom: var(--sp-7);
+    }
+    .hero__label {
+      font-family: var(--mono);
+      font-size: var(--fs-label);
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--ink-muted);
+      margin-bottom: var(--sp-4);
+    }
+    .hero__name {
+      font-family: var(--serif);
+      font-size: var(--fs-display);
+      font-weight: 400;
+      line-height: 1.0;
+      color: var(--ink);
+      margin-bottom: 6px;
+    }
+    .hero__name em {
+      font-style: italic;
+      color: var(--red);
+    }
+    .hero__title {
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: var(--fs-display-sub);
+      font-weight: 400;
+      color: var(--ink-muted);
+      margin-bottom: var(--sp-5);
+    }
+    .hero__bio {
+      max-width: 620px;
+      font-size: var(--fs-lead);
+      color: var(--ink-muted);
+      line-height: var(--lh-loose);
+      margin-bottom: var(--sp-5);
+    }
+    .hero__bio strong { color: var(--ink); font-weight: 500; }
+    .hero__cta-row {
+      display: flex; flex-wrap: wrap; gap: 12px;
+    }
+
+    /* ============================================================
+       BACKGROUND (career)
+       ============================================================ */
+    .bg-grid {
+      display: grid;
+      grid-template-columns: 1.3fr 1fr;
+      gap: var(--sp-7);
+      align-items: start;
+    }
+    .bg-prose p {
+      font-size: var(--fs-lead);
+      color: var(--ink-muted);
+      line-height: var(--lh-loose);
+      margin-bottom: 14px;
+    }
+    .bg-prose p:last-child { margin-bottom: 0; }
+    .bg-prose strong { color: var(--ink); font-weight: 500; }
+
+    .stat-cards { display: flex; flex-direction: column; gap: 16px; }
+    .stat-card {
+      padding: 28px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+    }
+    .stat-card__label {
+      font-family: var(--mono);
+      font-size: var(--fs-label);
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--ink-muted);
+      margin-bottom: 8px;
+    }
+    .stat-card__num {
+      font-family: var(--serif);
+      font-size: 56px;
+      line-height: 1;
+      color: var(--red);
+      margin-bottom: 4px;
+    }
+    .stat-card__title {
+      font-family: var(--serif);
+      font-size: var(--fs-h3);
+      color: var(--ink);
+      margin-bottom: 10px;
+    }
+    .stat-card__body {
+      font-size: var(--fs-body-sm);
+      color: var(--ink-muted);
+      line-height: var(--lh-snug);
+    }
+
+    /* ============================================================
+       FOUNDED (Microclaw)
+       ============================================================ */
+    .founded__lead {
+      max-width: 760px;
+      font-size: var(--fs-lead);
+      color: var(--ink-muted);
+      line-height: var(--lh-loose);
+      margin-bottom: var(--sp-5);
+    }
+    .founded__lead strong { color: var(--ink); font-weight: 500; }
+    .founded__cols {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--sp-5);
+      margin-bottom: var(--sp-4);
+    }
+    .founded__col h4 {
+      font-family: var(--mono);
+      font-size: var(--fs-label);
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--ink-muted);
+      margin-bottom: 12px;
+    }
+    .founded__col p {
+      font-size: var(--fs-body-sm);
+      color: var(--ink-muted);
+      line-height: var(--lh-normal);
+    }
+    .founded__tags {
+      display: flex; flex-wrap: wrap; gap: 6px;
+      margin-bottom: var(--sp-4);
+    }
+    .founded__meta {
+      font-family: var(--mono);
+      font-size: var(--fs-meta);
+      color: var(--ink-muted);
+      letter-spacing: 0.04em;
+    }
+    .founded__meta a {
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: 500;
+    }
+    .founded__meta a:hover { text-decoration: underline; }
+
+    /* ============================================================
+       PROJECTS
+       ============================================================ */
+    .filter-bar {
+      display: flex; flex-wrap: wrap; gap: 6px;
+      align-items: center;
+      margin-bottom: var(--sp-4);
+    }
+    .filter-bar__label {
+      font-family: var(--mono);
+      font-size: var(--fs-label);
+      font-weight: 500;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--ink-muted);
+      margin-right: 8px;
+    }
+    .pill {
+      font-family: var(--mono);
+      font-size: var(--fs-meta);
+      color: var(--ink-muted);
+      background: var(--bg);
+      border: 1px solid var(--border);
+      padding: 5px 11px;
+      border-radius: 999px;
+      transition: all var(--tx-fast);
+    }
+    .pill:hover { border-color: var(--ink-soft); color: var(--ink); }
+    .pill.is-active {
+      background: var(--ink); color: var(--bg); border-color: var(--ink);
+    }
+
+    .project-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+    }
+    .project {
+      display: flex; flex-direction: column; gap: 10px;
+      padding: 26px 26px 22px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-left: 3px solid transparent;
+      text-decoration: none;
+      color: inherit;
+      transition: all var(--tx-med);
+    }
+    .project:hover {
+      background: var(--bg-elev);
+      border-left-color: var(--red);
+      transform: translateY(-2px);
+    }
+    .project__num {
+      font-family: var(--mono);
+      font-size: var(--fs-label);
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      color: var(--ink-soft);
+    }
+    .project__name {
+      font-family: var(--serif);
+      font-size: var(--fs-h3);
+      color: var(--ink);
+      line-height: var(--lh-tight);
+    }
+    .project__desc {
+      font-size: var(--fs-body-sm);
+      color: var(--ink-muted);
+      line-height: var(--lh-normal);
+      flex: 1;
+    }
+    .project__note {
+      font-size: var(--fs-body-sm);
+      color: var(--ink-soft);
+      line-height: var(--lh-snug);
+      font-style: italic;
+      padding-top: 8px;
+      margin-top: 2px;
+      border-top: 1px solid var(--border-soft);
+    }
+    .project__tags {
+      display: flex; flex-wrap: wrap; gap: 5px;
+      margin-top: 4px;
+    }
+    .tag {
+      font-family: var(--mono);
+      font-size: var(--fs-meta);
+      color: var(--ink-muted);
+      background: var(--bg-elev);
+      border: 1px solid var(--border);
+      padding: 3px 9px;
+      border-radius: var(--radius-sm);
+    }
+    .project:hover .tag { border-color: var(--ink-soft); }
+    .project__foot {
+      display: flex; justify-content: space-between; align-items: center;
+      margin-top: 6px;
+    }
+    .project__updated {
+      font-family: var(--mono);
+      font-size: var(--fs-meta);
+      color: var(--ink-soft);
+      letter-spacing: 0.04em;
+    }
+    .project__arrow {
+      width: 18px; height: 18px;
+      stroke: var(--ink-soft); fill: none; stroke-width: 2;
+      stroke-linecap: round; stroke-linejoin: round;
+      transition: stroke var(--tx-fast), transform var(--tx-fast);
+    }
+    .project:hover .project__arrow {
+      stroke: var(--red);
+      transform: translate(2px, -2px);
+    }
+
+    /* ============================================================
+       STACK
+       ============================================================ */
+    .stack__intro {
+      max-width: 660px;
+      font-size: var(--fs-body);
+      color: var(--ink-muted);
+      line-height: var(--lh-normal);
+      margin-bottom: var(--sp-5);
+    }
+    .stack-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px 36px;
+    }
+    .stack-cat__label {
+      font-family: var(--mono);
+      font-size: var(--fs-label);
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--red);
+      padding-bottom: 8px;
+      margin-bottom: 12px;
+      border-bottom: 1px solid var(--border);
+    }
+    .stack-cat__chips {
+      display: flex; flex-wrap: wrap; gap: 5px;
+    }
+    .chip {
+      font-family: var(--mono);
+      font-size: var(--fs-meta);
+      color: var(--ink-muted);
+      background: var(--bg);
+      border: 1px solid var(--border);
+      padding: 4px 10px;
+      border-radius: var(--radius-sm);
+      transition: all var(--tx-fast);
+      user-select: none;
+    }
+    .chip:hover {
+      background: var(--ink); color: var(--bg); border-color: var(--ink);
+    }
+
+    /* ============================================================
+       LIVE DEMOS
+       ============================================================ */
+    .demos-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 28px;
+    }
+    .demo {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+    }
+    .demo__head {
+      padding: 24px 26px 4px;
+    }
+    .demo__label {
+      font-family: var(--mono);
+      font-size: var(--fs-label);
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 6px;
+    }
+    .demo__title {
+      font-family: var(--serif);
+      font-size: var(--fs-h2);
+      color: var(--ink);
+      margin-bottom: 8px;
+    }
+    .demo__desc {
+      font-size: var(--fs-body-sm);
+      color: var(--ink-muted);
+      line-height: var(--lh-normal);
+    }
+    .demo__body {
+      padding: 18px 26px 26px;
+    }
+
+    /* Bandit demo controls */
+    .ctrls {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-bottom: 16px;
+    }
+    .ctrl__label {
+      display: block;
+      font-family: var(--mono);
+      font-size: var(--fs-label);
+      font-weight: 500;
+      letter-spacing: 0.10em;
+      text-transform: uppercase;
+      color: var(--ink-muted);
+      margin-bottom: 6px;
+    }
+    .ctrl select,
+    .ctrl input[type="range"] { width: 100%; }
+    .ctrl select {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      color: var(--ink);
+      font-family: var(--mono);
+      font-size: var(--fs-meta);
+      padding: 7px 10px;
+      border-radius: var(--radius-sm);
+    }
+    .ctrl input[type="range"] { accent-color: var(--red); }
+    .ctrl__val {
+      font-family: var(--mono);
+      font-size: var(--fs-meta);
+      color: var(--ink-muted);
+    }
+
+    .stat-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+    .stat-tile {
+      background: var(--bg-elev);
+      border: 1px solid var(--border);
+      padding: 10px 12px;
+      border-radius: var(--radius-sm);
+    }
+    .stat-tile__label {
+      font-family: var(--mono);
+      font-size: var(--fs-label);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--ink-muted);
+      margin-bottom: 3px;
+    }
+    .stat-tile__val {
+      font-family: var(--mono);
+      font-size: 16px;
+      font-weight: 500;
+      color: var(--ink);
+    }
+
+    .arms {
+      display: flex; gap: 8px;
+      margin-bottom: 14px;
+    }
+    .arm {
+      flex: 1;
+      display: flex; flex-direction: column; align-items: center; gap: 4px;
+    }
+    .arm__head {
+      font-family: var(--mono);
+      font-size: var(--fs-meta);
+      color: var(--ink-muted);
+      text-align: center;
+      line-height: var(--lh-snug);
+    }
+    .arm__head .arm__head-p {
+      font-size: var(--fs-meta);
+      color: var(--ink-soft);
+    }
+    .arm__bar {
+      width: 100%;
+      height: 84px;
+      background: var(--bg-elev);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      position: relative;
+    }
+    .arm__bar-fill {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+      transition: height 0.4s ease;
+    }
+    .arm__count {
+      font-family: var(--mono);
+      font-size: var(--fs-meta);
+      color: var(--ink-muted);
+    }
+
+    .regret-chart {
+      width: 100%; height: 60px;
+      margin-bottom: 14px;
+      color: var(--ink-soft);
+    }
+
+    .demo-btn {
+      width: 100%;
+      background: var(--ink);
+      color: var(--bg);
+      border: none;
+      font-family: var(--mono);
+      font-size: var(--fs-meta);
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 12px;
+      border-radius: var(--radius-sm);
+      transition: background var(--tx-fast);
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+    }
+    .demo-btn:hover { background: var(--red); }
+    .demo-btn:disabled { opacity: 0.5; cursor: wait; }
+    .demo-btn svg {
+      width: 14px; height: 14px;
+      stroke: currentColor; fill: none;
+      stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;
+    }
+
+    /* Anomaly demo */
+    .canvas-wrap {
+      width: 100%; height: 150px;
+      background: var(--bg-elev);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      margin-bottom: 12px;
+      position: relative;
+      overflow: hidden;
+    }
+    .canvas-wrap canvas { width: 100%; height: 100%; display: block; }
+    .legend {
+      display: flex; flex-wrap: wrap; gap: 16px;
+      margin-bottom: 14px;
+    }
+    .legend__item {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-family: var(--mono);
+      font-size: var(--fs-meta);
+      color: var(--ink-muted);
+    }
+    .legend__dot { width: 9px; height: 9px; border-radius: 50%; }
+
+    .demo-btn-row {
+      display: flex; gap: 8px;
+    }
+    .demo-btn--ghost {
+      flex: 1;
+      background: transparent;
+      color: var(--ink-muted);
+      border: 1px solid var(--border);
+    }
+    .demo-btn--ghost:hover {
+      background: var(--ink); color: var(--bg); border-color: var(--ink);
+    }
+
+    .log {
+      font-family: var(--mono);
+      font-size: var(--fs-meta);
+      color: var(--ink-muted);
+      background: var(--bg-elev);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 10px 12px;
+      max-height: 60px;
+      overflow-y: auto;
+      margin-top: 12px;
+    }
+    .log p { margin-bottom: 2px; }
+    .log p.is-flagged { color: var(--red); }
+
+    /* ============================================================
+       TRADING ARC
+       ============================================================ */
+    .trading {
+      background: var(--t-bg);
+      color: var(--t-text);
+      padding: var(--sp-7) 0;
+    }
+    .trading .eyebrow { color: var(--t-accent); }
+    .trading .title   { color: var(--t-text); margin-bottom: 18px; }
+    .trading__intro {
+      max-width: 680px;
+      font-size: var(--fs-body);
+      color: var(--t-muted);
+      line-height: var(--lh-loose);
+      margin-bottom: var(--sp-5);
+    }
+    .arc {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 0;
+      position: relative;
+    }
+    .arc::after {
+      content: '';
+      position: absolute;
+      top: 31px; left: 9%; right: 9%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--t-rule) 14%, var(--t-rule) 86%, transparent);
+      pointer-events: none;
+    }
+    .node {
+      display: flex; flex-direction: column; align-items: center;
+      gap: 12px;
+      padding: 0 8px;
+      text-align: center;
+    }
+    .node__dot {
+      width: 62px; height: 62px;
+      border-radius: 50%;
+      background: var(--t-live-bg);
+      border: 1px solid var(--t-live);
+      color: var(--t-live);
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--mono);
+      font-size: 14px;
+      font-weight: 500;
+      z-index: 1;
+    }
+    .node__name {
+      font-family: var(--mono);
+      font-size: var(--fs-meta);
+      font-weight: 500;
+    }
+    .node__name a {
+      color: var(--t-text);
+      text-decoration: underline;
+      text-decoration-color: var(--t-faint);
+      text-underline-offset: 3px;
+      transition: text-decoration-color var(--tx-fast);
+    }
+    .node__name a:hover { text-decoration-color: var(--t-accent); }
+    .node__stack {
+      font-size: var(--fs-meta);
+      color: var(--t-muted);
+      line-height: var(--lh-snug);
+    }
+    .node__date {
+      font-family: var(--mono);
+      font-size: var(--fs-meta);
+      color: var(--t-faint);
+      letter-spacing: 0.06em;
+    }
+    .trading__note {
+      margin-top: var(--sp-5);
+      padding: 18px 22px;
+      background: rgba(0, 0, 0, 0.18);
+      border-left: 3px solid var(--t-rule);
+      border-radius: 2px;
+    }
+    .trading__note p {
+      font-size: var(--fs-body);
+      color: var(--t-muted);
+      line-height: var(--lh-loose);
+    }
+    .trading__note strong { color: var(--t-accent); font-weight: 500; }
+    .trading__cta-row {
+      margin-top: var(--sp-5);
+      display: flex; justify-content: center;
+    }
+
+    /* ============================================================
+       ROADMAP
+       ============================================================ */
+    .roadmap-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--sp-6);
+    }
+    .roadmap-col h4 {
+      font-family: var(--mono);
+      font-size: var(--fs-label);
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      padding-bottom: 10px;
+      margin-bottom: 14px;
+      border-bottom: 1px solid var(--border);
+    }
+    .roadmap-col--upcoming h4 { color: var(--accent); }
+    .roadmap-col--future h4   { color: var(--red); }
+    .roadmap__row {
+      display: grid;
+      grid-template-columns: 110px 1fr;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--border-soft);
+    }
+    .roadmap__row:last-child { border-bottom: none; }
+    .roadmap__date {
+      font-family: var(--mono);
+      font-size: var(--fs-meta);
+      color: var(--ink-soft);
+    }
+    .roadmap__copy {
+      color: var(--ink-muted);
+      font-size: var(--fs-body-sm);
+      line-height: var(--lh-normal);
+    }
+    .roadmap__copy strong {
+      color: var(--ink);
+      font-weight: 500;
+      display: block;
+      margin-bottom: 2px;
+    }
+
+    /* ============================================================
+       SKILLS
+       ============================================================ */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 36px;
+    }
+    .skill-cat__label {
+      font-family: var(--mono);
+      font-size: var(--fs-label);
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--red);
+      padding-bottom: 10px;
+      margin-bottom: 14px;
+      border-bottom: 1px solid var(--border);
+    }
+    .skill-list {
+      list-style: none;
+      display: flex; flex-direction: column; gap: 8px;
+    }
+    .skill-list li {
+      font-family: var(--mono);
+      font-size: var(--fs-body-sm);
+      color: var(--ink-muted);
+      display: flex; align-items: center; gap: 9px;
+      transition: color var(--tx-fast);
+    }
     .skill-list li:hover { color: var(--ink); }
-    .skill-list li::before { content: ''; width: 4px; height: 4px; border-radius: 1px; background: var(--red); opacity: 0.35; flex-shrink: 0; transition: opacity 0.2s; }
-    .skill-list li:hover::before { opacity: 1; }
-
-    /* ── CONTACT ── */
-    #contact { background: var(--ink); padding: 100px 0; }
-    #contact .inner { max-width: 1100px; margin: 0 auto; padding: 0 48px; display: flex; justify-content: space-between; align-items: center; gap: 48px; flex-wrap: wrap; }
-    #contact .section-label { color: #3a3830; }
-    .contact-heading { font-family: var(--serif); font-size: clamp(30px, 4vw, 50px); color: var(--bg); line-height: 1.1; margin-bottom: 20px; }
-    .contact-sub { font-size: 14px; color: #5a5650; max-width: 380px; line-height: 1.8; }
-    .contact-links { display: flex; flex-direction: column; gap: 12px; flex-shrink: 0; }
-    .contact-link { display: flex; align-items: center; gap: 14px; text-decoration: none; color: #8a8680; font-family: var(--mono); font-size: 13px; padding: 12px 20px; border: 1px solid #2a2820; border-left: 3px solid transparent; border-radius: 2px; transition: all 0.2s; }
-    .contact-link:hover { border-color: #5a5650; border-left-color: var(--red); color: var(--bg); transform: translateX(4px); }
-    .contact-icon { width: 16px; height: 16px; opacity: 0.4; flex-shrink: 0; }
-
-    footer { background: var(--ink); border-top: 1px solid #1a1810; padding: 20px 48px; display: flex; justify-content: space-between; }
-    footer span { font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; color: #2a2820; }
-
-    /* ── ANIMATIONS ── */
-    @keyframes fadeUp { from { opacity:0; transform:translateY(16px); } to { opacity:1; transform:translateY(0); } }
-    @keyframes pulse { 0%,100% { opacity:1; } 50% { opacity:0.35; } }
-    .reveal { opacity:0; transform:translateY(20px); transition:opacity 0.6s ease, transform 0.6s ease; }
-    .reveal.visible { opacity:1; transform:translateY(0); }
-
-    @media(max-width:900px) {
-      nav { padding:14px 24px; } .nav-links { display:none; }
-      #hero, #projects, #skills { padding-left:24px; padding-right:24px; }
-      #background .inner, #demos .inner, #trading .inner, #contact .inner { padding:0 24px; }
-      .projects-grid { grid-template-columns:1fr 1fr; }
-      .demos-grid { grid-template-columns:1fr; }
-      .trading-pipeline { grid-template-columns:1fr; }
-      .trading-pipeline::after { display:none; }
-      .skills-grid { grid-template-columns:1fr 1fr; }
-      #background .inner { grid-template-columns:1fr; gap:24px; }
-    }
-    @media(max-width:600px) {
-      .projects-grid, .skills-grid { grid-template-columns:1fr; }
-      .bandit-controls { grid-template-columns:1fr; }
+    .skill-list li::before {
+      content: '';
+      width: 4px; height: 4px;
+      border-radius: 1px;
+      background: var(--red);
+      opacity: 0.4;
+      flex-shrink: 0;
     }
 
-    /* ── DARK MODE (placed last so its overrides win source-order ties) ── */
-    @media (prefers-color-scheme: dark) {
-      :root {
-        --bg:      #1a1814;
-        --bg2:     #25221e;
-        --bg3:     #2e2a26;
-        --ink:     #f0ede6;
-        --ink2:    #c0bcb3;
-        --ink3:    #8a857b;
-        --red:     #d96b50;
-        --border:  #3a3530;
-      }
-      nav { background: rgba(26,24,20,0.88); }
-      nav.scrolled { box-shadow: 0 1px 12px rgba(0,0,0,0.4); }
-      #contact { background: #0e0b08; }
-      #contact .section-label { color: #5a5650; }
-      .contact-heading { color: #f0ede6; }
-      .contact-sub { color: #8a857b; }
-      .contact-link { color: #b0aba0; border-color: #2a2820; }
-      .contact-link:hover { border-color: #5a5650; color: #f0ede6; }
-      footer { background: #0e0b08; border-top-color: #2a2820; }
-      footer span { color: #5a5650; }
-      .anomaly-log .log-entry.flagged { color: #d96b50; }
+    /* ============================================================
+       CONTACT (always-dark surface)
+       ============================================================ */
+    .contact {
+      background: var(--surface-deep);
+      color: var(--surface-deep-text);
+      padding: var(--sp-7) 0;
+    }
+    .contact .wrap {
+      display: flex; justify-content: space-between; align-items: center;
+      gap: var(--sp-5);
+      flex-wrap: wrap;
+    }
+    .contact .eyebrow { color: var(--surface-deep-accent); }
+    .contact__heading {
+      font-family: var(--serif);
+      font-size: var(--fs-h1);
+      line-height: var(--lh-tight);
+      color: var(--surface-deep-text);
+      margin-bottom: 16px;
+    }
+    .contact__sub {
+      max-width: 380px;
+      font-size: var(--fs-body);
+      color: var(--surface-deep-muted);
+      line-height: var(--lh-loose);
+    }
+    .contact__links {
+      display: flex; flex-direction: column; gap: 12px;
+      flex-shrink: 0;
+    }
+    .contact__link {
+      display: inline-flex; align-items: center; gap: 12px;
+      text-decoration: none;
+      font-family: var(--mono);
+      font-size: 14px;
+      color: var(--surface-deep-muted);
+      padding: 12px 18px;
+      border: 1px solid var(--surface-deep-border);
+      border-left: 3px solid transparent;
+      border-radius: var(--radius-sm);
+      transition: all var(--tx-fast);
+    }
+    .contact__link:hover {
+      color: var(--surface-deep-text);
+      border-left-color: var(--red);
+      transform: translateX(4px);
+    }
+    .contact__link svg {
+      width: 17px; height: 17px;
+      stroke: currentColor; fill: none;
+      stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round;
+      flex-shrink: 0;
+    }
+
+    /* ============================================================
+       FOOTER (always-dark surface)
+       ============================================================ */
+    .foot {
+      background: var(--surface-deep);
+      border-top: 1px solid var(--surface-deep-border);
+      padding: 18px var(--gutter);
+      display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px;
+    }
+    .foot span {
+      font-family: var(--mono);
+      font-size: var(--fs-meta);
+      letter-spacing: 0.04em;
+      color: var(--surface-deep-faint);
+    }
+
+    /* ============================================================
+       ANIMATIONS
+       ============================================================ */
+    @keyframes fade-up {
+      from { opacity: 0; transform: translateY(14px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .reveal {
+      opacity: 0;
+      transform: translateY(16px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .reveal.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .hero__label,
+    .hero__name,
+    .hero__title,
+    .hero__bio,
+    .hero__cta-row {
+      opacity: 0;
+      animation: fade-up 0.6s ease forwards;
+    }
+    .hero__label    { animation-delay: 0.05s; }
+    .hero__name     { animation-delay: 0.15s; }
+    .hero__title    { animation-delay: 0.25s; }
+    .hero__bio      { animation-delay: 0.35s; }
+    .hero__cta-row  { animation-delay: 0.45s; }
+
+    /* ============================================================
+       RESPONSIVE
+       ============================================================ */
+    @media (max-width: 960px) {
+      .nav__links { gap: 18px; }
+      .nav__links li:not(:last-child):not(:nth-last-child(2)) { display: none; }
+      .bg-grid       { grid-template-columns: 1fr; gap: var(--sp-5); }
+      .founded__cols { grid-template-columns: 1fr; }
+      .project-grid  { grid-template-columns: 1fr 1fr; }
+      .stack-grid    { grid-template-columns: 1fr 1fr; }
+      .demos-grid    { grid-template-columns: 1fr; }
+      .arc           { grid-template-columns: 1fr; gap: 18px; }
+      .arc::after    { display: none; }
+      .roadmap-grid  { grid-template-columns: 1fr; gap: var(--sp-5); }
+      .skills-grid   { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 600px) {
+      :root { --sp-7: 64px; }
+      .project-grid, .stack-grid, .skills-grid { grid-template-columns: 1fr; }
+      .ctrls { grid-template-columns: 1fr; }
+      .stat-row { grid-template-columns: repeat(3, 1fr); }
+      .contact .wrap { flex-direction: column; align-items: flex-start; }
     }
   </style>
 </head>
+
 <body>
 
-<nav id="nav">
-  <a href="#hero" class="nav-name">Mike Ichikawa</a>
-  <ul class="nav-links">
-    <li><a href="#projects">Projects</a></li>
-    <li><a href="#demos">Live Demos</a></li>
-    <li><a href="#trading">Trading System</a></li>
-    <li><a href="#contact">Contact</a></li>
-  </ul>
-</nav>
+  <!-- ========================== NAV ========================== -->
+  <nav class="nav" id="nav">
+    <a href="#hero" class="nav__brand">Mike Ichikawa</a>
+    <ul class="nav__links">
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#demos">Live Demos</a></li>
+      <li><a href="#trading">Trading System</a></li>
+      <li><a href="#contact">Contact</a></li>
+      <li>
+        <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
+          <!-- Icon swapped by JS -->
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <circle cx="12" cy="12" r="4"></circle>
+            <path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"></path>
+          </svg>
+        </button>
+      </li>
+    </ul>
+  </nav>
 
-<!-- HERO -->
-<div id="hero">
-  <p class="hero-label">Portland, OR · Open to Work · Data Science · ML Engineering</p>
-  <h1 class="hero-name">Mike<br><em>Ichikawa</em></h1>
-  <p class="hero-title">Data Scientist · Data Engineer · ML Engineer</p>
-  <p class="hero-bio">
-    <strong>BS Mechanical Engineering · MS Mathematics · 3 years at Intel · 9 years teaching mathematics.</strong>
-    I spent three years doing physical design at Intel then nine years teaching
-    undergraduate mathematics — algebra through calculus III, linear algebra, differential
-    equations, and statistics. Now I'm building the systems that math underpins: forecasting,
-    Bayesian experimentation, streaming anomaly detection, cloud pipelines, and a live trading system.
-  </p>
-  <div class="hero-actions">
-    <a href="#projects" class="btn btn-primary">View Projects ↓</a>
-    <a href="/resume.html" target="_blank" class="btn btn-secondary">Resume ↗</a>
-    <a href="https://github.com/mtichikawa" target="_blank" class="btn btn-secondary">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
-      GitHub
-    </a>
-    <a href="mailto:projects.ichikawa@gmail.com" class="btn btn-secondary">projects.ichikawa@gmail.com</a>
-  </div>
-</div>
-
-<div class="divider"></div>
-
-<!-- BACKGROUND -->
-<div id="background">
-  <div class="inner">
-    <div class="bg-intro reveal">
-      <p class="section-label">Background</p>
-      <h2 class="section-title" style="font-size:clamp(28px,3.5vw,44px)">Two careers.<br>One throughline.</h2>
-      <p>At Intel, three years in microprocessor Physical Design — building automated validation systems that processed millions of design verification data points and flagged yield issues before tape-out.</p>
-      <p>At Santa Rosa Junior College, nine years teaching undergraduate mathematics: algebra through calculus III, linear algebra, differential equations, statistics. Not just lecturing — developing curriculum, building assessment systems, tracking which teaching approaches actually moved student outcomes.</p>
-      <p>The past eighteen months have been a self-directed sprint through the full data and ML stack. Sixteen production-quality projects built from scratch — time series forecasting, Bayesian experimentation, NLP, streaming anomaly detection, cloud ETL, ML serving infrastructure, C++ performance extensions, Databricks lakehouse architecture, and a complete five-repo trading system from live market data through backtesting to dashboard. Every one: architecture designed, tests written, systems deployed. No coursework path, no structured program. Learning by building.</p>
-      <p><strong>The common thread:</strong> engineering precision from Intel, mathematical depth from fifteen years with the subject, and the communication instinct that teaching forces you to develop.</p>
-    </div>
-    <div class="bg-cards">
-      <div class="bg-card reveal">
-        <p class="bg-card-label">Intel · Physical Design</p>
-        <p class="bg-card-number">3</p>
-        <p class="bg-card-title">Years Engineering</p>
-        <p class="bg-card-body">Microprocessor physical design · Python/Perl automation · statistical validation at manufacturing scale</p>
-      </div>
-      <div class="bg-card reveal">
-        <p class="bg-card-label">Santa Rosa Junior College</p>
-        <p class="bg-card-number">9</p>
-        <p class="bg-card-title">Years Teaching</p>
-        <p class="bg-card-body">Algebra → Calculus III · Linear Algebra · Differential Equations · Statistics · MS Mathematics</p>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="divider"></div>
-
-<!-- FOUNDED -->
-<section id="founded" style="padding:100px 48px; max-width:1100px; margin:0 auto;">
-  <p class="section-label">Founded</p>
-  <h2 class="section-title">Microclaw</h2>
-  <p style="color:var(--ink2); font-size:17px; line-height:1.6; max-width:760px; margin-bottom:40px;">AI assistant for Microsoft 365 that lives inside Microsoft Teams. Transactable SaaS on the Microsoft Commercial Marketplace, launching on AppSource. Built solo end-to-end: product, engineering, legal entity, brand, and go-to-market.</p>
-
-  <div style="display:grid; grid-template-columns:1fr 1fr; gap:40px; margin-bottom:36px;">
-    <div>
-      <p class="section-label" style="margin-bottom:12px;">Product scope</p>
-      <p style="color:var(--ink2); font-size:14px; line-height:1.7;">54 Microsoft Graph tools across 12 M365 services — Outlook, Calendar, To Do, Planner, OneDrive, OneNote, SharePoint, Teams, contacts, presence, people, cross-app search. Full read and write. Two-layer permission system. 200+ unit tests, all passing.</p>
-    </div>
-    <div>
-      <p class="section-label" style="margin-bottom:12px;">Commerce infrastructure</p>
-      <p style="color:var(--ink2); font-size:14px; line-height:1.7;">Microsoft Commercial Marketplace Fulfillment API v2 and Marketplace Metering Service API for per-message metered overage, Microsoft as merchant of record. 8-tier bracket pricing (Solo through Team-100), $25 per seat, 1,500 pooled messages per seat. Delegated Microsoft Entra auth, per-tenant isolation.</p>
-    </div>
-  </div>
-
-  <div style="margin-bottom:36px;">
-    <span class="tag">TypeScript</span><span class="tag">Node.js</span><span class="tag">Azure OpenAI</span><span class="tag">Microsoft Graph</span><span class="tag">Teams Bot Framework</span><span class="tag">Marketplace Fulfillment API v2</span><span class="tag">Marketplace Metering Service</span><span class="tag">SQLite</span>
-  </div>
-
-  <p style="font-family:var(--mono); font-size:11px; color:var(--ink3); letter-spacing:0.05em;">
-    <a href="https://microclaw.app" target="_blank" rel="noopener" style="color:var(--navy);">microclaw.app ↗</a>
-    &nbsp;·&nbsp;
-    Microsoft AppSource listing — launching
-  </p>
-</section>
-
-<div class="divider"></div>
-
-<!-- PROJECTS -->
-<section id="projects">
-  <p class="section-label">Portfolio</p>
-  <h2 class="section-title">Completed Projects</h2>
-  <div class="tag-filter-bar" id="tag-filter-bar" role="toolbar" aria-label="Filter projects by tag">
-    <span class="tag-filter-label">Filter</span>
-  </div>
-  <div class="projects-grid">
-
-    <a href="https://github.com/mtichikawa/github-trend-forecaster" target="_blank" class="project-card reveal">
-      <span class="project-num">01</span>
-      <h3 class="project-name">GitHub Trend Forecaster</h3>
-      <p class="project-desc">Collects GitHub repository star history via the API and forecasts growth using Facebook Prophet with configurable changepoint sensitivity and named presets.</p>
-      <p class="project-writeup">The interesting problem: star growth is bursty — a viral tweet or HN post creates a step function Prophet's default changepoint detection can miss. Tuning changepoint_prior_scale per repo type gives materially better forecasts.</p>
-      <div class="project-stack">
-        <span class="tag">Prophet</span><span class="tag">GitHub API</span><span class="tag">pandas</span><span class="tag">time series</span>
-      </div>
-      <div class="project-footer">
-        <span class="project-updated">Updated Apr 2026</span>
-        <span class="project-arrow">↗</span>
-      </div>
-    </a>
-
-    <a href="https://github.com/mtichikawa/bandit-ab-testing" target="_blank" class="project-card reveal">
-      <span class="project-num">02</span>
-      <h3 class="project-name">Multi-Armed Bandit A/B Testing</h3>
-      <p class="project-desc">Implements Thompson Sampling, UCB1, and Epsilon-Greedy algorithms from scratch. Each maintains its own selection and update logic — no sklearn, no library bandits. Streamlit simulator below lets you tune arm reward distributions and watch the algorithms converge round by round.</p>
-      <p class="project-writeup">Traditional A/B testing freezes traffic allocation during the learning period. Multi-armed bandits explore and exploit simultaneously — Thompson's Beta-distribution updates make the uncertainty reduction visible round by round.</p>
-      <div class="project-stack">
-        <span class="tag">Thompson Sampling</span><span class="tag">UCB1</span><span class="tag">Bayesian inference</span><span class="tag">Streamlit</span>
-      </div>
-      <div class="project-footer">
-        <span class="project-updated">Updated Apr 2026</span>
-        <span class="project-arrow">↗</span>
-      </div>
-    </a>
-
-    <a href="https://github.com/mtichikawa/llm-data-assistant" target="_blank" class="project-card reveal">
-      <span class="project-num">03</span>
-      <h3 class="project-name">LLM Data Analysis Assistant</h3>
-      <p class="project-desc">Two-path query routing: a rule-based fast path handles correlations, group-bys, and aggregations deterministically. Queries below a confidence threshold escalate to the Anthropic API with DataFrame context injection and multi-turn conversation history.</p>
-      <p class="project-writeup">The fast path answers ~70% of common data questions with zero API cost and sub-second latency. The LLM path gets a ContextBuilder-assembled summary of the DataFrame — shape, dtypes, stats, sample rows — so it can reason about data it never directly touches.</p>
-      <div class="project-stack">
-        <span class="tag">Anthropic API</span><span class="tag">hybrid routing</span><span class="tag">multi-turn</span><span class="tag">pandas</span>
-      </div>
-      <div class="project-footer">
-        <span class="project-updated">Built Aug 2025</span>
-        <span class="project-arrow">↗</span>
-      </div>
-    </a>
-
-    <a href="https://github.com/mtichikawa/llm-bias-detection" target="_blank" class="project-card reveal">
-      <span class="project-num">04</span>
-      <h3 class="project-name">Bias Detection in LLMs</h3>
-      <p class="project-desc">Statistical audit of demographic bias in LLM responses across two prompt datasets. Generates prompts across gender, age, and race dimensions, then scores for agentic/communal/competence/warmth lexicon patterns using ANOVA and Cohen's d. Cross-model comparison surfaces which biases are model-specific vs systemic.</p>
-      <p class="project-writeup">The trap in bias research is confusing statistical significance with practical significance — with enough samples, any difference is "significant." Cohen's d separates the signal from the noise: a d of 0.2 means the bias exists but barely matters; a d of 0.8 means it's shaping outcomes. Running the same prompts across multiple models tells you whether you've found a model bug or a structural pattern.</p>
-      <div class="project-stack">
-        <span class="tag">ANOVA</span><span class="tag">Cohen's d</span><span class="tag">scipy.stats</span><span class="tag">lexicon scoring</span><span class="tag">cross-model comparison</span>
-      </div>
-      <div class="project-footer">
-        <span class="project-updated">Updated Apr 2026</span>
-        <span class="project-arrow">↗</span>
-      </div>
-    </a>
-
-    <a href="https://github.com/mtichikawa/anomaly-detection" target="_blank" class="project-card reveal">
-      <span class="project-num">05</span>
-      <h3 class="project-name">Real-Time Anomaly Detection</h3>
-      <p class="project-desc">Streaming ensemble: Isolation Forest, LSTM autoencoder, Z-score, and a LightGBM gradient-boosted classifier voting together. Dockerized FastAPI REST API with health checks, plus a streaming pipeline for continuous monitoring.</p>
-      <p class="project-writeup">Each detector covers a different failure mode — Isolation Forest finds global outliers, LSTM catches sequence-breaking patterns, Z-score flags statistical spikes, and the new LightGBM detector adds a supervised signal trained on labeled history with engineered rolling-window features. Mixing supervised and unsupervised in a single ensemble keeps recall high without inflating false positives.</p>
-      <div class="project-stack">
-        <span class="tag">IsolationForest</span><span class="tag">LSTM</span><span class="tag">LightGBM</span><span class="tag">Docker</span><span class="tag">FastAPI</span><span class="tag">REST API</span>
-      </div>
-      <div class="project-footer">
-        <span class="project-updated">Updated Apr 2026</span>
-        <span class="project-arrow">↗</span>
-      </div>
-    </a>
-
-    <a href="https://github.com/mtichikawa/financial-nlp" target="_blank" class="project-card reveal">
-      <span class="project-num">06</span>
-      <h3 class="project-name">Financial NLP Parser</h3>
-      <p class="project-desc">Parses SEC EDGAR filings to extract financial metrics (revenue, net income, EPS) and sentiment. Regex-based extraction with lexicon scoring on MD&A sections across multiple companies.</p>
-      <p class="project-writeup">EDGAR filings are semi-structured text at best. The parsing challenge is extracting consistent metrics across companies that use different table formats and labeling conventions.</p>
-      <div class="project-stack">
-        <span class="tag">SEC EDGAR</span><span class="tag">regex</span><span class="tag">sentiment lexicon</span><span class="tag">NLP</span>
-      </div>
-      <div class="project-footer">
-        <span class="project-updated">Built Nov 2025</span>
-        <span class="project-arrow">↗</span>
-      </div>
-    </a>
-
-    <a href="https://github.com/mtichikawa/sql-analytics-pipeline" target="_blank" class="project-card reveal">
-      <span class="project-num">07</span>
-      <h3 class="project-name">SQL Analytics Pipeline</h3>
-      <p class="project-desc">Three-layer data pipeline (staging → clean → marts) with dbt-style SQL transformations, window functions, and CTEs. SQLAlchemy ORM with swappable SQLite/PostgreSQL backend.</p>
-      <p class="project-writeup">The three-layer pattern enforces a discipline: staging preserves raw data untouched, clean handles normalization and type casting, marts serve specific analytical questions. When a mart query returns wrong results, you can trace the data backwards through each layer to find where it broke.</p>
-      <div class="project-stack">
-        <span class="tag">SQLAlchemy</span><span class="tag">SQLite</span><span class="tag">dbt-style</span><span class="tag">window functions</span>
-      </div>
-      <div class="project-footer">
-        <span class="project-updated">Built Dec 2025</span>
-        <span class="project-arrow">↗</span>
-      </div>
-    </a>
-
-    <a href="https://github.com/mtichikawa/dockerized-ml-api" target="_blank" class="project-card reveal">
-      <span class="project-num">08</span>
-      <h3 class="project-name">Dockerized ML API</h3>
-      <p class="project-desc">Production ML serving: FastAPI REST endpoint, Redis caching with TTL, Pydantic v2 request validation, vectorized batch inference, async job queue with polling, and Docker deployment with health checks.</p>
-      <p class="project-writeup">The architecture mirrors production ML serving: Redis intercepts repeated predictions (cache hit → skip inference entirely), Pydantic v2 rejects bad inputs before they reach the model, async endpoints use asyncio.to_thread() to keep the event loop free during CPU-bound inference, and Docker Compose wires the app, model, and cache into a single deployable unit.</p>
-      <div class="project-stack">
-        <span class="tag">Docker</span><span class="tag">FastAPI</span><span class="tag">Redis</span><span class="tag">Pydantic v2</span><span class="tag">asyncio</span>
-      </div>
-      <div class="project-footer">
-        <span class="project-updated">Updated Mar 2026</span>
-        <span class="project-arrow">↗</span>
-      </div>
-    </a>
-
-    <a href="https://github.com/mtichikawa/cloud-etl-pipeline" target="_blank" class="project-card reveal">
-      <span class="project-num">09</span>
-      <h3 class="project-name">Cloud ETL Pipeline</h3>
-      <p class="project-desc">AWS-native ETL: S3 data lake with Parquet/Snappy storage, Lambda validation, DynamoDB run logging, tenacity retry logic, and Hive-style partitioning by date. In-pipeline data quality layer quarantines invalid rows and flags the run when the quarantine rate trips a threshold.</p>
-      <p class="project-writeup">Hive-style partitioning (year=/month=/day=) keeps queries scoped to the date range they need. Tenacity retries with exponential backoff handle transient API failures. The DQ layer runs schema, range, and null-rate checks before load, writes a quarantine sidecar, and the Lambda cross-checks that sidecar to fail the run loud if invalid-record rate exceeds the budget.</p>
-      <div class="project-stack">
-        <span class="tag">AWS S3</span><span class="tag">Lambda</span><span class="tag">DynamoDB</span><span class="tag">Parquet</span><span class="tag">data quality</span>
-      </div>
-      <div class="project-footer">
-        <span class="project-updated">Updated Apr 2026</span>
-        <span class="project-arrow">↗</span>
-      </div>
-    </a>
-
-    <a href="https://github.com/mtichikawa/ml-experiments" target="_blank" class="project-card reveal">
-      <span class="project-num">10</span>
-      <h3 class="project-name">ML Experiments — C++ Extensions</h3>
-      <p class="project-desc">C++ rolling statistics (mean, std, z-score) via Welford's single-pass algorithm, exposed to Python through pybind11 with zero-copy numpy buffer protocol. Benchmarked against NumPy and pandas rolling on n=1M.</p>
-      <p class="project-writeup">The performance story: Welford's algorithm computes variance in a single pass without storing all values — critical for streaming use cases. The pybind11 binding eliminates the Python overhead on every call and avoids copying the numpy array into a C++ container.</p>
-      <div class="project-stack">
-        <span class="tag">C++</span><span class="tag">pybind11</span><span class="tag">NumPy</span><span class="tag">Welford's algorithm</span>
-      </div>
-      <div class="project-footer">
-        <span class="project-updated">Built Apr 2026</span>
-        <span class="project-arrow">↗</span>
-      </div>
-    </a>
-
-    <a href="https://github.com/mtichikawa/databricks-lakehouse" target="_blank" class="project-card reveal">
-      <span class="project-num">11</span>
-      <h3 class="project-name">Databricks Lakehouse</h3>
-      <p class="project-desc">Medallion lakehouse (bronze → silver → gold) on 10M NYC taxi rows with Delta Lake and row-level data quality gates between layers. Runs locally via the deltalake Python library; deployable to Databricks Community Edition.</p>
-      <p class="project-writeup">The medallion pattern enforces data quality incrementally: bronze appends raw ingest with provenance metadata, silver types/dedupes/validates and quarantines invalid rows rather than silently dropping them, gold aggregates for specific analytical questions. Quality checks between layers are first-class — a schema drift or null-rate breach halts the pipeline.</p>
-      <div class="project-stack">
-        <span class="tag">Delta Lake</span><span class="tag">medallion</span><span class="tag">pandas</span><span class="tag">data quality</span>
-      </div>
-      <div class="project-footer">
-        <span class="project-updated">Built Apr 2026</span>
-      </div>
-    </a>
-
-  </div>
-</section>
-
-<div class="divider"></div>
-
-<!-- STACK -->
-<section id="stack">
-  <p class="section-label">Stack</p>
-  <h2 class="section-title">Tools across these projects</h2>
-  <p class="stack-intro">Click any chip to filter the project grid above by that tool. Categories below reflect what actually shows up in the eleven cards — not a marketing list.</p>
-  <div class="stack-grid">
-
-    <div class="reveal">
-      <p class="stack-cat-label">Languages · Native</p>
-      <div class="stack-chips">
-        <span class="stack-chip" data-stack-tag="C++">C++</span>
-        <span class="stack-chip" data-stack-tag="pybind11">pybind11</span>
-        <span class="stack-chip" data-stack-tag="NumPy">NumPy</span>
-      </div>
-    </div>
-
-    <div class="reveal">
-      <p class="stack-cat-label">ML · Detectors</p>
-      <div class="stack-chips">
-        <span class="stack-chip" data-stack-tag="IsolationForest">IsolationForest</span>
-        <span class="stack-chip" data-stack-tag="LSTM">LSTM</span>
-        <span class="stack-chip" data-stack-tag="LightGBM">LightGBM</span>
-        <span class="stack-chip" data-stack-tag="Prophet">Prophet</span>
-        <span class="stack-chip" data-stack-tag="Welford's algorithm">Welford</span>
-      </div>
-    </div>
-
-    <div class="reveal">
-      <p class="stack-cat-label">Statistics · Bayesian</p>
-      <div class="stack-chips">
-        <span class="stack-chip" data-stack-tag="Thompson Sampling">Thompson Sampling</span>
-        <span class="stack-chip" data-stack-tag="UCB1">UCB1</span>
-        <span class="stack-chip" data-stack-tag="Bayesian inference">Bayesian inference</span>
-        <span class="stack-chip" data-stack-tag="ANOVA">ANOVA</span>
-        <span class="stack-chip" data-stack-tag="Cohen's d">Cohen's d</span>
-        <span class="stack-chip" data-stack-tag="scipy.stats">scipy.stats</span>
-      </div>
-    </div>
-
-    <div class="reveal">
-      <p class="stack-cat-label">LLMs · NLP</p>
-      <div class="stack-chips">
-        <span class="stack-chip" data-stack-tag="Anthropic API">Anthropic API</span>
-        <span class="stack-chip" data-stack-tag="hybrid routing">hybrid routing</span>
-        <span class="stack-chip" data-stack-tag="multi-turn">multi-turn</span>
-        <span class="stack-chip" data-stack-tag="lexicon scoring">lexicon scoring</span>
-        <span class="stack-chip" data-stack-tag="cross-model comparison">cross-model</span>
-        <span class="stack-chip" data-stack-tag="SEC EDGAR">SEC EDGAR</span>
-        <span class="stack-chip" data-stack-tag="sentiment lexicon">sentiment lexicon</span>
-        <span class="stack-chip" data-stack-tag="NLP">NLP</span>
-      </div>
-    </div>
-
-    <div class="reveal">
-      <p class="stack-cat-label">Data Engineering</p>
-      <div class="stack-chips">
-        <span class="stack-chip" data-stack-tag="pandas">pandas</span>
-        <span class="stack-chip" data-stack-tag="Parquet">Parquet</span>
-        <span class="stack-chip" data-stack-tag="Delta Lake">Delta Lake</span>
-        <span class="stack-chip" data-stack-tag="SQLAlchemy">SQLAlchemy</span>
-        <span class="stack-chip" data-stack-tag="SQLite">SQLite</span>
-        <span class="stack-chip" data-stack-tag="dbt-style">dbt-style</span>
-        <span class="stack-chip" data-stack-tag="window functions">window functions</span>
-        <span class="stack-chip" data-stack-tag="medallion">medallion</span>
-        <span class="stack-chip" data-stack-tag="data quality">data quality</span>
-      </div>
-    </div>
-
-    <div class="reveal">
-      <p class="stack-cat-label">Cloud · Infra</p>
-      <div class="stack-chips">
-        <span class="stack-chip" data-stack-tag="AWS S3">AWS S3</span>
-        <span class="stack-chip" data-stack-tag="Lambda">Lambda</span>
-        <span class="stack-chip" data-stack-tag="DynamoDB">DynamoDB</span>
-        <span class="stack-chip" data-stack-tag="Docker">Docker</span>
-        <span class="stack-chip" data-stack-tag="FastAPI">FastAPI</span>
-        <span class="stack-chip" data-stack-tag="Redis">Redis</span>
-        <span class="stack-chip" data-stack-tag="Pydantic v2">Pydantic v2</span>
-        <span class="stack-chip" data-stack-tag="REST API">REST API</span>
-        <span class="stack-chip" data-stack-tag="asyncio">asyncio</span>
-      </div>
-    </div>
-
-    <div class="reveal">
-      <p class="stack-cat-label">Front-end · Demos</p>
-      <div class="stack-chips">
-        <span class="stack-chip" data-stack-tag="Streamlit">Streamlit</span>
-      </div>
-    </div>
-
-    <div class="reveal">
-      <p class="stack-cat-label">Other</p>
-      <div class="stack-chips">
-        <span class="stack-chip" data-stack-tag="GitHub API">GitHub API</span>
-        <span class="stack-chip" data-stack-tag="regex">regex</span>
-        <span class="stack-chip" data-stack-tag="time series">time series</span>
-      </div>
-    </div>
-
-  </div>
-</section>
-
-<div class="divider"></div>
-
-<!-- LIVE DEMOS -->
-<div id="demos">
-  <div class="inner">
-    <p class="section-label">Interactive</p>
-    <h2 class="section-title">Live Demos</h2>
-    <div class="demos-grid">
-
-      <!-- BANDIT DEMO -->
-      <div class="demo-card reveal">
-        <div class="demo-header">
-          <p class="demo-label">Project 02 · Multi-Armed Bandit</p>
-          <h3 class="demo-title">Bandit Algorithm Simulator</h3>
-          <p class="demo-desc">Run a multi-armed bandit simulation and watch the algorithm allocate pulls in real time. Thompson Sampling uses Bayesian Beta distributions — the uncertainty about each arm's true win rate drives exploration.</p>
-        </div>
-        <div class="demo-body">
-          <div class="bandit-controls">
-            <div class="ctrl-group">
-              <label>Algorithm</label>
-              <select id="b-algo">
-                <option value="thompson">Thompson Sampling</option>
-                <option value="ucb">UCB1</option>
-                <option value="epsilon">Epsilon-Greedy (ε=0.1)</option>
-              </select>
-            </div>
-            <div class="ctrl-group">
-              <label>Rounds: <span id="b-rounds-val">500</span></label>
-              <input type="range" id="b-rounds" min="100" max="2000" value="500" step="100" oninput="document.getElementById('b-rounds-val').textContent=this.value" />
-            </div>
-          </div>
-          <div class="bandit-stats">
-            <div class="bstat"><p class="bstat-label">Total Reward</p><p class="bstat-val" id="b-reward">—</p></div>
-            <div class="bstat"><p class="bstat-label">Regret</p><p class="bstat-val" id="b-regret">—</p></div>
-            <div class="bstat"><p class="bstat-label">Best Arm</p><p class="bstat-val" id="b-best">—</p></div>
-          </div>
-          <svg class="regret-chart" id="b-chart" viewBox="0 0 400 60" preserveAspectRatio="none"></svg>
-          <div class="bandit-arms" id="b-arms">
-            <!-- generated by JS -->
-          </div>
-          <button class="bandit-btn" id="b-run" onclick="runBandit()">Run Simulation →</button>
-        </div>
-      </div>
-
-      <!-- ANOMALY DEMO -->
-      <div class="demo-card reveal">
-        <div class="demo-header">
-          <p class="demo-label">Project 05 · Anomaly Detection</p>
-          <h3 class="demo-title">Live Anomaly Detector</h3>
-          <p class="demo-desc">Streaming time series with simulated anomalies. The detector uses a rolling statistical model — points more than 3σ from the local mean are flagged. Watch it adapt as the signal changes.</p>
-        </div>
-        <div class="demo-body">
-          <div class="anomaly-canvas-wrap">
-            <canvas class="anomaly-canvas" id="a-canvas"></canvas>
-          </div>
-          <div class="anomaly-legend">
-            <span class="legend-item"><span class="legend-dot" style="background:#2d6a4f"></span>Normal</span>
-            <span class="legend-item"><span class="legend-dot" style="background:#c84b2f"></span>Anomaly flagged</span>
-            <span class="legend-item"><span class="legend-dot" style="background:#b8892a; opacity:0.5"></span>σ band</span>
-          </div>
-          <div class="anomaly-stats">
-            <div class="bstat"><p class="bstat-label">Points</p><p class="bstat-val" id="a-points">0</p></div>
-            <div class="bstat"><p class="bstat-label">Flagged</p><p class="bstat-val" id="a-flagged" style="color:var(--red)">0</p></div>
-            <div class="bstat"><p class="bstat-label">Rate</p><p class="bstat-val" id="a-rate">0%</p></div>
-          </div>
-          <div class="anomaly-controls" style="margin-bottom:10px;">
-            <button class="anomaly-btn active" id="a-start-btn" onclick="toggleAnomaly()">■ Stop Stream</button>
-            <button class="anomaly-btn" onclick="injectAnomaly()">Inject Anomaly !</button>
-            <button class="anomaly-btn" onclick="resetAnomaly()">Reset</button>
-          </div>
-          <div class="anomaly-log" id="a-log"><p style="color:var(--ink3)">Stream starting...</p></div>
-        </div>
-      </div>
-
-    </div>
-  </div>
-</div>
-
-<div class="divider"></div>
-
-<!-- TRADING SYSTEM -->
-<div id="trading">
-  <div class="inner">
-    <p class="section-label">Complete · All 5 repos shipped · Mar 2026</p>
-    <h2 class="section-title">Trading System Arc</h2>
-    <p class="trading-intro">
-      Five interconnected repositories building an end-to-end paper trading system — fully shipped.
-      Real Kraken market data flows through chart generation, dual-path signal analysis
-      (technical indicators + FinBERT sentiment), backtesting, and a human oversight
-      dashboard — with losing trades feeding back to optimize signal parameters.
+  <!-- ========================== HERO ========================== -->
+  <section id="hero" class="hero wrap">
+    <p class="hero__label">Portland, OR &nbsp;·&nbsp; Open to work &nbsp;·&nbsp; Data Science &nbsp;·&nbsp; ML Engineering</p>
+    <h1 class="hero__name">Mike<br><em>Ichikawa</em></h1>
+    <p class="hero__title">Data Scientist · Data Engineer · ML Engineer</p>
+    <p class="hero__bio">
+      <strong>BS Mechanical Engineering · MS Mathematics · 3 years at Intel · 9 years teaching mathematics.</strong>
+      Three years of physical-design engineering at Intel, then nine years teaching undergraduate
+      mathematics — algebra through calculus III, linear algebra, differential equations, statistics.
+      Now building the systems that math underpins: forecasting, Bayesian experimentation,
+      streaming anomaly detection, cloud pipelines, and a live trading system.
     </p>
-    <div class="trading-pipeline">
-      <div class="t-node reveal">
-        <div class="t-dot live">T1</div>
-        <p class="t-name"><a href="https://github.com/mtichikawa/crypto-data-pipeline" target="_blank" rel="noopener">crypto-data-pipeline</a></p>
-        <p class="t-stack">ccxt · Kraken API<br>PostgreSQL · pandas<br>multi-pair OHLCV</p>
-        <p class="t-date">Shipped Mar 6</p>
-      </div>
-      <div class="t-node reveal">
-        <div class="t-dot live">T2</div>
-        <p class="t-name"><a href="https://github.com/mtichikawa/trading-chart-generator" target="_blank" rel="noopener">trading-chart-generator</a></p>
-        <p class="t-stack">mplfinance · PIL<br>PNG + JSON sidecars<br>43/43 tests passing</p>
-        <p class="t-date">Shipped Mar 10</p>
-      </div>
-      <div class="t-node reveal">
-        <div class="t-dot live">T3</div>
-        <p class="t-name"><a href="https://github.com/mtichikawa/trading-signal-engine" target="_blank" rel="noopener">trading-signal-engine</a></p>
-        <p class="t-stack">EMA · RSI · MACD · BB<br>FinBERT sentiment<br>51/51 tests passing</p>
-        <p class="t-date">Shipped Mar 16</p>
-      </div>
-      <div class="t-node reveal">
-        <div class="t-dot live">T4</div>
-        <p class="t-name"><a href="https://github.com/mtichikawa/trading-backtester" target="_blank" rel="noopener">trading-backtester</a></p>
-        <p class="t-stack">pandas · numpy<br>Sharpe · drawdown<br>72/72 tests passing</p>
-        <p class="t-date">Shipped Mar 26</p>
-      </div>
-      <div class="t-node reveal">
-        <div class="t-dot live">T5</div>
-        <p class="t-name"><a href="https://mtichikawa-trading.streamlit.app" target="_blank" rel="noopener">trading-dashboard</a></p>
-        <p class="t-stack">Streamlit · Plotly<br>live signals · P&L<br>parameter review UI</p>
-        <p class="t-date">Shipped Mar 31</p>
-      </div>
-    </div>
-    <div class="trading-note reveal">
-      <p><strong>The feedback loop:</strong> T4 records whether each signal configuration led to a winning or losing paper trade. T3's parameters (indicator thresholds, sentiment weights, fusion ratio) are tuned based on those outcomes. T5's dashboard lets me review signal performance and approve parameter changes. The system improves its own signal generation — I stay in the loop as the decision-maker. Entirely free to run: no paid APIs, local FinBERT, public market data.</p>
-    </div>
-    <div style="margin-top:40px; display:flex; justify-content:center;">
-      <a href="https://mtichikawa-trading.streamlit.app" target="_blank" rel="noopener"
-         style="display:inline-flex; align-items:center; gap:12px; font-family:var(--mono);
-                font-size:13px; font-weight:500; letter-spacing:0.12em; text-transform:uppercase;
-                text-decoration:none; padding:18px 36px; background:#6cc0e0; color:#0a1828;
-                border-radius:3px; transition:all 0.2s;"
-         onmouseover="this.style.background='#90d0f0'; this.style.transform='translateY(-2px)';"
-         onmouseout="this.style.background='#6cc0e0'; this.style.transform='translateY(0)';">
-        Open the Live Trading Dashboard
-        <span style="font-size:18px;">→</span>
+    <div class="hero__cta-row">
+      <a class="btn btn--primary" href="#projects">
+        View Projects
+        <svg class="btn__icon" viewBox="0 0 24 24" aria-hidden="true">
+          <line x1="12" y1="5" x2="12" y2="19"></line>
+          <polyline points="19 12 12 19 5 12"></polyline>
+        </svg>
       </a>
-    </div>
-    <p class="t-status"><span class="t-status-dot"></span>T1–T5 complete · streamlit · live</p>
-  </div>
-</div>
-
-<!-- ROADMAP -->
-<section id="roadmap" style="padding:100px 48px; max-width:1100px; margin:0 auto;">
-  <p class="section-label">Roadmap</p>
-  <h2 class="section-title">Scheduled Work</h2>
-  <div style="display:grid; grid-template-columns:1fr 1fr; gap:48px;">
-
-    <div class="reveal">
-      <p style="font-family:var(--mono);font-size:10px;font-weight:500;letter-spacing:0.2em;text-transform:uppercase;color:var(--navy);margin-bottom:16px;padding-bottom:10px;border-bottom:1px solid var(--border);">Upcoming Upgrades</p>
-      <table style="width:100%;border-collapse:collapse;font-size:13px;">
-        <tbody>
-          <tr style="border-bottom:1px solid var(--border);">
-            <td style="font-family:var(--mono);font-size:10px;color:var(--ink3);padding:10px 0 10px 0;width:80px;">Apr 28</td>
-            <td style="color:var(--ink2);padding:10px 12px;">cloud-etl-pipeline — data quality validation layer</td>
-          </tr>
-          <tr>
-            <td style="font-family:var(--mono);font-size:10px;color:var(--ink3);padding:10px 0;width:80px;">May 4</td>
-            <td style="color:var(--ink2);padding:10px 12px;">trading-signal-engine — FinBERT tuning</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
-    <div class="reveal">
-      <p style="font-family:var(--mono);font-size:10px;font-weight:500;letter-spacing:0.2em;text-transform:uppercase;color:var(--red);margin-bottom:16px;padding-bottom:10px;border-bottom:1px solid var(--border);">Future Builds</p>
-      <table style="width:100%;border-collapse:collapse;font-size:13px;">
-        <tbody>
-          <tr style="border-bottom:1px solid var(--border);">
-            <td style="font-family:var(--mono);font-size:10px;color:var(--ink3);padding:10px 0;width:80px;">Jun 1–5</td>
-            <td style="padding:10px 12px;">
-              <span style="color:var(--ink);font-weight:500;">streaming-analytics-pipeline</span>
-              <p style="color:var(--ink2);font-size:12px;margin-top:2px;">Redpanda + Spark Structured Streaming + Delta Lake</p>
-            </td>
-          </tr>
-          <tr style="border-bottom:1px solid var(--border);">
-            <td style="font-family:var(--mono);font-size:10px;color:var(--ink3);padding:10px 0;width:80px;">Jun 15–19</td>
-            <td style="padding:10px 12px;">
-              <span style="color:var(--ink);font-weight:500;">recommendation-system</span>
-              <p style="color:var(--ink2);font-size:12px;margin-top:2px;">Collaborative + content-based hybrid recommender</p>
-            </td>
-          </tr>
-          <tr style="border-bottom:1px solid var(--border);">
-            <td style="font-family:var(--mono);font-size:10px;color:var(--ink3);padding:10px 0;width:80px;">Jun 29–Jul 3</td>
-            <td style="padding:10px 12px;">
-              <span style="color:var(--ink);font-weight:500;">mlops-pipeline</span>
-              <p style="color:var(--ink2);font-size:12px;margin-top:2px;">MLflow + DVC + model registry with experiment tracking</p>
-            </td>
-          </tr>
-          <tr>
-            <td style="font-family:var(--mono);font-size:10px;color:var(--ink3);padding:10px 0;width:80px;">Jul 13–17</td>
-            <td style="padding:10px 12px;">
-              <span style="color:var(--ink);font-weight:500;">graph-analytics</span>
-              <p style="color:var(--ink2);font-size:12px;margin-top:2px;">NetworkX — Louvain community detection, PageRank, centrality</p>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
-  </div>
-</section>
-
-<div class="divider"></div>
-
-<!-- SKILLS -->
-<section id="skills">
-  <p class="section-label">Technical Skills</p>
-  <h2 class="section-title">Stack</h2>
-  <div class="skills-grid">
-    <div class="reveal">
-      <p class="skill-group-label">Languages</p>
-      <ul class="skill-list"><li>Python</li><li>SQL</li><li>R</li><li>TypeScript · Node.js</li></ul>
-    </div>
-    <div class="reveal">
-      <p class="skill-group-label">ML · Statistics</p>
-      <ul class="skill-list"><li>scikit-learn · IsolationForest · LOF</li><li>Prophet · XGBoost · LightGBM</li><li>scipy · statsmodels · ANOVA</li><li>Bayesian inference · Thompson Sampling</li><li>Cohen's d · effect size analysis</li></ul>
-    </div>
-    <div class="reveal">
-      <p class="skill-group-label">Data Engineering</p>
-      <ul class="skill-list"><li>PostgreSQL · SQLAlchemy · dbt-style transforms</li><li>Apache Parquet · pandas · NumPy</li><li>ccxt · OHLCV pipelines</li></ul>
-    </div>
-    <div class="reveal">
-      <p class="skill-group-label">Cloud · Infrastructure</p>
-      <ul class="skill-list"><li>AWS S3 · Lambda · DynamoDB</li><li>Azure OpenAI · Microsoft Graph API</li><li>MSAL · Bot Framework SDK · OAuth2</li><li>Docker · FastAPI · Redis</li><li>Pydantic v2 · boto3</li></ul>
-    </div>
-    <div class="reveal">
-      <p class="skill-group-label">LLM · NLP</p>
-      <ul class="skill-list"><li>Anthropic API · Claude Code</li><li>HuggingFace · FinBERT</li><li>multi-turn conversation · context injection</li><li>prompt engineering · hybrid routing</li><li>SEC EDGAR · sentiment lexicons</li></ul>
-    </div>
-    <div class="reveal">
-      <p class="skill-group-label">Visualization · Tools</p>
-      <ul class="skill-list"><li>Streamlit · Plotly</li><li>Matplotlib · mplfinance</li><li>Jupyter · nbconvert · Git</li><li>Vitest · ESLint · Prettier</li></ul>
-    </div>
-  </div>
-</section>
-
-<div class="divider"></div>
-
-<!-- CONTACT -->
-<div id="contact">
-  <div class="inner">
-    <div>
-      <p class="section-label">Contact</p>
-      <h2 class="contact-heading">Open to<br>opportunities.</h2>
-      <p class="contact-sub">Targeting Data Scientist, Data Engineer, ML Engineer, and Data Analyst roles. Portland, OR. Open to remote.</p>
-    </div>
-    <div class="contact-links">
-      <a href="mailto:projects.ichikawa@gmail.com" class="contact-link">
-        <svg class="contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+      <a class="btn btn--secondary" href="/resume.html" target="_blank" rel="noopener">
+        Resume
+        <svg class="btn__icon" viewBox="0 0 24 24" aria-hidden="true">
+          <line x1="7" y1="17" x2="17" y2="7"></line>
+          <polyline points="7 7 17 7 17 17"></polyline>
+        </svg>
+      </a>
+      <a class="btn btn--secondary" href="https://github.com/mtichikawa" target="_blank" rel="noopener">
+        <svg class="btn__icon" viewBox="0 0 24 24" fill="currentColor" stroke="none" aria-hidden="true">
+          <path d="M12 .5a11.5 11.5 0 00-3.6 22.4c.6.1.8-.3.8-.6v-2c-3.2.7-3.9-1.5-3.9-1.5-.5-1.3-1.3-1.7-1.3-1.7-1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.7 1.3 3.4 1 .1-.8.4-1.3.7-1.6-2.6-.3-5.3-1.3-5.3-5.6 0-1.3.4-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.2 0 0 1-.3 3.3 1.2.9-.3 2-.4 3-.4s2 .1 3 .4c2.3-1.5 3.3-1.2 3.3-1.2.6 1.7.2 2.9.1 3.2.7.8 1.2 1.8 1.2 3.1 0 4.4-2.7 5.3-5.3 5.6.4.4.8 1.1.8 2.2v3.2c0 .3.2.7.8.6A11.5 11.5 0 0012 .5z"></path>
+        </svg>
+        GitHub
+      </a>
+      <a class="btn btn--secondary" href="mailto:projects.ichikawa@gmail.com">
         projects.ichikawa@gmail.com
       </a>
-      <a href="https://github.com/mtichikawa" target="_blank" class="contact-link">
-        <svg class="contact-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
-        github.com/mtichikawa
-      </a>
     </div>
-  </div>
-</div>
+  </section>
 
-<footer>
-  <span>Mike Ichikawa · Portland, OR</span>
-  <span>Updated May 2, 2026</span>
-</footer>
+  <div class="divider"></div>
 
-<script>
-// ── NAV ──
-const nav = document.getElementById('nav');
-window.addEventListener('scroll', () => nav.classList.toggle('scrolled', scrollY > 20));
-
-// ── SCROLL REVEAL ──
-const observer = new IntersectionObserver(entries => {
-  entries.forEach((e, i) => {
-    if (e.isIntersecting) {
-      setTimeout(() => e.target.classList.add('visible'), i * 70);
-      observer.unobserve(e.target);
-    }
-  });
-}, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
-document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-
-// ── TAG FILTER ──
-(function () {
-  const cards = Array.from(document.querySelectorAll('#projects .project-card'));
-  const cardTags = new Map();
-  const allTagSet = new Set();
-  cards.forEach(card => {
-    const tags = Array.from(card.querySelectorAll('.tag')).map(t => t.textContent.trim());
-    cardTags.set(card, new Set(tags));
-    tags.forEach(t => allTagSet.add(t));
-  });
-
-  const bar = document.getElementById('tag-filter-bar');
-  if (!bar) return;
-  const allBtn = document.createElement('button');
-  allBtn.className = 'tag-pill tag-pill-all active';
-  allBtn.textContent = 'All';
-  allBtn.dataset.tag = '__all__';
-  bar.appendChild(allBtn);
-  Array.from(allTagSet).sort((a, b) => a.localeCompare(b)).forEach(t => {
-    const pill = document.createElement('button');
-    pill.className = 'tag-pill';
-    pill.textContent = t;
-    pill.dataset.tag = t;
-    bar.appendChild(pill);
-  });
-
-  const selected = new Set();
-
-  function apply() {
-    const allEl = bar.querySelector('.tag-pill-all');
-    if (selected.size === 0) {
-      cards.forEach(c => { c.style.display = ''; });
-      allEl.classList.add('active');
-      return;
-    }
-    allEl.classList.remove('active');
-    cards.forEach(card => {
-      const tags = cardTags.get(card);
-      const matches = Array.from(selected).every(t => tags.has(t));
-      card.style.display = matches ? '' : 'none';
-    });
-  }
-
-  bar.addEventListener('click', e => {
-    const pill = e.target.closest('.tag-pill');
-    if (!pill) return;
-    const tag = pill.dataset.tag;
-    if (tag === '__all__') {
-      selected.clear();
-      bar.querySelectorAll('.tag-pill').forEach(p => p.classList.remove('active'));
-      pill.classList.add('active');
-      apply();
-      return;
-    }
-    if (selected.has(tag)) {
-      selected.delete(tag);
-      pill.classList.remove('active');
-    } else {
-      selected.add(tag);
-      pill.classList.add('active');
-    }
-    apply();
-  });
-
-  // Stack chips → activate the corresponding filter pill
-  document.querySelectorAll('.stack-chip[data-stack-tag]').forEach(chip => {
-    chip.addEventListener('click', () => {
-      const tag = chip.dataset.stackTag;
-      selected.clear();
-      selected.add(tag);
-      bar.querySelectorAll('.tag-pill').forEach(p => {
-        p.classList.toggle('active', p.dataset.tag === tag);
-      });
-      apply();
-      document.getElementById('projects').scrollIntoView({ behavior: 'smooth', block: 'start' });
-    });
-  });
-})();
-
-// ── BANDIT SIMULATION ──
-const ARM_PROBS = [0.25, 0.45, 0.35, 0.55, 0.30];
-const ARM_COLORS = ['#c84b2f','#1a3a5c','#2d6a4f','#b8892a','#6b6760'];
-
-function initBanditArms() {
-  const c = document.getElementById('b-arms');
-  c.innerHTML = ARM_PROBS.map((p, i) => `
-    <div class="arm-bar">
-      <div class="arm-bar-label">Arm ${i+1}<br><span style="color:var(--ink3);font-size:11px">p=${p}</span></div>
-      <div class="arm-bar-outer">
-        <div class="arm-bar-fill" id="bf-${i}" style="background:${ARM_COLORS[i]};height:0%"></div>
+  <!-- ========================== BACKGROUND ========================== -->
+  <section id="background" class="section section--alt">
+    <div class="wrap bg-grid">
+      <div class="bg-prose reveal">
+        <p class="eyebrow eyebrow--muted">Background</p>
+        <h2 class="title" style="font-size: clamp(28px, 3.6vw, 44px);">Two careers.<br>One throughline.</h2>
+        <p>At Intel, three years in microprocessor physical design — building automated validation systems that processed millions of design verification points and flagged yield issues before tape-out.</p>
+        <p>At Santa Rosa Junior College, nine years teaching undergraduate mathematics: algebra through calculus III, linear algebra, differential equations, statistics. Not just lecturing — developing curriculum, building assessment systems, tracking which teaching approaches actually moved student outcomes.</p>
+        <p>The past eighteen months have been a self-directed sprint through the full data and ML stack. Sixteen production-quality projects built from scratch — time series forecasting, Bayesian experimentation, NLP, streaming anomaly detection, cloud ETL, ML serving infrastructure, C++ performance extensions, Databricks lakehouse architecture, and a complete five-repo trading system from live market data through backtesting to dashboard. Architecture designed, tests written, systems deployed. Learning by building.</p>
+        <p><strong>The common thread:</strong> engineering precision from Intel, mathematical depth from fifteen years with the subject, and the communication instinct that teaching forces you to develop.</p>
       </div>
-      <span class="arm-bar-count" id="bc-${i}">0</span>
+
+      <div class="stat-cards">
+        <div class="stat-card reveal">
+          <p class="stat-card__label">Intel · Physical Design</p>
+          <p class="stat-card__num">3</p>
+          <p class="stat-card__title">Years engineering</p>
+          <p class="stat-card__body">Microprocessor physical design · Python and Perl automation · statistical validation at manufacturing scale.</p>
+        </div>
+        <div class="stat-card reveal">
+          <p class="stat-card__label">Santa Rosa JC · Mathematics</p>
+          <p class="stat-card__num">9</p>
+          <p class="stat-card__title">Years teaching</p>
+          <p class="stat-card__body">Algebra through calculus III · linear algebra · differential equations · statistics. MS Mathematics.</p>
+        </div>
+      </div>
     </div>
-  `).join('');
-}
-initBanditArms();
+  </section>
 
-function runBandit() {
-  const algo = document.getElementById('b-algo').value;
-  const rounds = parseInt(document.getElementById('b-rounds').value);
-  const btn = document.getElementById('b-run');
-  btn.disabled = true;
-  btn.textContent = 'Running...';
+  <div class="divider"></div>
 
-  const n = ARM_PROBS.length;
-  const counts = new Array(n).fill(0);
-  const rewards = new Array(n).fill(0);
-  const alpha = new Array(n).fill(1); // Thompson Beta alpha
-  const beta  = new Array(n).fill(1); // Thompson Beta beta
-  let totalReward = 0;
-  let regret = 0;
-  const maxProb = Math.max(...ARM_PROBS);
-  const regretHistory = [];
+  <!-- ========================== FOUNDED ========================== -->
+  <section id="founded" class="section">
+    <div class="wrap">
+      <p class="eyebrow">Founded</p>
+      <h2 class="title">Microclaw</h2>
+      <p class="founded__lead">
+        AI assistant for Microsoft 365 that lives inside Microsoft Teams. Transactable SaaS on the
+        Microsoft Commercial Marketplace, launching on AppSource. Built solo end-to-end: product,
+        engineering, legal entity, brand, and go-to-market.
+      </p>
 
-  function betaSample(a, b) {
-    // Approximation using normal for speed
-    const mean = a / (a + b);
-    const variance = (a * b) / ((a+b)*(a+b)*(a+b+1));
-    return Math.max(0, Math.min(1, mean + Math.sqrt(variance) * (Math.random() + Math.random() + Math.random() - 1.5) * 1.73));
-  }
+      <div class="founded__cols">
+        <div class="founded__col reveal">
+          <h4>Product scope</h4>
+          <p>Fifty-four Microsoft Graph tools across twelve M365 services — Outlook, Calendar, To Do, Planner, OneDrive, OneNote, SharePoint, Teams, contacts, presence, people, cross-app search. Full read and write. Two-layer permission system. 200+ unit tests, all passing.</p>
+        </div>
+        <div class="founded__col reveal">
+          <h4>Commerce infrastructure</h4>
+          <p>Microsoft Commercial Marketplace Fulfillment API v2 and Marketplace Metering Service API for per-message metered overage, with Microsoft as merchant of record. Eight-tier bracket pricing, $25 per seat, 1,500 pooled messages per seat. Delegated Microsoft Entra auth, per-tenant data isolation.</p>
+        </div>
+      </div>
 
-  function selectArm(round) {
-    if (algo === 'thompson') {
-      const samples = alpha.map((a,i) => betaSample(a, beta[i]));
-      return samples.indexOf(Math.max(...samples));
-    } else if (algo === 'ucb') {
-      const ucbVals = counts.map((c, i) => {
-        if (c === 0) return Infinity;
-        return rewards[i]/c + Math.sqrt(2*Math.log(round+1)/c);
+      <div class="founded__tags reveal">
+        <span class="tag">TypeScript</span>
+        <span class="tag">Node.js</span>
+        <span class="tag">Azure OpenAI</span>
+        <span class="tag">Microsoft Graph</span>
+        <span class="tag">Teams Bot Framework</span>
+        <span class="tag">Marketplace Fulfillment v2</span>
+        <span class="tag">Marketplace Metering</span>
+        <span class="tag">SQLite</span>
+      </div>
+
+      <p class="founded__meta">
+        <a href="https://microclaw.app" target="_blank" rel="noopener">microclaw.app</a>
+        &nbsp;·&nbsp; Microsoft AppSource listing — launching
+      </p>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ========================== PROJECTS ========================== -->
+  <section id="projects" class="section section--alt">
+    <div class="wrap">
+      <p class="eyebrow">Portfolio</p>
+      <h2 class="title">Completed projects</h2>
+
+      <div class="filter-bar" id="filter-bar" role="toolbar" aria-label="Filter projects by tag">
+        <span class="filter-bar__label">Filter</span>
+        <!-- pills inserted by JS -->
+      </div>
+
+      <div class="project-grid" id="project-grid">
+
+        <a class="project" href="https://github.com/mtichikawa/github-trend-forecaster" target="_blank" rel="noopener">
+          <span class="project__num">01</span>
+          <h3 class="project__name">GitHub Trend Forecaster</h3>
+          <p class="project__desc">Collects GitHub repository star history via the API and forecasts growth using Facebook Prophet with configurable changepoint sensitivity and named presets.</p>
+          <p class="project__note">Star growth is bursty — a viral tweet creates a step function Prophet's default changepoints can miss. Tuning changepoint_prior_scale per repo type produces materially better forecasts.</p>
+          <div class="project__tags">
+            <span class="tag">Prophet</span><span class="tag">GitHub API</span><span class="tag">pandas</span><span class="tag">time series</span>
+          </div>
+          <div class="project__foot">
+            <span class="project__updated">Updated Apr 2026</span>
+            <svg class="project__arrow" viewBox="0 0 24 24" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+          </div>
+        </a>
+
+        <a class="project" href="https://github.com/mtichikawa/bandit-ab-testing" target="_blank" rel="noopener">
+          <span class="project__num">02</span>
+          <h3 class="project__name">Multi-Armed Bandit A/B Testing</h3>
+          <p class="project__desc">Thompson Sampling, UCB1, and Epsilon-Greedy algorithms implemented from scratch. Each maintains its own selection and update logic — no library bandits. Streamlit simulator below tunes arm reward distributions and watches the algorithms converge.</p>
+          <p class="project__note">Traditional A/B testing freezes traffic during the learning period. Multi-armed bandits explore and exploit simultaneously — Thompson's Beta-distribution updates make uncertainty reduction visible round by round.</p>
+          <div class="project__tags">
+            <span class="tag">Thompson Sampling</span><span class="tag">UCB1</span><span class="tag">Bayesian inference</span><span class="tag">Streamlit</span>
+          </div>
+          <div class="project__foot">
+            <span class="project__updated">Updated Apr 2026</span>
+            <svg class="project__arrow" viewBox="0 0 24 24" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+          </div>
+        </a>
+
+        <a class="project" href="https://github.com/mtichikawa/llm-data-assistant" target="_blank" rel="noopener">
+          <span class="project__num">03</span>
+          <h3 class="project__name">LLM Data Analysis Assistant</h3>
+          <p class="project__desc">Two-path query routing: a rule-based fast path handles correlations, group-bys, and aggregations deterministically. Queries below a confidence threshold escalate to the Anthropic API with DataFrame context injection and multi-turn conversation history.</p>
+          <p class="project__note">The fast path answers most common data questions with zero API cost and sub-second latency. The LLM path gets a ContextBuilder-assembled summary of the DataFrame so it can reason about data it never directly touches.</p>
+          <div class="project__tags">
+            <span class="tag">Anthropic API</span><span class="tag">hybrid routing</span><span class="tag">multi-turn</span><span class="tag">pandas</span>
+          </div>
+          <div class="project__foot">
+            <span class="project__updated">Built Aug 2025</span>
+            <svg class="project__arrow" viewBox="0 0 24 24" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+          </div>
+        </a>
+
+        <a class="project" href="https://github.com/mtichikawa/llm-bias-detection" target="_blank" rel="noopener">
+          <span class="project__num">04</span>
+          <h3 class="project__name">Bias Detection in LLMs</h3>
+          <p class="project__desc">Statistical audit of demographic bias in LLM responses across two prompt datasets. Generates prompts across gender, age, and race dimensions, scores for agentic, communal, competence, and warmth lexicon patterns using ANOVA and Cohen's d. Cross-model comparison surfaces which biases are model-specific vs systemic.</p>
+          <p class="project__note">The trap in bias research is confusing statistical significance with practical significance — with enough samples, any difference is "significant." Cohen's d separates the signal from the noise.</p>
+          <div class="project__tags">
+            <span class="tag">ANOVA</span><span class="tag">Cohen's d</span><span class="tag">scipy.stats</span><span class="tag">lexicon scoring</span><span class="tag">cross-model comparison</span>
+          </div>
+          <div class="project__foot">
+            <span class="project__updated">Updated Apr 2026</span>
+            <svg class="project__arrow" viewBox="0 0 24 24" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+          </div>
+        </a>
+
+        <a class="project" href="https://github.com/mtichikawa/anomaly-detection" target="_blank" rel="noopener">
+          <span class="project__num">05</span>
+          <h3 class="project__name">Real-Time Anomaly Detection</h3>
+          <p class="project__desc">Streaming ensemble: Isolation Forest, LSTM autoencoder, Z-score, and a LightGBM gradient-boosted classifier voting together. Dockerized FastAPI REST API with health checks plus a streaming pipeline for continuous monitoring.</p>
+          <p class="project__note">Each detector covers a different failure mode. The new LightGBM detector adds a supervised signal trained on engineered rolling-window features. Mixing supervised and unsupervised in one ensemble keeps recall high without inflating false positives.</p>
+          <div class="project__tags">
+            <span class="tag">IsolationForest</span><span class="tag">LSTM</span><span class="tag">LightGBM</span><span class="tag">Docker</span><span class="tag">FastAPI</span><span class="tag">REST API</span>
+          </div>
+          <div class="project__foot">
+            <span class="project__updated">Updated Apr 2026</span>
+            <svg class="project__arrow" viewBox="0 0 24 24" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+          </div>
+        </a>
+
+        <a class="project" href="https://github.com/mtichikawa/financial-nlp" target="_blank" rel="noopener">
+          <span class="project__num">06</span>
+          <h3 class="project__name">Financial NLP Parser</h3>
+          <p class="project__desc">Parses SEC EDGAR filings to extract financial metrics (revenue, net income, EPS) and sentiment. Regex-based extraction with lexicon scoring on MD&amp;A sections across multiple companies.</p>
+          <p class="project__note">EDGAR filings are semi-structured text. The parsing challenge is extracting consistent metrics across companies that use different table formats and labeling conventions.</p>
+          <div class="project__tags">
+            <span class="tag">SEC EDGAR</span><span class="tag">regex</span><span class="tag">sentiment lexicon</span><span class="tag">NLP</span>
+          </div>
+          <div class="project__foot">
+            <span class="project__updated">Built Nov 2025</span>
+            <svg class="project__arrow" viewBox="0 0 24 24" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+          </div>
+        </a>
+
+        <a class="project" href="https://github.com/mtichikawa/sql-analytics-pipeline" target="_blank" rel="noopener">
+          <span class="project__num">07</span>
+          <h3 class="project__name">SQL Analytics Pipeline</h3>
+          <p class="project__desc">Three-layer data pipeline (staging, clean, marts) with dbt-style SQL transformations, window functions, and CTEs. SQLAlchemy ORM with swappable SQLite/PostgreSQL backend.</p>
+          <p class="project__note">The three-layer pattern enforces a discipline. When a mart query returns wrong results, you can trace the data backwards through each layer to find where it broke.</p>
+          <div class="project__tags">
+            <span class="tag">SQLAlchemy</span><span class="tag">SQLite</span><span class="tag">dbt-style</span><span class="tag">window functions</span>
+          </div>
+          <div class="project__foot">
+            <span class="project__updated">Built Dec 2025</span>
+            <svg class="project__arrow" viewBox="0 0 24 24" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+          </div>
+        </a>
+
+        <a class="project" href="https://github.com/mtichikawa/dockerized-ml-api" target="_blank" rel="noopener">
+          <span class="project__num">08</span>
+          <h3 class="project__name">Dockerized ML API</h3>
+          <p class="project__desc">Production ML serving: FastAPI REST endpoint, Redis caching with TTL, Pydantic v2 validation, vectorized batch inference, async job queue, Docker deployment with health checks.</p>
+          <p class="project__note">Redis intercepts repeated predictions, Pydantic v2 rejects bad inputs, async endpoints use asyncio.to_thread() to keep the event loop free during CPU-bound inference, and Docker Compose wires it into a single deployable unit.</p>
+          <div class="project__tags">
+            <span class="tag">Docker</span><span class="tag">FastAPI</span><span class="tag">Redis</span><span class="tag">Pydantic v2</span><span class="tag">asyncio</span>
+          </div>
+          <div class="project__foot">
+            <span class="project__updated">Updated Mar 2026</span>
+            <svg class="project__arrow" viewBox="0 0 24 24" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+          </div>
+        </a>
+
+        <a class="project" href="https://github.com/mtichikawa/cloud-etl-pipeline" target="_blank" rel="noopener">
+          <span class="project__num">09</span>
+          <h3 class="project__name">Cloud ETL Pipeline</h3>
+          <p class="project__desc">AWS-native ETL: S3 data lake with Parquet/Snappy storage, Lambda validation, DynamoDB run logging, tenacity retry logic, Hive-style partitioning. In-pipeline data quality layer quarantines invalid rows and flags runs that exceed budget.</p>
+          <p class="project__note">Hive-style partitioning means queries scan only the date range they need. The DQ layer runs schema, range, and null-rate checks before load, writes a quarantine sidecar, and the Lambda fails the run loud if invalid-record rate exceeds threshold.</p>
+          <div class="project__tags">
+            <span class="tag">AWS S3</span><span class="tag">Lambda</span><span class="tag">DynamoDB</span><span class="tag">Parquet</span><span class="tag">data quality</span>
+          </div>
+          <div class="project__foot">
+            <span class="project__updated">Updated Apr 2026</span>
+            <svg class="project__arrow" viewBox="0 0 24 24" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+          </div>
+        </a>
+
+        <a class="project" href="https://github.com/mtichikawa/ml-experiments" target="_blank" rel="noopener">
+          <span class="project__num">10</span>
+          <h3 class="project__name">ML Experiments — C++ Extensions</h3>
+          <p class="project__desc">C++ rolling statistics (mean, std, z-score) via Welford's single-pass algorithm, exposed to Python through pybind11 with zero-copy NumPy buffer protocol. Benchmarked against NumPy and pandas rolling on n=1M.</p>
+          <p class="project__note">Welford's algorithm computes variance in a single pass without storing all values — critical for streaming. The pybind11 binding eliminates Python overhead per call and avoids copying NumPy arrays into a C++ container.</p>
+          <div class="project__tags">
+            <span class="tag">C++</span><span class="tag">pybind11</span><span class="tag">NumPy</span><span class="tag">Welford's algorithm</span>
+          </div>
+          <div class="project__foot">
+            <span class="project__updated">Built Apr 2026</span>
+            <svg class="project__arrow" viewBox="0 0 24 24" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+          </div>
+        </a>
+
+        <a class="project" href="https://github.com/mtichikawa/databricks-lakehouse" target="_blank" rel="noopener">
+          <span class="project__num">11</span>
+          <h3 class="project__name">Databricks Lakehouse</h3>
+          <p class="project__desc">Medallion lakehouse (bronze, silver, gold) on 10M NYC taxi rows with Delta Lake and row-level data quality gates between layers. Runs locally via the deltalake Python library; deployable to Databricks Community Edition.</p>
+          <p class="project__note">The medallion pattern enforces data quality incrementally: bronze appends raw ingest with provenance, silver types/dedupes/validates and quarantines invalid rows, gold aggregates for specific analytical questions. Quality checks between layers are first-class.</p>
+          <div class="project__tags">
+            <span class="tag">Delta Lake</span><span class="tag">medallion</span><span class="tag">pandas</span><span class="tag">data quality</span>
+          </div>
+          <div class="project__foot">
+            <span class="project__updated">Built Apr 2026</span>
+            <svg class="project__arrow" viewBox="0 0 24 24" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+          </div>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ========================== STACK ========================== -->
+  <section id="stack" class="section">
+    <div class="wrap">
+      <p class="eyebrow">Stack</p>
+      <h2 class="title">Tools across these projects</h2>
+      <p class="stack__intro">Click any chip to filter the project grid above by that tool. Categories below reflect what actually appears in the eleven cards — not a marketing list.</p>
+
+      <div class="stack-grid">
+        <div class="reveal">
+          <p class="stack-cat__label">Languages · Native</p>
+          <div class="stack-cat__chips">
+            <span class="chip" data-stack-tag="C++">C++</span>
+            <span class="chip" data-stack-tag="pybind11">pybind11</span>
+            <span class="chip" data-stack-tag="NumPy">NumPy</span>
+          </div>
+        </div>
+
+        <div class="reveal">
+          <p class="stack-cat__label">ML · Detectors</p>
+          <div class="stack-cat__chips">
+            <span class="chip" data-stack-tag="IsolationForest">IsolationForest</span>
+            <span class="chip" data-stack-tag="LSTM">LSTM</span>
+            <span class="chip" data-stack-tag="LightGBM">LightGBM</span>
+            <span class="chip" data-stack-tag="Prophet">Prophet</span>
+            <span class="chip" data-stack-tag="Welford's algorithm">Welford</span>
+          </div>
+        </div>
+
+        <div class="reveal">
+          <p class="stack-cat__label">Statistics · Bayesian</p>
+          <div class="stack-cat__chips">
+            <span class="chip" data-stack-tag="Thompson Sampling">Thompson Sampling</span>
+            <span class="chip" data-stack-tag="UCB1">UCB1</span>
+            <span class="chip" data-stack-tag="Bayesian inference">Bayesian inference</span>
+            <span class="chip" data-stack-tag="ANOVA">ANOVA</span>
+            <span class="chip" data-stack-tag="Cohen's d">Cohen's d</span>
+            <span class="chip" data-stack-tag="scipy.stats">scipy.stats</span>
+          </div>
+        </div>
+
+        <div class="reveal">
+          <p class="stack-cat__label">LLMs · NLP</p>
+          <div class="stack-cat__chips">
+            <span class="chip" data-stack-tag="Anthropic API">Anthropic API</span>
+            <span class="chip" data-stack-tag="hybrid routing">hybrid routing</span>
+            <span class="chip" data-stack-tag="multi-turn">multi-turn</span>
+            <span class="chip" data-stack-tag="lexicon scoring">lexicon scoring</span>
+            <span class="chip" data-stack-tag="cross-model comparison">cross-model</span>
+            <span class="chip" data-stack-tag="SEC EDGAR">SEC EDGAR</span>
+            <span class="chip" data-stack-tag="sentiment lexicon">sentiment lexicon</span>
+            <span class="chip" data-stack-tag="NLP">NLP</span>
+          </div>
+        </div>
+
+        <div class="reveal">
+          <p class="stack-cat__label">Data Engineering</p>
+          <div class="stack-cat__chips">
+            <span class="chip" data-stack-tag="pandas">pandas</span>
+            <span class="chip" data-stack-tag="Parquet">Parquet</span>
+            <span class="chip" data-stack-tag="Delta Lake">Delta Lake</span>
+            <span class="chip" data-stack-tag="SQLAlchemy">SQLAlchemy</span>
+            <span class="chip" data-stack-tag="SQLite">SQLite</span>
+            <span class="chip" data-stack-tag="dbt-style">dbt-style</span>
+            <span class="chip" data-stack-tag="window functions">window functions</span>
+            <span class="chip" data-stack-tag="medallion">medallion</span>
+            <span class="chip" data-stack-tag="data quality">data quality</span>
+          </div>
+        </div>
+
+        <div class="reveal">
+          <p class="stack-cat__label">Cloud · Infra</p>
+          <div class="stack-cat__chips">
+            <span class="chip" data-stack-tag="AWS S3">AWS S3</span>
+            <span class="chip" data-stack-tag="Lambda">Lambda</span>
+            <span class="chip" data-stack-tag="DynamoDB">DynamoDB</span>
+            <span class="chip" data-stack-tag="Docker">Docker</span>
+            <span class="chip" data-stack-tag="FastAPI">FastAPI</span>
+            <span class="chip" data-stack-tag="Redis">Redis</span>
+            <span class="chip" data-stack-tag="Pydantic v2">Pydantic v2</span>
+            <span class="chip" data-stack-tag="REST API">REST API</span>
+            <span class="chip" data-stack-tag="asyncio">asyncio</span>
+          </div>
+        </div>
+
+        <div class="reveal">
+          <p class="stack-cat__label">Front-end · Demos</p>
+          <div class="stack-cat__chips">
+            <span class="chip" data-stack-tag="Streamlit">Streamlit</span>
+          </div>
+        </div>
+
+        <div class="reveal">
+          <p class="stack-cat__label">Misc</p>
+          <div class="stack-cat__chips">
+            <span class="chip" data-stack-tag="GitHub API">GitHub API</span>
+            <span class="chip" data-stack-tag="regex">regex</span>
+            <span class="chip" data-stack-tag="time series">time series</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ========================== LIVE DEMOS ========================== -->
+  <section id="demos" class="section section--alt">
+    <div class="wrap">
+      <p class="eyebrow">Interactive</p>
+      <h2 class="title">Live demos</h2>
+
+      <div class="demos-grid">
+
+        <!-- Bandit demo -->
+        <div class="demo reveal">
+          <div class="demo__head">
+            <p class="demo__label">Project 02 · Multi-armed bandit</p>
+            <h3 class="demo__title">Bandit algorithm simulator</h3>
+            <p class="demo__desc">Run a bandit simulation and watch the algorithm allocate pulls. Thompson Sampling uses Bayesian Beta distributions — uncertainty about each arm's true win rate drives exploration.</p>
+          </div>
+          <div class="demo__body">
+            <div class="ctrls">
+              <div class="ctrl">
+                <label class="ctrl__label" for="b-algo">Algorithm</label>
+                <select id="b-algo">
+                  <option value="thompson">Thompson Sampling</option>
+                  <option value="ucb">UCB1</option>
+                  <option value="epsilon">Epsilon-Greedy (ε=0.1)</option>
+                </select>
+              </div>
+              <div class="ctrl">
+                <label class="ctrl__label" for="b-rounds">Rounds: <span class="ctrl__val" id="b-rounds-val">500</span></label>
+                <input type="range" id="b-rounds" min="100" max="2000" value="500" step="100" />
+              </div>
+            </div>
+
+            <div class="stat-row">
+              <div class="stat-tile"><p class="stat-tile__label">Total reward</p><p class="stat-tile__val" id="b-reward">—</p></div>
+              <div class="stat-tile"><p class="stat-tile__label">Regret</p><p class="stat-tile__val" id="b-regret">—</p></div>
+              <div class="stat-tile"><p class="stat-tile__label">Best arm</p><p class="stat-tile__val" id="b-best">—</p></div>
+            </div>
+
+            <svg class="regret-chart" id="b-chart" viewBox="0 0 400 60" preserveAspectRatio="none" aria-hidden="true"></svg>
+
+            <div class="arms" id="b-arms"></div>
+
+            <button class="demo-btn" id="b-run">
+              Run simulation
+              <svg viewBox="0 0 24 24" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- Anomaly demo -->
+        <div class="demo reveal">
+          <div class="demo__head">
+            <p class="demo__label">Project 05 · Anomaly detection</p>
+            <h3 class="demo__title">Live anomaly detector</h3>
+            <p class="demo__desc">Streaming time series with simulated anomalies. The detector uses a rolling statistical model — points more than 3σ from the local mean are flagged. Watch it adapt as the signal changes.</p>
+          </div>
+          <div class="demo__body">
+            <div class="canvas-wrap">
+              <canvas id="a-canvas"></canvas>
+            </div>
+            <div class="legend">
+              <span class="legend__item"><span class="legend__dot" style="background:#3a8467"></span>Normal</span>
+              <span class="legend__item"><span class="legend__dot" style="background:#c84b2f"></span>Flagged</span>
+              <span class="legend__item"><span class="legend__dot" style="background:#c0a050; opacity:0.6"></span>σ band</span>
+            </div>
+            <div class="stat-row">
+              <div class="stat-tile"><p class="stat-tile__label">Points</p><p class="stat-tile__val" id="a-points">0</p></div>
+              <div class="stat-tile"><p class="stat-tile__label">Flagged</p><p class="stat-tile__val" id="a-flagged" style="color: var(--red);">0</p></div>
+              <div class="stat-tile"><p class="stat-tile__label">Rate</p><p class="stat-tile__val" id="a-rate">0%</p></div>
+            </div>
+            <div class="demo-btn-row">
+              <button class="demo-btn--ghost demo-btn" id="a-toggle">■ Stop stream</button>
+              <button class="demo-btn--ghost demo-btn" id="a-inject">Inject anomaly</button>
+              <button class="demo-btn--ghost demo-btn" id="a-reset">Reset</button>
+            </div>
+            <div class="log" id="a-log"><p>Stream starting…</p></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ========================== TRADING ARC ========================== -->
+  <section id="trading" class="trading">
+    <div class="wrap">
+      <p class="eyebrow">Complete · All five repos shipped · Mar 2026</p>
+      <h2 class="title">Trading system arc</h2>
+      <p class="trading__intro">
+        Five interconnected repositories building an end-to-end paper trading system, fully shipped.
+        Real Kraken market data flows through chart generation, dual-path signal analysis (technical
+        indicators plus FinBERT sentiment), backtesting, and a human-oversight dashboard — with
+        losing trades feeding back to optimize signal parameters.
+      </p>
+
+      <div class="arc">
+        <div class="node reveal">
+          <div class="node__dot">T1</div>
+          <p class="node__name"><a href="https://github.com/mtichikawa/crypto-data-pipeline" target="_blank" rel="noopener">crypto-data-pipeline</a></p>
+          <p class="node__stack">ccxt · Kraken<br>PostgreSQL · pandas<br>multi-pair OHLCV</p>
+          <p class="node__date">Shipped Mar 6</p>
+        </div>
+        <div class="node reveal">
+          <div class="node__dot">T2</div>
+          <p class="node__name"><a href="https://github.com/mtichikawa/trading-chart-generator" target="_blank" rel="noopener">trading-chart-generator</a></p>
+          <p class="node__stack">mplfinance · PIL<br>PNG + JSON sidecars<br>43/43 tests</p>
+          <p class="node__date">Shipped Mar 10</p>
+        </div>
+        <div class="node reveal">
+          <div class="node__dot">T3</div>
+          <p class="node__name"><a href="https://github.com/mtichikawa/trading-signal-engine" target="_blank" rel="noopener">trading-signal-engine</a></p>
+          <p class="node__stack">EMA · RSI · MACD · BB<br>FinBERT sentiment<br>51/51 tests</p>
+          <p class="node__date">Shipped Mar 16</p>
+        </div>
+        <div class="node reveal">
+          <div class="node__dot">T4</div>
+          <p class="node__name"><a href="https://github.com/mtichikawa/trading-backtester" target="_blank" rel="noopener">trading-backtester</a></p>
+          <p class="node__stack">pandas · NumPy<br>Sharpe · drawdown<br>72/72 tests</p>
+          <p class="node__date">Shipped Mar 26</p>
+        </div>
+        <div class="node reveal">
+          <div class="node__dot">T5</div>
+          <p class="node__name"><a href="https://mtichikawa-trading.streamlit.app" target="_blank" rel="noopener">trading-dashboard</a></p>
+          <p class="node__stack">Streamlit · Plotly<br>live signals · P&amp;L<br>parameter review UI</p>
+          <p class="node__date">Shipped Mar 31</p>
+        </div>
+      </div>
+
+      <div class="trading__note reveal">
+        <p>
+          <strong>The feedback loop:</strong> T4 records whether each signal configuration led to a
+          winning or losing paper trade. T3's parameters (indicator thresholds, sentiment weights,
+          fusion ratio) tune from those outcomes. T5's dashboard reviews signal performance and
+          approves parameter changes. The system improves its own signal generation while a human
+          stays in the loop as decision-maker. Entirely free to run: no paid APIs, local FinBERT,
+          public market data.
+        </p>
+      </div>
+
+      <div class="trading__cta-row">
+        <a class="btn btn--cta" href="https://mtichikawa-trading.streamlit.app" target="_blank" rel="noopener">
+          Open the live trading dashboard
+          <svg class="btn__icon" viewBox="0 0 24 24" aria-hidden="true">
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+            <polyline points="12 5 19 12 12 19"></polyline>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================== ROADMAP ========================== -->
+  <section id="roadmap" class="section">
+    <div class="wrap">
+      <p class="eyebrow">Roadmap</p>
+      <h2 class="title">Scheduled work</h2>
+
+      <div class="roadmap-grid">
+        <div class="roadmap-col roadmap-col--upcoming reveal">
+          <h4>Upcoming upgrades</h4>
+          <div class="roadmap__row">
+            <span class="roadmap__date">May 4</span>
+            <p class="roadmap__copy"><strong>trading-signal-engine</strong> FinBERT threshold tuning</p>
+          </div>
+          <div class="roadmap__row">
+            <span class="roadmap__date">May 7</span>
+            <p class="roadmap__copy"><strong>llm-data-assistant</strong> smart model routing + conversation summarization</p>
+          </div>
+          <div class="roadmap__row">
+            <span class="roadmap__date">May 12</span>
+            <p class="roadmap__copy"><strong>trading-backtester</strong> walk-forward validation + buy-and-hold benchmark</p>
+          </div>
+        </div>
+
+        <div class="roadmap-col roadmap-col--future reveal">
+          <h4>Future builds</h4>
+          <div class="roadmap__row">
+            <span class="roadmap__date">Jun 1–5</span>
+            <p class="roadmap__copy"><strong>streaming-analytics-pipeline</strong> Redpanda + Spark Structured Streaming + Delta Lake</p>
+          </div>
+          <div class="roadmap__row">
+            <span class="roadmap__date">Jun 15–19</span>
+            <p class="roadmap__copy"><strong>recommendation-system</strong> Collaborative filtering + content-based hybrid</p>
+          </div>
+          <div class="roadmap__row">
+            <span class="roadmap__date">Jun 29 – Jul 3</span>
+            <p class="roadmap__copy"><strong>mlops-pipeline</strong> MLflow + DVC + model registry with experiment tracking</p>
+          </div>
+          <div class="roadmap__row">
+            <span class="roadmap__date">Jul 13–17</span>
+            <p class="roadmap__copy"><strong>graph-analytics</strong> NetworkX — Louvain community detection, PageRank, centrality</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ========================== SKILLS ========================== -->
+  <section id="skills" class="section section--alt">
+    <div class="wrap">
+      <p class="eyebrow">Technical skills</p>
+      <h2 class="title">Stack at a glance</h2>
+
+      <div class="skills-grid">
+        <div class="reveal">
+          <p class="skill-cat__label">Languages</p>
+          <ul class="skill-list">
+            <li>Python</li>
+            <li>SQL</li>
+            <li>R</li>
+            <li>TypeScript · Node.js</li>
+            <li>C++ · pybind11 · CMake</li>
+          </ul>
+        </div>
+        <div class="reveal">
+          <p class="skill-cat__label">ML · Statistics</p>
+          <ul class="skill-list">
+            <li>scikit-learn · IsolationForest</li>
+            <li>Prophet · XGBoost · LightGBM</li>
+            <li>scipy · statsmodels · ANOVA</li>
+            <li>Bayesian inference · Thompson Sampling</li>
+            <li>Cohen's d · effect size</li>
+          </ul>
+        </div>
+        <div class="reveal">
+          <p class="skill-cat__label">Data Engineering</p>
+          <ul class="skill-list">
+            <li>PostgreSQL · SQLAlchemy</li>
+            <li>dbt-style transforms</li>
+            <li>Apache Parquet · Delta Lake</li>
+            <li>Databricks · pandas · NumPy</li>
+            <li>ccxt · OHLCV pipelines</li>
+          </ul>
+        </div>
+        <div class="reveal">
+          <p class="skill-cat__label">Cloud · Infrastructure</p>
+          <ul class="skill-list">
+            <li>AWS S3 · Lambda · DynamoDB</li>
+            <li>Azure OpenAI · Microsoft Graph</li>
+            <li>MSAL · Bot Framework SDK</li>
+            <li>Docker · FastAPI · Redis</li>
+            <li>Pydantic v2 · boto3</li>
+          </ul>
+        </div>
+        <div class="reveal">
+          <p class="skill-cat__label">LLM · NLP</p>
+          <ul class="skill-list">
+            <li>Anthropic API · Claude Code</li>
+            <li>HuggingFace · FinBERT</li>
+            <li>multi-turn conversation</li>
+            <li>prompt engineering · hybrid routing</li>
+            <li>SEC EDGAR · sentiment lexicons</li>
+          </ul>
+        </div>
+        <div class="reveal">
+          <p class="skill-cat__label">Visualization · Tools</p>
+          <ul class="skill-list">
+            <li>Streamlit · Plotly</li>
+            <li>Matplotlib · mplfinance</li>
+            <li>Jupyter · nbconvert</li>
+            <li>Git · GitHub Actions CI</li>
+            <li>Docker Compose · Vitest</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================== CONTACT ========================== -->
+  <section id="contact" class="contact">
+    <div class="wrap">
+      <div>
+        <p class="eyebrow">Contact</p>
+        <h2 class="contact__heading">Open to<br>opportunities.</h2>
+        <p class="contact__sub">Targeting Data Scientist, Data Engineer, ML Engineer, and Data Analyst roles. Portland, OR. Open to remote.</p>
+      </div>
+      <div class="contact__links">
+        <a class="contact__link" href="mailto:projects.ichikawa@gmail.com">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <rect x="3" y="5" width="18" height="14" rx="2"></rect>
+            <polyline points="3 7 12 13 21 7"></polyline>
+          </svg>
+          projects.ichikawa@gmail.com
+        </a>
+        <a class="contact__link" href="https://github.com/mtichikawa" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor" stroke="none" aria-hidden="true">
+            <path d="M12 .5a11.5 11.5 0 00-3.6 22.4c.6.1.8-.3.8-.6v-2c-3.2.7-3.9-1.5-3.9-1.5-.5-1.3-1.3-1.7-1.3-1.7-1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.7 1.3 3.4 1 .1-.8.4-1.3.7-1.6-2.6-.3-5.3-1.3-5.3-5.6 0-1.3.4-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.2 0 0 1-.3 3.3 1.2.9-.3 2-.4 3-.4s2 .1 3 .4c2.3-1.5 3.3-1.2 3.3-1.2.6 1.7.2 2.9.1 3.2.7.8 1.2 1.8 1.2 3.1 0 4.4-2.7 5.3-5.3 5.6.4.4.8 1.1.8 2.2v3.2c0 .3.2.7.8.6A11.5 11.5 0 0012 .5z"></path>
+          </svg>
+          github.com/mtichikawa
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================== FOOTER ========================== -->
+  <footer class="foot">
+    <span>Mike Ichikawa · Portland, OR</span>
+    <span>Updated May 4, 2026</span>
+  </footer>
+
+  <!-- ========================== SCRIPTS ========================== -->
+  <script>
+    /* ──────────── Theme toggle ──────────── */
+    (function () {
+      var btn = document.getElementById('theme-toggle');
+      if (!btn) return;
+      var root = document.documentElement;
+
+      var ICON_MOON = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 13a9 9 0 11-9-10 7 7 0 009 10z"></path></svg>';
+      var ICON_SUN  = '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"></path></svg>';
+
+      function paint(theme) {
+        root.setAttribute('data-theme', theme);
+        btn.innerHTML = theme === 'dark' ? ICON_SUN : ICON_MOON;
+        btn.setAttribute('aria-label',
+          theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode');
+      }
+      paint(root.getAttribute('data-theme') || 'light');
+
+      btn.addEventListener('click', function () {
+        var current = root.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
+        var next = current === 'dark' ? 'light' : 'dark';
+        try { localStorage.setItem('theme', next); } catch (e) {}
+        paint(next);
       });
-      return ucbVals.indexOf(Math.max(...ucbVals));
-    } else {
-      if (Math.random() < 0.1) return Math.floor(Math.random() * n);
-      const means = counts.map((c,i) => c === 0 ? 0 : rewards[i]/c);
-      return means.indexOf(Math.max(...means));
-    }
-  }
+    })();
 
-  for (let r = 0; r < rounds; r++) {
-    const arm = selectArm(r);
-    const reward = Math.random() < ARM_PROBS[arm] ? 1 : 0;
-    counts[arm]++;
-    rewards[arm] += reward;
-    totalReward += reward;
-    regret += maxProb - ARM_PROBS[arm];
-    if (algo === 'thompson') {
-      if (reward) alpha[arm]++; else beta[arm]++;
-    }
-    if (r % 20 === 0) regretHistory.push(regret);
-  }
+    /* ──────────── Nav scroll state ──────────── */
+    (function () {
+      var nav = document.getElementById('nav');
+      if (!nav) return;
+      window.addEventListener('scroll', function () {
+        nav.classList.toggle('is-scrolled', window.scrollY > 18);
+      }, { passive: true });
+    })();
 
-  // Update UI
-  const maxCount = Math.max(...counts);
-  counts.forEach((c, i) => {
-    document.getElementById(`bf-${i}`).style.height = `${maxCount > 0 ? (c/maxCount*90) : 0}%`;
-    document.getElementById(`bc-${i}`).textContent = `${c} pulls`;
-  });
+    /* ──────────── Reveal on scroll ──────────── */
+    (function () {
+      var els = document.querySelectorAll('.reveal');
+      if (!('IntersectionObserver' in window)) {
+        els.forEach(function (el) { el.classList.add('is-visible'); });
+        return;
+      }
+      var obs = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry, i) {
+          if (entry.isIntersecting) {
+            setTimeout(function () { entry.target.classList.add('is-visible'); }, i * 60);
+            obs.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+      els.forEach(function (el) { obs.observe(el); });
+    })();
 
-  document.getElementById('b-reward').textContent = totalReward;
-  document.getElementById('b-regret').textContent = regret.toFixed(1);
-  const bestArm = counts.indexOf(Math.max(...counts));
-  document.getElementById('b-best').textContent = `Arm ${bestArm+1}`;
+    /* ──────────── Tag filter (project grid) ──────────── */
+    (function () {
+      var bar = document.getElementById('filter-bar');
+      var grid = document.getElementById('project-grid');
+      if (!bar || !grid) return;
 
-  // Draw regret curve
-  const svg = document.getElementById('b-chart');
-  const maxReg = regretHistory[regretHistory.length-1];
-  const pts = regretHistory.map((v,i) => `${(i/regretHistory.length)*400},${60-((v/maxReg)*54)}`).join(' ');
-  svg.innerHTML = `
-    <polyline points="${pts}" fill="none" stroke="#c84b2f" stroke-width="1.5" opacity="0.7"/>
-    <text x="2" y="10" font-family="monospace" font-size="7" fill="#a09d99">Cumulative Regret</text>
-  `;
+      var cards = Array.prototype.slice.call(grid.querySelectorAll('.project'));
+      var cardTags = new Map();
+      var allTags = new Set();
+      cards.forEach(function (card) {
+        var tags = Array.prototype.slice.call(card.querySelectorAll('.tag'))
+          .map(function (t) { return t.textContent.trim(); });
+        cardTags.set(card, new Set(tags));
+        tags.forEach(function (t) { allTags.add(t); });
+      });
 
-  btn.disabled = false;
-  btn.textContent = 'Run Again →';
-}
+      var allBtn = document.createElement('button');
+      allBtn.className = 'pill is-active';
+      allBtn.dataset.tag = '__all__';
+      allBtn.textContent = 'All';
+      bar.appendChild(allBtn);
 
-// ── ANOMALY DETECTION DEMO ──
-const aCanvas = document.getElementById('a-canvas');
-const aCtx = aCanvas.getContext('2d');
-let aRunning = true;
-let aData = [];
-let aAnomalyCount = 0;
-let aTotalPoints = 0;
-let aNextInject = false;
-let aAnimId = null;
-let aT = 0;
+      Array.from(allTags).sort(function (a, b) {
+        return a.localeCompare(b);
+      }).forEach(function (tag) {
+        var p = document.createElement('button');
+        p.className = 'pill';
+        p.dataset.tag = tag;
+        p.textContent = tag;
+        bar.appendChild(p);
+      });
 
-function resizeCanvas() {
-  const dpr = window.devicePixelRatio || 1;
-  const rect = aCanvas.parentElement.getBoundingClientRect();
-  aCanvas.width = rect.width * dpr;
-  aCanvas.height = 140 * dpr;
-  aCtx.scale(dpr, dpr);
-  aCanvas.style.width = rect.width + 'px';
-  aCanvas.style.height = '140px';
-}
-resizeCanvas();
-window.addEventListener('resize', resizeCanvas);
+      var selected = new Set();
 
-function generatePoint() {
-  const t = aT++;
-  const base = Math.sin(t * 0.08) * 20 + Math.sin(t * 0.15) * 10 + 70;
-  const noise = (Math.random() - 0.5) * 14;
-  let val = base + noise;
-  let injected = false;
-  if (aNextInject) { val += (Math.random() > 0.5 ? 1 : -1) * (45 + Math.random() * 25); injected = true; aNextInject = false; }
-  return { val, injected };
-}
+      function render() {
+        var allEl = bar.querySelector('[data-tag="__all__"]');
+        if (selected.size === 0) {
+          cards.forEach(function (c) { c.style.display = ''; });
+          allEl.classList.add('is-active');
+          return;
+        }
+        allEl.classList.remove('is-active');
+        cards.forEach(function (card) {
+          var tags = cardTags.get(card);
+          var match = Array.from(selected).every(function (t) { return tags.has(t); });
+          card.style.display = match ? '' : 'none';
+        });
+      }
 
-function addLog(msg, flagged) {
-  const log = document.getElementById('a-log');
-  const entry = document.createElement('p');
-  entry.className = 'log-entry' + (flagged ? ' flagged' : '');
-  entry.textContent = msg;
-  log.insertBefore(entry, log.firstChild);
-  while (log.children.length > 8) log.removeChild(log.lastChild);
-}
+      bar.addEventListener('click', function (e) {
+        var pill = e.target.closest('.pill');
+        if (!pill) return;
+        var tag = pill.dataset.tag;
+        if (tag === '__all__') {
+          selected.clear();
+          bar.querySelectorAll('.pill').forEach(function (p) { p.classList.remove('is-active'); });
+          pill.classList.add('is-active');
+          render();
+          return;
+        }
+        if (selected.has(tag)) {
+          selected.delete(tag);
+          pill.classList.remove('is-active');
+        } else {
+          selected.add(tag);
+          pill.classList.add('is-active');
+        }
+        render();
+      });
 
-function drawAnomaly() {
-  const W = aCanvas.parentElement.getBoundingClientRect().width;
-  const H = 140;
-  aCtx.clearRect(0, 0, W, H);
+      // Stack chip → activate filter
+      document.querySelectorAll('.chip[data-stack-tag]').forEach(function (chip) {
+        chip.addEventListener('click', function () {
+          var tag = chip.dataset.stackTag;
+          selected.clear();
+          selected.add(tag);
+          bar.querySelectorAll('.pill').forEach(function (p) {
+            p.classList.toggle('is-active', p.dataset.tag === tag);
+          });
+          render();
+          var section = document.getElementById('projects');
+          if (section) section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+      });
+    })();
 
-  if (aData.length < 2) { if (aRunning) aAnimId = requestAnimationFrame(drawAnomaly); return; }
+    /* ──────────── Bandit simulation ──────────── */
+    (function () {
+      var ARM_PROBS  = [0.25, 0.45, 0.35, 0.55, 0.30];
+      var ARM_COLORS = ['#c84b2f', '#1a3a5c', '#3a8467', '#c0a050', '#6b6760'];
 
-  // Compute rolling stats (window=20)
-  const window = 20;
-  const recent = aData.slice(-window);
-  const mean = recent.reduce((s,d) => s+d.val, 0) / recent.length;
-  const std = Math.sqrt(recent.reduce((s,d) => s+(d.val-mean)**2, 0) / recent.length) || 8;
+      var roundsEl = document.getElementById('b-rounds');
+      var roundsValEl = document.getElementById('b-rounds-val');
+      var algoEl  = document.getElementById('b-algo');
+      var armsEl  = document.getElementById('b-arms');
+      var rewardEl= document.getElementById('b-reward');
+      var regretEl= document.getElementById('b-regret');
+      var bestEl  = document.getElementById('b-best');
+      var chartEl = document.getElementById('b-chart');
+      var runBtn  = document.getElementById('b-run');
+      if (!runBtn) return;
 
-  // Scale to canvas
-  const vals = aData.map(d => d.val);
-  const minV = Math.min(...vals) - 10;
-  const maxV = Math.max(...vals) + 10;
-  const scaleY = v => H - ((v - minV) / (maxV - minV)) * (H - 16) - 8;
-  const scaleX = (i, total) => (i / (total - 1)) * W;
+      function buildArms() {
+        armsEl.innerHTML = ARM_PROBS.map(function (p, i) {
+          return '<div class="arm">' +
+            '<div class="arm__head">Arm ' + (i + 1) +
+              '<br><span class="arm__head-p">p=' + p + '</span></div>' +
+            '<div class="arm__bar"><div class="arm__bar-fill" id="bf-' + i +
+              '" style="background:' + ARM_COLORS[i] + ';height:0%"></div></div>' +
+            '<span class="arm__count" id="bc-' + i + '">0</span>' +
+          '</div>';
+        }).join('');
+      }
+      buildArms();
 
-  const total = aData.length;
+      roundsEl.addEventListener('input', function () {
+        roundsValEl.textContent = roundsEl.value;
+      });
 
-  // σ band
-  aCtx.fillStyle = 'rgba(184,137,42,0.08)';
-  aCtx.beginPath();
-  aData.forEach((d, i) => {
-    const x = scaleX(i, total);
-    const y = scaleY(mean + 3*std);
-    if (i === 0) aCtx.moveTo(x, y); else aCtx.lineTo(x, y);
-  });
-  for (let i = total-1; i >= 0; i--) {
-    aCtx.lineTo(scaleX(i, total), scaleY(mean - 3*std));
-  }
-  aCtx.closePath();
-  aCtx.fill();
+      function selectArm(algo, alpha, beta, counts, rewards, t) {
+        if (algo === 'thompson') {
+          var best = 0, bestVal = -1;
+          for (var i = 0; i < ARM_PROBS.length; i++) {
+            // Beta sample via two gamma approximations isn't worth — use simple uniform-based draw
+            var sample = sampleBeta(alpha[i], beta[i]);
+            if (sample > bestVal) { bestVal = sample; best = i; }
+          }
+          return best;
+        }
+        if (algo === 'ucb') {
+          // Force-pull each arm once
+          for (var j = 0; j < ARM_PROBS.length; j++) {
+            if (counts[j] === 0) return j;
+          }
+          var bestU = 0, bestUVal = -Infinity;
+          for (var k = 0; k < ARM_PROBS.length; k++) {
+            var mean = rewards[k] / counts[k];
+            var bonus = Math.sqrt(2 * Math.log(t + 1) / counts[k]);
+            var ucb = mean + bonus;
+            if (ucb > bestUVal) { bestUVal = ucb; bestU = k; }
+          }
+          return bestU;
+        }
+        // epsilon-greedy
+        if (Math.random() < 0.1) {
+          return Math.floor(Math.random() * ARM_PROBS.length);
+        }
+        var bestE = 0, bestEVal = -Infinity;
+        for (var m = 0; m < ARM_PROBS.length; m++) {
+          var mu = counts[m] > 0 ? rewards[m] / counts[m] : 0;
+          if (mu > bestEVal) { bestEVal = mu; bestE = m; }
+        }
+        return bestE;
+      }
 
-  // Mean line
-  aCtx.strokeStyle = 'rgba(184,137,42,0.35)';
-  aCtx.lineWidth = 1;
-  aCtx.setLineDash([4, 4]);
-  aCtx.beginPath();
-  aCtx.moveTo(0, scaleY(mean));
-  aCtx.lineTo(W, scaleY(mean));
-  aCtx.stroke();
-  aCtx.setLineDash([]);
+      function sampleBeta(a, b) {
+        // Marsaglia-Tsang style approximation via two gamma draws
+        var x = sampleGamma(a);
+        var y = sampleGamma(b);
+        return x / (x + y);
+      }
+      function sampleGamma(a) {
+        // For a >= 1 use Marsaglia-Tsang; for a < 1 boost via the Johnk trick
+        if (a < 1) {
+          var u = Math.random();
+          return sampleGamma(a + 1) * Math.pow(u, 1 / a);
+        }
+        var d = a - 1 / 3;
+        var c = 1 / Math.sqrt(9 * d);
+        while (true) {
+          var z, v;
+          do {
+            z = randn();
+            v = 1 + c * z;
+          } while (v <= 0);
+          v = v * v * v;
+          var u2 = Math.random();
+          if (u2 < 1 - 0.0331 * z * z * z * z) return d * v;
+          if (Math.log(u2) < 0.5 * z * z + d * (1 - v + Math.log(v))) return d * v;
+        }
+      }
+      function randn() {
+        // Box-Muller
+        var u = 1 - Math.random();
+        var v = 1 - Math.random();
+        return Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * v);
+      }
 
-  // Signal line
-  aCtx.strokeStyle = '#2d6a4f';
-  aCtx.lineWidth = 1.5;
-  aCtx.beginPath();
-  aData.forEach((d, i) => {
-    const x = scaleX(i, total);
-    const y = scaleY(d.val);
-    if (i === 0) aCtx.moveTo(x, y); else aCtx.lineTo(x, y);
-  });
-  aCtx.stroke();
+      function run() {
+        var algo = algoEl.value;
+        var rounds = parseInt(roundsEl.value, 10);
+        runBtn.disabled = true;
+        runBtn.innerHTML = 'Running…';
 
-  // Anomaly dots
-  aData.forEach((d, i) => {
-    if (d.flagged) {
-      aCtx.beginPath();
-      aCtx.arc(scaleX(i, total), scaleY(d.val), 5, 0, Math.PI * 2);
-      aCtx.fillStyle = '#c84b2f';
-      aCtx.fill();
-      aCtx.strokeStyle = 'rgba(200,75,47,0.3)';
-      aCtx.lineWidth = 3;
-      aCtx.stroke();
-      aCtx.lineWidth = 1;
-    }
-  });
+        var n = ARM_PROBS.length;
+        var counts = new Array(n).fill(0);
+        var rewards = new Array(n).fill(0);
+        var alpha = new Array(n).fill(1);
+        var beta  = new Array(n).fill(1);
+        var totalReward = 0;
+        var regret = 0;
+        var maxProb = Math.max.apply(null, ARM_PROBS);
+        var regretSamples = [];
 
-  if (aRunning) aAnimId = requestAnimationFrame(drawAnomaly);
-}
+        for (var t = 0; t < rounds; t++) {
+          var arm = selectArm(algo, alpha, beta, counts, rewards, t);
+          var reward = Math.random() < ARM_PROBS[arm] ? 1 : 0;
+          counts[arm]++;
+          rewards[arm] += reward;
+          totalReward += reward;
+          regret += maxProb - ARM_PROBS[arm];
+          if (algo === 'thompson') {
+            if (reward) alpha[arm]++; else beta[arm]++;
+          }
+          if (t % Math.max(1, Math.floor(rounds / 30)) === 0) regretSamples.push(regret);
+        }
+        regretSamples.push(regret);
 
-function anomalyTick() {
-  if (!aRunning) return;
-  const pt = generatePoint();
-  aTotalPoints++;
+        var maxC = Math.max.apply(null, counts);
+        counts.forEach(function (c, i) {
+          var fill = document.getElementById('bf-' + i);
+          var lbl  = document.getElementById('bc-' + i);
+          if (fill) fill.style.height = (maxC > 0 ? (c / maxC) * 90 : 0) + '%';
+          if (lbl) lbl.textContent = c + ' pulls';
+        });
+        rewardEl.textContent = totalReward;
+        regretEl.textContent = regret.toFixed(1);
+        bestEl.textContent = 'Arm ' + (counts.indexOf(maxC) + 1);
 
-  const window = 20;
-  const recent = aData.slice(-window);
-  let flagged = false;
-  if (recent.length >= 5) {
-    const mean = recent.reduce((s,d) => s+d.val, 0) / recent.length;
-    const std = Math.sqrt(recent.reduce((s,d) => s+(d.val-mean)**2, 0) / recent.length) || 8;
-    if (Math.abs(pt.val - mean) > 3 * std) {
-      flagged = true;
-      aAnomalyCount++;
-      const ts = new Date().toLocaleTimeString('en-US', {hour12:false, hour:'2-digit', minute:'2-digit', second:'2-digit'});
-      addLog(`${ts} ⚠ ANOMALY t=${aTotalPoints} val=${pt.val.toFixed(1)} (${((pt.val-mean)/std).toFixed(1)}σ)`, true);
-    }
-  }
+        // Regret curve
+        var maxR = regretSamples[regretSamples.length - 1] || 1;
+        var pts = regretSamples.map(function (v, i) {
+          var x = (i / (regretSamples.length - 1)) * 400;
+          var y = 60 - (v / maxR) * 54;
+          return x.toFixed(1) + ',' + y.toFixed(1);
+        }).join(' ');
+        chartEl.innerHTML =
+          '<polyline points="' + pts + '" fill="none" stroke="#c84b2f" stroke-width="1.5" opacity="0.75"/>' +
+          '<text x="2" y="11" font-family="DM Mono, monospace" font-size="10" fill="currentColor" opacity="0.7">Cumulative regret</text>';
 
-  aData.push({ val: pt.val, flagged, injected: pt.injected });
-  if (aData.length > 120) aData.shift();
+        runBtn.disabled = false;
+        runBtn.innerHTML = 'Run again <svg viewBox="0 0 24 24" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>';
+      }
 
-  document.getElementById('a-points').textContent = aTotalPoints;
-  document.getElementById('a-flagged').textContent = aAnomalyCount;
-  document.getElementById('a-rate').textContent = aTotalPoints > 0 ? (aAnomalyCount/aTotalPoints*100).toFixed(1)+'%' : '0%';
-}
+      runBtn.addEventListener('click', run);
+    })();
 
-function toggleAnomaly() {
-  aRunning = !aRunning;
-  const btn = document.getElementById('a-start-btn');
-  btn.textContent = aRunning ? '■ Stop Stream' : '▶ Start Stream';
-  btn.classList.toggle('active', aRunning);
-  if (aRunning) { drawAnomaly(); }
-}
+    /* ──────────── Anomaly streaming demo ──────────── */
+    (function () {
+      var canvas = document.getElementById('a-canvas');
+      var pointsEl  = document.getElementById('a-points');
+      var flaggedEl = document.getElementById('a-flagged');
+      var rateEl    = document.getElementById('a-rate');
+      var logEl     = document.getElementById('a-log');
+      var toggleBtn = document.getElementById('a-toggle');
+      var injectBtn = document.getElementById('a-inject');
+      var resetBtn  = document.getElementById('a-reset');
+      if (!canvas) return;
 
-function injectAnomaly() { aNextInject = true; addLog(`Manual anomaly injected at next tick`, false); }
+      var ctx = canvas.getContext('2d');
+      var running = true;
+      var data = [];
+      var totalPoints = 0;
+      var flaggedCount = 0;
+      var pendingInject = false;
+      var rafId = null;
+      var t = 0;
 
-function resetAnomaly() {
-  aData = []; aAnomalyCount = 0; aTotalPoints = 0; aT = 0; aNextInject = false;
-  document.getElementById('a-points').textContent = '0';
-  document.getElementById('a-flagged').textContent = '0';
-  document.getElementById('a-rate').textContent = '0%';
-  document.getElementById('a-log').innerHTML = '<p style="color:var(--ink3)">Stream reset.</p>';
-}
+      function resize() {
+        var dpr = window.devicePixelRatio || 1;
+        var rect = canvas.parentElement.getBoundingClientRect();
+        canvas.width = rect.width * dpr;
+        canvas.height = 150 * dpr;
+        ctx.setTransform(1, 0, 0, 1, 0, 0);
+        ctx.scale(dpr, dpr);
+        canvas.style.width  = rect.width + 'px';
+        canvas.style.height = '150px';
+      }
+      resize();
+      window.addEventListener('resize', resize);
 
-// Start anomaly ticker
-setInterval(anomalyTick, 180);
-drawAnomaly();
-</script>
+      function nextPoint() {
+        var x = t++;
+        var base = Math.sin(x * 0.08) * 18 + Math.sin(x * 0.15) * 10 + 70;
+        var noise = (Math.random() - 0.5) * 12;
+        var val = base + noise;
+        var injected = false;
+        if (pendingInject) {
+          val += (Math.random() > 0.5 ? 1 : -1) * (40 + Math.random() * 25);
+          injected = true;
+          pendingInject = false;
+        }
+        return { val: val, injected: injected };
+      }
 
+      function pushLog(msg, flagged) {
+        var p = document.createElement('p');
+        if (flagged) p.classList.add('is-flagged');
+        p.textContent = msg;
+        logEl.insertBefore(p, logEl.firstChild);
+        while (logEl.children.length > 8) logEl.removeChild(logEl.lastChild);
+      }
+
+      function draw() {
+        var rect = canvas.parentElement.getBoundingClientRect();
+        var W = rect.width;
+        var H = 150;
+        ctx.clearRect(0, 0, W, H);
+        if (data.length < 2) {
+          if (running) rafId = requestAnimationFrame(draw);
+          return;
+        }
+        var win = 20;
+        var recent = data.slice(-win);
+        var mean = recent.reduce(function (s, d) { return s + d.val; }, 0) / recent.length;
+        var variance = recent.reduce(function (s, d) {
+          return s + (d.val - mean) * (d.val - mean);
+        }, 0) / recent.length;
+        var std = Math.sqrt(variance) || 8;
+
+        var maxV = 140, minV = 0;
+        function sx(i, total) { return (i / Math.max(1, total - 1)) * W; }
+        function sy(v) { return H - ((v - minV) / (maxV - minV)) * H; }
+        var total = data.length;
+
+        // Sigma band fill
+        ctx.fillStyle = 'rgba(192, 160, 80, 0.12)';
+        ctx.beginPath();
+        for (var i = 0; i < total; i++) ctx.lineTo(sx(i, total), sy(mean + 3 * std));
+        for (var j = total - 1; j >= 0; j--) ctx.lineTo(sx(j, total), sy(mean - 3 * std));
+        ctx.closePath();
+        ctx.fill();
+
+        // Mean line
+        ctx.strokeStyle = 'rgba(192, 160, 80, 0.45)';
+        ctx.setLineDash([4, 4]);
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.moveTo(0, sy(mean));
+        ctx.lineTo(W, sy(mean));
+        ctx.stroke();
+        ctx.setLineDash([]);
+
+        // Series
+        ctx.strokeStyle = '#3a8467';
+        ctx.lineWidth = 1.5;
+        ctx.beginPath();
+        for (var k = 0; k < total; k++) {
+          var px = sx(k, total), py = sy(data[k].val);
+          if (k === 0) ctx.moveTo(px, py); else ctx.lineTo(px, py);
+        }
+        ctx.stroke();
+
+        // Flagged points
+        for (var m = 0; m < total; m++) {
+          if (data[m].flagged) {
+            ctx.beginPath();
+            ctx.arc(sx(m, total), sy(data[m].val), 4.5, 0, Math.PI * 2);
+            ctx.fillStyle = '#c84b2f';
+            ctx.fill();
+          }
+        }
+
+        if (running) rafId = requestAnimationFrame(draw);
+      }
+
+      function tick() {
+        if (!running) return;
+        var p = nextPoint();
+        data.push(p);
+        if (data.length > 80) data.shift();
+        totalPoints++;
+
+        var win = 20;
+        if (data.length >= win) {
+          var recent = data.slice(-win - 1, -1); // exclude latest from baseline
+          if (recent.length >= 5) {
+            var mu = recent.reduce(function (s, d) { return s + d.val; }, 0) / recent.length;
+            var sigma = Math.sqrt(
+              recent.reduce(function (s, d) { return s + (d.val - mu) * (d.val - mu); }, 0) / recent.length
+            );
+            if (sigma > 0 && Math.abs(p.val - mu) > 3 * sigma) {
+              p.flagged = true;
+              flaggedCount++;
+              pushLog('FLAG t=' + totalPoints + ' val=' + p.val.toFixed(1) + ' (' + ((p.val - mu) / sigma).toFixed(1) + 'σ)', true);
+            }
+          }
+        }
+
+        pointsEl.textContent  = totalPoints;
+        flaggedEl.textContent = flaggedCount;
+        rateEl.textContent    = totalPoints > 0
+          ? ((flaggedCount / totalPoints) * 100).toFixed(1) + '%'
+          : '0%';
+
+        setTimeout(tick, 350);
+      }
+
+      toggleBtn.addEventListener('click', function () {
+        running = !running;
+        toggleBtn.textContent = running ? '■ Stop stream' : '▶ Start stream';
+        if (running) { tick(); draw(); }
+      });
+      injectBtn.addEventListener('click', function () {
+        pendingInject = true;
+        pushLog('Inject queued', false);
+      });
+      resetBtn.addEventListener('click', function () {
+        data = [];
+        totalPoints = 0;
+        flaggedCount = 0;
+        t = 0;
+        pointsEl.textContent  = 0;
+        flaggedEl.textContent = 0;
+        rateEl.textContent    = '0%';
+        logEl.innerHTML = '<p>Stream reset.</p>';
+      });
+
+      tick();
+      draw();
+    })();
+  </script>
 </body>
 </html>
