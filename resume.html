@@ -221,15 +221,14 @@
 <div class="r-section no-break">
   <p class="r-section-head">Summary</p>
   <p style="font-size:9.5pt; color:#4a4844; line-height:1.6;">
-    MS Mathematics (CCNY, 2014) and BS Mechanical Engineering (UC Berkeley). Three years in
-    semiconductor Physical Design at Intel; nine years teaching undergraduate mathematics at
-    Santa Rosa Junior College. Over the past eighteen months, a self-directed transition into
-    data science and ML engineering — culminating in Microclaw, a production AI agent for
-    Microsoft 365 (KNN tool selection, function-calling across 12 services) that I built
-    solo, launching on the Microsoft Commercial Marketplace. Complementary portfolio covers
-    time series forecasting, anomaly detection, NLP, cloud ETL, ML serving, a Databricks
-    medallion lakehouse, C++ performance extensions via pybind11, and a five-repo paper
-    trading system.
+    Founder &amp; Engineer at Microclaw LLC, building a production AI agent for Microsoft 365
+    submitted to the Microsoft Commercial Marketplace. KNN tool selection, RAG semantic memory
+    retrieval, smart model routing, in-house eval framework. Previously nine years teaching
+    undergraduate mathematics at Santa Rosa Junior College and three years semiconductor
+    physical design at Intel. MS Mathematics (CCNY, 2014), BS Mechanical Engineering (UC
+    Berkeley). Portfolio covers time series forecasting, anomaly detection, NLP, cloud ETL,
+    ML serving, a Databricks medallion lakehouse, C++ performance extensions via pybind11,
+    and a five-repo paper trading system.
   </p>
 </div>
 
@@ -273,10 +272,10 @@
     </div>
     <p class="exp-org">Microclaw LLC &nbsp;·&nbsp; Portland, OR</p>
     <ul class="exp-bullets">
-      <li>Built a production AI agent on Microsoft Teams (Azure OpenAI GPT-4o + function-calling) operating across 12 Microsoft 365 services through 54 tool functions on Microsoft Graph; launching on Microsoft AppSource</li>
-      <li>Implemented KNN tool selection over 1,020 synthetic training examples (k=7, 0.80 confidence threshold, cosine-similarity fallback): 95.0% recall vs 92.7% embedding-only baseline, 6.4 tools selected per request vs 18, ~60% input-token reduction</li>
-      <li>Designed semantic memory retrieval (cosine similarity over per-user persistent context) and a smart model router (GPT-4o-mini default, escalation to GPT-4o on complexity signals); built an in-house eval framework scoring agent output across 75 tasks against a baseline bot</li>
-      <li>Built a natural-language automations layer where users describe IFTTT-style rules in plain English; the agent parses intent into structured rules persisted to SQLite, fired in real-time via Microsoft Graph change-notification webhooks</li>
+      <li>Built a production AI agent on Microsoft Teams (Azure OpenAI GPT-4o + function-calling) operating across 12 Microsoft 365 services through 85 tool functions on Microsoft Graph; submitted to Microsoft AppSource (Standard + Self-Hosted offerings)</li>
+      <li>Implemented KNN tool selection over 1,020 synthetic training examples using <code>text-embedding-3-small</code> (k=7, 0.80 confidence threshold, cosine-similarity fallback): 95.0% recall vs 92.7% embedding-only baseline, 6.4 tools selected per request vs 18, ~60% input-token reduction</li>
+      <li>Designed RAG-pattern semantic memory retrieval (cosine similarity over per-user persistent context) and a smart model router (GPT-4o-mini default, escalation to GPT-4o on complexity signals; 17× cheaper for simple queries); built an in-house eval framework scoring agent output across 75 tasks against a baseline bot</li>
+      <li>Built a natural-language automations layer where users describe IFTTT-style rules in plain English; the agent parses intent into structured rules persisted to Azure Postgres, fired in real-time via Microsoft Graph change-notification webhooks. 290 Vitest unit tests; Bicep IaC; Docker → GHCR release pipeline via GitHub Actions</li>
     </ul>
   </div>
 
@@ -288,8 +287,8 @@
     <p class="exp-org">Santa Rosa Junior College &nbsp;·&nbsp; Santa Rosa, CA</p>
     <ul class="exp-bullets">
       <li>Taught undergraduate mathematics for nine years: Algebra through Calculus III, Linear Algebra, Differential Equations, Statistics</li>
-      <li>Designed assessment systems and drove data-driven iterative improvements to course materials based on longitudinal performance analysis across multiple cohorts</li>
-      <li>Routinely explained complex mathematical concepts clearly to students with varying preparation levels</li>
+      <li>Designed assessments and iterated course materials from cohort performance data</li>
+      <li>Taught STEM majors alongside non-STEM majors fulfilling general-education math requirements at an open-enrollment community college</li>
     </ul>
   </div>
 
@@ -300,7 +299,7 @@
     </div>
     <p class="exp-org">Intel Corporation &nbsp;·&nbsp; Semiconductor R&D</p>
     <ul class="exp-bullets">
-      <li>Microprocessor physical design on Intel Ivy Bridge (22nm) — timing closure, power analysis, design rule verification</li>
+      <li>Microprocessor physical design on Intel Ivy Bridge (22nm), including timing closure, power analysis, and design rule verification</li>
       <li>Built Python and Perl automation for physical verification workflows, processing millions of layout data points per run</li>
     </ul>
   </div>
