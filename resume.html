@@ -275,10 +275,10 @@
     </div>
     <p class="exp-org">Microclaw LLC &nbsp;·&nbsp; Portland, OR</p>
     <ul class="exp-bullets">
-      <li>Built a production AI agent on Microsoft Teams (Azure OpenAI GPT-4o + function-calling) operating across 12 Microsoft 365 services through 85 tool functions on Microsoft Graph; <a href="https://marketplace.microsoft.com/en-us/product/saas/microclaw.microclaw?tab=Overview">live on Microsoft AppSource</a> (Standard + Self-Hosted offerings)</li>
-      <li>Implemented KNN tool selection over 1,020 synthetic training examples using <code>text-embedding-3-small</code> (k=7, 0.80 confidence threshold, cosine-similarity fallback): 95.0% recall vs 92.7% embedding-only baseline, 6.4 tools selected per request vs 18, ~60% input-token reduction</li>
-      <li>Designed RAG-pattern semantic memory retrieval (cosine similarity over per-user persistent context) and a smart model router (GPT-4o-mini default, escalation to GPT-4o on complexity signals; 17× cheaper for simple queries); built an in-house eval framework scoring agent output across 75 tasks against a baseline bot</li>
-      <li>Built a natural-language automations layer where users describe IFTTT-style rules in plain English; the agent parses intent into structured rules persisted to Azure Postgres, fired in real-time via Microsoft Graph change-notification webhooks. 290 Vitest unit tests; Bicep IaC; Docker → GHCR release pipeline via GitHub Actions</li>
+      <li>Built a production AI agent on Microsoft Teams (Azure OpenAI GPT-4o + function-calling) operating across 12 Microsoft 365 services through 84 tool functions on Microsoft Graph; <a href="https://marketplace.microsoft.com/en-us/product/saas/microclaw.microclaw?tab=Overview">live on Microsoft AppSource</a> (Standard + Self-Hosted offerings)</li>
+      <li>Implemented KNN tool selection over 1,045 synthetic training examples using <code>text-embedding-3-small</code> (k=7, 0.80 confidence threshold, cosine-similarity fallback): 95.0% recall vs 92.7% embedding-only baseline, selecting ~6 of 84 tools per request vs 18</li>
+      <li>Designed RAG-pattern semantic memory retrieval (cosine similarity over per-user persistent context) and a smart model router (GPT-4o-mini default, mid-conversation escalation to GPT-4o on tool-call complexity; the mini path is ~24× cheaper per call); built an in-house eval framework scoring agent output across 107 tests against a baseline bot</li>
+      <li>Built a natural-language automations layer where users describe IFTTT-style rules in plain English; the agent parses intent into structured rules persisted to Azure Postgres, fired in real-time via Microsoft Graph change-notification webhooks. 374 Vitest unit tests; Postgres row-level security for tenant isolation; Bicep IaC; Docker → GHCR release pipeline via GitHub Actions</li>
     </ul>
   </div>
 
