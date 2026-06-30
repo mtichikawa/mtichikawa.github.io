@@ -7,7 +7,7 @@
   <title>Mike Ichikawa · Founder & Engineer, Microclaw · Data Scientist · ML Engineer</title>
   <meta name="description" content="Mike Ichikawa built Microclaw, a production AI agent for Microsoft 365 (live on Microsoft AppSource). Seventeen portfolio projects in data science, ML engineering, and cloud infrastructure. Open to work." />
   <meta property="og:title" content="Mike Ichikawa · Founder of Microclaw · Data Scientist · ML Engineer" />
-  <meta property="og:description" content="Microclaw is a production AI agent for Microsoft 365, live on Microsoft AppSource. Seventeen portfolio projects across data science and ML engineering. Open to work." />
+  <meta property="og:description" content="Microclaw is a production AI agent for Microsoft 365, live on Microsoft AppSource. Eighteen portfolio projects across data science and ML engineering. Open to work." />
   <meta property="og:url" content="https://mtichikawa.github.io" />
   <meta property="og:type" content="website" />
 
@@ -1301,7 +1301,7 @@
       <a href="https://marketplace.microsoft.com/en-us/product/saas/microclaw.microclaw?tab=Overview" target="_blank" rel="noopener">live on the Microsoft Commercial Marketplace</a>.
       Before that: three years of physical-design engineering at Intel and nine years teaching
       undergraduate mathematics. <strong>BS Mechanical Engineering · MS Mathematics.</strong>
-      Seventeen portfolio projects across forecasting, Bayesian experimentation, streaming anomaly
+      Eighteen portfolio projects across forecasting, Bayesian experimentation, streaming anomaly
       detection, cloud pipelines, and a complete five-repo trading system.
     </p>
     <div class="hero__cta-row">
@@ -1653,6 +1653,20 @@
           </div>
           <div class="project__foot">
             <span class="project__updated">Built May 2026</span>
+            <svg class="project__arrow" viewBox="0 0 24 24" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+          </div>
+        </a>
+
+        <a class="project" href="https://github.com/mtichikawa/streaming-analytics-pipeline" target="_blank" rel="noopener">
+          <span class="project__num">13</span>
+          <h3 class="project__name">Streaming Analytics Pipeline</h3>
+          <p class="project__desc">A real-time crypto pipeline on Redpanda and Spark Structured Streaming. One job aggregates ticks into 5-minute tumbling-window OHLCV bars with a 30-second watermark, a second runs a per-symbol rolling z-score anomaly detector, and both write to Delta Lake. A Streamlit dashboard reads the Delta tables live.</p>
+          <p class="project__note">Stream-batch unified aggregation, checkpointed exactly-once recovery proven by a kill-and-restart test, and host-side Delta reads with a synthetic fallback so the dashboard runs on a bare checkout. Runs locally via docker-compose, no cloud, no paid services.</p>
+          <div class="project__tags">
+            <span class="tag">Redpanda</span><span class="tag">Spark Structured Streaming</span><span class="tag">Delta Lake</span><span class="tag">Streamlit</span><span class="tag">watermarking</span><span class="tag">exactly-once</span><span class="tag">deltalake</span>
+          </div>
+          <div class="project__foot">
+            <span class="project__updated">Built Jun 2026</span>
             <svg class="project__arrow" viewBox="0 0 24 24" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
           </div>
         </a>
@@ -2068,7 +2082,7 @@
   <!-- ========================== FOOTER ========================== -->
   <footer class="foot">
     <span>Mike Ichikawa · Portland, OR</span>
-    <span>Updated May 4, 2026</span>
+    <span>Updated Jun 30, 2026</span>
   </footer>
 
   <!-- ========================== SCRIPTS ========================== -->
