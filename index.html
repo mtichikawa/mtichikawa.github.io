@@ -1246,10 +1246,12 @@
       box-shadow: 0 4px 14px -6px rgba(0, 0, 0, 0.4);
     }
 
-    /* ---- mini workflow-engine teaser board ---- */
+    /* ---- engine lead + mini teaser board, side by side ---- */
+    .engine-intro { display: flex; gap: 30px; align-items: center; margin-bottom: var(--sp-6); }
+    .engine-intro .mc__lead { margin-bottom: 0; flex: 1 1 auto; }
     .miniboard {
       display: block; position: relative;
-      margin: 4px 0 26px;
+      flex: 0 0 320px; width: 320px;
       background: #101319;
       border: 1px solid var(--border);
       border-radius: 10px;
@@ -1258,17 +1260,21 @@
       box-shadow: 0 16px 34px -24px #000;
       transition: border-color var(--tx-med), transform var(--tx-med), box-shadow var(--tx-med);
     }
-    .miniboard:hover { border-color: var(--accent); transform: translateY(-1px); box-shadow: 0 20px 40px -22px #000; }
+    .miniboard:hover { border-color: var(--accent); transform: translateY(-2px); box-shadow: 0 22px 44px -22px #000; }
     .miniboard:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
     .miniboard svg { display: block; width: 100%; height: auto; }
     .miniboard__hint {
-      position: absolute; left: 14px; bottom: 8px;
-      font-family: var(--mono); font-size: 11px; letter-spacing: 0.03em;
-      color: var(--t-faint); opacity: 0.5;
+      position: absolute; left: 12px; bottom: 8px;
+      font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.03em;
+      color: var(--t-faint); opacity: 0.55;
       transition: opacity var(--tx-med), color var(--tx-med);
       pointer-events: none;
     }
     .miniboard:hover .miniboard__hint { opacity: 0.95; color: var(--t-accent); }
+    @media (max-width: 720px) {
+      .engine-intro { flex-direction: column; align-items: stretch; gap: 20px; }
+      .miniboard { flex-basis: auto; width: 100%; max-width: 380px; margin: 0 auto; }
+    }
 
     /* ============================================================
        RESPONSIVE
@@ -1527,21 +1533,23 @@
         </span>
       </div>
 
-      <a class="miniboard" href="https://mtichikawa.github.io/workflow-engine/" aria-label="Open the interactive workflow-engine writeup">
-        <svg id="mbsvg" viewBox="0 0 900 96" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
-          <g id="mb-static"></g>
-          <g id="mb-items"></g>
-        </svg>
-        <span class="miniboard__hint">live · work streaming through the engine — open the writeup</span>
-      </a>
-
-      <p class="mc__lead">
-        Small AI agents that each do one job, with fixed input and output contracts, composed into
-        validated control-flow graphs and run on a concurrency-safe board with human approval gates
-        and a learning loop that sharpens each agent from a handful of examples.
-        <strong>The architecture the field is converging on, built from scratch, with measured, re-runnable results.</strong>
-        Not a product, and not novel. A coherent working synthesis I can take apart and defend end to end.
-      </p>
+      <div class="engine-intro">
+        <p class="mc__lead">
+          Small AI agents that each do one job, with fixed input and output contracts, composed into
+          validated control-flow graphs and run on a concurrency-safe board with human approval gates
+          and a learning loop that sharpens each agent from a handful of examples.
+          <strong>The architecture the field is converging on, built from scratch, with measured, re-runnable results.</strong>
+          Not a product, and not novel. A coherent working synthesis I can take apart and defend end to end.
+        </p>
+        <a class="miniboard" href="https://mtichikawa.github.io/workflow-engine/" aria-label="Open the interactive workflow-engine writeup">
+          <svg id="mbsvg" viewBox="0 0 340 250" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+            <g id="mb-static"></g>
+            <g id="mb-nodes"></g>
+            <g id="mb-items"></g>
+          </svg>
+          <span class="miniboard__hint">live · open the writeup</span>
+        </a>
+      </div>
 
       <div class="mc__cta-row">
         <a class="btn btn--primary" href="https://mtichikawa.github.io/workflow-engine/" target="_blank" rel="noopener">
@@ -2699,53 +2707,65 @@
     (function () {
       var svg = document.getElementById('mbsvg'); if (!svg) return;
       var NS = 'http://www.w3.org/2000/svg';
-      var gS = document.getElementById('mb-static'), gI = document.getElementById('mb-items');
+      var gS = document.getElementById('mb-static'), gNo = document.getElementById('mb-nodes'), gI = document.getElementById('mb-items');
       var RM = matchMedia('(prefers-reduced-motion: reduce)').matches;
-      var CY = 48, N = 6, X0 = 74, X1 = 760, GATE = N - 1, VERIFY = 4, OUTX = 858;
+      var CY = 120, N = 6, X0 = 42, X1 = 250, GATE = N - 1, VERIFY = 4, OUTX = 312, MAXHALF = 66, PAD = 8;
       var NX = []; for (var i = 0; i < N; i++) NX.push(X0 + (X1 - X0) * i / (N - 1));
       var COL = { flow: '#5b8fd6', flag: '#cf6b5c', hold: '#c9a860', clear: '#57b083' };
       function el(t, a) { var e = document.createElementNS(NS, t); for (var k in a) e.setAttribute(k, a[k]); return e; }
-      gS.appendChild(el('line', { x1: 22, y1: CY, x2: OUTX - 14, y2: CY, stroke: 'rgba(120,130,145,.18)', 'stroke-width': 1.2 }));
-      for (i = 0; i < N; i++) gS.appendChild(el('circle', { cx: NX[i], cy: CY, r: 2.3, fill: i === GATE ? '#c9a860' : '#39414d' }));
-      var LT = CY - 30;
-      gS.appendChild(el('path', { d: 'M' + NX[4] + ' ' + (CY - 6) + ' C' + NX[4] + ' ' + LT + ',' + NX[3] + ' ' + LT + ',' + NX[3] + ' ' + (CY - 6), fill: 'none', stroke: 'rgba(207,107,92,.5)', 'stroke-width': 1.3, 'stroke-dasharray': '4 3' }));
-      gS.appendChild(el('rect', { x: NX[GATE] - 7, y: CY - 11, width: 14, height: 22, rx: 4, fill: 'none', stroke: '#c9a860', 'stroke-width': 1.2, 'stroke-dasharray': '3 2' }));
-      gS.appendChild(el('path', { d: 'M' + (OUTX - 14) + ' ' + (CY - 4) + ' L' + (OUTX - 6) + ' ' + CY + ' L' + (OUTX - 14) + ' ' + (CY + 4) + ' Z', fill: '#57b083' }));
+      gS.appendChild(el('line', { x1: 14, y1: CY, x2: NX[0] - 8, y2: CY, stroke: 'rgba(120,130,145,.2)', 'stroke-width': 1 }));
+      for (i = 0; i < N - 1; i++) gS.appendChild(el('line', { x1: NX[i] + 8, y1: CY, x2: NX[i + 1] - 8, y2: CY, stroke: 'rgba(120,130,145,.2)', 'stroke-width': 1 }));
+      gS.appendChild(el('line', { x1: NX[GATE] + 8, y1: CY, x2: OUTX - 10, y2: CY, stroke: 'rgba(120,130,145,.2)', 'stroke-width': 1 }));
+      var LT = CY - 48;
+      gS.appendChild(el('path', { d: 'M' + NX[4] + ' ' + (CY - 10) + ' C' + NX[4] + ' ' + LT + ',' + NX[3] + ' ' + LT + ',' + NX[3] + ' ' + (CY - 10), fill: 'none', stroke: 'rgba(207,107,92,.55)', 'stroke-width': 1.3, 'stroke-dasharray': '4 3' }));
+      for (i = 0; i < N; i++) gS.appendChild(el('circle', { cx: NX[i], cy: CY, r: 2, fill: i === GATE ? '#c9a860' : '#39414d' }));
+      gS.appendChild(el('path', { d: 'M' + (OUTX - 10) + ' ' + (CY - 4) + ' L' + (OUTX - 3) + ' ' + CY + ' L' + (OUTX - 10) + ' ' + (CY + 4) + ' Z', fill: '#57b083' }));
+      var gate = el('rect', { x: NX[GATE] - 8, y: CY - 12, width: 16, height: 24, rx: 4, fill: 'none', stroke: '#c9a860', 'stroke-width': 1.2, 'stroke-dasharray': '3 2' }); gNo.appendChild(gate);
       function mk(state, x, y) { var c = el('circle', { r: 4, cx: x, cy: y, fill: COL[state] || COL.flow, stroke: 'rgba(0,0,0,.25)', 'stroke-width': 0.5 }); gI.appendChild(c); return c; }
       var items = [];
       if (RM) {
-        var f = [[0,'flow',0],[0,'flow',1],[1,'flow',-1],[1,'flow',1],[2,'flow',0],[2,'flow',-1],[3,'flow',1],[3,'flow',0],[4,'flow',-1],[4,'flow',1],[5,'hold',-1],[5,'hold',0],[5,'hold',1]];
-        f.forEach(function (r) { mk(r[1], NX[r[0]], CY + r[2] * 7); });
-        mk('flag', (NX[3] + NX[4]) / 2, CY - 26);
-        mk('clear', NX[5] + (OUTX - NX[5]) * 0.5, CY);
-        mk('clear', NX[5] + (OUTX - NX[5]) * 0.82, CY);
+        var frame = [[0, 2], [1, 3], [2, 2], [3, 3], [4, 2], [5, 3]];
+        frame.forEach(function (sc) { var s = sc[0], n = sc[1], sp = 14, jj; for (jj = 0; jj < n; jj++) mk(s === GATE ? 'hold' : 'flow', NX[s], CY + (jj - (n - 1) / 2) * sp); });
+        mk('flag', (NX[3] + NX[4]) / 2, CY - 42);
+        mk('clear', (NX[5] + OUTX) / 2, CY);
+        var gh = Math.min(MAXHALF, 3 * 14 / 2 + PAD); gate.setAttribute('y', CY - gh); gate.setAttribute('height', 2 * gh);
         return;
       }
       var last = 0, spawnAcc = 0, gateT = 0;
-      function spawn() { if (items.length > 26) return; var y = CY + (Math.random() * 20 - 10);
-        items.push({ stage: -1, target: 0, mode: 'transit', state: 'flow', fx: 22, fy: y, tx: NX[0], x: 22, y: y, dur: 0.28, timer: 0.28, reworked: false, el: mk('flow', 22, y) }); }
+      function spawn() { if (items.length > 30) return; var y = CY + (Math.random() * 30 - 15);
+        items.push({ stage: -1, target: 0, mode: 'transit', state: 'flow', fx: 14, fy: y, tx: NX[0], x: 14, y: y, fanY: CY, dur: 0.3, timer: 0.3, reworked: false, el: mk('flow', 14, y) }); }
       function step(t) {
         if (!last) last = t; var dt = (t - last) / 1000; last = t; if (dt > 0.06) dt = 0.06;
-        spawnAcc -= dt; if (spawnAcc <= 0) { var b = 1 + Math.floor(Math.random() * 2); for (var k = 0; k < b; k++) spawn(); spawnAcc = 0.5 + Math.random() * 0.9; }
-        gateT += dt; var gateReady = gateT >= 1.7; if (gateReady) gateT = 0;
-        for (var j = items.length - 1; j >= 0; j--) { var it = items[j]; it.timer -= dt;
+        spawnAcc -= dt; if (spawnAcc <= 0) { var b = 2 + Math.floor(Math.random() * 3); for (var k = 0; k < b; k++) spawn(); spawnAcc = 0.35 + Math.random() * 0.55; }
+        gateT += dt; var gateReady = gateT >= 2.6; if (gateReady) gateT = 0;
+        for (var jd = items.length - 1; jd >= 0; jd--) { var it = items[jd]; it.timer -= dt;
           if (it.mode === 'transit') { var p = 1 - Math.max(0, it.timer) / it.dur, e = p < 0.5 ? 2 * p * p : 1 - Math.pow(-2 * p + 2, 2) / 2; var back = it.target < it.stage;
-            it.x = it.fx + (it.tx - it.fx) * e; it.y = it.fy + (CY - it.fy) * e - (back ? Math.sin(e * Math.PI) * 22 : 0);
-            if (it.timer <= 0) { it.stage = it.target; it.y = CY;
-              if (it.stage >= GATE) { it.mode = 'hold'; it.state = 'hold'; }
-              else { it.mode = 'work'; it.dur = it.timer = 0.3 + Math.random() * 0.7; if (it.state === 'flag') it.state = 'flow'; } } }
+            it.x = it.fx + (it.tx - it.fx) * e; it.y = it.fy + (CY - it.fy) * e - (back ? Math.sin(e * Math.PI) * 36 : 0);
+            if (it.timer <= 0) { it.stage = it.target;
+              if (it.stage >= GATE) { it.mode = 'held'; it.state = 'hold'; }
+              else { it.mode = 'work'; it.dur = it.timer = 0.6 + Math.random() * 1.5; if (it.state === 'flag') it.state = 'flow'; } } }
           else if (it.mode === 'out') { var p2 = 1 - Math.max(0, it.timer) / it.dur, e2 = p2 < 0.5 ? 2 * p2 * p2 : 1 - Math.pow(-2 * p2 + 2, 2) / 2;
-            it.x = it.fx + (OUTX - it.fx) * e2; if (it.timer <= 0) { it.el.remove(); items.splice(j, 1); continue; } }
-          else if (it.mode === 'hold') { if (gateReady) { it.mode = 'out'; it.state = 'clear'; it.fx = it.x; it.dur = it.timer = 0.35; } }
+            it.x = it.fx + (OUTX - it.fx) * e2; it.y = it.fy + (CY - it.fy) * e2; if (it.timer <= 0) { it.el.remove(); items.splice(jd, 1); continue; } }
+          else if (it.mode === 'held') { if (gateReady) { it.mode = 'out'; it.state = 'clear'; it.fx = it.x; it.fy = it.y; it.dur = it.timer = 0.42; } }
           else { if (it.timer <= 0) {
-              if (it.stage === VERIFY && !it.reworked && Math.random() < 0.3) { it.reworked = true; it.state = 'flag'; it.mode = 'transit'; it.fx = it.x; it.fy = it.y; it.tx = NX[3]; it.target = 3; it.dur = it.timer = 0.3; }
-              else { it.mode = 'transit'; it.fx = it.x; it.fy = it.y; it.target = it.stage + 1; it.tx = NX[Math.min(it.target, GATE)]; it.dur = it.timer = 0.22; if (it.stage === VERIFY) it.state = 'hold'; } } }
-          it.el.setAttribute('cx', it.x.toFixed(1)); it.el.setAttribute('cy', it.y.toFixed(1));
-          it.el.setAttribute('fill', COL[it.state] || COL.flow); it.el.setAttribute('r', it.state === 'flag' ? 5 : 4);
+              if (it.stage === VERIFY && !it.reworked && Math.random() < 0.3) { it.reworked = true; it.state = 'flag'; it.mode = 'transit'; it.fx = it.x; it.fy = it.y; it.tx = NX[3]; it.target = 3; it.dur = it.timer = 0.34; }
+              else { it.mode = 'transit'; it.fx = it.x; it.fy = it.y; it.target = it.stage + 1; it.tx = NX[Math.min(it.target, GATE)]; it.dur = it.timer = 0.26; if (it.stage === VERIFY) it.state = 'hold'; } } }
+        }
+        for (var s = 0; s < N; s++) {
+          var grp = []; for (var q = 0; q < items.length; q++) { var g = items[q]; if ((g.mode === 'work' || g.mode === 'held') && g.stage === s) grp.push(g); }
+          var n = grp.length, sp = 13;
+          if (n > 1 && n * sp / 2 + PAD > MAXHALF) sp = Math.max(5, (2 * (MAXHALF - PAD)) / n);
+          for (var r = 0; r < n; r++) grp[r].fanY = CY + (r - (n - 1) / 2) * sp;
+          if (s === GATE) { var half = Math.min(MAXHALF, Math.max(12, (n * sp) / 2 + PAD)); gate.setAttribute('y', CY - half); gate.setAttribute('height', 2 * half); }
+        }
+        for (var m = 0; m < items.length; m++) { var it2 = items[m];
+          if (it2.mode === 'work' || it2.mode === 'held') { it2.x = NX[it2.stage]; it2.y += (it2.fanY - it2.y) * Math.min(1, dt * 14); }
+          it2.el.setAttribute('cx', it2.x.toFixed(1)); it2.el.setAttribute('cy', it2.y.toFixed(1));
+          it2.el.setAttribute('fill', COL[it2.state] || COL.flow); it2.el.setAttribute('r', it2.state === 'flag' ? 5 : 4);
         }
         requestAnimationFrame(step);
       }
-      for (i = 0; i < 8; i++) { var s = Math.floor(Math.random() * 5), yy = CY; items.push({ stage: s, target: s, mode: 'work', state: 'flow', x: NX[s], y: yy, fx: NX[s], fy: yy, tx: NX[s], dur: 0.3 + Math.random() * 0.6, timer: 0.3 + Math.random() * 0.6, reworked: false, el: mk('flow', NX[s], yy) }); }
+      for (i = 0; i < 15; i++) { var st = i % 5, yy = CY; items.push({ stage: st, target: st, mode: 'work', state: 'flow', x: NX[st], y: yy, fanY: yy, fx: NX[st], fy: yy, tx: NX[st], dur: 0.3 + Math.random() * 0.7, timer: 0.3 + Math.random() * 0.7, reworked: false, el: mk('flow', NX[st], yy) }); }
       requestAnimationFrame(step);
     })();
   </script>
