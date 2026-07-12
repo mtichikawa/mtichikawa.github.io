@@ -207,7 +207,7 @@
 
 <!-- HEADER -->
 <h1 class="r-name">Mike Ichikawa</h1>
-<p class="r-title">Data Scientist &nbsp;·&nbsp; ML Engineer &nbsp;·&nbsp; Data Engineer</p>
+<p class="r-title">AI Engineer &nbsp;·&nbsp; ML Engineer &nbsp;·&nbsp; Data Scientist</p>
 <div class="r-contact">
   <span>Portland, OR</span>
   <a href="mailto:projects.ichikawa@gmail.com">projects.ichikawa@gmail.com</a>
@@ -221,18 +221,39 @@
 <div class="r-section no-break">
   <p class="r-section-head">Summary</p>
   <p style="font-size:9.5pt; color:#4a4844; line-height:1.6;">
-    AI/ML and agent-orchestration engineer with a strong quantitative core who builds and ships
-    production systems and reasons carefully about what they output. Solo and end to end, I designed and shipped
-    a production AI agent for Microsoft 365 (Founding AI/ML Engineer, Microclaw LLC), now live
-    on the Microsoft Commercial Marketplace, with KNN tool selection, RAG semantic memory,
-    smart model routing, and an in-house eval framework. Before engineering, nine years teaching
-    undergraduate mathematics at Santa Rosa Junior College and three years of semiconductor
-    physical design at Intel. MS Mathematics (CCNY, 2014), BS Mechanical Engineering (UC
-    Berkeley). Public portfolio spans time series forecasting, anomaly detection, NLP, cloud ETL,
-    ML serving, a Databricks medallion lakehouse, a production-shape GCP RAG pipeline
-    (Vertex AI Gemini + BigQuery Vector Search + LangChain/LlamaIndex), C++ pybind11
-    extensions, and a five-repo paper trading system.
+    AI/ML engineer who builds AI agents and the multi-agent systems that coordinate them. As
+    Founding AI/ML Engineer at Microclaw LLC, I designed and shipped a production AI agent for
+    Microsoft 365, now live on the Microsoft Commercial Marketplace: a plan/act/observe loop over 85
+    tools with KNN tool retrieval, RAG semantic memory, and an in-house eval framework. Alongside it
+    I built a multi-agent workflow engine from scratch: modular specialists composed into validated
+    workflows with a measured learning loop. Underneath, a strong quantitative core: MS Mathematics,
+    eight years teaching undergraduate math, and three years of semiconductor physical design at Intel.
   </p>
+</div>
+
+<!-- FLAGSHIP WORK -->
+<div class="r-section">
+  <p class="r-section-head">Flagship Work</p>
+
+  <div class="proj no-break">
+    <div class="proj-header">
+      <span class="proj-name">Microclaw — Production AI Agent for Microsoft 365</span>
+      <a class="proj-link" href="https://marketplace.microsoft.com/en-us/product/saas/microclaw.microclaw?tab=Overview" target="_blank">Live on the Microsoft Marketplace</a>
+    </div>
+    <p class="proj-desc">A single AI agent operating across 12 Microsoft 365 services through 85 function-calling tools. Iterative plan/act/observe orchestration loop (Azure OpenAI, function-calling), KNN tool retrieval (95.0% recall vs 92.7% baseline, benchmarked at 1,020 examples), RAG semantic memory, smart model routing, and multi-layer failure recovery. Designed, built, and shipped solo. Role detail under Experience.</p>
+    <p class="proj-stack">TypeScript &nbsp;·&nbsp; Azure OpenAI &nbsp;·&nbsp; Microsoft Graph &nbsp;·&nbsp; Azure Postgres (RLS) &nbsp;·&nbsp; Bicep &nbsp;·&nbsp; 374 Vitest tests</p>
+  </div>
+
+  <div class="rule-light"></div>
+
+  <div class="proj no-break">
+    <div class="proj-header">
+      <span class="proj-name">Multi-Agent Workflow Engine — built from scratch</span>
+      <a class="proj-link" href="https://mtichikawa.github.io/workflow-engine/" target="_blank">mtichikawa.github.io/workflow-engine</a>
+    </div>
+    <p class="proj-desc">Modular AI specialists with fixed input/output contracts, composed into validated control-flow graphs and run on a concurrency-safe single-writer board with human approval gates and a per-example learning loop. A static validator rejects unsound graphs before they run; a composer writes new workflows from plain English and refuses to mark one runnable when a required specialist is missing. Measured: one specialist 50% &rarr; 100% on a held-out eval from six curated examples (retrieval few-shot, no fine-tuning); auto-composed specialists match hand-built ones at parity.</p>
+    <p class="proj-stack">Python &nbsp;·&nbsp; agent orchestration &nbsp;·&nbsp; contracts + recipes &nbsp;·&nbsp; static graph validation &nbsp;·&nbsp; few-shot retrieval &nbsp;·&nbsp; LLM-as-judge</p>
+  </div>
 </div>
 
 <!-- SKILLS -->
@@ -247,8 +268,8 @@
     <span>scikit-learn &nbsp;·&nbsp; Prophet &nbsp;·&nbsp; PyTorch &nbsp;·&nbsp; XGBoost &nbsp;·&nbsp; LightGBM &nbsp;·&nbsp; scipy &nbsp;·&nbsp; statsmodels &nbsp;·&nbsp; Bayesian inference</span>
   </div>
   <div class="skill-row">
-    <span class="skill-label">LLM / NLP</span>
-    <span>Anthropic API &nbsp;·&nbsp; Azure OpenAI &nbsp;·&nbsp; Microsoft Graph &nbsp;·&nbsp; MSAL &nbsp;·&nbsp; HuggingFace &nbsp;·&nbsp; FinBERT &nbsp;·&nbsp; prompt engineering</span>
+    <span class="skill-label">LLM / Agents</span>
+    <span>agent orchestration &nbsp;·&nbsp; multi-agent workflows &nbsp;·&nbsp; KNN tool retrieval &nbsp;·&nbsp; RAG &nbsp;·&nbsp; Anthropic API &nbsp;·&nbsp; Azure OpenAI &nbsp;·&nbsp; Microsoft Graph &nbsp;·&nbsp; HuggingFace &nbsp;·&nbsp; FinBERT</span>
   </div>
   <div class="skill-row">
     <span class="skill-label">Data Engineering</span>
@@ -275,10 +296,8 @@
     </div>
     <p class="exp-org">Microclaw LLC &nbsp;·&nbsp; Portland, OR</p>
     <ul class="exp-bullets">
-      <li>Built the agent orchestration harness end to end: an iterative plan/act/observe loop (Azure OpenAI GPT-4o / GPT-4o-mini, function-calling) that chains up to 35 tool calls per task across 84 Microsoft Graph tool functions and 12 Microsoft 365 services, with multi-layer failure recovery (backoff + retry across the LLM and Graph APIs, loop detection); <a href="https://marketplace.microsoft.com/en-us/product/saas/microclaw.microclaw?tab=Overview">live on Microsoft AppSource</a> (Standard + Self-Hosted offerings)</li>
-      <li>Implemented KNN tool selection over 1,045 synthetic training examples using <code>text-embedding-3-small</code> (k=7, 0.80 confidence threshold, cosine-similarity fallback): 95.0% recall vs 92.7% embedding-only baseline, selecting ~6 of 84 tools per request vs 18</li>
-      <li>Designed RAG-pattern semantic memory retrieval (cosine similarity over per-user persistent context) and a smart model router (GPT-4o-mini default, mid-conversation escalation to GPT-4o on tool-call complexity; the mini path is ~24× cheaper per call); built an in-house eval framework scoring agent output across 107 tests against a baseline bot</li>
-      <li>Built a natural-language automations layer where users describe IFTTT-style rules in plain English; the agent parses intent into structured rules persisted to Azure Postgres, fired in real-time via Microsoft Graph change-notification webhooks. 374 Vitest unit tests; Postgres row-level security for tenant isolation; Bicep IaC; Docker → GHCR release pipeline via GitHub Actions</li>
+      <li>Founding engineer: designed, built, and shipped the agent end to end to the Microsoft Commercial Marketplace (Standard + Self-Hosted offerings). Iterative plan/act/observe loop over 85 function-calling tools across 12 Microsoft 365 services, two-stage KNN + keyword tool selection, and multi-layer failure recovery (backoff/retry across the LLM and Graph APIs, loop detection)</li>
+      <li>RAG semantic memory, a smart model router (GPT-4o-mini default, mid-task escalation to GPT-4o), and an in-house eval framework (107 tests, A/B vs a baseline bot) that gated releases; natural-language automations parsed to structured Postgres rules and fired via Microsoft Graph webhooks. 374 Vitest tests; Postgres row-level security for multi-tenant isolation; Bicep IaC; Docker → GHCR CI</li>
     </ul>
   </div>
 
@@ -289,7 +308,7 @@
     </div>
     <p class="exp-org">Santa Rosa Junior College &nbsp;·&nbsp; Santa Rosa, CA</p>
     <ul class="exp-bullets">
-      <li>Taught undergraduate mathematics for nine years: Algebra through Calculus III, Linear Algebra, Differential Equations, Statistics</li>
+      <li>Taught undergraduate mathematics for eight years: Algebra through Calculus III, Linear Algebra, Differential Equations, Statistics</li>
       <li>Designed assessments and iterated course materials from cohort performance data</li>
       <li>Taught STEM majors alongside non-STEM majors fulfilling general-education math requirements at an open-enrollment community college</li>
     </ul>
@@ -326,76 +345,17 @@
 <!-- PROJECTS -->
 <div class="r-section">
   <p class="r-section-head">Portfolio Projects &nbsp;<span style="font-weight:normal; text-transform:none; letter-spacing:0; font-size:8pt; color:#7a7774;">— full portfolio at mtichikawa.github.io</span></p>
+  <p style="font-size:9pt; color:#4a4844; font-style:italic; margin-bottom:8px;">Beyond the two flagships above, a body of self-directed work across the data and ML stack.</p>
 
-  <div class="proj no-break">
-    <div class="proj-header">
-      <span class="proj-name">Trading System Arc</span>
-      <a class="proj-link" href="https://mtichikawa-trading.streamlit.app" target="_blank">Live Demo &nbsp;·&nbsp; github.com/mtichikawa — 5 repos</a>
-    </div>
-    <p class="proj-desc">Five interconnected repositories: live OHLCV pipeline (ccxt/Kraken + PostgreSQL) → candlestick chart generation (mplfinance) → dual-path signal engine (EMA/RSI/MACD/BB + local FinBERT sentiment, 0.6/0.4 fusion) → parameter-optimizing backtester (Sharpe/Sortino/drawdown, staged grid search, T3 feedback loop) → Streamlit multi-page oversight dashboard with live signal display, equity curve, and parameter review. 174/174 tests across T2–T5.</p>
-    <p class="proj-stack">ccxt &nbsp;·&nbsp; PostgreSQL &nbsp;·&nbsp; mplfinance &nbsp;·&nbsp; FinBERT &nbsp;·&nbsp; pandas &nbsp;·&nbsp; NumPy &nbsp;·&nbsp; Streamlit &nbsp;·&nbsp; Plotly &nbsp;·&nbsp; pytest</p>
-  </div>
-
-  <div class="rule-light"></div>
-
-  <div class="proj no-break">
-    <div class="proj-header">
-      <span class="proj-name">Databricks Medallion Lakehouse</span>
-      <a class="proj-link" href="https://github.com/mtichikawa/databricks-lakehouse" target="_blank">github.com/mtichikawa/databricks-lakehouse</a>
-    </div>
-    <p class="proj-desc">Medallion lakehouse (bronze → silver → gold) on 10M NYC taxi rows with Delta Lake. Append-only bronze with provenance metadata; silver types, dedupes, and quarantines invalid rows rather than dropping them; gold serves query-specific aggregates. Row-level data quality gates between layers halt the pipeline on schema drift or null-rate breaches. 95 tests across bronze/silver/gold/quality/pipeline. Runs locally via deltalake; deployable to Databricks Community Edition.</p>
-    <p class="proj-stack">Delta Lake &nbsp;·&nbsp; medallion architecture &nbsp;·&nbsp; pandas &nbsp;·&nbsp; pyarrow &nbsp;·&nbsp; data quality gates &nbsp;·&nbsp; pytest</p>
-  </div>
-
-  <div class="rule-light"></div>
-
-  <div class="proj no-break">
-    <div class="proj-header">
-      <span class="proj-name">Real-Time Anomaly Detection</span>
-      <a class="proj-link" href="https://github.com/mtichikawa/anomaly-detection" target="_blank">github.com/mtichikawa/anomaly-detection</a>
-    </div>
-    <p class="proj-desc">Streaming ensemble detector: Isolation Forest, LSTM autoencoder, and Z-score with 2-of-3 majority voting. Dockerized FastAPI REST API with health checks and configurable detector selection. Live interactive demo on portfolio site.</p>
-    <p class="proj-stack">Docker &nbsp;·&nbsp; FastAPI &nbsp;·&nbsp; scikit-learn &nbsp;·&nbsp; PyTorch &nbsp;·&nbsp; Redis &nbsp;·&nbsp; pytest</p>
-  </div>
-
-  <div class="rule-light"></div>
-
-  <div class="proj no-break">
-    <div class="proj-header">
-      <span class="proj-name">Cloud ETL Pipeline</span>
-      <a class="proj-link" href="https://github.com/mtichikawa/cloud-etl-pipeline" target="_blank">github.com/mtichikawa/cloud-etl-pipeline</a>
-    </div>
-    <p class="proj-desc">AWS-native ETL: tenacity-based REST API ingestion with exponential backoff → Parquet/Snappy storage on S3 with Hive date partitioning → Lambda validation → DynamoDB run logging for failure traceability. Tests mock all AWS calls with moto.</p>
-    <p class="proj-stack">AWS S3 &nbsp;·&nbsp; Lambda &nbsp;·&nbsp; DynamoDB &nbsp;·&nbsp; boto3 &nbsp;·&nbsp; pandas &nbsp;·&nbsp; Apache Parquet &nbsp;·&nbsp; moto</p>
-  </div>
-
-  <div class="rule-light"></div>
-
-  <div class="proj no-break">
-    <div class="proj-header">
-      <span class="proj-name">SQL Analytics Pipeline</span>
-      <a class="proj-link" href="https://github.com/mtichikawa/sql-analytics-pipeline" target="_blank">github.com/mtichikawa/sql-analytics-pipeline</a>
-    </div>
-    <p class="proj-desc">Three-layer dbt-style pipeline (staging → clean → marts) on NYC Airbnb data. Window functions, CTEs, SQLAlchemy ORM with swappable SQLite/PostgreSQL backend. Layered transform pattern enforces raw data immutability.</p>
-    <p class="proj-stack">PostgreSQL &nbsp;·&nbsp; SQLAlchemy &nbsp;·&nbsp; dbt-style transforms &nbsp;·&nbsp; SQLite &nbsp;·&nbsp; pandas</p>
-  </div>
-
-  <div class="rule-light"></div>
-
-  <div class="proj no-break">
-    <div class="proj-header">
-      <span class="proj-name">LLM Data Analysis Assistant</span>
-      <a class="proj-link" href="https://github.com/mtichikawa/llm-data-assistant" target="_blank">github.com/mtichikawa/llm-data-assistant</a>
-    </div>
-    <p class="proj-desc">Two-path query routing: rule-based fast path handles ~70% of queries (correlations, aggregations, group-bys) with zero API cost. Queries below confidence threshold escalate to Anthropic API with DataFrame context injection and multi-turn conversation history.</p>
-    <p class="proj-stack">Anthropic API &nbsp;·&nbsp; pandas &nbsp;·&nbsp; hybrid routing &nbsp;·&nbsp; multi-turn conversation</p>
-  </div>
-
-  <p style="font-family:Arial,sans-serif; font-size:8.5pt; color:#7a7774; margin-top:8px; font-style:italic;">
-    Additional: Multi-Armed Bandit A/B Testing (Thompson Sampling · UCB1 · Bayesian inference) &nbsp;·&nbsp;
-    Bias Detection in LLMs (ANOVA · Cohen's d) &nbsp;·&nbsp;
-    Financial NLP Parser (SEC EDGAR · regex · sentiment lexicon) &nbsp;·&nbsp;
-    GitHub Trend Forecaster (Prophet · PyTorch LSTM in progress)
+  <p style="font-size:9.5pt; color:#4a4844; line-height:1.7; margin-bottom:5px;">
+    <strong>Trading System Arc</strong> — five-repo paper trading system: ccxt/Kraken OHLCV &rarr; mplfinance charts &rarr; EMA/RSI/MACD + FinBERT signal fusion &rarr; parameter-optimizing backtester &rarr; Streamlit oversight dashboard. 174 tests. <a class="proj-link" href="https://mtichikawa-trading.streamlit.app" target="_blank">live demo</a><br>
+    <strong>Databricks Medallion Lakehouse</strong> — bronze/silver/gold on 10M NYC taxi rows, Delta Lake, row-level data-quality gates between layers. 95 tests.<br>
+    <strong>GCP RAG Pipeline</strong> — production-shape RAG: Vertex AI Gemini + BigQuery Vector Search, LangChain/LlamaIndex, six-combination retrieval benchmark on Cloud Run.<br>
+    <strong>Real-Time Anomaly Detection</strong> — streaming Isolation Forest + LSTM + Z-score ensemble, Dockerized FastAPI, live interactive demo.<br>
+    <strong>Cloud ETL Pipeline</strong> — AWS S3/Lambda/DynamoDB, Parquet + Hive partitioning, moto-tested.
+  </p>
+  <p style="font-family:Arial,sans-serif; font-size:8.5pt; color:#7a7774; margin-top:4px; line-height:1.6;">
+    Also: SQL Analytics Pipeline &middot; LLM Data Assistant (hybrid routing) &middot; Multi-Armed Bandit A/B Testing (Thompson Sampling · UCB1) &middot; LLM Bias Detection (ANOVA · Cohen's d) &middot; Financial NLP Parser &middot; GitHub Trend Forecaster (Prophet) &middot; Streaming Analytics Pipeline (Spark/Redpanda) &middot; C++/pybind11 rolling stats.
   </p>
 </div>
 
