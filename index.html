@@ -1275,6 +1275,7 @@
     <a href="#hero" class="nav__brand">Mike Ichikawa</a>
     <ul class="nav__links">
       <li><a href="#microclaw">Microclaw</a></li>
+      <li><a href="#workflow-engine">Engine</a></li>
       <li><a href="#projects">Projects</a></li>
       <li><a href="#demos">Live Demos</a></li>
       <li><a href="#trading">Trading System</a></li>
@@ -1476,11 +1477,107 @@
 
   <div class="divider"></div>
 
+  <!-- ========================== WORKFLOW ENGINE (featured) ========================== -->
+  <section id="workflow-engine" class="microclaw">
+    <div class="wrap">
+      <p class="eyebrow">Featured · Built from scratch · Interactive writeup</p>
+
+      <div class="mc__head">
+        <h2 class="mc__title">Multi-agent workflow engine</h2>
+        <span class="mc__status">
+          <span class="mc__status-dot" aria-hidden="true"></span>
+          Live interactive writeup
+        </span>
+      </div>
+
+      <p class="mc__lead">
+        Small AI agents that each do one job, with fixed input and output contracts, composed into
+        validated control-flow graphs and run on a concurrency-safe board with human approval gates
+        and a learning loop that sharpens each agent from a handful of examples.
+        <strong>The architecture the field is converging on, built from scratch, with measured, re-runnable results.</strong>
+        Not a product, and not novel. A coherent working synthesis I can take apart and defend end to end.
+      </p>
+
+      <div class="mc__cta-row">
+        <a class="btn btn--primary" href="https://mtichikawa.github.io/workflow-engine/" target="_blank" rel="noopener">
+          Open the interactive writeup
+          <svg class="btn__icon" viewBox="0 0 24 24" aria-hidden="true">
+            <line x1="7" y1="17" x2="17" y2="7"></line>
+            <polyline points="7 7 17 7 17 17"></polyline>
+          </svg>
+        </a>
+        <span class="mc__cta-note">Engine source private · walkthrough on request</span>
+      </div>
+
+      <div class="mc__features">
+
+        <div class="mc__feat reveal">
+          <p class="mc__feat-label">Modular specialists</p>
+          <h3 class="mc__feat-title">One job, one fixed contract</h3>
+          <p class="mc__feat-body">Each specialist declares its exact inputs and outputs, so any part snaps into any recipe without glue code. The same shared parts (<code>classify</code>, <code>rank</code>, <code>verify</code>, <code>act</code>) get reused across very different workflows.</p>
+        </div>
+
+        <div class="mc__feat reveal">
+          <p class="mc__feat-label">Composer</p>
+          <h3 class="mc__feat-title">Plain English in, validated graph out</h3>
+          <p class="mc__feat-body">Given only a description, the composer wires the graph. Scored against real, human-labeled evals it <strong>matched specialists I had hand-built</strong>, and when it cannot cover a step it flags the gap and refuses to call the workflow runnable. It does not fake capability.</p>
+        </div>
+
+        <div class="mc__feat reveal">
+          <p class="mc__feat-label">Static validator</p>
+          <h3 class="mc__feat-title">Unsound graphs rejected up front</h3>
+          <p class="mc__feat-body">A small type-checker for the workflow: entry and exit, reachability, loop-termination guards, dangling outputs, contract compatibility. Invalid graphs are caught before a run, not discovered halfway through one.</p>
+        </div>
+
+        <div class="mc__feat reveal">
+          <p class="mc__feat-label">The board</p>
+          <h3 class="mc__feat-title">Concurrency-safe single-writer dispatch</h3>
+          <p class="mc__feat-body">Work streams through the graph concurrently, each item advancing on its own, specialists cloning per item under load. Deliberately dumb, single-writer, concurrency-safe by construction.</p>
+        </div>
+
+        <div class="mc__feat reveal">
+          <p class="mc__feat-label">Human gates</p>
+          <h3 class="mc__feat-title">Nothing ships without a person</h3>
+          <p class="mc__feat-body">Every recipe pauses at a gate before it acts. A verify step can loop a draft back to rewrite until it clears the bar, then the work waits for human approval before anything goes out.</p>
+        </div>
+
+        <div class="mc__feat reveal">
+          <p class="mc__feat-label">Learning loop · measured</p>
+          <h3 class="mc__feat-title">50% → 100% from six examples</h3>
+          <p class="mc__feat-body">A deliberately weak specialist scored <strong>50% on a held-out eval</strong>, got six curated corrections, and climbed to <strong>100%</strong>, then was promoted to trusted. Retrieval-injected few-shot, <strong>no fine-tuning</strong>. Reproducible: <code>python examples/learning_loop_demo.py</code>.</p>
+        </div>
+
+      </div>
+
+      <div class="mc__stack-block">
+        <p class="mc__stack-label">Stack</p>
+        <div class="mc__stack">
+          <span class="tag">Python</span>
+          <span class="tag">agent orchestration</span>
+          <span class="tag">contracts + recipes</span>
+          <span class="tag">static graph validation</span>
+          <span class="tag">few-shot retrieval</span>
+          <span class="tag">LLM-as-judge</span>
+          <span class="tag">per-tenant isolation</span>
+          <span class="tag">built from scratch</span>
+        </div>
+      </div>
+
+      <p class="mc__meta">
+        A complement to Microclaw, not an equal to it. For agent-orchestration and forward-deployed work,
+        building the architecture the field is converging on from scratch with measured results, this is the piece.
+      </p>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
   <!-- ========================== PROJECTS ========================== -->
   <section id="projects" class="section section--alt">
     <div class="wrap">
       <p class="eyebrow">Portfolio</p>
-      <h2 class="title">Completed projects</h2>
+      <h2 class="title">The broader body of work</h2>
+      <p class="stack__intro">Microclaw and the workflow engine above are the flagships, the two I can take apart end to end. Beneath them, a body of self-directed projects across forecasting, Bayesian experimentation, streaming, cloud pipelines, and ML engineering. Each one shipped, each a step through the stack.</p>
 
       <div class="filter-bar" id="filter-bar" role="toolbar" aria-label="Filter projects by tag">
         <span class="filter-bar__label">Filter</span>
@@ -1942,38 +2039,30 @@
 
       <div class="roadmap-grid">
         <div class="roadmap-col roadmap-col--upcoming reveal">
-          <h4>Upcoming upgrades</h4>
+          <h4>Upcoming</h4>
           <div class="roadmap__row">
-            <span class="roadmap__date">May 4</span>
-            <p class="roadmap__copy"><strong>trading-signal-engine</strong> FinBERT threshold tuning</p>
+            <span class="roadmap__date">Jul 13</span>
+            <p class="roadmap__copy"><strong>walk-forward-validation-framework</strong> deflated Sharpe + walk-forward validation over time-series strategies</p>
           </div>
           <div class="roadmap__row">
-            <span class="roadmap__date">May 7</span>
-            <p class="roadmap__copy"><strong>llm-data-assistant</strong> smart model routing + conversation summarization</p>
-          </div>
-          <div class="roadmap__row">
-            <span class="roadmap__date">May 12</span>
-            <p class="roadmap__copy"><strong>trading-backtester</strong> walk-forward validation + buy-and-hold benchmark</p>
+            <span class="roadmap__date">Jul 27</span>
+            <p class="roadmap__copy"><strong>recommendation-system</strong> collaborative + content-based hybrid, NDCG / MAP evaluation</p>
           </div>
         </div>
 
         <div class="roadmap-col roadmap-col--future reveal">
           <h4>Future builds</h4>
           <div class="roadmap__row">
-            <span class="roadmap__date">Jun 1–5</span>
-            <p class="roadmap__copy"><strong>streaming-analytics-pipeline</strong> Redpanda + Spark Structured Streaming + Delta Lake</p>
+            <span class="roadmap__date">Aug 10</span>
+            <p class="roadmap__copy"><strong>mlops-pipeline</strong> MLflow + DVC + model registry with retraining</p>
           </div>
           <div class="roadmap__row">
-            <span class="roadmap__date">Jun 15–19</span>
-            <p class="roadmap__copy"><strong>recommendation-system</strong> Collaborative filtering + content-based hybrid</p>
+            <span class="roadmap__date">Aug 24</span>
+            <p class="roadmap__copy"><strong>graph-analytics</strong> NetworkX / Neo4j, community detection, PageRank, centrality</p>
           </div>
           <div class="roadmap__row">
-            <span class="roadmap__date">Jun 29 – Jul 3</span>
-            <p class="roadmap__copy"><strong>mlops-pipeline</strong> MLflow + DVC + model registry with experiment tracking</p>
-          </div>
-          <div class="roadmap__row">
-            <span class="roadmap__date">Jul 13–17</span>
-            <p class="roadmap__copy"><strong>graph-analytics</strong> NetworkX with Louvain community detection, PageRank, centrality</p>
+            <span class="roadmap__date">Sep 7</span>
+            <p class="roadmap__copy"><strong>anomaly-detection</strong> CNN-autoencoder detector, new image modality</p>
           </div>
         </div>
       </div>
@@ -2082,7 +2171,7 @@
   <!-- ========================== FOOTER ========================== -->
   <footer class="foot">
     <span>Mike Ichikawa · Portland, OR</span>
-    <span>Updated Jun 30, 2026</span>
+    <span>Updated Jul 11, 2026</span>
   </footer>
 
   <!-- ========================== SCRIPTS ========================== -->
