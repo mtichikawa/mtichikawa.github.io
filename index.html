@@ -1542,11 +1542,7 @@
           Not a product, and not novel. A coherent working synthesis I can take apart and defend end to end.
         </p>
         <a class="miniboard" href="https://mtichikawa.github.io/workflow-engine/" aria-label="Open the interactive workflow-engine writeup">
-          <svg id="mbsvg" viewBox="0 0 340 250" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
-            <g id="mb-static"></g>
-            <g id="mb-nodes"></g>
-            <g id="mb-items"></g>
-          </svg>
+          <svg id="mbsvg" viewBox="0 0 340 250" preserveAspectRatio="xMidYMid meet" aria-hidden="true"></svg>
           <span class="miniboard__hint">live · open the writeup</span>
         </a>
       </div>
@@ -2703,70 +2699,201 @@
       draw();
     })();
 
-    /* ──────────── Mini workflow-engine teaser board ──────────── */
+    /* ──────────── Mini workflow-engine teaser — real recipe graph, shared routing core ──────────── */
+    /* Same layout + orthogonal router as the interactive writeup (cadre/graph_core.js), inlined and
+       stripped to a card silhouette + dots flowing along the actual wires. */
     (function () {
       var svg = document.getElementById('mbsvg'); if (!svg) return;
       var NS = 'http://www.w3.org/2000/svg';
-      var gS = document.getElementById('mb-static'), gNo = document.getElementById('mb-nodes'), gI = document.getElementById('mb-items');
+      var el = function (t, a) { var e = document.createElementNS(NS, t); for (var k in a) e.setAttribute(k, a[k]); return e; };
       var RM = matchMedia('(prefers-reduced-motion: reduce)').matches;
-      var CY = 120, N = 6, X0 = 42, X1 = 250, GATE = N - 1, VERIFY = 4, OUTX = 312, MAXHALF = 66, PAD = 8;
-      var NX = []; for (var i = 0; i < N; i++) NX.push(X0 + (X1 - X0) * i / (N - 1));
-      var COL = { flow: '#5b8fd6', flag: '#cf6b5c', hold: '#c9a860', clear: '#57b083' };
-      function el(t, a) { var e = document.createElementNS(NS, t); for (var k in a) e.setAttribute(k, a[k]); return e; }
-      gS.appendChild(el('line', { x1: 14, y1: CY, x2: NX[0] - 8, y2: CY, stroke: 'rgba(120,130,145,.2)', 'stroke-width': 1 }));
-      for (i = 0; i < N - 1; i++) gS.appendChild(el('line', { x1: NX[i] + 8, y1: CY, x2: NX[i + 1] - 8, y2: CY, stroke: 'rgba(120,130,145,.2)', 'stroke-width': 1 }));
-      gS.appendChild(el('line', { x1: NX[GATE] + 8, y1: CY, x2: OUTX - 10, y2: CY, stroke: 'rgba(120,130,145,.2)', 'stroke-width': 1 }));
-      var LT = CY - 48;
-      gS.appendChild(el('path', { d: 'M' + NX[4] + ' ' + (CY - 10) + ' C' + NX[4] + ' ' + LT + ',' + NX[3] + ' ' + LT + ',' + NX[3] + ' ' + (CY - 10), fill: 'none', stroke: 'rgba(207,107,92,.55)', 'stroke-width': 1.3, 'stroke-dasharray': '4 3' }));
-      for (i = 0; i < N; i++) gS.appendChild(el('circle', { cx: NX[i], cy: CY, r: 2, fill: i === GATE ? '#c9a860' : '#39414d' }));
-      gS.appendChild(el('path', { d: 'M' + (OUTX - 10) + ' ' + (CY - 4) + ' L' + (OUTX - 3) + ' ' + CY + ' L' + (OUTX - 10) + ' ' + (CY + 4) + ' Z', fill: '#57b083' }));
-      var gate = el('rect', { x: NX[GATE] - 8, y: CY - 12, width: 16, height: 24, rx: 4, fill: 'none', stroke: '#c9a860', 'stroke-width': 1.2, 'stroke-dasharray': '3 2' }); gNo.appendChild(gate);
-      function mk(state, x, y) { var c = el('circle', { r: 4, cx: x, cy: y, fill: COL[state] || COL.flow, stroke: 'rgba(0,0,0,.25)', 'stroke-width': 0.5 }); gI.appendChild(c); return c; }
-      var items = [];
-      if (RM) {
-        var frame = [[0, 2], [1, 3], [2, 2], [3, 3], [4, 2], [5, 3]];
-        frame.forEach(function (sc) { var s = sc[0], n = sc[1], sp = 14, jj; for (jj = 0; jj < n; jj++) mk(s === GATE ? 'hold' : 'flow', NX[s], CY + (jj - (n - 1) / 2) * sp); });
-        mk('flag', (NX[3] + NX[4]) / 2, CY - 42);
-        mk('clear', (NX[5] + OUTX) / 2, CY);
-        var gh = Math.min(MAXHALF, 3 * 14 / 2 + PAD); gate.setAttribute('y', CY - gh); gate.setAttribute('height', 2 * gh);
-        return;
+
+      // graph_core.js — shared layout + orthogonal routing for the recipe graph.
+      //
+      // Used by BOTH the full explorer (cadre/explorer_engine.html) and the gallery mini
+      // (tools/build_gallery.py), inlined into each at build time so both stay self-contained.
+      // Pure geometry + routing: no DOM, no window references (the viewport axis comes in via cfg).
+      //
+      //   const G = makeGraphCore(NODES, WIRES, {axisY:()=>innerHeight/2, detailPx});
+      //   G.computeRouting();                       // decide routes (needs card heights measured first)
+      //   const geom = G.computeGeom(expandedId);   // laid-out boxes {x,y,w,h} per node id
+      //   const d    = G.roundedPath(G.route(i, geom));   // an SVG path for wire i in that geometry
+      //
+      // NODES: [{id, kind, col, outs:[sock…], ins:[sock…], sub?, w0?}]
+      // WIRES: [[srcId, srcSock, dstId, dstSock, type?]]   type: "gate" | "loop" | (absent = data)
+      function makeGraphCore(NODES, WIRES, cfg){
+        cfg = Object.assign({
+          W:160, WEXP:360, HEAD:27, SUBH:23, ROW:23, PAD:7, R:9,
+          MX:60, COLGAP:124, HGAP:22, LANE:10, VGAP:34, FORK:22, CLEAR:16,
+          detailPx:{}, axisY:function(){ return 300; }
+        }, cfg||{});
+        const {W,WEXP,HEAD,SUBH,ROW,PAD,R,MX,COLGAP,HGAP,LANE,VGAP,FORK,CLEAR}=cfg;
+        const detailPx=cfg.detailPx;
+      
+        const headH=n=>HEAD+(n.sub?SUBH:0);   // header (+ optional always-visible subtitle) before the sockets
+        const wBase=n=>n.w0||W;
+        const rowsOf=n=>n.outs.length+n.ins.length;   // gate sockets are regular ins (named "when …")
+        const socketH=n=>headH(n)+rowsOf(n)*ROW+PAD;
+        const heightOf=(n,exp)=> socketH(n) + (exp?(detailPx[n.id]||0):0);
+        function socketsOf(n){ const l=[]; let r=0; const y0=headH(n);
+          n.outs.forEach(o=>{l.push({name:o,io:"out",side:"EAST",y:y0+(r+.5)*ROW});r++;});
+          n.ins.forEach(i=>{l.push({name:i,io:"in",side:"WEST",y:y0+(r+.5)*ROW});r++;});
+          return l; }
+      
+        const wtype=WIRES.map(w=>w[4]||"data");   // control type: "data" | "gate" | "loop"
+        // topology of the plain data wires: a source socket feeding >1 dest = split (fan-out); a dest socket fed by >1 = merge (fan-in)
+        const _sN={}, _dN={};
+        WIRES.forEach(w=>{ if((w[4]||"data")!=="data") return; const s=w[0]+"."+w[1], d=w[2]+"."+w[3]; _sN[s]=(_sN[s]||0)+1; _dN[d]=(_dN[d]||0)+1; });
+        const wtopo=WIRES.map(w=>{ const t=w[4]||"data"; if(t!=="data") return t;
+          if(_dN[w[2]+"."+w[3]]>1) return "merge"; if(_sN[w[0]+"."+w[1]]>1) return "split"; return "data"; });
+        const WCOL={gate:["#c9a860",".82",1], loop:["#cf7a68",".85",1], merge:["#a986d6",".62",0], split:["#54b4a2",".58",0], data:["#b7c0cf",".3",0]};
+      
+        const colOf=Object.fromEntries(NODES.map(n=>[n.id,n.col]));
+        const socketRel={}; NODES.forEach(n=>{ socketRel[n.id]={}; socketsOf(n).forEach(s=>socketRel[n.id][s.name+"."+s.io]=s.y); });
+        const cols={}; NODES.forEach(n=>(cols[n.col]=cols[n.col]||[]).push(n));
+        const colIdx=Object.keys(cols).map(Number).sort((a,b)=>a-b);
+      
+        // self-layout: each column centered on one axis (single cards sit dead-center, grow symmetrically)
+        function computeGeom(expId){
+          const wOf=n=> expId===n.id?WEXP:wBase(n), hOf=n=> heightOf(n,expId===n.id);
+          const colW={}; colIdx.forEach(c=> colW[c]=Math.max(...cols[c].map(wOf)));
+          const colX={}; let x=MX; colIdx.forEach(c=>{ colX[c]=x; x+=colW[c]+COLGAP; });
+          const axisY=cfg.axisY(), g={};
+          colIdx.forEach(c=>{ const list=cols[c];
+            const total=list.reduce((s,n)=>s+hOf(n),0)+VGAP*(list.length-1);
+            let y=axisY-total/2;
+            list.forEach(n=>{ g[n.id]={x:colX[c],y,w:wOf(n),h:hOf(n)}; y+=hOf(n)+VGAP; }); });
+          return g;
+        }
+        function sock(id,name,io,g){ const b=g[id]; return {x: io==="out"? b.x+b.w : b.x, y: b.y+socketRel[id][name+"."+io]}; }
+        function colRight(c,g){ let m=-1e9; NODES.forEach(n=>{if(n.col===c)m=Math.max(m,g[n.id].x+g[n.id].w);}); return m; }
+        function colLeft(c,g){ let m=1e9; NODES.forEach(n=>{if(n.col===c)m=Math.min(m,g[n.id].x);}); return m; }
+        function channelX(k,g){ return (colRight(k,g)+colLeft(k+1,g))/2; }
+        function clearH(y,x1,x2,cs,ct,g){ const lo=Math.min(x1,x2),hi=Math.max(x1,x2);
+          for(const n of NODES){ if(n.col<=cs||n.col>=ct) continue; const b=g[n.id];
+            if(y>b.y-CLEAR&&y<b.y+b.h+CLEAR&&b.x<hi&&b.x+b.w>lo) return false; } return true; }
+        function band(cs,ct,g){ let top=1e9,bot=-1e9; NODES.forEach(n=>{ if(n.col<=cs||n.col>=ct)return; const b=g[n.id]; top=Math.min(top,b.y); bot=Math.max(bot,b.y+b.h); }); return {top,bot}; }
+      
+        // routing decided ONCE, but each wire's path is chosen clear across EVERY reachable state (collapsed +
+        // each single-card expansion). So decisions never change between states → no snap, no fold — never grazes
+        // a card. Must run after card heights are measured (needs the expanded geometries).
+        let DEC=[], OFF={};
+        function computeRouting(){
+          const states=[computeGeom(null)].concat(NODES.map(n=>computeGeom(n.id)));
+          const base=states[0];
+          const clearAllStates=(w,which)=> states.every(g=>{ const a=sock(w[0],w[1],"out",g),b=sock(w[2],w[3],"in",g),cs=colOf[w[0]],ct=colOf[w[2]];
+            return clearH(which==="a"?a.y:b.y,a.x,b.x,cs,ct,g); });
+          DEC=WIRES.map(w=>{ const cs=colOf[w[0]],ct=colOf[w[2]];
+            if(ct-cs<=1) return {t:"vnt"};
+            if(clearAllStates(w,"a")) return {t:"vnt"};
+            if(clearAllStates(w,"b")) return {t:"vns"};
+            const a=sock(w[0],w[1],"out",base),b=sock(w[2],w[3],"in",base),bd=band(cs,ct,base);
+            return {t:"hwy",side:(Math.min(a.y,b.y)-bd.top)<=(bd.bot-Math.max(a.y,b.y))?"above":"below"}; });
+          OFF={}; WIRES.forEach((_,i)=>OFF[i]={a:0,b:0,hy:0});
+          const vsegs=[];
+          WIRES.forEach((w,i)=>{ const cs=colOf[w[0]],ct=colOf[w[2]],d=DEC[i], a=sock(w[0],w[1],"out",base),b=sock(w[2],w[3],"in",base),mid=(a.y+b.y)/2;
+            if(d.t==="vnt") vsegs.push({i,ch:ct-1,mid,slot:"a"});
+            else if(d.t==="vns") vsegs.push({i,ch:cs,mid,slot:"a"});
+            else { vsegs.push({i,ch:cs,mid,slot:"a"}); vsegs.push({i,ch:ct-1,mid,slot:"b"}); } });
+          const byCh={}; vsegs.forEach(s=>(byCh[s.ch]=byCh[s.ch]||[]).push(s));
+          Object.values(byCh).forEach(list=>{ list.sort((p,q)=>p.mid-q.mid); const n=list.length; list.forEach((s,k)=> OFF[s.i][s.slot]=(k-(n-1)/2)*LANE); });
+          ["above","below"].forEach(side=>{ const list=WIRES.map((w,i)=>({i,d:DEC[i]})).filter(x=>x.d.t==="hwy"&&x.d.side===side);
+            list.sort((p,q)=> sock(WIRES[p.i][0],WIRES[p.i][1],"out",base).y - sock(WIRES[q.i][0],WIRES[q.i][1],"out",base).y);
+            list.forEach((x,k)=> OFF[x.i].hy=k*LANE); });
+        }
+        let _li=0; const LOOPOFF=WIRES.map(w=>w[4]==="loop"?(_li++)*15:0);   // stack multiple loops
+        function route(i,g){ const w=WIRES[i], dec=DEC[i], o=OFF[i],
+          a=sock(w[0],w[1],"out",g), b=sock(w[2],w[3],"in",g), cs=colOf[w[0]], ct=colOf[w[2]];
+          if(wtype[i]==="loop"){                                             // feedback: route up and over EVERYTHING, back into the target
+            const stub=22+LOOPOFF[i], top=Math.min(...NODES.map(n=>g[n.id].y))-44-LOOPOFF[i];
+            return [a,{x:a.x+stub,y:a.y},{x:a.x+stub,y:top},{x:b.x-stub,y:top},{x:b.x-stub,y:b.y},b]; }
+          // split source / merge dest: start/end at a fork/join junction so the branch is visible
+          const aa=(_sN[w[0]+"."+w[1]]>1)?{x:a.x+FORK,y:a.y}:a, bb=(_dN[w[2]+"."+w[3]]>1)?{x:b.x-FORK,y:b.y}:b;
+          // straight shot only when nothing forces a detour — a highway means the direct line is blocked
+          if(Math.abs(aa.y-bb.y)<0.5 && dec.t!=="hwy") return [aa,bb];
+          if(dec.t==="vnt"){ const lx=channelX(ct-1,g)+o.a; return [aa,{x:lx,y:aa.y},{x:lx,y:bb.y},bb]; }
+          if(dec.t==="vns"){ const lx=channelX(cs,g)+o.a; return [aa,{x:lx,y:aa.y},{x:lx,y:bb.y},bb]; }
+          const l1=channelX(cs,g)+o.a, l2=channelX(ct-1,g)+o.b, bd=band(cs,ct,g),
+            hY=dec.side==="above"?bd.top-HGAP-o.hy:bd.bot+HGAP+o.hy;
+          return [aa,{x:l1,y:aa.y},{x:l1,y:hY},{x:l2,y:hY},{x:l2,y:bb.y},bb]; }
+      
+        function roundedPath(pts){
+          const q=[pts[0]]; for(let i=1;i<pts.length;i++){const a=q[q.length-1],b=pts[i]; if(Math.abs(a.x-b.x)>.5||Math.abs(a.y-b.y)>.5)q.push(b);}
+          if(q.length<2) return `M ${pts[0].x} ${pts[0].y}`;
+          let d=`M ${q[0].x} ${q[0].y}`;
+          for(let i=1;i<q.length-1;i++){const p0=q[i-1],p1=q[i],p2=q[i+1];
+            const d1x=Math.sign(p1.x-p0.x),d1y=Math.sign(p1.y-p0.y),d2x=Math.sign(p2.x-p1.x),d2y=Math.sign(p2.y-p1.y);
+            const r=Math.min(R,Math.hypot(p1.x-p0.x,p1.y-p0.y)/2,Math.hypot(p2.x-p1.x,p2.y-p1.y)/2);
+            d+=` L ${p1.x-d1x*r} ${p1.y-d1y*r} Q ${p1.x} ${p1.y} ${p1.x+d2x*r} ${p1.y+d2y*r}`;}
+          const l=q[q.length-1]; d+=` L ${l.x} ${l.y}`; return d; }
+      
+        // fork/join junctions: where a socket fans out (split) or fans in (merge) — a dot + short trunk
+        const junctions=[]; { const _js=new Set();
+          WIRES.forEach(w=>{ if((w[4]||"data")!=="data") return; const sk=w[0]+"."+w[1], dk=w[2]+"."+w[3];
+            if(_sN[sk]>1 && !_js.has("o"+sk)){ _js.add("o"+sk); junctions.push({node:w[0],sock:w[1],io:"out",col:WCOL.split[0]}); }
+            if(_dN[dk]>1 && !_js.has("i"+dk)){ _js.add("i"+dk); junctions.push({node:w[2],sock:w[3],io:"in",col:WCOL.merge[0]}); } }); }
+        function juncPoint(j,g){ const p=sock(j.node,j.sock,j.io,g); return {x:p.x, y:p.y, jx: j.io==="out"?p.x+FORK:p.x-FORK}; }
+      
+        return { NODES, WIRES, FORK, R, HEAD, ROW, WCOL,
+          socketsOf, socketRel, heightOf, socketH, sock,
+          wtype, wtopo, colOf, computeGeom, channelX, band,
+          computeRouting, route, roundedPath, junctions, juncPoint, LOOPOFF,
+          _sN, _dN, get DEC(){return DEC;}, get OFF(){return OFF;} };
       }
-      var last = 0, spawnAcc = 0, gateT = 0;
-      function spawn() { if (items.length > 30) return; var y = CY + (Math.random() * 30 - 15);
-        items.push({ stage: -1, target: 0, mode: 'transit', state: 'flow', fx: 14, fy: y, tx: NX[0], x: 14, y: y, fanY: CY, dur: 0.3, timer: 0.3, reworked: false, el: mk('flow', 14, y) }); }
-      function step(t) {
-        if (!last) last = t; var dt = (t - last) / 1000; last = t; if (dt > 0.06) dt = 0.06;
-        spawnAcc -= dt; if (spawnAcc <= 0) { var b = 2 + Math.floor(Math.random() * 3); for (var k = 0; k < b; k++) spawn(); spawnAcc = 0.35 + Math.random() * 0.55; }
-        gateT += dt; var gateReady = gateT >= 2.6; if (gateReady) gateT = 0;
-        for (var jd = items.length - 1; jd >= 0; jd--) { var it = items[jd]; it.timer -= dt;
-          if (it.mode === 'transit') { var p = 1 - Math.max(0, it.timer) / it.dur, e = p < 0.5 ? 2 * p * p : 1 - Math.pow(-2 * p + 2, 2) / 2; var back = it.target < it.stage;
-            it.x = it.fx + (it.tx - it.fx) * e; it.y = it.fy + (CY - it.fy) * e - (back ? Math.sin(e * Math.PI) * 36 : 0);
-            if (it.timer <= 0) { it.stage = it.target;
-              if (it.stage >= GATE) { it.mode = 'held'; it.state = 'hold'; }
-              else { it.mode = 'work'; it.dur = it.timer = 0.6 + Math.random() * 1.5; if (it.state === 'flag') it.state = 'flow'; } } }
-          else if (it.mode === 'out') { var p2 = 1 - Math.max(0, it.timer) / it.dur, e2 = p2 < 0.5 ? 2 * p2 * p2 : 1 - Math.pow(-2 * p2 + 2, 2) / 2;
-            it.x = it.fx + (OUTX - it.fx) * e2; it.y = it.fy + (CY - it.fy) * e2; if (it.timer <= 0) { it.el.remove(); items.splice(jd, 1); continue; } }
-          else if (it.mode === 'held') { if (gateReady) { it.mode = 'out'; it.state = 'clear'; it.fx = it.x; it.fy = it.y; it.dur = it.timer = 0.42; } }
-          else { if (it.timer <= 0) {
-              if (it.stage === VERIFY && !it.reworked && Math.random() < 0.3) { it.reworked = true; it.state = 'flag'; it.mode = 'transit'; it.fx = it.x; it.fy = it.y; it.tx = NX[3]; it.target = 3; it.dur = it.timer = 0.34; }
-              else { it.mode = 'transit'; it.fx = it.x; it.fy = it.y; it.target = it.stage + 1; it.tx = NX[Math.min(it.target, GATE)]; it.dur = it.timer = 0.26; if (it.stage === VERIFY) it.state = 'hold'; } } }
-        }
-        for (var s = 0; s < N; s++) {
-          var grp = []; for (var q = 0; q < items.length; q++) { var g = items[q]; if ((g.mode === 'work' || g.mode === 'held') && g.stage === s) grp.push(g); }
-          var n = grp.length, sp = 13;
-          if (n > 1 && n * sp / 2 + PAD > MAXHALF) sp = Math.max(5, (2 * (MAXHALF - PAD)) / n);
-          for (var r = 0; r < n; r++) grp[r].fanY = CY + (r - (n - 1) / 2) * sp;
-          if (s === GATE) { var half = Math.min(MAXHALF, Math.max(12, (n * sp) / 2 + PAD)); gate.setAttribute('y', CY - half); gate.setAttribute('height', 2 * half); }
-        }
-        for (var m = 0; m < items.length; m++) { var it2 = items[m];
-          if (it2.mode === 'work' || it2.mode === 'held') { it2.x = NX[it2.stage]; it2.y += (it2.fanY - it2.y) * Math.min(1, dt * 14); }
-          it2.el.setAttribute('cx', it2.x.toFixed(1)); it2.el.setAttribute('cy', it2.y.toFixed(1));
-          it2.el.setAttribute('fill', COL[it2.state] || COL.flow); it2.el.setAttribute('r', it2.state === 'flag' ? 5 : 4);
-        }
-        requestAnimationFrame(step);
-      }
-      for (i = 0; i < 15; i++) { var st = i % 5, yy = CY; items.push({ stage: st, target: st, mode: 'work', state: 'flow', x: NX[st], y: yy, fanY: yy, fx: NX[st], fy: yy, tx: NX[st], dur: 0.3 + Math.random() * 0.7, timer: 0.3 + Math.random() * 0.7, reworked: false, el: mk('flow', NX[st], yy) }); }
-      requestAnimationFrame(step);
+
+      var GRAPH = {"nodes":[{"id":"IN","kind":"in","col":0,"outs":["issue","title","url"],"ins":[],"title":"the issue"},{"id":"classify","kind":"shared","col":1,"outs":["label"],"ins":["issue"],"title":"classify"},{"id":"rank","kind":"shared","col":1,"outs":["score"],"ins":["issue"],"title":"rank"},{"id":"route","kind":"domain","col":1,"outs":["component"],"ins":["issue"],"title":"route"},{"id":"respond","kind":"domain","col":1,"outs":["reply"],"ins":["issue"],"title":"respond"},{"id":"verify","kind":"shared","col":2,"outs":["verdict"],"ins":["issue_title","classified_as","routed_to","draft_reply"],"title":"verify"},{"id":"act","kind":"gate","col":3,"outs":["result"],"ins":["when fail","when pass","labels","comment","url","priority"],"title":"act"},{"id":"OUT","kind":"out","col":4,"outs":[],"ins":["result"],"title":"staged"}],"wires":[["IN","issue","classify","issue"],["IN","issue","rank","issue"],["IN","issue","route","issue"],["IN","issue","respond","issue"],["IN","title","verify","issue_title"],["classify","label","verify","classified_as"],["route","component","verify","routed_to"],["respond","reply","verify","draft_reply"],["classify","label","act","labels"],["route","component","act","labels"],["respond","reply","act","comment"],["IN","url","act","url"],["rank","score","act","priority"],["verify","verdict","act","when pass","gate"],["verify","verdict","act","when fail","gate"],["act","result","OUT","result"]]};
+      var NODES = GRAPH.nodes, WIRES = GRAPH.wires;
+      var KC = { in:'#5b8fd6', shared:'#7b9bc4', domain:'#d0af62', gate:'#d8944a', out:'#57b083' };
+      var HC = { in:'#26384f', shared:'#2c3a49', domain:'#43391f', gate:'#432e18', out:'#213f30' };
+
+      var G = makeGraphCore(NODES, WIRES, { axisY: function () { return 0; } });
+      G.computeRouting();
+      var g = G.computeGeom(null);
+      var routes = WIRES.map(function (_, i) { return G.route(i, g); });
+
+      // fit the whole graph (nodes + every routed wire point) into the fixed 340x250 box
+      var x0 = 1e9, y0 = 1e9, x1 = -1e9, y1 = -1e9;
+      NODES.forEach(function (n) { var b = g[n.id]; x0 = Math.min(x0, b.x); y0 = Math.min(y0, b.y); x1 = Math.max(x1, b.x + b.w); y1 = Math.max(y1, b.y + b.h); });
+      routes.forEach(function (pts) { pts.forEach(function (p) { x0 = Math.min(x0, p.x); y0 = Math.min(y0, p.y); x1 = Math.max(x1, p.x); y1 = Math.max(y1, p.y); }); });
+      var VW = 340, VH = 250, PAD = 18, gw = x1 - x0, gh = y1 - y0;
+      var s = Math.min((VW - 2 * PAD) / gw, (VH - 2 * PAD) / gh);
+      var tx = (VW - gw * s) / 2 - x0 * s, ty = (VH - gh * s) / 2 - y0 * s;
+      var root = el('g', { transform: 'translate(' + tx.toFixed(2) + ',' + ty.toFixed(2) + ') scale(' + s.toFixed(4) + ')' });
+      svg.appendChild(root);
+      var gW = el('g', {}), gP = el('g', {}), gN = el('g', {});
+      root.appendChild(gW); root.appendChild(gP); root.appendChild(gN);
+
+      // wires — topology colors, non-scaling stroke so they stay crisp at this scale
+      var paths = [];
+      routes.forEach(function (pts, i) { var wc = G.WCOL[G.wtopo[i]] || G.WCOL.data;
+        var p = el('path', { d: G.roundedPath(pts), fill: 'none', stroke: wc[0], 'stroke-width': 1.4, 'vector-effect': 'non-scaling-stroke', opacity: Math.max(+wc[1], 0.5) });
+        if (+wc[2]) p.setAttribute('stroke-dasharray', '5 4');
+        gW.appendChild(p); paths.push({ el: p, len: 0, dots: [] }); });
+      // fork/join junctions
+      G.junctions.forEach(function (j) { var p = G.juncPoint(j, g);
+        gW.appendChild(el('path', { d: 'M ' + p.x + ' ' + p.y + ' L ' + p.jx + ' ' + p.y, stroke: j.col, 'stroke-width': 2, 'vector-effect': 'non-scaling-stroke', fill: 'none', opacity: 0.85 }));
+        gW.appendChild(el('circle', { cx: p.jx, cy: p.y, r: 2.6 / s, fill: j.col })); });
+      // nodes — card silhouette (kind-colored border + header), no labels
+      var HH = G.HEAD;
+      NODES.forEach(function (n) { var b = g[n.id], c = KC[n.kind] || '#7b9bc4', hc = HC[n.kind] || '#333a45';
+        var r = el('rect', { x: b.x, y: b.y, width: b.w, height: b.h, rx: 8, fill: '#22272f', stroke: c, 'stroke-width': 1.3, 'vector-effect': 'non-scaling-stroke' });
+        if (n.kind === 'gate') r.setAttribute('stroke-dasharray', '5 4');
+        gN.appendChild(r);
+        gN.appendChild(el('rect', { x: b.x + 2, y: b.y + 2, width: b.w - 4, height: HH - 4, rx: 6, fill: hc })); });
+
+      // dots ride the real routed paths
+      var DOTR = 3.0 / s;
+      function mkdot(q) { var c = el('circle', { r: DOTR, fill: '#cfe0f5', cx: q.x.toFixed(1), cy: q.y.toFixed(1) }); gP.appendChild(c); }
+      if (RM) { paths.forEach(function (pp) { pp.len = pp.el.getTotalLength(); if (pp.len) mkdot(pp.el.getPointAtLength(pp.len * 0.5)); }); return; }
+      var last = 0, acc = 0;
+      function frame(t) { if (!last) last = t; var dt = Math.min(0.05, (t - last) / 1000); last = t;
+        acc -= dt; if (acc <= 0) { acc = 0.16; paths.forEach(function (pp) { if (pp.dots.length < 3 && Math.random() < 0.5) pp.dots.push({ f: 0 }); }); }
+        while (gP.firstChild) gP.removeChild(gP.firstChild);
+        paths.forEach(function (pp) { if (!pp.len) pp.len = pp.el.getTotalLength(); if (!pp.len) return;
+          pp.dots = pp.dots.filter(function (d) { return d.f <= 1; });
+          pp.dots.forEach(function (d) { d.f += dt * 0.5; if (d.f > 1) return; mkdot(pp.el.getPointAtLength(d.f * pp.len)); }); });
+        requestAnimationFrame(frame); }
+      requestAnimationFrame(frame);
     })();
   </script>
 </body>
