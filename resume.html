@@ -221,7 +221,7 @@
 <div class="r-section no-break">
   <p class="r-section-head">Summary</p>
   <p style="font-size:9.5pt; color:#4a4844; line-height:1.6;">
-    AI/ML engineer who builds AI agents and the multi-agent systems that coordinate them. As
+    AI/ML engineer who builds agentic AI systems and the multi-agent orchestration that coordinates them. As
     Founding AI/ML Engineer at Microclaw LLC, I designed and shipped a production AI agent for
     Microsoft 365, now live on the Microsoft Commercial Marketplace: a plan/act/observe loop over 85
     tools with KNN tool retrieval, RAG semantic memory, and an in-house eval framework. Alongside it
@@ -251,8 +251,8 @@
       <span class="proj-name">Multi-Agent Workflow Engine — built from scratch</span>
       <a class="proj-link" href="https://mtichikawa.github.io/workflow-engine/" target="_blank">mtichikawa.github.io/workflow-engine</a>
     </div>
-    <p class="proj-desc">A from-scratch Python engine that turns a plain-English request into a working multi-agent workflow, built from a library of 14 modular, single-purpose agents with human approval before anything acts. It reuses existing agents instead of near-duplicating them, and I tested it against real public data across 12 unrelated domains, keeping the weaker results marked provisional rather than dropping them.</p>
-    <p class="proj-stack">Python &nbsp;·&nbsp; agent orchestration &nbsp;·&nbsp; contracts + recipes &nbsp;·&nbsp; static graph validation &nbsp;·&nbsp; few-shot retrieval &nbsp;·&nbsp; LLM-as-judge</p>
+    <p class="proj-desc">A from-scratch Python engine that turns a plain-English request into a working multi-agent workflow, built from a library of 14 modular, single-purpose agents with human approval before anything acts. It reuses existing agents instead of near-duplicating them, and I tested it against real public data across 12 unrelated domains, keeping the weaker results marked provisional rather than dropping them. Bidirectional MCP interop: the engine calls tools on external MCP servers and publishes its own workflows as MCP tools, added as an edge-only adapter with no core changes and real protocol-level tests.</p>
+    <p class="proj-stack">Python &nbsp;·&nbsp; agentic orchestration &nbsp;·&nbsp; MCP (client + server) &nbsp;·&nbsp; contracts + recipes &nbsp;·&nbsp; static graph validation &nbsp;·&nbsp; few-shot retrieval &nbsp;·&nbsp; LLM-as-judge</p>
   </div>
 </div>
 
@@ -278,6 +278,10 @@
   <div class="skill-row">
     <span class="skill-label">Cloud / Infra</span>
     <span>AWS (S3 &nbsp;·&nbsp; Lambda &nbsp;·&nbsp; DynamoDB &nbsp;·&nbsp; CloudWatch) &nbsp;·&nbsp; Docker &nbsp;·&nbsp; FastAPI &nbsp;·&nbsp; Redis &nbsp;·&nbsp; Pydantic v2 &nbsp;·&nbsp; boto3 &nbsp;·&nbsp; Microsoft Commercial Marketplace</span>
+  </div>
+  <div class="skill-row">
+    <span class="skill-label">Agentic Dev</span>
+    <span>Claude Code (daily driver) &nbsp;·&nbsp; agent-directed builds verified by tests and evals &nbsp;·&nbsp; per-repo context files &nbsp;·&nbsp; agent co-authored commit history</span>
   </div>
   <div class="skill-row">
     <span class="skill-label">Tools</span>
