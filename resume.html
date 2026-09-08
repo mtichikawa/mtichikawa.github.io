@@ -173,7 +173,7 @@
     /* ── PRINT ── */
     @media print {
       body { padding: 0; max-width: 100%; font-size: 9pt; line-height: 1.4; }
-      @page { margin: 0.45in 0.6in; size: letter; }
+      @page { margin: 0.38in 0.6in; size: letter; }
       a { color: inherit !important; text-decoration: none !important; }
       .proj-link, .exp-dates, .edu-year { color: var(--ink3) !important; }
       /* A long entry may split across pages; what must never happen is a heading
@@ -186,18 +186,18 @@
       .r-section-head,
       .exp-header,
       .exp-org { page-break-after: avoid; break-after: avoid; }
-      .exp-bullets { orphans: 3; widows: 3; }
+      .exp-bullets { orphans: 2; widows: 2; }
       .exp-bullets li { page-break-inside: avoid; break-inside: avoid; }
-      .r-section { margin-bottom: 8px; }
-      .r-section-head { margin-bottom: 5px; }
-      .proj { margin-bottom: 5px; }
-      .exp { margin-bottom: 6px; }
-      .proj-desc, .proj-stack { margin-bottom: 2px; }
-      .exp-bullets li { margin-bottom: 1px; }
-      .rule-light { margin: 5px 0; }
-      hr { margin: 6px 0; }
+      .r-section { margin-bottom: 6px; }
+      .r-section-head { margin-bottom: 4px; }
+      .proj { margin-bottom: 4px; }
+      .exp { margin-bottom: 5px; }
+      .proj-desc, .proj-stack { margin-bottom: 1px; }
+      .exp-bullets li { margin-bottom: 0px; }
+      .rule-light { margin: 4px 0; }
+      hr { margin: 5px 0; }
       .r-name { font-size: 21pt; }
-      .skill-row { margin-bottom: 2px; font-size: 8.5pt; }
+      .skill-row { margin-bottom: 1px; font-size: 8.5pt; line-height: 1.35; }
       .skill-label { min-width: 110px; font-size: 8.5pt; }
     }
 
@@ -218,7 +218,7 @@
 
 <!-- HEADER -->
 <h1 class="r-name">Michael Ichikawa</h1>
-<p class="r-title">AI Engineer &nbsp;·&nbsp; ML Engineer &nbsp;·&nbsp; Data Scientist</p>
+<p class="r-title">AI Engineer &nbsp;·&nbsp; Agentic Systems</p>
 <div class="r-contact">
   <span>Portland, OR</span>
   <a href="mailto:projects.ichikawa@gmail.com">projects.ichikawa@gmail.com</a>
@@ -232,10 +232,11 @@
 <div class="r-section no-break">
   <p class="r-section-head">Summary</p>
   <p style="font-size:9.5pt; color:#4a4844; line-height:1.6;">
-    I shipped a production AI agent for Microsoft 365 solo, from empty repo to live and transactable on the
-    Microsoft Commercial Marketplace. It runs a plan/act/observe loop over 85 function-calling
-    tools across 12 services, with KNN tool retrieval, RAG memory, and an eval framework that gated every release. Alongside it I built a multi-agent workflow engine
-    from scratch. Before that, MS Mathematics, eight years teaching undergraduate math, and three years of
+    I shipped a production AI agent solo, from an empty repo to live and transactable on the
+    Microsoft Commercial Marketplace, doing the product, the engineering and the compliance myself.
+    I built a multi-agent workflow engine from scratch for the same class of problem a level up,
+    composing single-purpose agents into a validated graph a person signs off before anything runs.
+    Before all of it, MS Mathematics, eight years teaching undergraduate math, and three years of
     semiconductor physical design at Intel.
   </p>
 </div>
@@ -249,7 +250,7 @@
       <span class="proj-name">Microclaw — Production AI Agent for Microsoft 365</span>
       <a class="proj-link" href="https://marketplace.microsoft.com/en-us/product/saas/microclaw.microclaw?tab=Overview" target="_blank">Live on the Microsoft Marketplace</a>
     </div>
-    <p class="proj-desc">A single AI agent operating across 12 Microsoft 365 services through 85 function-calling tools. Iterative plan/act/observe orchestration loop (Azure OpenAI, function-calling), two-stage KNN tool retrieval (95.0% recall vs a 92.7% embedding-only baseline, benchmarked at 1,020 examples), RAG semantic memory, smart model routing, and multi-layer failure recovery.</p>
+    <p class="proj-desc">One agent across 12 Microsoft 365 services, with 85 function-calling tools and a plan/act/observe loop that chains them until a task is complete. The hard part was choosing: handing the model every tool made it worse, so a two-stage retrieval step narrows the candidates before the model ever sees them. Around that: RAG semantic memory, model routing that escalates mid-task, and multi-layer failure recovery.</p>
     <p class="proj-stack">TypeScript &nbsp;·&nbsp; Azure OpenAI &nbsp;·&nbsp; Microsoft Graph &nbsp;·&nbsp; Azure Postgres (RLS) &nbsp;·&nbsp; Bicep</p>
   </div>
 
@@ -260,7 +261,7 @@
       <span class="proj-name">Multi-Agent Workflow Engine — built from scratch</span>
       <a class="proj-link" href="https://mtichikawa.github.io/workflow-engine/" target="_blank">mtichikawa.github.io/workflow-engine</a>
     </div>
-    <p class="proj-desc">A Python engine that turns a plain-English request into a working multi-agent workflow, composed from 14 modular, single-purpose agents with human approval before anything acts. It reuses existing agents instead of near-duplicating them, and I tested it on real public data in 12 unrelated domains, keeping weaker results marked provisional. Bidirectional MCP interop, calling tools on external MCP servers and publishing its own workflows as MCP tools, added as an edge-only adapter with no core changes and real protocol-level tests.</p>
+    <p class="proj-desc">A Python engine that turns a plain-English request into a control-flow graph of single-purpose agents, validated before it runs and gated on human approval before anything acts. The agents are a shared library reused across workflows rather than duplicated, and a learning loop improves each one from corrected examples rather than a fine-tune, taking a deliberately crippled specialist to a perfect score on a held-out eval after six exemplars. Tested on real public data in 12 unrelated domains, with bidirectional MCP interop as an edge-only adapter.</p>
     <p class="proj-stack">Python &nbsp;·&nbsp; agentic orchestration &nbsp;·&nbsp; MCP (client + server) &nbsp;·&nbsp; contracts + recipes &nbsp;·&nbsp; static graph validation</p>
   </div>
 </div>
@@ -269,32 +270,24 @@
 <div class="r-section no-break">
   <p class="r-section-head">Technical Skills</p>
   <div class="skill-row">
-    <span class="skill-label">Agentic Dev</span>
-    <span>Claude Code (daily driver) &nbsp;·&nbsp; agent-directed builds verified by tests and evals &nbsp;·&nbsp; per-repo context files &nbsp;·&nbsp; agent co-authored commit history</span>
+    <span class="skill-label">AI-Native Dev</span>
+    <span>directing AI agents to implement, test and debug complex features &nbsp;·&nbsp; Claude Code (daily driver) &nbsp;·&nbsp; agent-directed builds verified by tests and evals &nbsp;·&nbsp; per-repo context files &nbsp;·&nbsp; AI-native development practices</span>
   </div>
   <div class="skill-row">
-    <span class="skill-label">LLM / Agents</span>
-    <span>agent orchestration &nbsp;·&nbsp; multi-agent workflows &nbsp;·&nbsp; MCP (Model Context Protocol) &nbsp;·&nbsp; KNN tool retrieval &nbsp;·&nbsp; RAG &nbsp;·&nbsp; Azure OpenAI &nbsp;·&nbsp; Anthropic API &nbsp;·&nbsp; Microsoft Graph &nbsp;·&nbsp; HuggingFace &nbsp;·&nbsp; FinBERT</span>
+    <span class="skill-label">Agents / LLM</span>
+    <span>agent orchestration &nbsp;·&nbsp; plan/act/observe loops &nbsp;·&nbsp; function calling &nbsp;·&nbsp; tool use &nbsp;·&nbsp; tool retrieval (KNN) &nbsp;·&nbsp; RAG (retrieval-augmented generation) &nbsp;·&nbsp; vector search &amp; embeddings (pgvector &nbsp;·&nbsp; FAISS &nbsp;·&nbsp; BigQuery Vector Search) &nbsp;·&nbsp; semantic memory &nbsp;·&nbsp; multi-agent workflows &nbsp;·&nbsp; human-in-the-loop gating &nbsp;·&nbsp; MCP (client + server) &nbsp;·&nbsp; LangChain &nbsp;·&nbsp; LlamaIndex &nbsp;·&nbsp; in-context learning</span>
   </div>
   <div class="skill-row">
-    <span class="skill-label">Testing / Eval</span>
-    <span>eval frameworks &nbsp;·&nbsp; A/B against baselines &nbsp;·&nbsp; property-based testing &nbsp;·&nbsp; differential testing &nbsp;·&nbsp; mutation testing &nbsp;·&nbsp; LLM-as-judge &nbsp;·&nbsp; pytest &nbsp;·&nbsp; Vitest &nbsp;·&nbsp; GitHub Actions CI</span>
+    <span class="skill-label">Reliability &amp; Cost</span>
+    <span>failure-mode engineering (backoff/retry &nbsp;·&nbsp; context compaction &nbsp;·&nbsp; loop detection &nbsp;·&nbsp; abort ceilings) &nbsp;·&nbsp; model routing with mid-task escalation &nbsp;·&nbsp; input-token reduction &nbsp;·&nbsp; multi-tenant isolation (Postgres RLS)</span>
   </div>
   <div class="skill-row">
-    <span class="skill-label">Databases / Data</span>
-    <span>PostgreSQL (row-level security) &nbsp;·&nbsp; SQLite &nbsp;·&nbsp; BigQuery &nbsp;·&nbsp; Databricks &nbsp;·&nbsp; Delta Lake &nbsp;·&nbsp; Spark Structured Streaming &nbsp;·&nbsp; dbt &nbsp;·&nbsp; SQLAlchemy &nbsp;·&nbsp; pandas</span>
+    <span class="skill-label">Evaluation</span>
+    <span>eval design &nbsp;·&nbsp; expected-facts scoring &nbsp;·&nbsp; A/B against baselines &nbsp;·&nbsp; LLM-as-judge &nbsp;·&nbsp; regression gating &nbsp;·&nbsp; pytest &nbsp;·&nbsp; Vitest &nbsp;·&nbsp; GitHub Actions CI</span>
   </div>
   <div class="skill-row">
-    <span class="skill-label">ML / Statistics</span>
-    <span>scikit-learn &nbsp;·&nbsp; PyTorch &nbsp;·&nbsp; Prophet &nbsp;·&nbsp; XGBoost &nbsp;·&nbsp; LightGBM &nbsp;·&nbsp; scipy &nbsp;·&nbsp; statsmodels &nbsp;·&nbsp; Bayesian inference</span>
-  </div>
-  <div class="skill-row">
-    <span class="skill-label">Cloud / Infra</span>
-    <span>Azure (Container Apps &nbsp;·&nbsp; Postgres &nbsp;·&nbsp; Entra &nbsp;·&nbsp; Bicep) &nbsp;·&nbsp; AWS (S3 &nbsp;·&nbsp; Lambda &nbsp;·&nbsp; DynamoDB) &nbsp;·&nbsp; GCP (Vertex AI &nbsp;·&nbsp; Cloud Run) &nbsp;·&nbsp; Docker &nbsp;·&nbsp; FastAPI (REST) &nbsp;·&nbsp; Redis</span>
-  </div>
-  <div class="skill-row">
-    <span class="skill-label">Languages</span>
-    <span>Python &nbsp;·&nbsp; SQL &nbsp;·&nbsp; TypeScript &nbsp;·&nbsp; Node.js &nbsp;·&nbsp; C++ &nbsp;·&nbsp; R</span>
+    <span class="skill-label">Built with</span>
+    <span>Python &nbsp;·&nbsp; TypeScript &nbsp;·&nbsp; Node.js &nbsp;·&nbsp; SQL &nbsp;·&nbsp; Azure OpenAI &nbsp;·&nbsp; Anthropic API &nbsp;·&nbsp; Microsoft Graph &nbsp;·&nbsp; PostgreSQL &nbsp;·&nbsp; BigQuery &nbsp;·&nbsp; Delta Lake (medallion) &nbsp;·&nbsp; Spark Structured Streaming &nbsp;·&nbsp; SQLAlchemy &nbsp;·&nbsp; pandas &nbsp;·&nbsp; scikit-learn &nbsp;·&nbsp; PyTorch &nbsp;·&nbsp; HuggingFace &nbsp;·&nbsp; sentence-transformers &nbsp;·&nbsp; Azure (Container Apps &nbsp;·&nbsp; Entra &nbsp;·&nbsp; Bicep) &nbsp;·&nbsp; AWS (S3 &nbsp;·&nbsp; Lambda &nbsp;·&nbsp; DynamoDB) &nbsp;·&nbsp; GCP (Vertex AI &nbsp;·&nbsp; Cloud Run) &nbsp;·&nbsp; Docker &nbsp;·&nbsp; FastAPI / REST &nbsp;·&nbsp; Redis</span>
   </div>
 </div>
 
@@ -302,16 +295,28 @@
 <div class="r-section">
   <p class="r-section-head">Experience</p>
 
-  <div class="exp no-break keep">
+  <div class="exp no-break">
     <div class="exp-header">
       <span class="exp-title">Founding AI/ML Engineer</span>
       <span class="exp-dates">2026 – present</span>
     </div>
     <p class="exp-org">Microclaw LLC &nbsp;·&nbsp; Portland, OR</p>
     <ul class="exp-bullets">
-      <li>Took the agent above from an empty repo to live and transactable on the Microsoft Commercial Marketplace in 11 weeks, solo, and passed Microsoft AppSource certification (Standard + Self-Hosted offerings)</li>
-      <li>Built the commerce integration: Marketplace Fulfillment API v2 and the Metering Service API for per-message metered billing, Microsoft as merchant of record, across eight pricing tiers</li>
-      <li>Multi-tenant isolation via Postgres row-level security: FORCE policies on every tenant-scoped table, an app role that cannot bypass them, delegated Microsoft Entra auth, and org plus per-user permission layers</li>
+      <li>Built the agent loop and the retrieval layer that decides which of 85 tools it may call, taking retrieval recall from 92.7 to 95.0 percent against an embedding-only baseline, and the 107-case eval that gated every release</li>
+      <li>Eleven weeks from first commit to a transactable Marketplace listing, solo, through Microsoft AppSource certification and the Fulfillment and Metering API work that makes it billable</li>
+      <li>Multi-tenant isolation via Postgres row-level security: FORCE policies on every tenant-scoped table, an app role that cannot bypass them, and delegated Entra auth</li>
+    </ul>
+  </div>
+
+  <div class="exp no-break">
+    <div class="exp-header">
+      <span class="exp-title">Career Break &mdash; Full-Time Parent &nbsp;·&nbsp; Self-Directed Transition to Software</span>
+      <span class="exp-dates">2023 – 2026</span>
+    </div>
+    <p class="exp-org">Portland, OR</p>
+    <ul class="exp-bullets">
+      <li>Three years as primary caregiver, retraining into software throughout</li>
+      <li>Started in data engineering and ML, then moved to agentic development as the field did</li>
     </ul>
   </div>
 
@@ -323,8 +328,8 @@
     <p class="exp-org">Santa Rosa Junior College &nbsp;·&nbsp; Santa Rosa, CA</p>
     <ul class="exp-bullets">
       <li>Taught undergraduate mathematics for eight years: Algebra through Calculus III, Linear Algebra, Differential Equations, Statistics</li>
-      <li>Designed assessments and iterated course materials from cohort performance data</li>
-      <li>Taught STEM majors alongside non-STEM majors fulfilling general-education math requirements at an open-enrollment community college</li>
+      <li>Wrote and graded exams, and revised how I taught the topics students consistently missed</li>
+      <li>Open-enrollment college, where one section could hold engineering majors alongside students repeating a required course</li>
     </ul>
   </div>
 
@@ -358,17 +363,16 @@
 
 <!-- PROJECTS -->
 <div class="r-section">
-  <p class="r-section-head">Portfolio Projects &nbsp;<span style="font-weight:normal; text-transform:none; letter-spacing:0; font-size:8pt; color:#7a7774;">— full portfolio at mtichikawa.github.io</span></p>
+  <p class="r-section-head">Portfolio Projects &nbsp;<span style="font-weight:normal; text-transform:none; letter-spacing:0; font-size:8pt; color:#7a7774;">&mdash; full portfolio at mtichikawa.github.io</span></p>
   <p style="font-size:9.5pt; color:#4a4844; line-height:1.7; margin-bottom:4px;">
-    Self-directed work in data and ML, beyond the two flagships above.
-    <strong>Trading system arc</strong> &mdash; a paper trading pipeline from exchange data through charting and
-    signal fusion to a backtester and Streamlit dashboard (<a class="proj-link" href="https://mtichikawa-trading.streamlit.app" target="_blank">live demo</a>).
-    <strong>Databricks medallion lakehouse</strong> on NYC taxi data.
-    <strong>RAG pipeline</strong> on Vertex AI and BigQuery Vector Search.
-    <strong>Streaming analytics</strong> on Spark and Redpanda.
+    Self-directed work from the 2023&ndash;2026 transition above, before the move to agentic systems.
+    The one closest to current work is a <strong>RAG pipeline on GCP</strong> with three interchangeable
+    retrievers behind one interface, BigQuery Vector Search, FAISS and pgvector, so they could be compared
+    on the same eval.
   </p>
   <p style="font-family:Arial,sans-serif; font-size:8.5pt; color:#7a7774; margin-top:3px; line-height:1.6;">
-    Also: real-time anomaly detection &middot; cloud ETL on AWS &middot; SQL analytics pipeline &middot; LLM data assistant &middot; multi-armed bandit A/B testing &middot; LLM bias detection &middot; financial NLP parser &middot; GitHub trend forecaster &middot; C++/pybind11 rolling stats.
+    The rest spans data engineering and ML: streaming and lakehouse pipelines &middot; cloud ETL &middot; anomaly
+    detection &middot; LLM tooling and bias testing &middot; forecasting &middot; a paper-trading system end to end.
   </p>
 </div>
 
