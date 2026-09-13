@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Mike Ichikawa — AI engineer</title>
+<meta name="description" content="I build AI agents and the evaluation systems that tell me whether they work." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;700&display=swap" />
+<style>
+:root{
+  --bg:#f7f6f2; --bg-soft:#efece6; --bg-elev:#e8e4dd;
+  --deep:#1a1814; --deep-text:#f4efe5; --deep-muted:#bdb5a5; --deep-faint:#7d766a;
+  --deep-accent:#e8d4b8; --deep-border:#3a3530;
+  --ink:#1a1814; --ink-muted:#57534c; --ink-soft:#6e6960;
+  --red:#a83d22; --navy:#1a3a5c; --accent:#1a3a5c;
+  --border:#d2cec8; --border-soft:#e3dfd8;
+  --serif:'DM Serif Display','Iowan Old Style',Georgia,serif;
+  --mono:'DM Mono','SF Mono',Menlo,Consolas,monospace;
+  --sans:'DM Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);
+     font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased}
+.wrap{max-width:46rem;margin:0 auto;padding:0 1.5rem}
+a{color:var(--accent)}
+.eyebrow{font-family:var(--mono);font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;
+         color:var(--ink-soft);margin:0 0 .5rem}
+h1,h2,h3{font-family:var(--serif);font-weight:400;letter-spacing:-.01em}
+h2{font-size:1.9rem;margin:0 0 1rem;line-height:1.2}
+h3{font-size:1.15rem;margin:0 0 .35rem}
+p{margin:0 0 1rem}
+section{padding:4.5rem 0;border-top:1px solid var(--border-soft)}
+section:first-of-type{border-top:0}
+
+/* ── HERO ── */
+.hero{background:var(--deep);color:var(--deep-text);padding:6rem 0 5rem;border:0}
+.hero h1{font-size:clamp(2.4rem,6vw,3.6rem);margin:0 0 1.25rem;line-height:1.05;color:var(--deep-text)}
+.hero .lede{font-size:1.2rem;color:var(--deep-muted);max-width:34rem;margin:0 0 2rem}
+.hero .lede em{color:var(--deep-accent);font-style:normal}
+.hero .meta{font-family:var(--mono);font-size:.8rem;color:var(--deep-faint);
+            display:flex;flex-wrap:wrap;gap:.5rem 1.5rem}
+.hero .meta a{color:var(--deep-accent);text-decoration:none;border-bottom:1px solid var(--deep-border)}
+
+/* ── WORK ── */
+.work{margin:0 0 3.25rem}
+.work:last-child{margin-bottom:0}
+.work-head{display:flex;flex-wrap:wrap;align-items:baseline;gap:.5rem .75rem;margin-bottom:.15rem}
+.work-head h3{margin:0}
+.tag{font-family:var(--mono);font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;
+     padding:.15rem .5rem;border:1px solid var(--border);border-radius:3px;color:var(--ink-soft)}
+.tag.live{color:var(--red);border-color:#e0bfae}
+.work p{color:var(--ink-muted);margin-bottom:.65rem}
+.hard{border-left:2px solid var(--navy);padding-left:1rem;margin:1rem 0}
+.hard p{margin:0;color:var(--ink)}
+.hard .label{font-family:var(--mono);font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;
+             color:var(--navy);display:block;margin-bottom:.3rem}
+.stack{font-family:var(--mono);font-size:.78rem;color:var(--ink-soft)}
+.links{font-family:var(--mono);font-size:.8rem;margin-top:.6rem}
+.links a{margin-right:1.25rem;text-decoration:none;border-bottom:1px solid var(--border)}
+
+/* ── FINDING (the probe study) ── */
+.finding{background:var(--bg-soft);border:1px solid var(--border);border-radius:4px;
+         padding:1.5rem;margin:1.25rem 0}
+.finding .lead{font-family:var(--serif);font-size:1.25rem;line-height:1.35;margin:0 0 .9rem;color:var(--ink)}
+.levers{display:grid;gap:.6rem;margin:1rem 0 0}
+.lever{display:grid;grid-template-columns:9rem 1fr;gap:.9rem;align-items:start;
+       font-size:.93rem;color:var(--ink-muted)}
+.lever b{font-family:var(--mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;
+         color:var(--ink);padding-top:.18rem}
+@media(max-width:34rem){.lever{grid-template-columns:1fr;gap:.15rem}}
+
+/* ── BEFORE ── */
+.before p{color:var(--ink-muted)}
+.before .list{font-family:var(--mono);font-size:.82rem;color:var(--ink-soft);
+              line-height:1.9;margin:1rem 0 0}
+
+/* ── CONTACT ── */
+.contact{background:var(--deep);color:var(--deep-text);border:0}
+.contact h2{color:var(--deep-text)}
+.contact p{color:var(--deep-muted)}
+.contact a{color:var(--deep-accent)}
+.note{font-family:var(--mono);font-size:.72rem;color:var(--ink-soft);margin-top:2.5rem}
+</style>
+</head>
+<body>
+
+<!-- ══ HERO ══ -->
+<header class="hero">
+  <div class="wrap">
+    <h1>Mike Ichikawa</h1>
+    <p class="lede">I build AI agents, and the evaluation systems that tell me
+      <em>whether they actually work.</em></p>
+    <p class="meta">
+      <span>Portland, Oregon</span>
+      <span>Remote</span>
+      <a href="mailto:projects.ichikawa@gmail.com">projects.ichikawa@gmail.com</a>
+      <a href="https://github.com/mtichikawa">github.com/mtichikawa</a>
+      <a href="resume.html">Résumé</a>
+    </p>
+  </div>
+</header>
+
+<!-- ══ 1. THE AGENT ══ -->
+<section>
+  <div class="wrap">
+    <p class="eyebrow">Built solo, start to finish</p>
+    <h2>A production AI agent for Microsoft 365</h2>
+
+    <div class="work">
+      <p>An assistant that lives in Microsoft Teams. You ask it for something in plain
+        language and it works out which actions to take across your mail, calendar and
+        files, checks what comes back, and keeps going until the job is done.</p>
+
+      <p>I did the product, the engineering and the compliance. Getting it into a regulated
+        tenant meant per-customer data isolation enforced in Postgres rather than in
+        application code, a permission model, and a review step before anything destructive
+        ran. It went through Microsoft's marketplace certification on that basis.</p>
+
+      <div class="hard">
+        <span class="label">The hard part</span>
+        <p>Choosing. The agent picks one action out of eighty-five for a request written in
+          plain English, and a wrong pick comes back looking like finished work rather than
+          an error. Handing the model every tool made it worse, so a retrieval step narrows
+          the candidates before the model ever sees them.</p>
+      </div>
+
+      <p class="stack">TypeScript · Azure OpenAI · Microsoft Graph · Azure Postgres (RLS) · Bicep</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══ 2. THE ENGINE ══ -->
+<section>
+  <div class="wrap">
+    <p class="eyebrow">Built from scratch</p>
+    <h2>A multi-agent workflow engine</h2>
+
+    <div class="work">
+      <p>A Python engine that turns a plain-English request into a control-flow graph of
+        single-purpose agents. The graph is validated before it runs, and a person approves
+        it before anything acts.</p>
+
+      <p>The specialists are a shared library reused across workflows rather than duplicated
+        per workflow, so reuse is structural rather than a convention. A learning loop
+        improves a specialist from corrected examples instead of a fine-tune. It speaks MCP
+        in both directions: it can call an external MCP tool, and it publishes its own
+        workflows as MCP tools.</p>
+
+      <p class="stack">Python · agentic orchestration · MCP client and server · static graph validation</p>
+      <p class="links"><a href="https://mtichikawa.github.io/workflow-engine">Walkthrough &rarr;</a></p>
+    </div>
+  </div>
+</section>
+
+<!-- ══ 3. THE PROBE STUDY ══ -->
+<section>
+  <div class="wrap">
+    <p class="eyebrow">Research &middot; 142 probes, 139 logged runs</p>
+    <h2>What it takes to stump a coding agent</h2>
+
+    <div class="work">
+      <p>I set out to build one task a frontier coding agent could not solve, and measured
+        why almost every attempt failed to stump it.</p>
+
+      <div class="finding">
+        <p class="lead">Complexity does not defeat comprehension.</p>
+        <p style="margin:0 0 .8rem;color:var(--ink-muted)">Thirty-one of thirty-three probes
+          were solved. The solve logs are thirteen and seventeen lines, with almost no
+          iteration language &mdash; no <em>then</em>, no <em>after fixing</em>, no
+          <em>turned out</em>. The agent read the environment, understood the whole system,
+          and fixed every planted defect in one pass. So adding defects, or coupling them,
+          does nothing. Three things did work.</p>
+        <div class="levers">
+          <div class="lever"><b>Motion</b><span>The system runs under load and cannot be stopped to inspect.</span></div>
+          <div class="lever"><b>Opacity</b><span>A component with no source, an undocumented format, or state that must be recovered rather than read.</span></div>
+          <div class="lever"><b>Misleading&nbsp;evidence</b><span>Every available observation is systematically wrong in a way no single observation reveals.</span></div>
+        </div>
+      </div>
+
+      <p>Both survivors had misleading evidence. All thirty-one dead probes had none of the
+        three.</p>
+
+      <div class="hard">
+        <span class="label">Twice the measurement lied</span>
+        <p>The harness silently voided seventy-one runs: a backgrounded process died in three
+          seconds and wrote a seventy-byte log that looked like a result. Separately, a
+          verifier failed a correct answer on the sixteenth digit and manufactured a
+          survivor that was not one. Both are in the repository, with the voided runs kept
+          rather than deleted. The rule that came out of it: a failure is not a candidate
+          until that probe's own oracle passes its own verifier.</p>
+      </div>
+
+      <p class="stack">Python · Docker · reproducible environments · oracle-verified grading</p>
+      <p class="links"><a href="#">Read the writeup &rarr;</a><a href="#">Repository &rarr;</a></p>
+    </div>
+  </div>
+</section>
+
+<!-- ══ 4. BEFORE THIS ══ -->
+<section class="before">
+  <div class="wrap">
+    <p class="eyebrow">2023 &ndash; 2026</p>
+    <h2>Before this</h2>
+    <p>Three years as a full-time parent while retraining into software. I started with data
+      engineering and machine learning, and moved to agentic development as the field did.
+      That period produced seventeen public repositories and a five-repository paper-trading
+      system. They are learning work, kept public and no longer growing.</p>
+    <p class="list">forecasting · anomaly detection · NLP · cloud ETL · ML serving ·
+      a Databricks medallion lakehouse · streaming analytics · a paper-trading arc</p>
+    <p class="links"><a href="https://github.com/mtichikawa">All repositories &rarr;</a></p>
+  </div>
+</section>
+
+<!-- ══ 5. CONTACT ══ -->
+<section class="contact">
+  <div class="wrap">
+    <h2>Let's talk.</h2>
+    <p>I am looking for AI engineering work, remote, and I am most useful where an agent has
+      to be right and somebody has to prove it.</p>
+    <p style="font-family:var(--mono);font-size:.9rem">
+      <a href="mailto:projects.ichikawa@gmail.com">projects.ichikawa@gmail.com</a><br />
+      <a href="https://www.linkedin.com/in/mike-ichikawa/">linkedin.com/in/mike-ichikawa</a><br />
+      <a href="https://github.com/mtichikawa">github.com/mtichikawa</a>
+    </p>
+  </div>
+</section>
+
+</body>
+</html>
