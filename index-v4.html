@@ -58,6 +58,26 @@ section:first-of-type{border-top:0}
 .hard .label{font-family:var(--mono);font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;
              color:var(--navy);display:block;margin-bottom:.3rem}
 .stack{font-family:var(--mono);font-size:.78rem;color:var(--ink-soft)}
+
+/* ── PROJECT INDEX (the skim layer) ── */
+.index{padding:2.75rem 0 2.25rem;background:var(--bg-soft);border-top:0}
+.index-lead{font-family:var(--mono);font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;
+            color:var(--ink-soft);margin:0 0 1.15rem}
+.idx{display:grid;gap:.15rem}
+.idx-row{display:grid;grid-template-columns:13.5rem 1fr;gap:.35rem 1.25rem;
+         padding:.85rem 0;border-top:1px solid var(--border-soft);align-items:baseline}
+.idx-row:last-child{border-bottom:1px solid var(--border-soft)}
+.idx-name{margin:0;font-family:var(--sans);font-weight:700;font-size:.95rem;line-height:1.35}
+.idx-name a{color:var(--ink);text-decoration:none;border-bottom:1px solid var(--border)}
+.idx-name a:hover{border-color:var(--accent);color:var(--accent)}
+.idx-what{margin:0;color:var(--ink-muted);font-size:.95rem;line-height:1.45}
+.idx-meta{grid-column:2;display:flex;flex-wrap:wrap;gap:.3rem .9rem;margin:.3rem 0 0;
+          font-family:var(--mono);font-size:.72rem;color:var(--ink-soft)}
+.idx-meta a{color:var(--accent);text-decoration:none;border-bottom:1px solid var(--border)}
+@media (max-width:640px){
+  .idx-row{grid-template-columns:1fr;padding:.95rem 0}
+  .idx-meta{grid-column:1}
+}
 .links{font-family:var(--mono);font-size:.8rem;margin-top:.6rem}
 .links a{margin-right:1.25rem;text-decoration:none;border-bottom:1px solid var(--border)}
 
@@ -124,8 +144,49 @@ section:first-of-type{border-top:0}
   </div>
 </header>
 
+<!-- ══ PROJECT INDEX ══ -->
+<section class="index">
+  <div class="wrap">
+    <p class="index-lead">What I've built</p>
+    <div class="idx">
+
+      <div class="idx-row">
+        <p class="idx-name"><a href="#agent">M365 agent</a></p>
+        <p class="idx-what">A production AI agent in Microsoft Teams that picks one action out of
+          eighty-five per request, and the scored test suite that tells me when it picks wrong.</p>
+        <p class="idx-meta">
+          <span>TypeScript &middot; Azure OpenAI &middot; Microsoft Graph &middot; Postgres</span>
+          <a href="https://marketplace.microsoft.com/en-us/product/saas/microclaw.microclaw?tab=Overview">Marketplace listing &rarr;</a>
+        </p>
+      </div>
+
+      <div class="idx-row">
+        <p class="idx-name"><a href="#engine">Workflow engine</a></p>
+        <p class="idx-what">A multi-agent engine for long jobs, with a validator that reports the
+          work a step quietly dropped instead of returning a green check.</p>
+        <p class="idx-meta">
+          <span>Python &middot; multi-agent orchestration</span>
+          <a href="https://mtichikawa.github.io/workflow-engine">Walkthrough &rarr;</a>
+        </p>
+      </div>
+
+      <div class="idx-row">
+        <p class="idx-name"><a href="#study">Coding-agent probe study</a></p>
+        <p class="idx-what">138 built environments testing what actually defeats a frontier coding
+          agent. It is not complexity. The task it produced fails Opus 5 and GPT-5.6 three times out
+          of three.</p>
+        <p class="idx-meta">
+          <span>Python &middot; Docker &middot; harbor</span>
+          <span>write-up in progress</span>
+        </p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
 <!-- ══ 1. THE AGENT ══ -->
-<section>
+<section id="agent">
   <div class="wrap">
     <p class="eyebrow">Built solo, start to finish</p>
     <h2>A production AI agent for Microsoft 365</h2>
@@ -180,7 +241,7 @@ section:first-of-type{border-top:0}
 </section>
 
 <!-- ══ 2. THE ENGINE ══ -->
-<section>
+<section id="engine">
   <div class="wrap">
     <p class="eyebrow">Built from scratch</p>
     <h2>A multi-agent workflow engine</h2>
@@ -218,7 +279,7 @@ section:first-of-type{border-top:0}
 </section>
 
 <!-- ══ 3. THE PROBE STUDY ══ -->
-<section>
+<section id="study">
   <div class="wrap">
     <p class="eyebrow">Research &middot; 138 probes</p>
     <h2>What it takes to stump a coding agent</h2>
@@ -342,5 +403,13 @@ The IntegrityError handler opened an APP_ADMIN session to look up the colliding 
   </div>
 </section>
 
+
+<!-- Analytics: GoatCounter. Free, no cookies, no consent banner needed.
+     Reports referrer, so you can see WHICH application or board drove a view.
+     ACTION REQUIRED: create the account at https://www.goatcounter.com/signup
+     with code "mtichikawa", then this works with no further edits. Until then
+     the script simply fails to load and nothing on the page breaks. -->
+<script data-goatcounter="https://mtichikawa.goatcounter.com/count"
+        async src="//gc.zgo.at/count.js"></script>
 </body>
 </html>

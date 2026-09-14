@@ -1,0 +1,1959 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="color-scheme" content="dark light" />
+
+  <title>Mike Ichikawa · Data Scientist & ML Engineer</title>
+  <meta name="description" content="Mike Ichikawa builds production LLM systems. I shipped Microclaw solo, a Microsoft 365 RAG agent on Teams with an agent loop that chains up to 35 tool calls, KNN tool selection at 95% recall, and RAG semantic memory. 17 public repos behind it." />
+  <meta name="author" content="Mike Ichikawa" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://mtichikawa.github.io/" />
+  <meta name="theme-color" content="#0B0D10" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="profile" />
+  <meta property="og:title" content="Mike Ichikawa · Data Scientist & ML Engineer" />
+  <meta property="og:description" content="I build and ship production LLM systems. Microclaw is a Microsoft 365 RAG agent on Teams: agent loop, KNN tool selection at 95% recall, RAG semantic memory. 17 public repos behind it." />
+  <meta property="og:url" content="https://mtichikawa.github.io/" />
+  <meta property="og:image" content="https://mtichikawa.github.io/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Mike Ichikawa, Data Scientist and ML Engineer. Built a production Microsoft 365 RAG agent." />
+  <meta property="profile:first_name" content="Mike" />
+  <meta property="profile:last_name" content="Ichikawa" />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Mike Ichikawa · Data Scientist & ML Engineer" />
+  <meta name="twitter:description" content="I build production LLM systems. Microclaw is a Microsoft 365 RAG agent on Teams: agent loop, KNN tool selection at 95% recall, RAG semantic memory." />
+  <meta name="twitter:image" content="https://mtichikawa.github.io/og-image.png" />
+  <meta name="twitter:image:alt" content="Mike Ichikawa, Data Scientist and ML Engineer." />
+
+  <!-- Favicons -->
+  <link rel="icon" href="/favicon.ico" sizes="any" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+
+  <!-- JSON-LD Person schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Mike Ichikawa",
+    "url": "https://mtichikawa.github.io/",
+    "image": "https://mtichikawa.github.io/og-image.png",
+    "jobTitle": "Data Scientist & ML Engineer",
+    "worksFor": { "@type": "Organization", "name": "Microclaw LLC" },
+    "alumniOf": [
+      { "@type": "CollegeOrUniversity", "name": "University of California, Berkeley" },
+      { "@type": "CollegeOrUniversity", "name": "City College of New York" }
+    ],
+    "knowsAbout": [
+      "LLM engineering", "RAG", "AI agents", "agent orchestration",
+      "KNN tool retrieval", "semantic memory", "model routing",
+      "machine learning", "data engineering", "anomaly detection",
+      "time series forecasting", "Bayesian experimentation"
+    ],
+    "sameAs": [
+      "https://github.com/mtichikawa",
+      "https://www.linkedin.com/in/michael-ichikawa",
+      "https://marketplace.microsoft.com/en-us/product/saas/microclaw.microclaw?tab=Overview"
+    ]
+  }
+  </script>
+
+  <!-- Inline theme bootstrap to avoid flash on load -->
+  <script>
+    (function () {
+      var stored = localStorage.getItem('theme');
+      var theme = (stored === 'light' || stored === 'dark')
+        ? stored
+        : (matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+      document.documentElement.setAttribute('data-theme', theme);
+    })();
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" />
+
+  <style>
+    /* ============================================================
+       RESET
+       ============================================================ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    img, svg, canvas { display: block; }
+    button { font: inherit; cursor: pointer; }
+    a { color: inherit; }
+
+    /* ============================================================
+       DESIGN TOKENS. Every value lives here. Dark is the default.
+       ============================================================ */
+    :root, html[data-theme="dark"] {
+      /* Surfaces */
+      --bg:        #0B0D10;
+      --panel:     #14171C;
+      --panel-2:   #1B1F26;
+      --band:      #070809;   /* darkest instrument-panel band */
+
+      /* Text */
+      --text:      #ECEEF1;
+      --muted:     #AEB4BD;   /* >= 4.5:1 on --bg */
+      --faint:     #8B929C;   /* metadata, still >= 4.5:1 on --bg */
+
+      /* Lines */
+      --line:      rgba(255,255,255,0.08);
+      --line-2:    rgba(255,255,255,0.14);
+
+      /* Accent: electric cyan, telemetry */
+      --acc:       #5EE6D0;
+      --acc-dim:   #2FA593;
+      --acc-soft:  rgba(94,230,208,0.12);
+      --acc-line:  rgba(94,230,208,0.30);
+      --on-acc:    #06201C;   /* ink on the cyan */
+
+      /* Demo series colors (work on dark panels) */
+      --series:    #5EE6D0;
+      --flag:      #FF6B5E;
+      --sigma:     #C9A24B;
+
+      /* Nav */
+      --nav-bg:    rgba(11,13,16,0.78);
+
+      --t-live:    #5EE6D0;
+    }
+
+    html[data-theme="light"] {
+      --bg:        #FFFFFF;
+      --panel:     #F5F6F8;
+      --panel-2:   #ECEEF1;
+      --band:      #0B0D10;   /* dark bands stay dark in light mode */
+
+      --text:      #0B0D10;
+      --muted:     #41464E;   /* >= 7:1 on white */
+      --faint:     #5A616B;   /* >= 4.5:1 on white */
+
+      --line:      rgba(0,0,0,0.12);
+      --line-2:    rgba(0,0,0,0.20);
+
+      --acc:       #0E9C86;   /* darker cyan for contrast on white */
+      --acc-dim:   #0B7E6D;
+      --acc-soft:  rgba(14,156,134,0.10);
+      --acc-line:  rgba(14,156,134,0.35);
+      --on-acc:    #FFFFFF;
+
+      --series:    #0E9C86;
+      --flag:      #D63A29;
+      --sigma:     #A07C18;
+
+      --nav-bg:    rgba(255,255,255,0.82);
+
+      --t-live:    #5EE6D0;
+    }
+
+    /* Tokens that stay constant across both modes (the dark bands) */
+    :root {
+      /* On-band text (dark bands look identical in both modes) */
+      --band-text:  #ECEEF1;
+      --band-muted: #AEB4BD;
+      --band-faint: #8B929C;
+      --band-line:  rgba(255,255,255,0.10);
+      --band-line2: rgba(255,255,255,0.16);
+      --band-panel: #14171C;
+
+      /* Type */
+      --display: 'Space Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+      --sans:    'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+      --mono:    'JetBrains Mono', 'SF Mono', Menlo, Consolas, monospace;
+
+      --fs-display:  clamp(46px, 8vw, 92px);
+      --fs-h1:       clamp(30px, 4.4vw, 50px);
+      --fs-h2:       clamp(24px, 3vw, 34px);
+      --fs-h3:       19px;
+      --fs-lead:     17px;
+      --fs-body:     16px;
+      --fs-sm:       14.5px;
+      --fs-label:    12px;
+      --fs-meta:     13px;
+
+      --lh-tight: 1.12;
+      --lh-snug:  1.4;
+      --lh-norm:  1.62;
+
+      --sp-2:  10px;  --sp-3: 16px;  --sp-4: 24px;
+      --sp-5:  34px;  --sp-6: 52px;  --sp-7: 80px;  --sp-8: 104px;
+
+      --page-max: 1320px;
+      --gutter: clamp(20px, 4vw, 56px);
+
+      --r-sm: 4px; --r-md: 8px; --r-lg: 14px;
+      --tx: 0.18s ease;
+    }
+
+    /* ============================================================
+       BASE
+       ============================================================ */
+    html, body { overflow-x: clip; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--sans);
+      font-weight: 400;
+      font-size: var(--fs-body);
+      line-height: var(--lh-norm);
+      -webkit-font-smoothing: antialiased;
+      overflow-wrap: break-word;
+      transition: background 0.25s ease, color 0.25s ease;
+    }
+
+    .mono { font-family: var(--mono); font-feature-settings: "tnum" 1; font-variant-numeric: tabular-nums; }
+
+    .skip-link {
+      position: absolute; left: 12px; top: -60px;
+      background: var(--acc); color: var(--on-acc);
+      font-family: var(--mono); font-size: 13px; font-weight: 500;
+      padding: 10px 16px; border-radius: var(--r-sm); z-index: 200;
+      transition: top var(--tx);
+    }
+    .skip-link:focus { top: 12px; }
+
+    a:focus-visible, button:focus-visible, select:focus-visible, input:focus-visible {
+      outline: 2px solid var(--acc);
+      outline-offset: 3px;
+      border-radius: 3px;
+    }
+
+    .wrap { max-width: var(--page-max); margin: 0 auto; padding: 0 var(--gutter); }
+    .section { padding: var(--sp-8) 0; }
+
+    /* Dark instrument-panel band */
+    .band {
+      background: var(--band);
+      color: var(--band-text);
+      padding: var(--sp-8) 0;
+      position: relative;
+      border-top: 1px solid var(--band-line);
+      border-bottom: 1px solid var(--band-line);
+    }
+    .band--grid::before {
+      content: '';
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(var(--band-line) 1px, transparent 1px),
+        linear-gradient(90deg, var(--band-line) 1px, transparent 1px);
+      background-size: 48px 48px;
+      mask-image: radial-gradient(ellipse 80% 70% at 50% 30%, #000 30%, transparent 80%);
+      -webkit-mask-image: radial-gradient(ellipse 80% 70% at 50% 30%, #000 30%, transparent 80%);
+      opacity: 0.5;
+      pointer-events: none;
+    }
+    .band .wrap { position: relative; z-index: 1; }
+
+    /* ============================================================
+       SECTION HEADERS
+       ============================================================ */
+    .eyebrow {
+      font-family: var(--mono);
+      font-size: var(--fs-label);
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--acc);
+      display: inline-flex; align-items: center; gap: 9px;
+      margin-bottom: 16px;
+    }
+    .band .eyebrow { color: var(--acc); }
+    .eyebrow::before {
+      content: ''; width: 22px; height: 1px; background: var(--acc-line);
+    }
+
+    .title {
+      font-family: var(--display);
+      font-size: var(--fs-h1);
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      line-height: var(--lh-tight);
+      color: var(--text);
+      margin-bottom: var(--sp-5);
+    }
+    .band .title { color: var(--band-text); }
+
+    /* Hairline that draws on reveal */
+    .rule {
+      height: 1px;
+      background: var(--line);
+      transform-origin: left;
+      transform: scaleX(0);
+      transition: transform 0.9s cubic-bezier(.2,.7,.2,1);
+    }
+    .rule.is-visible { transform: scaleX(1); }
+    .band .rule { background: var(--band-line2); }
+
+    /* ============================================================
+       BUTTONS
+       ============================================================ */
+    .btn {
+      display: inline-flex; align-items: center; gap: 9px;
+      font-family: var(--mono);
+      font-size: var(--fs-meta);
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      text-decoration: none;
+      padding: 13px 20px;
+      min-height: 44px;
+      border-radius: var(--r-sm);
+      border: 1px solid transparent;
+      transition: transform var(--tx), background var(--tx), border-color var(--tx), color var(--tx);
+      line-height: 1;
+    }
+    .btn:hover { transform: translateY(-1px); }
+    .btn__i { width: 15px; height: 15px; flex-shrink: 0; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+    .btn--primary { background: var(--acc); color: var(--on-acc); }
+    .btn--primary:hover { box-shadow: 0 0 0 1px var(--acc-line), 0 6px 22px -10px var(--acc); }
+
+    .btn--ghost { background: transparent; color: var(--text); border-color: var(--line-2); }
+    .btn--ghost:hover { border-color: var(--text); }
+    .band .btn--ghost { color: var(--band-text); border-color: var(--band-line2); }
+    .band .btn--ghost:hover { border-color: var(--band-text); }
+
+    /* ============================================================
+       NAV
+       ============================================================ */
+    .nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 60;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 14px var(--gutter);
+      background: var(--nav-bg);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid transparent;
+      transition: border-color var(--tx), background var(--tx);
+    }
+    .nav.is-scrolled { border-bottom-color: var(--line); }
+    .nav__brand {
+      font-family: var(--mono); font-weight: 500; font-size: 14px;
+      letter-spacing: 0.01em; text-decoration: none; color: var(--text);
+      display: inline-flex; align-items: center; gap: 9px;
+    }
+    .nav__brand .dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: var(--acc); box-shadow: 0 0 8px var(--acc);
+    }
+    .nav__links { display: flex; align-items: center; gap: 26px; list-style: none; }
+    .nav__links a {
+      font-family: var(--mono); font-size: var(--fs-label); font-weight: 500;
+      letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none;
+      color: var(--muted); transition: color var(--tx);
+    }
+    .nav__links a:hover { color: var(--acc); }
+
+    .icon-btn {
+      width: 44px; height: 44px;
+      display: inline-flex; align-items: center; justify-content: center;
+      background: transparent; border: 1px solid var(--line-2);
+      border-radius: var(--r-sm); color: var(--muted);
+      transition: color var(--tx), border-color var(--tx);
+    }
+    .icon-btn:hover { color: var(--text); border-color: var(--text); }
+    .icon-btn svg { width: 17px; height: 17px; stroke: currentColor; fill: none; stroke-width: 1.8; }
+
+    .nav__burger { display: none; }
+
+    /* Mobile drawer */
+    .drawer {
+      position: fixed; inset: 0; z-index: 70;
+      background: var(--bg);
+      display: none; flex-direction: column;
+      padding: 80px var(--gutter) var(--gutter);
+    }
+    .drawer.is-open { display: flex; }
+    .drawer a {
+      font-family: var(--display); font-size: 26px; font-weight: 600;
+      letter-spacing: -0.01em; text-decoration: none; color: var(--text);
+      padding: 16px 0; border-bottom: 1px solid var(--line);
+    }
+    .drawer__close {
+      position: absolute; top: 14px; right: var(--gutter);
+    }
+
+    /* ============================================================
+       HERO
+       ============================================================ */
+    .hero { padding-top: 124px; padding-bottom: var(--sp-7); }
+    .hero__grid {
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: var(--sp-7);
+      align-items: center;
+    }
+    .hero__tag {
+      font-family: var(--mono); font-size: var(--fs-label); font-weight: 500;
+      letter-spacing: 0.14em; text-transform: uppercase; color: var(--faint);
+      margin-bottom: var(--sp-4);
+    }
+    .hero__name {
+      font-family: var(--display);
+      font-size: var(--fs-display);
+      font-weight: 700;
+      letter-spacing: -0.035em;
+      line-height: 0.95;
+      color: var(--text);
+      margin-bottom: 14px;
+    }
+    .hero__role {
+      font-family: var(--mono); font-size: clamp(15px, 2vw, 19px);
+      font-weight: 400; color: var(--acc); letter-spacing: 0.01em;
+      margin-bottom: var(--sp-4);
+    }
+    .hero__bio {
+      max-width: 560px; font-size: var(--fs-lead); color: var(--muted);
+      line-height: var(--lh-norm); margin-bottom: var(--sp-5);
+    }
+    .hero__bio strong { color: var(--text); font-weight: 600; }
+    .hero__cta { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: var(--sp-5); }
+
+    .telemetry {
+      display: flex; flex-wrap: wrap; gap: 10px 22px;
+      font-family: var(--mono); font-size: var(--fs-meta);
+      color: var(--faint);
+    }
+    .telemetry b { color: var(--text); font-weight: 500; }
+    .telemetry .sep { color: var(--acc); }
+
+    /* Hero live demo panel (ambient anomaly canvas) */
+    .hero__panel {
+      background: var(--band);
+      border: 1px solid var(--band-line2);
+      border-radius: var(--r-lg);
+      overflow: hidden;
+      box-shadow: 0 30px 60px -40px rgba(0,0,0,0.7);
+    }
+    .panel__bar {
+      display: flex; align-items: center; gap: 9px;
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--band-line);
+      font-family: var(--mono); font-size: var(--fs-label);
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--band-faint);
+    }
+    .panel__bar .live {
+      display: inline-flex; align-items: center; gap: 7px;
+      color: var(--acc); margin-left: auto;
+    }
+    .live__dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: var(--acc); box-shadow: 0 0 8px var(--acc);
+      animation: pulse 2s ease-in-out infinite;
+    }
+    @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.35; } }
+    .hero__canvas-wrap {
+      height: 200px; position: relative; background: var(--band);
+    }
+    .hero__canvas-wrap canvas { width: 100%; height: 100%; }
+    .hero__panel-foot {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      border-top: 1px solid var(--band-line);
+    }
+    .hero__panel-foot .tile {
+      padding: 12px 14px; border-right: 1px solid var(--band-line);
+    }
+    .hero__panel-foot .tile:last-child { border-right: none; }
+    .tile__k { font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--band-faint); margin-bottom: 3px; }
+    .tile__v { font-family: var(--mono); font-size: 16px; font-weight: 500; color: var(--band-text); }
+
+    /* ============================================================
+       LIVE DEMOS (dark band)
+       ============================================================ */
+    .demos-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+    .demo {
+      background: var(--band-panel);
+      border: 1px solid var(--band-line2);
+      border-radius: var(--r-lg);
+      overflow: hidden;
+      display: flex; flex-direction: column;
+    }
+    .demo__head { padding: 22px 24px 6px; }
+    .demo__label {
+      font-family: var(--mono); font-size: var(--fs-label); font-weight: 500;
+      letter-spacing: 0.16em; text-transform: uppercase; color: var(--acc);
+      margin-bottom: 8px;
+    }
+    .demo__title {
+      font-family: var(--display); font-size: 21px; font-weight: 600;
+      letter-spacing: -0.01em; color: var(--band-text); margin-bottom: 8px;
+    }
+    .demo__desc { font-size: var(--fs-sm); color: var(--band-muted); line-height: var(--lh-norm); }
+    .demo__body { padding: 18px 24px 24px; flex: 1; }
+
+    .ctrls { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 16px; }
+    .ctrl__label {
+      display: block; font-family: var(--mono); font-size: var(--fs-label);
+      font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase;
+      color: var(--band-muted); margin-bottom: 7px;
+    }
+    .ctrl select, .ctrl input[type="range"] { width: 100%; }
+    .ctrl select {
+      background: var(--band); border: 1px solid var(--band-line2);
+      color: var(--band-text); font-family: var(--mono); font-size: var(--fs-meta);
+      padding: 9px 10px; border-radius: var(--r-sm); min-height: 40px;
+    }
+    .ctrl input[type="range"] { accent-color: var(--acc); height: 40px; }
+    .ctrl__val { font-family: var(--mono); font-size: var(--fs-meta); color: var(--acc); }
+
+    .stat-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 14px; }
+    .stat-tile {
+      background: var(--band); border: 1px solid var(--band-line);
+      padding: 11px 12px; border-radius: var(--r-sm);
+    }
+    .stat-tile__label {
+      font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.08em;
+      text-transform: uppercase; color: var(--band-faint); margin-bottom: 4px;
+    }
+    .stat-tile__val { font-family: var(--mono); font-size: 16px; font-weight: 500; color: var(--band-text); font-variant-numeric: tabular-nums; }
+
+    .arms { display: flex; gap: 8px; margin-bottom: 14px; flex-wrap: wrap; }
+    .arm { flex: 1 1 0; min-width: 52px; display: flex; flex-direction: column; align-items: center; gap: 5px; }
+    .arm__head { font-family: var(--mono); font-size: 11.5px; color: var(--band-muted); text-align: center; line-height: var(--lh-snug); }
+    .arm__head-p { color: var(--band-faint); }
+    .arm__bar {
+      width: 100%; height: 84px; background: var(--band);
+      border: 1px solid var(--band-line2); border-radius: var(--r-sm); position: relative;
+    }
+    .arm__bar-fill {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      border-radius: var(--r-sm) var(--r-sm) 0 0; transition: height 0.4s ease;
+    }
+    .arm__count { font-family: var(--mono); font-size: 11px; color: var(--band-muted); }
+
+    .regret-chart { width: 100%; height: 60px; margin-bottom: 14px; color: var(--band-faint); }
+
+    .demo-btn {
+      width: 100%; background: var(--acc); color: var(--on-acc); border: none;
+      font-family: var(--mono); font-size: var(--fs-meta); font-weight: 500;
+      letter-spacing: 0.06em; padding: 13px; min-height: 44px;
+      border-radius: var(--r-sm); transition: filter var(--tx);
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+    }
+    .demo-btn:hover { filter: brightness(1.08); }
+    .demo-btn:disabled { opacity: 0.5; cursor: wait; }
+    .demo-btn svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+    .canvas-wrap {
+      width: 100%; height: 150px; background: var(--band);
+      border: 1px solid var(--band-line2); border-radius: var(--r-sm);
+      margin-bottom: 12px; position: relative; overflow: hidden;
+    }
+    .canvas-wrap canvas { width: 100%; height: 100%; }
+    .legend { display: flex; flex-wrap: wrap; gap: 16px; margin-bottom: 14px; }
+    .legend__item { display: inline-flex; align-items: center; gap: 6px; font-family: var(--mono); font-size: 11.5px; color: var(--band-muted); }
+    .legend__dot { width: 9px; height: 9px; border-radius: 50%; }
+
+    .demo-btn-row { display: flex; gap: 8px; }
+    .demo-btn--ghost {
+      flex: 1; background: transparent; color: var(--band-muted);
+      border: 1px solid var(--band-line2);
+    }
+    .demo-btn--ghost:hover { background: var(--band-panel); color: var(--band-text); border-color: var(--band-text); }
+
+    .log {
+      font-family: var(--mono); font-size: 11.5px; color: var(--band-muted);
+      background: var(--band); border: 1px solid var(--band-line);
+      border-radius: var(--r-sm); padding: 10px 12px;
+      max-height: 64px; overflow-y: auto; margin-top: 12px;
+    }
+    .log p { margin-bottom: 2px; }
+    .log p.is-flagged { color: var(--flag); }
+
+    /* ============================================================
+       MICROCLAW CASE STUDY (dark band)
+       ============================================================ */
+    .mc__head { display: flex; flex-wrap: wrap; gap: 14px 18px; align-items: center; margin-bottom: 18px; }
+    .mc__title {
+      font-family: var(--display); font-size: clamp(36px, 6vw, 64px);
+      font-weight: 700; letter-spacing: -0.03em; line-height: 0.95; color: var(--band-text);
+    }
+    .mc__status {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-family: var(--mono); font-size: var(--fs-meta); font-weight: 500;
+      color: var(--acc); padding: 8px 14px;
+      background: var(--acc-soft); border: 1px solid var(--acc-line); border-radius: 999px;
+    }
+    .mc__lead {
+      max-width: 820px; font-size: var(--fs-lead); color: var(--band-muted);
+      line-height: var(--lh-norm); margin-bottom: var(--sp-5);
+    }
+    .mc__lead strong { color: var(--band-text); font-weight: 600; }
+
+    .mc__metrics {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px;
+      background: var(--band-line2); border: 1px solid var(--band-line2);
+      border-radius: var(--r-md); overflow: hidden; margin-bottom: var(--sp-6);
+    }
+    .mc__metric { background: var(--band); padding: 24px 22px; }
+    .mc__metric-num {
+      font-family: var(--mono); font-size: clamp(28px, 4vw, 40px); font-weight: 500;
+      color: var(--acc); line-height: 1; letter-spacing: -0.01em; font-variant-numeric: tabular-nums;
+      margin-bottom: 8px;
+    }
+    .mc__metric-label { font-size: var(--fs-sm); color: var(--band-muted); line-height: var(--lh-snug); }
+
+    .mc__features { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--band-line2); border: 1px solid var(--band-line2); border-radius: var(--r-md); overflow: hidden; margin-bottom: var(--sp-5); }
+    .mc__feat { background: var(--band-panel); padding: 24px 22px; display: flex; flex-direction: column; gap: 9px; }
+    .mc__feat--lead { background: var(--band); box-shadow: inset 3px 0 0 var(--acc); }
+    .mc__feat-label { font-family: var(--mono); font-size: var(--fs-label); font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; color: var(--acc); }
+    .mc__feat-title { font-family: var(--display); font-size: var(--fs-h3); font-weight: 600; letter-spacing: -0.01em; color: var(--band-text); line-height: var(--lh-snug); }
+    .mc__feat-body { font-size: var(--fs-sm); color: var(--band-muted); line-height: var(--lh-norm); }
+    .mc__feat-body strong { color: var(--band-text); font-weight: 600; }
+    .mc__feat-body code {
+      font-family: var(--mono); font-size: 12px; background: var(--band);
+      padding: 1px 6px; border-radius: 3px; color: var(--acc); border: 1px solid var(--band-line);
+      overflow-wrap: break-word;
+    }
+
+    .mc__note { font-size: var(--fs-sm); color: var(--band-muted); line-height: var(--lh-norm); max-width: 860px; margin-bottom: var(--sp-5); padding-left: 16px; border-left: 2px solid var(--acc-line); }
+    .mc__note strong { color: var(--band-text); font-weight: 600; }
+
+    .mc__stack-label { font-family: var(--mono); font-size: var(--fs-label); font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; color: var(--band-faint); margin-bottom: 12px; }
+    .mc__stack { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: var(--sp-5); }
+    .tag {
+      font-family: var(--mono); font-size: 12px; color: var(--band-muted);
+      background: var(--band); border: 1px solid var(--band-line2);
+      padding: 5px 10px; border-radius: var(--r-sm); overflow-wrap: break-word;
+    }
+    .mc__cta { display: flex; flex-wrap: wrap; gap: 12px; }
+
+    /* ============================================================
+       PROJECTS
+       ============================================================ */
+    .seg {
+      display: flex; flex-wrap: wrap; gap: 6px; align-items: center; margin-bottom: var(--sp-5);
+    }
+    .seg__label { font-family: var(--mono); font-size: var(--fs-label); font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; color: var(--faint); margin-right: 8px; }
+    .pill {
+      font-family: var(--mono); font-size: var(--fs-meta); color: var(--muted);
+      background: var(--panel); border: 1px solid var(--line);
+      padding: 7px 12px; min-height: 36px; border-radius: 999px;
+      transition: border-color var(--tx), color var(--tx), background var(--tx);
+    }
+    .pill:hover { border-color: var(--line-2); color: var(--text); }
+    .pill.is-active { background: var(--acc); color: var(--on-acc); border-color: var(--acc); }
+
+    /* Featured projects (larger) */
+    .feat-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-bottom: 16px; }
+    .feat {
+      display: flex; flex-direction: column; gap: 12px;
+      padding: 28px; background: var(--panel);
+      border: 1px solid var(--line); border-radius: var(--r-md);
+      text-decoration: none; color: inherit;
+      transition: border-color var(--tx), transform var(--tx), background var(--tx);
+      position: relative;
+    }
+    .feat:hover { border-color: var(--acc-line); transform: translateY(-2px); }
+    .feat__top { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+    .feat__name { font-family: var(--display); font-size: var(--fs-h3); font-weight: 600; letter-spacing: -0.01em; color: var(--text); }
+    .feat__metric { font-family: var(--mono); font-size: var(--fs-meta); font-weight: 500; color: var(--acc); white-space: nowrap; }
+    .feat__desc { font-size: var(--fs-sm); color: var(--muted); line-height: var(--lh-norm); flex: 1; }
+    .feat__tags { display: flex; flex-wrap: wrap; gap: 5px; }
+    .feat__tags .tag { background: var(--panel-2); border-color: var(--line); color: var(--muted); }
+    .feat__foot { display: flex; align-items: center; justify-content: space-between; margin-top: 2px; }
+    .feat__signals { font-family: var(--mono); font-size: var(--fs-meta); color: var(--faint); }
+    .feat__arrow { width: 18px; height: 18px; stroke: var(--faint); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; transition: stroke var(--tx), transform var(--tx); }
+    .feat:hover .feat__arrow { stroke: var(--acc); transform: translate(2px,-2px); }
+
+    /* Compact project list */
+    .plist { border-top: 1px solid var(--line); }
+    .prow {
+      display: grid; grid-template-columns: 1.1fr 1.6fr auto;
+      gap: 20px; align-items: center;
+      padding: 18px 4px; border-bottom: 1px solid var(--line);
+      text-decoration: none; color: inherit;
+      transition: background var(--tx), padding var(--tx);
+    }
+    .prow:hover { background: var(--panel); }
+    .prow__name { font-family: var(--display); font-size: 17px; font-weight: 600; letter-spacing: -0.01em; color: var(--text); }
+    .prow__desc { font-size: var(--fs-sm); color: var(--muted); line-height: var(--lh-snug); }
+    .prow__stack { font-family: var(--mono); font-size: var(--fs-meta); color: var(--faint); white-space: nowrap; }
+    .prow__arrow { width: 16px; height: 16px; stroke: var(--faint); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+    .prow:hover .prow__arrow { stroke: var(--acc); }
+
+    /* ============================================================
+       TRADING ARC (dark band)
+       ============================================================ */
+    .trading__intro { max-width: 720px; font-size: var(--fs-body); color: var(--band-muted); line-height: var(--lh-norm); margin-bottom: var(--sp-6); }
+    .arc { display: grid; grid-template-columns: repeat(5, 1fr); gap: 0; position: relative; }
+    .arc::after {
+      content: ''; position: absolute; top: 31px; left: 9%; right: 9%; height: 1px;
+      background: linear-gradient(90deg, transparent, var(--band-line2) 14%, var(--band-line2) 86%, transparent);
+      pointer-events: none;
+    }
+    .node { display: flex; flex-direction: column; align-items: center; gap: 12px; padding: 0 8px; text-align: center; }
+    .node__dot {
+      width: 62px; height: 62px; border-radius: 50%;
+      background: var(--acc-soft); border: 1px solid var(--acc-line); color: var(--acc);
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--mono); font-size: 14px; font-weight: 500; z-index: 1;
+    }
+    .node__name { font-family: var(--mono); font-size: var(--fs-meta); font-weight: 500; }
+    .node__name a { color: var(--band-text); text-decoration: underline; text-decoration-color: var(--band-line2); text-underline-offset: 3px; transition: text-decoration-color var(--tx); }
+    .node__name a:hover { text-decoration-color: var(--acc); }
+    .node__stack { font-size: var(--fs-meta); color: var(--band-muted); line-height: var(--lh-snug); }
+    .node__date { font-family: var(--mono); font-size: var(--fs-meta); color: var(--band-faint); letter-spacing: 0.04em; }
+    .trading__note { margin-top: var(--sp-6); padding: 20px 22px; background: rgba(255,255,255,0.03); border-left: 2px solid var(--acc-line); border-radius: 3px; max-width: 920px; }
+    .trading__note p { font-size: var(--fs-body); color: var(--band-muted); line-height: var(--lh-norm); }
+    .trading__note strong { color: var(--acc); font-weight: 500; }
+    .trading__cta { margin-top: var(--sp-5); }
+
+    /* ============================================================
+       BACKGROUND
+       ============================================================ */
+    .bg-grid { display: grid; grid-template-columns: 1.25fr 1fr; gap: var(--sp-7); align-items: start; }
+    .bg-prose p { font-size: var(--fs-lead); color: var(--muted); line-height: var(--lh-norm); margin-bottom: 16px; }
+    .bg-prose p:last-child { margin-bottom: 0; }
+    .bg-prose strong { color: var(--text); font-weight: 600; }
+    .stat-cards { display: flex; flex-direction: column; gap: 14px; }
+    .stat-card { padding: 26px; background: var(--panel); border: 1px solid var(--line); border-radius: var(--r-md); }
+    .stat-card--now { border-color: var(--acc-line); }
+    .stat-card__label { font-family: var(--mono); font-size: var(--fs-label); font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; color: var(--faint); margin-bottom: 10px; }
+    .stat-card__num { font-family: var(--display); font-size: 46px; font-weight: 700; letter-spacing: -0.03em; line-height: 1; color: var(--acc); margin-bottom: 6px; }
+    .stat-card__title { font-family: var(--display); font-size: var(--fs-h3); font-weight: 600; color: var(--text); margin-bottom: 10px; }
+    .stat-card__body { font-size: var(--fs-sm); color: var(--muted); line-height: var(--lh-snug); }
+
+    /* ============================================================
+       SKILLS
+       ============================================================ */
+    .skills-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px 36px; }
+    .skill-cat--lead { grid-column: 1 / -1; padding: 22px 24px; background: var(--panel); border: 1px solid var(--acc-line); border-radius: var(--r-md); }
+    .skill-cat__label { font-family: var(--mono); font-size: var(--fs-label); font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; color: var(--acc); padding-bottom: 10px; margin-bottom: 14px; border-bottom: 1px solid var(--line); }
+    .skill-cat--lead .skill-cat__label { color: var(--acc); }
+    .skill-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+    .skill-chips span { font-family: var(--mono); font-size: var(--fs-meta); color: var(--muted); background: var(--panel-2); border: 1px solid var(--line); padding: 5px 11px; border-radius: var(--r-sm); }
+    .skill-cat--lead .skill-chips span { background: var(--acc-soft); border-color: var(--acc-line); color: var(--text); }
+
+    /* ============================================================
+       CONTACT / FOOTER (always dark band)
+       ============================================================ */
+    .contact { background: var(--band); color: var(--band-text); padding: var(--sp-8) 0 var(--sp-7); }
+    .contact .wrap { display: grid; grid-template-columns: 1fr auto; gap: var(--sp-6); align-items: center; }
+    .contact .eyebrow { color: var(--acc); }
+    .contact__heading { font-family: var(--display); font-size: var(--fs-h1); font-weight: 600; letter-spacing: -0.02em; line-height: var(--lh-tight); color: var(--band-text); margin-bottom: 16px; }
+    .contact__sub { max-width: 420px; font-size: var(--fs-body); color: var(--band-muted); line-height: var(--lh-norm); }
+    .contact__links { display: flex; flex-direction: column; gap: 10px; }
+    .contact__link {
+      display: inline-flex; align-items: center; gap: 12px; text-decoration: none;
+      font-family: var(--mono); font-size: 14px; color: var(--band-muted);
+      padding: 13px 18px; min-height: 44px; border: 1px solid var(--band-line2);
+      border-left: 3px solid transparent; border-radius: var(--r-sm);
+      transition: color var(--tx), border-color var(--tx), transform var(--tx);
+      overflow-wrap: break-word;
+    }
+    .contact__link:hover { color: var(--band-text); border-left-color: var(--acc); transform: translateX(3px); }
+    .contact__link svg { width: 17px; height: 17px; stroke: currentColor; fill: none; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; }
+
+    .foot { background: var(--band); border-top: 1px solid var(--band-line); padding: 18px var(--gutter); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px; }
+    .foot span { font-family: var(--mono); font-size: var(--fs-meta); letter-spacing: 0.02em; color: var(--band-faint); }
+    .foot b { color: var(--band-muted); font-weight: 500; }
+
+    /* ============================================================
+       REVEAL ANIMATION
+       ============================================================ */
+    .reveal { opacity: 0; transform: translateY(16px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    .reveal.is-visible { opacity: 1; transform: translateY(0); }
+
+    /* ============================================================
+       RESPONSIVE
+       ============================================================ */
+    @media (max-width: 1080px) {
+      .hero__grid { grid-template-columns: 1fr; gap: var(--sp-6); }
+      .mc__features { grid-template-columns: 1fr 1fr; }
+      .bg-grid { grid-template-columns: 1fr; gap: var(--sp-5); }
+    }
+    @media (max-width: 860px) {
+      .nav__links { display: none; }
+      .nav__burger { display: inline-flex; }
+      .demos-grid { grid-template-columns: 1fr; }
+      .feat-grid { grid-template-columns: 1fr; }
+      .mc__metrics { grid-template-columns: 1fr; }
+      .mc__features { grid-template-columns: 1fr; }
+      .arc { grid-template-columns: 1fr; gap: 18px; }
+      .arc::after { display: none; }
+      .skills-grid { grid-template-columns: 1fr 1fr; }
+      .contact .wrap { grid-template-columns: 1fr; }
+      .prow { grid-template-columns: 1fr auto; }
+      .prow__stack { display: none; }
+    }
+    @media (max-width: 420px) {
+      :root { --sp-7: 56px; --sp-8: 64px; }
+      .skills-grid { grid-template-columns: 1fr; }
+      .ctrls { grid-template-columns: 1fr; }
+      .stat-row { grid-template-columns: 1fr 1fr; }
+      .demo-btn-row { flex-direction: column; }
+      .demo-btn--ghost { width: 100%; }
+      .arms { display: grid; grid-template-columns: repeat(3, 1fr); }
+      .hero__panel-foot { grid-template-columns: 1fr 1fr; }
+      .hero__name { font-size: clamp(40px, 14vw, 56px); }
+      .prow { grid-template-columns: 1fr; gap: 6px; }
+      .prow__arrow { display: none; }
+    }
+
+    /* ============================================================
+       REDUCED MOTION
+       ============================================================ */
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; }
+      .reveal { opacity: 1; transform: none; }
+      .rule { transform: scaleX(1); }
+    }
+  </style>
+</head>
+
+<body>
+  <a href="#main" class="skip-link">Skip to content</a>
+
+  <!-- ========================== NAV ========================== -->
+  <header>
+    <nav class="nav" id="nav" aria-label="Primary">
+      <a href="#hero" class="nav__brand"><span class="dot" aria-hidden="true"></span>Mike Ichikawa</a>
+      <ul class="nav__links">
+        <li><a href="#demos">Demos</a></li>
+        <li><a href="#microclaw">RAG Agent</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#trading">Trading</a></li>
+        <li><a href="#background">Background</a></li>
+        <li><a href="#contact">Contact</a></li>
+        <li><button id="theme-toggle" class="icon-btn" aria-label="Toggle color theme"></button></li>
+      </ul>
+      <div class="nav__burger" style="display:none; gap:8px;">
+        <button id="theme-toggle-m" class="icon-btn" aria-label="Toggle color theme"></button>
+        <button id="burger" class="icon-btn" aria-label="Open menu" aria-expanded="false" aria-controls="drawer">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Mobile drawer -->
+  <div class="drawer" id="drawer" aria-hidden="true">
+    <button class="icon-btn drawer__close" id="drawer-close" aria-label="Close menu">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+    <a href="#demos">Live Demos</a>
+    <a href="#microclaw">RAG Agent</a>
+    <a href="#projects">Projects</a>
+    <a href="#trading">Trading System</a>
+    <a href="#background">Background</a>
+    <a href="#skills">Skills</a>
+    <a href="#contact">Contact</a>
+  </div>
+
+  <main id="main">
+
+  <!-- ========================== HERO ========================== -->
+  <section id="hero" class="hero section" aria-labelledby="hero-name">
+    <div class="wrap hero__grid">
+      <div class="hero__copy">
+        <p class="hero__tag">Portland, OR · Data Science · ML Engineering</p>
+        <h1 class="hero__name" id="hero-name">Mike<br>Ichikawa</h1>
+        <p class="hero__role">AI/ML engineer who ships production LLM systems</p>
+        <p class="hero__bio">
+          I built <strong>Microclaw</strong>, a production Microsoft 365 RAG agent on Teams, solo and end to end.
+          It runs an agent loop that chains up to 35 tool calls per task and uses KNN tool selection that hits
+          95% recall over 84 Graph tools. Before this I spent three years in physical design at Intel and nine
+          years teaching undergraduate math. <strong>BS Mechanical Engineering. MS Mathematics.</strong>
+        </p>
+        <div class="hero__cta">
+          <a class="btn btn--primary" href="/resume.html" target="_blank" rel="noopener">
+            Resume
+            <svg class="btn__i" viewBox="0 0 24 24" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+          </a>
+          <a class="btn btn--ghost" href="#contact">
+            Email me
+            <svg class="btn__i" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><polyline points="3 7 12 13 21 7"/></svg>
+          </a>
+        </div>
+        <p class="telemetry mono">
+          <span><b>17</b> public repos</span><span class="sep">·</span>
+          <span><b>5</b>-repo trading system</span><span class="sep">·</span>
+          <span>agent <b>live on AppSource</b></span>
+        </p>
+      </div>
+
+      <!-- Ambient live anomaly canvas: proof in the first 3 seconds -->
+      <figure class="hero__panel" aria-labelledby="hero-panel-cap">
+        <figcaption id="hero-panel-cap" class="panel__bar">
+          <span>anomaly_stream.live</span>
+          <span class="live"><span class="live__dot" aria-hidden="true"></span>running</span>
+        </figcaption>
+        <div class="hero__canvas-wrap">
+          <canvas id="hero-canvas" role="img" aria-label="Live streaming time series. A rolling 3-sigma band tracks the signal and flags outliers in real time."></canvas>
+        </div>
+        <div class="hero__panel-foot">
+          <div class="tile"><div class="tile__k">points</div><div class="tile__v mono" id="hero-points">0</div></div>
+          <div class="tile"><div class="tile__k">flagged</div><div class="tile__v mono" id="hero-flagged" style="color:var(--flag)">0</div></div>
+          <div class="tile"><div class="tile__k">window</div><div class="tile__v mono">3σ / 20</div></div>
+        </div>
+      </figure>
+    </div>
+  </section>
+
+  <!-- ========================== LIVE DEMOS (band) ========================== -->
+  <section id="demos" class="band band--grid" aria-labelledby="demos-title">
+    <div class="wrap">
+      <p class="eyebrow">Interactive · Runs in your browser</p>
+      <h2 class="title" id="demos-title">Live demos, not screenshots</h2>
+      <div class="rule reveal" style="margin-bottom: var(--sp-6); max-width: 220px;"></div>
+
+      <div class="demos-grid">
+
+        <!-- Bandit demo -->
+        <div class="demo">
+          <div class="demo__head">
+            <p class="demo__label">Multi-armed bandit</p>
+            <h3 class="demo__title">Bandit algorithm simulator</h3>
+            <p class="demo__desc">Run a simulation and watch the algorithm allocate pulls. Thompson Sampling draws from Bayesian Beta distributions, so uncertainty about each arm's true win rate drives exploration.</p>
+          </div>
+          <div class="demo__body">
+            <div class="ctrls">
+              <div class="ctrl">
+                <label class="ctrl__label" for="b-algo">Algorithm</label>
+                <select id="b-algo">
+                  <option value="thompson">Thompson Sampling</option>
+                  <option value="ucb">UCB1</option>
+                  <option value="epsilon">Epsilon-Greedy (ε=0.1)</option>
+                </select>
+              </div>
+              <div class="ctrl">
+                <label class="ctrl__label" for="b-rounds">Rounds: <span class="ctrl__val mono" id="b-rounds-val">500</span></label>
+                <input type="range" id="b-rounds" min="100" max="2000" value="500" step="100" />
+              </div>
+            </div>
+
+            <div class="stat-row" aria-live="polite">
+              <div class="stat-tile"><p class="stat-tile__label">Total reward</p><p class="stat-tile__val" id="b-reward">0</p></div>
+              <div class="stat-tile"><p class="stat-tile__label">Regret</p><p class="stat-tile__val" id="b-regret">0</p></div>
+              <div class="stat-tile"><p class="stat-tile__label">Best arm</p><p class="stat-tile__val" id="b-best">·</p></div>
+            </div>
+
+            <svg class="regret-chart" id="b-chart" viewBox="0 0 400 60" preserveAspectRatio="none" role="img" aria-label="Cumulative regret curve over the simulation."></svg>
+
+            <div class="arms" id="b-arms"></div>
+
+            <button class="demo-btn" id="b-run">
+              Run simulation
+              <svg viewBox="0 0 24 24" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- Anomaly demo -->
+        <div class="demo">
+          <div class="demo__head">
+            <p class="demo__label">Anomaly detection</p>
+            <h3 class="demo__title">Live anomaly detector</h3>
+            <p class="demo__desc">A streaming time series with simulated anomalies. The detector keeps a rolling statistical model and flags points more than 3σ from the local mean. Watch it adapt as the signal shifts.</p>
+          </div>
+          <div class="demo__body">
+            <div class="canvas-wrap">
+              <canvas id="a-canvas" role="img" aria-label="Streaming time series with a rolling 3-sigma band. Flagged outliers are marked in red."></canvas>
+            </div>
+            <div class="legend">
+              <span class="legend__item"><span class="legend__dot" style="background:var(--series)"></span>Normal</span>
+              <span class="legend__item"><span class="legend__dot" style="background:var(--flag)"></span>Flagged</span>
+              <span class="legend__item"><span class="legend__dot" style="background:var(--sigma); opacity:0.7"></span>σ band</span>
+            </div>
+            <div class="stat-row" aria-live="polite">
+              <div class="stat-tile"><p class="stat-tile__label">Points</p><p class="stat-tile__val" id="a-points">0</p></div>
+              <div class="stat-tile"><p class="stat-tile__label">Flagged</p><p class="stat-tile__val" id="a-flagged" style="color: var(--flag);">0</p></div>
+              <div class="stat-tile"><p class="stat-tile__label">Rate</p><p class="stat-tile__val" id="a-rate">0%</p></div>
+            </div>
+            <div class="demo-btn-row">
+              <button class="demo-btn demo-btn--ghost" id="a-toggle">■ Stop stream</button>
+              <button class="demo-btn demo-btn--ghost" id="a-inject">Inject anomaly</button>
+              <button class="demo-btn demo-btn--ghost" id="a-reset">Reset</button>
+            </div>
+            <div class="log" id="a-log" aria-live="polite"><p>Stream starting…</p></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================== MICROCLAW CASE STUDY (band) ========================== -->
+  <section id="microclaw" class="band" aria-labelledby="mc-title">
+    <div class="wrap">
+      <p class="eyebrow">Featured · Live on Microsoft AppSource</p>
+
+      <div class="mc__head">
+        <h2 class="mc__title" id="mc-title">Microclaw</h2>
+        <span class="mc__status">
+          <span class="live__dot" aria-hidden="true"></span>
+          Passed Microsoft AppSource certification
+        </span>
+      </div>
+
+      <p class="mc__lead">
+        A production Microsoft 365 RAG agent that lives inside Teams. It works across email, calendar, tasks,
+        files, notes, and channels from one conversation, running on Microsoft Graph with delegated OAuth.
+        I built it solo, end to end. The engineering that matters is the ML around the agent loop: an
+        orchestration harness, KNN tool selection at <strong>95% recall</strong>, RAG semantic memory, a model
+        router, and a 107-test eval harness benchmarked against another agent.
+      </p>
+
+      <div class="mc__metrics">
+        <div class="mc__metric reveal">
+          <p class="mc__metric-num" data-count="95" data-suffix="%">95%</p>
+          <p class="mc__metric-label">KNN tool-selection recall, vs 92.7% embedding-only</p>
+        </div>
+        <div class="mc__metric reveal">
+          <p class="mc__metric-num">~6 / 84</p>
+          <p class="mc__metric-label">tools selected per request, down from 18</p>
+        </div>
+        <div class="mc__metric reveal">
+          <p class="mc__metric-num" data-count="374">374</p>
+          <p class="mc__metric-label">Vitest unit tests on a multi-tenant codebase</p>
+        </div>
+      </div>
+
+      <div class="mc__features">
+
+        <div class="mc__feat mc__feat--lead reveal">
+          <p class="mc__feat-label">Agent orchestration loop</p>
+          <h3 class="mc__feat-title">The hard, scarce part</h3>
+          <p class="mc__feat-body">An iterative plan/act/observe loop on Azure OpenAI function-calling that chains up to <strong>35 tool calls per task</strong>. It escalates gpt-4o-mini to gpt-4o mid-task when an iteration emits more than 3 tool calls. Multi-layer failure recovery handles Graph 429/5xx with exponential backoff and 3 retries honoring Retry-After, detects loops at 8 repeats, and aborts cleanly at the 35-call cap.</p>
+        </div>
+
+        <div class="mc__feat reveal">
+          <p class="mc__feat-label">KNN tool retrieval</p>
+          <h3 class="mc__feat-title">95% recall over 84 tools</h3>
+          <p class="mc__feat-body">Two-stage selection: KNN over <strong>1,045</strong> synthetic training examples plus a keyword union, with a retry-against-all-84-tools fallback. k=7, 0.80 cosine threshold, <code>text-embedding-3-small</code>. Measured <strong>95.0% recall vs 92.7%</strong> embedding-only, and ~6 of 84 tools selected per request instead of 18.</p>
+        </div>
+
+        <div class="mc__feat reveal">
+          <p class="mc__feat-label">RAG semantic memory</p>
+          <h3 class="mc__feat-title">Per-user persistent memory</h3>
+          <p class="mc__feat-body">Cosine-similarity retrieval over user-scoped memory entries. <code>selectMemoriesForMessage(message, entries, topN)</code> returns the top-N relevant memories per turn. History compression keeps entity references alive through structured tool-call summaries.</p>
+        </div>
+
+        <div class="mc__feat reveal">
+          <p class="mc__feat-label">Smart model router</p>
+          <h3 class="mc__feat-title">Mini default, escalate on complexity</h3>
+          <p class="mc__feat-body">gpt-4o-mini handles the default path and escalates to gpt-4o mid-conversation when tool-call complexity spikes. The mini path is about <strong>24× cheaper per call</strong> than gpt-4o. Cost and latency are design variables, not afterthoughts.</p>
+        </div>
+
+        <div class="mc__feat reveal">
+          <p class="mc__feat-label">Eval framework</p>
+          <h3 class="mc__feat-title">107 tests, expected-facts scoring</h3>
+          <p class="mc__feat-body">An in-house suite of <strong>107</strong> hand-crafted tests under <code>src/eval/</code> with expected-facts grading, accuracy and quality dimensions, and A/B comparison against a baseline agent. I iterated round over round to close the gap to the benchmark.</p>
+        </div>
+
+        <div class="mc__feat reveal">
+          <p class="mc__feat-label">Multi-tenant · Marketplace</p>
+          <h3 class="mc__feat-title">The deployment vehicle</h3>
+          <p class="mc__feat-body">Delegated Entra auth with <code>tenant_id</code> on 27 tables plus Postgres row-level security (FORCE policies, NOBYPASSRLS app role). Billing runs through the Commercial Marketplace Fulfillment API v2 and Metering Service with 8-tier bracket pricing.</p>
+        </div>
+
+      </div>
+
+      <p class="mc__note">
+        <strong>Why the loop is the story.</strong> When Microsoft made Copilot agentic with Copilot Cowork, it
+        "brought the technology that powers Claude Cowork into Microsoft 365 Copilot." The model is
+        interchangeable. The orchestration harness, planning, acting across many tools, keeping state and memory,
+        routing models, is the hard part, hard enough that Microsoft went outside for it. I built that harness on
+        Microsoft 365 by myself.
+      </p>
+
+      <p class="mc__stack-label">Stack</p>
+      <div class="mc__stack">
+        <span class="tag">TypeScript</span>
+        <span class="tag">Node.js</span>
+        <span class="tag">Azure OpenAI · GPT-4o · GPT-4o-mini</span>
+        <span class="tag">text-embedding-3-small</span>
+        <span class="tag">Microsoft Graph · 84 tools / 12 services</span>
+        <span class="tag">Teams Bot Framework SDK</span>
+        <span class="tag">MSAL</span>
+        <span class="tag">Azure Container Apps</span>
+        <span class="tag">Azure Database for PostgreSQL Flexible Server · PG16</span>
+        <span class="tag">Bicep IaC</span>
+        <span class="tag">Docker → GHCR</span>
+        <span class="tag">cron-parser</span>
+        <span class="tag">Vitest · 374 tests</span>
+      </div>
+
+      <div class="mc__cta">
+        <a class="btn btn--ghost" href="https://microclaw.app" target="_blank" rel="noopener">
+          microclaw.app
+          <svg class="btn__i" viewBox="0 0 24 24" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+        </a>
+        <a class="btn btn--ghost" href="https://marketplace.microsoft.com/en-us/product/saas/microclaw.microclaw?tab=Overview" target="_blank" rel="noopener">
+          Listing on Microsoft AppSource
+          <svg class="btn__i" viewBox="0 0 24 24" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================== PROJECTS ========================== -->
+  <section id="projects" class="section" aria-labelledby="proj-title">
+    <div class="wrap">
+      <p class="eyebrow">Portfolio</p>
+      <h2 class="title" id="proj-title">Projects, AI and RAG first</h2>
+
+      <div class="seg" id="filter-bar" aria-label="Filter projects by tool">
+        <span class="seg__label">Filter</span>
+        <!-- pills inserted by JS -->
+      </div>
+
+      <!-- Featured (larger) -->
+      <div class="feat-grid" id="feat-grid">
+
+        <a class="feat project" href="https://github.com/mtichikawa/gcp-rag-pipeline" target="_blank" rel="noopener">
+          <div class="feat__top">
+            <span class="feat__name">GCP RAG Pipeline</span>
+            <span class="feat__metric mono">6 retrievers benchmarked</span>
+          </div>
+          <p class="feat__desc">Production-shape RAG on Google Cloud. SEC EDGAR filings as the corpus, Vertex AI Gemini for generation, BigQuery's native VECTOR_SEARCH for retrieval, with FAISS and pgvector as comparison backends. LangChain and LlamaIndex pipelines run side by side over one retriever interface and get scored on a 30-question ground-truth set against Apple's 10-K.</p>
+          <div class="feat__tags">
+            <span class="tag">BigQuery Vector Search</span><span class="tag">Vertex AI · Gemini</span><span class="tag">RAG</span><span class="tag">LangChain</span><span class="tag">LlamaIndex</span><span class="tag">FAISS</span><span class="tag">pgvector</span>
+          </div>
+          <div class="feat__foot">
+            <span class="feat__signals mono">Built May 2026</span>
+            <svg class="feat__arrow" viewBox="0 0 24 24" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+          </div>
+        </a>
+
+        <a class="feat project" href="https://github.com/mtichikawa/anomaly-detection" target="_blank" rel="noopener">
+          <div class="feat__top">
+            <span class="feat__name">Real-Time Anomaly Detection</span>
+            <span class="feat__metric mono">48 tests · CI · Docker</span>
+          </div>
+          <p class="feat__desc">A streaming ensemble where Isolation Forest, an LSTM autoencoder, a Z-score detector, and a LightGBM classifier vote together. The LightGBM detector adds a supervised signal trained on rolling-window features, which keeps recall high without inflating false positives. Served behind a Dockerized FastAPI REST API with health checks.</p>
+          <div class="feat__tags">
+            <span class="tag">IsolationForest</span><span class="tag">LSTM</span><span class="tag">LightGBM</span><span class="tag">FastAPI</span><span class="tag">Docker</span><span class="tag">REST API</span>
+          </div>
+          <div class="feat__foot">
+            <span class="feat__signals mono">Updated Apr 2026</span>
+            <svg class="feat__arrow" viewBox="0 0 24 24" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+          </div>
+        </a>
+
+        <a class="feat project" href="https://github.com/mtichikawa/llm-data-assistant" target="_blank" rel="noopener">
+          <div class="feat__top">
+            <span class="feat__name">LLM Data Analysis Assistant</span>
+            <span class="feat__metric mono">2-path routing</span>
+          </div>
+          <p class="feat__desc">Two-path query routing. A rule-based fast path answers correlations, group-bys, and aggregations deterministically at zero API cost. Queries below a confidence threshold escalate to the Anthropic API with a ContextBuilder summary of the DataFrame and multi-turn history, so the model reasons about data it never directly touches.</p>
+          <div class="feat__tags">
+            <span class="tag">Anthropic API</span><span class="tag">hybrid routing</span><span class="tag">multi-turn</span><span class="tag">pandas</span>
+          </div>
+          <div class="feat__foot">
+            <span class="feat__signals mono">Built Aug 2025</span>
+            <svg class="feat__arrow" viewBox="0 0 24 24" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+          </div>
+        </a>
+
+        <a class="feat project" href="https://github.com/mtichikawa/databricks-lakehouse" target="_blank" rel="noopener">
+          <div class="feat__top">
+            <span class="feat__name">Databricks Lakehouse</span>
+            <span class="feat__metric mono">10M rows</span>
+          </div>
+          <p class="feat__desc">A medallion lakehouse (bronze, silver, gold) on 10M NYC taxi rows with Delta Lake and row-level data quality gates between layers. Bronze appends raw ingest with provenance, silver types and dedupes and quarantines bad rows, gold aggregates for specific questions. Runs locally via the deltalake library, deployable to Databricks Community Edition.</p>
+          <div class="feat__tags">
+            <span class="tag">Delta Lake</span><span class="tag">medallion</span><span class="tag">pandas</span><span class="tag">data quality</span>
+          </div>
+          <div class="feat__foot">
+            <span class="feat__signals mono">Built Apr 2026</span>
+            <svg class="feat__arrow" viewBox="0 0 24 24" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+          </div>
+        </a>
+
+        <a class="feat project" href="https://github.com/mtichikawa/streaming-analytics-pipeline" target="_blank" rel="noopener">
+          <div class="feat__top">
+            <span class="feat__name">Streaming Analytics Pipeline</span>
+            <span class="feat__metric mono">23 + 9 tests</span>
+          </div>
+          <p class="feat__desc">A real-time crypto pipeline on Redpanda and Spark Structured Streaming. A producer feeds 5-minute tumbling OHLCV aggregation and a z-score anomaly stage, landing into Delta Lake. Days 1 to 3 shipped Jun 3 with 23 tests plus 9 Spark-gated tests. The Streamlit dashboard and checkpoint-recovery test are still in progress.</p>
+          <div class="feat__tags">
+            <span class="tag">Redpanda</span><span class="tag">Spark Structured Streaming</span><span class="tag">Delta Lake</span><span class="tag">Kafka</span>
+          </div>
+          <div class="feat__foot">
+            <span class="feat__signals mono">Shipped Jun 2026</span>
+            <svg class="feat__arrow" viewBox="0 0 24 24" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+          </div>
+        </a>
+
+        <a class="feat project" href="https://github.com/mtichikawa/llm-bias-detection" target="_blank" rel="noopener">
+          <div class="feat__top">
+            <span class="feat__name">Bias Detection in LLMs</span>
+            <span class="feat__metric mono">ANOVA · Cohen's d</span>
+          </div>
+          <p class="feat__desc">A statistical audit of demographic bias in LLM responses across two prompt datasets. It generates prompts over gender, age, and race, scores them for agentic, communal, competence, and warmth lexicon patterns, and runs ANOVA with Cohen's d. The point is to separate statistical significance from practical significance, which is where bias research usually slips.</p>
+          <div class="feat__tags">
+            <span class="tag">ANOVA</span><span class="tag">Cohen's d</span><span class="tag">scipy.stats</span><span class="tag">lexicon scoring</span><span class="tag">cross-model comparison</span>
+          </div>
+          <div class="feat__foot">
+            <span class="feat__signals mono">Updated Apr 2026</span>
+            <svg class="feat__arrow" viewBox="0 0 24 24" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+          </div>
+        </a>
+
+      </div>
+
+      <!-- Compact list -->
+      <div class="plist" id="plist">
+
+        <a class="prow project" href="https://github.com/mtichikawa/dockerized-ml-api" target="_blank" rel="noopener">
+          <span class="prow__name">Dockerized ML API</span>
+          <span class="prow__desc">FastAPI serving with Redis TTL caching, Pydantic v2 validation, async inference, Docker Compose deploy.</span>
+          <span class="prow__stack mono">Docker · FastAPI · Redis</span>
+          <span class="prow__tags" hidden><span class="tag">Docker</span><span class="tag">FastAPI</span><span class="tag">Redis</span><span class="tag">Pydantic v2</span><span class="tag">asyncio</span></span>
+          <svg class="prow__arrow" viewBox="0 0 24 24" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+        </a>
+
+        <a class="prow project" href="https://github.com/mtichikawa/cloud-etl-pipeline" target="_blank" rel="noopener">
+          <span class="prow__name">Cloud ETL Pipeline</span>
+          <span class="prow__desc">AWS-native ETL: S3 Parquet data lake, Lambda validation, DynamoDB logging, Hive partitioning, a DQ quarantine layer.</span>
+          <span class="prow__stack mono">AWS S3 · Lambda · DynamoDB</span>
+          <span class="prow__tags" hidden><span class="tag">AWS S3</span><span class="tag">Lambda</span><span class="tag">DynamoDB</span><span class="tag">Parquet</span><span class="tag">data quality</span></span>
+          <svg class="prow__arrow" viewBox="0 0 24 24" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+        </a>
+
+        <a class="prow project" href="https://github.com/mtichikawa/sql-analytics-pipeline" target="_blank" rel="noopener">
+          <span class="prow__name">SQL Analytics Pipeline</span>
+          <span class="prow__desc">Three-layer dbt-style pipeline (staging, clean, marts) with window functions and CTEs on a swappable SQLite/Postgres backend.</span>
+          <span class="prow__stack mono">SQLAlchemy · dbt-style</span>
+          <span class="prow__tags" hidden><span class="tag">SQLAlchemy</span><span class="tag">SQLite</span><span class="tag">dbt-style</span><span class="tag">window functions</span></span>
+          <svg class="prow__arrow" viewBox="0 0 24 24" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+        </a>
+
+        <a class="prow project" href="https://github.com/mtichikawa/github-trend-forecaster" target="_blank" rel="noopener">
+          <span class="prow__name">GitHub Trend Forecaster</span>
+          <span class="prow__desc">Collects repo star history and forecasts growth with Prophet, tuning changepoint sensitivity per repo type since star growth is bursty.</span>
+          <span class="prow__stack mono">Prophet · time series</span>
+          <span class="prow__tags" hidden><span class="tag">Prophet</span><span class="tag">GitHub API</span><span class="tag">pandas</span><span class="tag">time series</span></span>
+          <svg class="prow__arrow" viewBox="0 0 24 24" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+        </a>
+
+        <a class="prow project" href="https://github.com/mtichikawa/bandit-ab-testing" target="_blank" rel="noopener">
+          <span class="prow__name">Multi-Armed Bandit A/B Testing</span>
+          <span class="prow__desc">Thompson Sampling, UCB1, and Epsilon-Greedy from scratch, no library bandits. The simulator above runs this exact logic.</span>
+          <span class="prow__stack mono">Thompson · UCB1 · Streamlit</span>
+          <span class="prow__tags" hidden><span class="tag">Thompson Sampling</span><span class="tag">UCB1</span><span class="tag">Bayesian inference</span><span class="tag">Streamlit</span></span>
+          <svg class="prow__arrow" viewBox="0 0 24 24" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+        </a>
+
+        <a class="prow project" href="https://github.com/mtichikawa/financial-nlp" target="_blank" rel="noopener">
+          <span class="prow__name">Financial NLP Parser</span>
+          <span class="prow__desc">Parses SEC EDGAR filings for revenue, net income, EPS, and MD&amp;A sentiment across companies that label their tables differently.</span>
+          <span class="prow__stack mono">SEC EDGAR · regex · NLP</span>
+          <span class="prow__tags" hidden><span class="tag">SEC EDGAR</span><span class="tag">regex</span><span class="tag">sentiment lexicon</span><span class="tag">NLP</span></span>
+          <svg class="prow__arrow" viewBox="0 0 24 24" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+        </a>
+
+        <a class="prow project" href="https://github.com/mtichikawa/ml-experiments" target="_blank" rel="noopener">
+          <span class="prow__name">ML Experiments: C++ Extensions</span>
+          <span class="prow__desc">C++ rolling statistics via Welford's single-pass algorithm, exposed to Python through pybind11 with zero-copy NumPy buffers.</span>
+          <span class="prow__stack mono">C++ · pybind11 · NumPy</span>
+          <span class="prow__tags" hidden><span class="tag">C++</span><span class="tag">pybind11</span><span class="tag">NumPy</span><span class="tag">Welford's algorithm</span></span>
+          <svg class="prow__arrow" viewBox="0 0 24 24" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================== TRADING ARC (band) ========================== -->
+  <section id="trading" class="band" aria-labelledby="trading-title">
+    <div class="wrap">
+      <p class="eyebrow">Five repos · All shipped</p>
+      <h2 class="title" id="trading-title">Trading system arc</h2>
+      <p class="trading__intro">
+        Five connected repositories building an end-to-end paper trading system. Real Kraken market data flows
+        through chart generation, dual-path signal analysis (technical indicators plus FinBERT sentiment),
+        backtesting, and a human-oversight dashboard, with losing trades feeding back to tune signal parameters.
+      </p>
+
+      <div class="arc">
+        <div class="node reveal">
+          <div class="node__dot">T1</div>
+          <p class="node__name"><a href="https://github.com/mtichikawa/crypto-data-pipeline" target="_blank" rel="noopener">crypto-data-pipeline</a></p>
+          <p class="node__stack">ccxt · Kraken<br>PostgreSQL · pandas<br>multi-pair OHLCV</p>
+          <p class="node__date">Shipped Mar 6</p>
+        </div>
+        <div class="node reveal">
+          <div class="node__dot">T2</div>
+          <p class="node__name"><a href="https://github.com/mtichikawa/trading-chart-generator" target="_blank" rel="noopener">trading-chart-generator</a></p>
+          <p class="node__stack">mplfinance · PIL<br>PNG + JSON sidecars<br>43/43 tests</p>
+          <p class="node__date">Shipped Mar 10</p>
+        </div>
+        <div class="node reveal">
+          <div class="node__dot">T3</div>
+          <p class="node__name"><a href="https://github.com/mtichikawa/trading-signal-engine" target="_blank" rel="noopener">trading-signal-engine</a></p>
+          <p class="node__stack">EMA · RSI · MACD · BB<br>FinBERT + chart context<br>84/84 tests</p>
+          <p class="node__date">Updated Jun 3</p>
+        </div>
+        <div class="node reveal">
+          <div class="node__dot">T4</div>
+          <p class="node__name"><a href="https://github.com/mtichikawa/trading-backtester" target="_blank" rel="noopener">trading-backtester</a></p>
+          <p class="node__stack">pandas · NumPy<br>Sharpe · drawdown<br>72/72 tests</p>
+          <p class="node__date">Shipped Mar 26</p>
+        </div>
+        <div class="node reveal">
+          <div class="node__dot">T5</div>
+          <p class="node__name"><a href="https://mtichikawa-trading.streamlit.app" target="_blank" rel="noopener">trading-dashboard</a></p>
+          <p class="node__stack">Streamlit · Plotly<br>live signals · P&amp;L<br>parameter review UI</p>
+          <p class="node__date">Live demo</p>
+        </div>
+      </div>
+
+      <div class="trading__note reveal">
+        <p>
+          <strong>The feedback loop:</strong> T4 records whether each signal configuration led to a winning or
+          losing paper trade. T3's parameters (indicator thresholds, sentiment weights, fusion ratio) tune from
+          those outcomes. T5's dashboard reviews performance and approves parameter changes. The system improves
+          its own signal generation while a human stays the decision-maker. It runs free: no paid APIs, local
+          FinBERT, public market data.
+        </p>
+      </div>
+
+      <div class="trading__cta">
+        <a class="btn btn--primary" href="https://mtichikawa-trading.streamlit.app" target="_blank" rel="noopener">
+          Open the live trading dashboard
+          <svg class="btn__i" viewBox="0 0 24 24" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================== BACKGROUND ========================== -->
+  <section id="background" class="section" aria-labelledby="bg-title">
+    <div class="wrap bg-grid">
+      <div class="bg-prose">
+        <p class="eyebrow">Background</p>
+        <h2 class="title" id="bg-title" style="font-size: var(--fs-h2);">How I got here</h2>
+        <p><strong>BS Mechanical Engineering at UC Berkeley</strong>, then three years at Intel in microprocessor physical design (Ivy Bridge, 22nm). I built automated validation systems that processed millions of design verification points and flagged yield issues before tape-out.</p>
+        <p><strong>MS Mathematics at City College of New York</strong>, then nine years teaching undergraduate math at Santa Rosa Junior College: algebra through calculus III, linear algebra, differential equations, statistics. I wrote curriculum and assessments and tracked which teaching approaches actually moved student outcomes.</p>
+        <p>For the last eighteen months I worked through the data and ML stack on my own. Forecasting, Bayesian experimentation, streaming anomaly detection, NLP, cloud ETL, ML serving, a Databricks medallion lakehouse, C++ extensions via pybind11, and a five-repo paper trading system. I designed the architecture, wrote the tests, and deployed the systems.</p>
+        <p>That all led into <strong>Microclaw</strong>, a production Microsoft 365 RAG agent, built solo and live on Microsoft AppSource. Two careers in engineering and math, and the math professor habit of measuring things, are exactly why the retrieval and orchestration work is benchmarked rather than asserted.</p>
+      </div>
+
+      <div class="stat-cards">
+        <div class="stat-card reveal">
+          <p class="stat-card__label">Intel · Physical Design</p>
+          <p class="stat-card__num">3</p>
+          <p class="stat-card__title">Years engineering</p>
+          <p class="stat-card__body">Microprocessor physical design. Python and Perl automation. Statistical validation at manufacturing scale.</p>
+        </div>
+        <div class="stat-card reveal">
+          <p class="stat-card__label">Santa Rosa JC · Mathematics</p>
+          <p class="stat-card__num">9</p>
+          <p class="stat-card__title">Years teaching</p>
+          <p class="stat-card__body">Algebra through calculus III, linear algebra, differential equations, statistics. MS Mathematics.</p>
+        </div>
+        <div class="stat-card stat-card--now reveal">
+          <p class="stat-card__label">Microclaw LLC · 2026 – present</p>
+          <p class="stat-card__num">NOW</p>
+          <p class="stat-card__title">Founder &amp; Engineer</p>
+          <p class="stat-card__body">Production RAG agent, built solo end to end. Product, engineering, Oregon LLC, brand, Microsoft Marketplace onboarding, go-to-market.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================== SKILLS ========================== -->
+  <section id="skills" class="section" style="background: var(--panel);" aria-labelledby="skills-title">
+    <div class="wrap">
+      <p class="eyebrow">Skills</p>
+      <h2 class="title" id="skills-title">What I work with</h2>
+
+      <div class="skills-grid">
+        <div class="skill-cat skill-cat--lead reveal">
+          <p class="skill-cat__label">LLM / Agents</p>
+          <div class="skill-chips">
+            <span>agent orchestration</span><span>RAG</span><span>KNN tool retrieval</span><span>semantic memory</span><span>model routing</span><span>eval frameworks</span><span>function calling</span><span>Azure OpenAI</span><span>Anthropic API</span><span>Vertex AI · Gemini</span><span>LangChain</span><span>LlamaIndex</span><span>embeddings · vector search</span>
+          </div>
+        </div>
+
+        <div class="skill-cat reveal">
+          <p class="skill-cat__label">Machine Learning</p>
+          <div class="skill-chips">
+            <span>IsolationForest</span><span>LSTM</span><span>LightGBM</span><span>Prophet</span><span>FinBERT</span><span>scikit-learn</span><span>PyTorch</span>
+          </div>
+        </div>
+
+        <div class="skill-cat reveal">
+          <p class="skill-cat__label">Statistics</p>
+          <div class="skill-chips">
+            <span>Thompson Sampling</span><span>UCB1</span><span>Bayesian inference</span><span>ANOVA</span><span>Cohen's d</span><span>scipy.stats</span>
+          </div>
+        </div>
+
+        <div class="skill-cat reveal">
+          <p class="skill-cat__label">Data Engineering</p>
+          <div class="skill-chips">
+            <span>Spark Structured Streaming</span><span>Redpanda · Kafka</span><span>Delta Lake</span><span>pandas</span><span>Parquet</span><span>SQLAlchemy</span><span>dbt-style transforms</span><span>BigQuery</span>
+          </div>
+        </div>
+
+        <div class="skill-cat reveal">
+          <p class="skill-cat__label">Cloud / Infra</p>
+          <div class="skill-chips">
+            <span>Docker</span><span>FastAPI</span><span>Redis</span><span>AWS S3 · Lambda · DynamoDB</span><span>Azure Container Apps</span><span>Bicep IaC</span><span>GitHub Actions</span>
+          </div>
+        </div>
+
+        <div class="skill-cat reveal">
+          <p class="skill-cat__label">Languages</p>
+          <div class="skill-chips">
+            <span>Python</span><span>TypeScript</span><span>SQL</span><span>C++ · pybind11</span><span>R</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  </main>
+
+  <!-- ========================== CONTACT (band) ========================== -->
+  <section id="contact" class="contact" aria-labelledby="contact-title">
+    <div class="wrap">
+      <div>
+        <p class="eyebrow">Contact</p>
+        <h2 class="contact__heading" id="contact-title">Open to data science<br>and ML engineering roles.</h2>
+        <p class="contact__sub">I am fully available and happy to walk through any of this in detail, the agent loop, the retrieval benchmarks, or the live demos above. The fastest way to reach me is email.</p>
+      </div>
+      <div class="contact__links">
+        <a class="contact__link" href="mailto:projects.ichikawa@gmail.com">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><polyline points="3 7 12 13 21 7"/></svg>
+          projects.ichikawa@gmail.com
+        </a>
+        <a class="contact__link" href="https://github.com/mtichikawa" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor" stroke="none" aria-hidden="true"><path d="M12 .5a11.5 11.5 0 00-3.6 22.4c.6.1.8-.3.8-.6v-2c-3.2.7-3.9-1.5-3.9-1.5-.5-1.3-1.3-1.7-1.3-1.7-1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.7 1.3 3.4 1 .1-.8.4-1.3.7-1.6-2.6-.3-5.3-1.3-5.3-5.6 0-1.3.4-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.2 0 0 1-.3 3.3 1.2.9-.3 2-.4 3-.4s2 .1 3 .4c2.3-1.5 3.3-1.2 3.3-1.2.6 1.7.2 2.9.1 3.2.7.8 1.2 1.8 1.2 3.1 0 4.4-2.7 5.3-5.3 5.6.4.4.8 1.1.8 2.2v3.2c0 .3.2.7.8.6A11.5 11.5 0 0012 .5z"/></svg>
+          github.com/mtichikawa
+        </a>
+        <a class="contact__link" href="https://www.linkedin.com/in/michael-ichikawa" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor" stroke="none" aria-hidden="true"><path d="M19 3a2 2 0 012 2v14a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h14zM8.34 17V9.99H6V17h2.34zM7.17 9.06a1.36 1.36 0 100-2.72 1.36 1.36 0 000 2.72zM18 17v-3.84c0-2.05-1.1-3-2.56-3-1.18 0-1.71.65-2 1.11V9.99H11.1c.03.66 0 7.01 0 7.01h2.34v-3.91c0-.21.02-.42.08-.57.17-.42.55-.85 1.2-.85.85 0 1.19.64 1.19 1.59V17H18z"/></svg>
+          LinkedIn
+        </a>
+        <a class="contact__link" href="https://marketplace.microsoft.com/en-us/product/saas/microclaw.microclaw?tab=Overview" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="8" height="8"/><rect x="13" y="3" width="8" height="8"/><rect x="3" y="13" width="8" height="8"/><rect x="13" y="13" width="8" height="8"/></svg>
+          Microclaw on AppSource
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="foot">
+    <span>Mike Ichikawa · Portland, OR</span>
+    <span>Currently building <b>streaming-analytics-pipeline</b> · Updated Jun 2026</span>
+  </footer>
+
+  <!-- ========================== SCRIPTS ========================== -->
+  <script>
+    var REDUCED = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    /* ──────────── Theme toggle (two buttons: desktop + mobile) ──────────── */
+    (function () {
+      var root = document.documentElement;
+      var btns = [document.getElementById('theme-toggle'), document.getElementById('theme-toggle-m')].filter(Boolean);
+      if (!btns.length) return;
+
+      var ICON_MOON = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 13a9 9 0 11-9-10 7 7 0 009 10z"></path></svg>';
+      var ICON_SUN  = '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"></path></svg>';
+
+      function paint(theme) {
+        root.setAttribute('data-theme', theme);
+        btns.forEach(function (b) {
+          b.innerHTML = theme === 'dark' ? ICON_SUN : ICON_MOON;
+          b.setAttribute('aria-label', theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode');
+        });
+        var meta = document.querySelector('meta[name="theme-color"]');
+        if (meta) meta.setAttribute('content', theme === 'dark' ? '#0B0D10' : '#FFFFFF');
+      }
+      paint(root.getAttribute('data-theme') || 'dark');
+      btns.forEach(function (b) {
+        b.addEventListener('click', function () {
+          var cur = root.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
+          var next = cur === 'dark' ? 'light' : 'dark';
+          try { localStorage.setItem('theme', next); } catch (e) {}
+          paint(next);
+        });
+      });
+    })();
+
+    /* ──────────── Mobile drawer ──────────── */
+    (function () {
+      var burger = document.getElementById('burger');
+      var drawer = document.getElementById('drawer');
+      var close  = document.getElementById('drawer-close');
+      if (!burger || !drawer) return;
+      function open() { drawer.classList.add('is-open'); drawer.setAttribute('aria-hidden', 'false'); burger.setAttribute('aria-expanded', 'true'); document.body.style.overflow = 'hidden'; }
+      function shut() { drawer.classList.remove('is-open'); drawer.setAttribute('aria-hidden', 'true'); burger.setAttribute('aria-expanded', 'false'); document.body.style.overflow = ''; }
+      burger.addEventListener('click', open);
+      close.addEventListener('click', shut);
+      drawer.querySelectorAll('a').forEach(function (a) { a.addEventListener('click', shut); });
+      document.addEventListener('keydown', function (e) { if (e.key === 'Escape') shut(); });
+      // show the burger group only when CSS hides the desktop links
+      var grp = document.querySelector('.nav__burger');
+      function syncNav() { grp.style.display = matchMedia('(max-width: 860px)').matches ? 'flex' : 'none'; if (!matchMedia('(max-width: 860px)').matches) shut(); }
+      syncNav();
+      matchMedia('(max-width: 860px)').addEventListener('change', syncNav);
+    })();
+
+    /* ──────────── Nav scroll state ──────────── */
+    (function () {
+      var nav = document.getElementById('nav');
+      if (!nav) return;
+      window.addEventListener('scroll', function () {
+        nav.classList.toggle('is-scrolled', window.scrollY > 18);
+      }, { passive: true });
+    })();
+
+    /* ──────────── Reveal on scroll + rule draw + count-up ──────────── */
+    (function () {
+      var els = document.querySelectorAll('.reveal, .rule');
+      if (REDUCED || !('IntersectionObserver' in window)) {
+        els.forEach(function (el) { el.classList.add('is-visible'); });
+        document.querySelectorAll('[data-count]').forEach(function (el) {}); // leave final text
+        return;
+      }
+      var obs = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry, i) {
+          if (entry.isIntersecting) {
+            setTimeout(function () { entry.target.classList.add('is-visible'); }, i * 55);
+            obs.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+      els.forEach(function (el) { obs.observe(el); });
+    })();
+
+    /* ──────────── Count-up on metric numbers ──────────── */
+    (function () {
+      var nums = document.querySelectorAll('[data-count]');
+      if (!nums.length) return;
+      if (REDUCED || !('IntersectionObserver' in window)) return;
+      var obs = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (!e.isIntersecting) return;
+          obs.unobserve(e.target);
+          var el = e.target;
+          var target = parseFloat(el.getAttribute('data-count'));
+          var suffix = el.getAttribute('data-suffix') || '';
+          var start = null, dur = 900;
+          function step(ts) {
+            if (start === null) start = ts;
+            var p = Math.min((ts - start) / dur, 1);
+            var eased = 1 - Math.pow(1 - p, 3);
+            el.textContent = Math.round(target * eased) + suffix;
+            if (p < 1) requestAnimationFrame(step);
+          }
+          requestAnimationFrame(step);
+        });
+      }, { threshold: 0.5 });
+      nums.forEach(function (n) { obs.observe(n); });
+    })();
+
+    /* ──────────── Tag filter (all .project cards: featured + list) ──────────── */
+    (function () {
+      var bar = document.getElementById('filter-bar');
+      if (!bar) return;
+      var cards = Array.prototype.slice.call(document.querySelectorAll('.project'));
+      var cardTags = new Map();
+      var allTags = new Set();
+      cards.forEach(function (card) {
+        var src = card.querySelector('.prow__tags') || card;
+        var tags = Array.prototype.slice.call(src.querySelectorAll('.tag')).map(function (t) { return t.textContent.trim(); });
+        cardTags.set(card, new Set(tags));
+        tags.forEach(function (t) { allTags.add(t); });
+      });
+
+      var allBtn = document.createElement('button');
+      allBtn.className = 'pill is-active';
+      allBtn.dataset.tag = '__all__';
+      allBtn.textContent = 'All';
+      bar.appendChild(allBtn);
+
+      Array.from(allTags).sort(function (a, b) { return a.localeCompare(b); }).forEach(function (tag) {
+        var p = document.createElement('button');
+        p.className = 'pill'; p.dataset.tag = tag; p.textContent = tag;
+        bar.appendChild(p);
+      });
+
+      var selected = new Set();
+      function render() {
+        var allEl = bar.querySelector('[data-tag="__all__"]');
+        if (selected.size === 0) {
+          cards.forEach(function (c) { c.style.display = ''; });
+          allEl.classList.add('is-active');
+          return;
+        }
+        allEl.classList.remove('is-active');
+        cards.forEach(function (card) {
+          var tags = cardTags.get(card);
+          var match = Array.from(selected).every(function (t) { return tags.has(t); });
+          card.style.display = match ? '' : 'none';
+        });
+      }
+      bar.addEventListener('click', function (e) {
+        var pill = e.target.closest('.pill');
+        if (!pill) return;
+        var tag = pill.dataset.tag;
+        if (tag === '__all__') {
+          selected.clear();
+          bar.querySelectorAll('.pill').forEach(function (p) { p.classList.remove('is-active'); });
+          pill.classList.add('is-active'); render(); return;
+        }
+        if (selected.has(tag)) { selected.delete(tag); pill.classList.remove('is-active'); }
+        else { selected.add(tag); pill.classList.add('is-active'); }
+        render();
+      });
+    })();
+
+    /* ============================================================
+       SHARED: Beta/Gamma sampling for the bandit sim
+       ============================================================ */
+    function randn() {
+      var u = 1 - Math.random();
+      var v = 1 - Math.random();
+      return Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * v);
+    }
+    function sampleGamma(a) {
+      if (a < 1) {
+        var u = Math.random();
+        return sampleGamma(a + 1) * Math.pow(u, 1 / a);
+      }
+      var d = a - 1 / 3;
+      var c = 1 / Math.sqrt(9 * d);
+      while (true) {
+        var z, v;
+        do { z = randn(); v = 1 + c * z; } while (v <= 0);
+        v = v * v * v;
+        var u2 = Math.random();
+        if (u2 < 1 - 0.0331 * z * z * z * z) return d * v;
+        if (Math.log(u2) < 0.5 * z * z + d * (1 - v + Math.log(v))) return d * v;
+      }
+    }
+    function sampleBeta(a, b) {
+      var x = sampleGamma(a);
+      var y = sampleGamma(b);
+      return x / (x + y);
+    }
+
+    /* ──────────── Bandit simulation (logic preserved) ──────────── */
+    (function () {
+      var ARM_PROBS  = [0.25, 0.45, 0.35, 0.55, 0.30];
+      var ARM_COLORS = ['#5EE6D0', '#7FB2FF', '#6DDFA8', '#C9A24B', '#9AA0AB'];
+
+      var roundsEl = document.getElementById('b-rounds');
+      var roundsValEl = document.getElementById('b-rounds-val');
+      var algoEl  = document.getElementById('b-algo');
+      var armsEl  = document.getElementById('b-arms');
+      var rewardEl= document.getElementById('b-reward');
+      var regretEl= document.getElementById('b-regret');
+      var bestEl  = document.getElementById('b-best');
+      var chartEl = document.getElementById('b-chart');
+      var runBtn  = document.getElementById('b-run');
+      if (!runBtn) return;
+
+      function buildArms() {
+        armsEl.innerHTML = ARM_PROBS.map(function (p, i) {
+          return '<div class="arm">' +
+            '<div class="arm__head">Arm ' + (i + 1) +
+              '<br><span class="arm__head-p mono">p=' + p + '</span></div>' +
+            '<div class="arm__bar"><div class="arm__bar-fill" id="bf-' + i +
+              '" style="background:' + ARM_COLORS[i] + ';height:0%"></div></div>' +
+            '<span class="arm__count mono" id="bc-' + i + '">0</span>' +
+          '</div>';
+        }).join('');
+      }
+      buildArms();
+
+      roundsEl.addEventListener('input', function () { roundsValEl.textContent = roundsEl.value; });
+
+      function selectArm(algo, alpha, beta, counts, rewards, t) {
+        if (algo === 'thompson') {
+          var best = 0, bestVal = -1;
+          for (var i = 0; i < ARM_PROBS.length; i++) {
+            var sample = sampleBeta(alpha[i], beta[i]);
+            if (sample > bestVal) { bestVal = sample; best = i; }
+          }
+          return best;
+        }
+        if (algo === 'ucb') {
+          for (var j = 0; j < ARM_PROBS.length; j++) { if (counts[j] === 0) return j; }
+          var bestU = 0, bestUVal = -Infinity;
+          for (var k = 0; k < ARM_PROBS.length; k++) {
+            var mean = rewards[k] / counts[k];
+            var bonus = Math.sqrt(2 * Math.log(t + 1) / counts[k]);
+            var ucb = mean + bonus;
+            if (ucb > bestUVal) { bestUVal = ucb; bestU = k; }
+          }
+          return bestU;
+        }
+        if (Math.random() < 0.1) { return Math.floor(Math.random() * ARM_PROBS.length); }
+        var bestE = 0, bestEVal = -Infinity;
+        for (var m = 0; m < ARM_PROBS.length; m++) {
+          var mu = counts[m] > 0 ? rewards[m] / counts[m] : 0;
+          if (mu > bestEVal) { bestEVal = mu; bestE = m; }
+        }
+        return bestE;
+      }
+
+      function run() {
+        var algo = algoEl.value;
+        var rounds = parseInt(roundsEl.value, 10);
+        runBtn.disabled = true;
+        runBtn.innerHTML = 'Running…';
+
+        var n = ARM_PROBS.length;
+        var counts = new Array(n).fill(0);
+        var rewards = new Array(n).fill(0);
+        var alpha = new Array(n).fill(1);
+        var beta  = new Array(n).fill(1);
+        var totalReward = 0;
+        var regret = 0;
+        var maxProb = Math.max.apply(null, ARM_PROBS);
+        var regretSamples = [];
+
+        for (var t = 0; t < rounds; t++) {
+          var arm = selectArm(algo, alpha, beta, counts, rewards, t);
+          var reward = Math.random() < ARM_PROBS[arm] ? 1 : 0;
+          counts[arm]++;
+          rewards[arm] += reward;
+          totalReward += reward;
+          regret += maxProb - ARM_PROBS[arm];
+          if (algo === 'thompson') { if (reward) alpha[arm]++; else beta[arm]++; }
+          if (t % Math.max(1, Math.floor(rounds / 30)) === 0) regretSamples.push(regret);
+        }
+        regretSamples.push(regret);
+
+        var maxC = Math.max.apply(null, counts);
+        counts.forEach(function (c, i) {
+          var fill = document.getElementById('bf-' + i);
+          var lbl  = document.getElementById('bc-' + i);
+          if (fill) fill.style.height = (maxC > 0 ? (c / maxC) * 90 : 0) + '%';
+          if (lbl) lbl.textContent = c + ' pulls';
+        });
+        rewardEl.textContent = totalReward;
+        regretEl.textContent = regret.toFixed(1);
+        bestEl.textContent = 'Arm ' + (counts.indexOf(maxC) + 1);
+
+        var maxR = regretSamples[regretSamples.length - 1] || 1;
+        var pts = regretSamples.map(function (v, i) {
+          var x = (i / (regretSamples.length - 1)) * 400;
+          var y = 60 - (v / maxR) * 54;
+          return x.toFixed(1) + ',' + y.toFixed(1);
+        }).join(' ');
+        chartEl.innerHTML =
+          '<polyline points="' + pts + '" fill="none" stroke="#5EE6D0" stroke-width="1.5" opacity="0.85"/>' +
+          '<text x="2" y="11" font-family="JetBrains Mono, monospace" font-size="10" fill="currentColor" opacity="0.7">Cumulative regret</text>';
+
+        runBtn.disabled = false;
+        runBtn.innerHTML = 'Run again <svg viewBox="0 0 24 24" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>';
+      }
+
+      runBtn.addEventListener('click', run);
+    })();
+
+    /* ──────────── Anomaly stream (shared engine for hero + demo) ──────────── */
+    function makeAnomalyStream(opts) {
+      var canvas = opts.canvas;
+      if (!canvas) return null;
+      var ctx = canvas.getContext('2d');
+      var running = !REDUCED;
+      var data = [];
+      var totalPoints = 0;
+      var flaggedCount = 0;
+      var pendingInject = false;
+      var rafId = null;
+      var timerId = null;
+      var t = 0;
+      var visible = true;
+      var H = opts.height || 150;
+      var COL_SERIES = opts.series || '#5EE6D0';
+      var COL_FLAG = opts.flag || '#FF6B5E';
+      var COL_SIGMA = opts.sigma || '#C9A24B';
+
+      function resize() {
+        var dpr = window.devicePixelRatio || 1;
+        var rect = canvas.parentElement.getBoundingClientRect();
+        canvas.width = Math.max(1, rect.width) * dpr;
+        canvas.height = Math.max(1, rect.height || H) * dpr;
+        H = rect.height || H;
+        ctx.setTransform(1, 0, 0, 1, 0, 0);
+        ctx.scale(dpr, dpr);
+        canvas.style.width = rect.width + 'px';
+        canvas.style.height = (rect.height || H) + 'px';
+      }
+      resize();
+      window.addEventListener('resize', debounce(resize, 120));
+      window.addEventListener('orientationchange', function () { setTimeout(resize, 200); });
+
+      function nextPoint() {
+        var x = t++;
+        var base = Math.sin(x * 0.08) * 18 + Math.sin(x * 0.15) * 10 + 70;
+        var noise = (Math.random() - 0.5) * 12;
+        var val = base + noise;
+        var injected = false;
+        if (pendingInject) {
+          val += (Math.random() > 0.5 ? 1 : -1) * (40 + Math.random() * 25);
+          injected = true; pendingInject = false;
+        }
+        return { val: val, injected: injected };
+      }
+
+      function pushLog(msg, flagged) {
+        if (!opts.logEl) return;
+        var p = document.createElement('p');
+        if (flagged) p.classList.add('is-flagged');
+        p.textContent = msg;
+        opts.logEl.insertBefore(p, opts.logEl.firstChild);
+        while (opts.logEl.children.length > 8) opts.logEl.removeChild(opts.logEl.lastChild);
+      }
+
+      function draw() {
+        var rect = canvas.parentElement.getBoundingClientRect();
+        var W = rect.width;
+        var hh = rect.height || H;
+        ctx.clearRect(0, 0, W, hh);
+        if (data.length < 2) { if (running && visible) rafId = requestAnimationFrame(draw); return; }
+        var win = 20;
+        var recent = data.slice(-win);
+        var mean = recent.reduce(function (s, d) { return s + d.val; }, 0) / recent.length;
+        var variance = recent.reduce(function (s, d) { return s + (d.val - mean) * (d.val - mean); }, 0) / recent.length;
+        var std = Math.sqrt(variance) || 8;
+        var maxV = 140, minV = 0;
+        function sx(i, total) { return (i / Math.max(1, total - 1)) * W; }
+        function sy(v) { return hh - ((v - minV) / (maxV - minV)) * hh; }
+        var total = data.length;
+
+        ctx.fillStyle = hexA(COL_SIGMA, 0.12);
+        ctx.beginPath();
+        for (var i = 0; i < total; i++) ctx.lineTo(sx(i, total), sy(mean + 3 * std));
+        for (var j = total - 1; j >= 0; j--) ctx.lineTo(sx(j, total), sy(mean - 3 * std));
+        ctx.closePath(); ctx.fill();
+
+        ctx.strokeStyle = hexA(COL_SIGMA, 0.45);
+        ctx.setLineDash([4, 4]); ctx.lineWidth = 1;
+        ctx.beginPath(); ctx.moveTo(0, sy(mean)); ctx.lineTo(W, sy(mean)); ctx.stroke();
+        ctx.setLineDash([]);
+
+        ctx.strokeStyle = COL_SERIES; ctx.lineWidth = 1.6;
+        ctx.beginPath();
+        for (var k = 0; k < total; k++) {
+          var px = sx(k, total), py = sy(data[k].val);
+          if (k === 0) ctx.moveTo(px, py); else ctx.lineTo(px, py);
+        }
+        ctx.stroke();
+
+        for (var m = 0; m < total; m++) {
+          if (data[m].flagged) {
+            ctx.beginPath();
+            ctx.arc(sx(m, total), sy(data[m].val), 4.5, 0, Math.PI * 2);
+            ctx.fillStyle = COL_FLAG; ctx.fill();
+          }
+        }
+        if (running && visible) rafId = requestAnimationFrame(draw);
+      }
+
+      function tick() {
+        if (!running) return;
+        var p = nextPoint();
+        data.push(p);
+        if (data.length > 80) data.shift();
+        totalPoints++;
+        var win = 20;
+        if (data.length >= win) {
+          var recent = data.slice(-win - 1, -1);
+          if (recent.length >= 5) {
+            var mu = recent.reduce(function (s, d) { return s + d.val; }, 0) / recent.length;
+            var sigma = Math.sqrt(recent.reduce(function (s, d) { return s + (d.val - mu) * (d.val - mu); }, 0) / recent.length);
+            if (sigma > 0 && Math.abs(p.val - mu) > 3 * sigma) {
+              p.flagged = true; flaggedCount++;
+              pushLog('FLAG t=' + totalPoints + ' val=' + p.val.toFixed(1) + ' (' + ((p.val - mu) / sigma).toFixed(1) + 'σ)', true);
+            }
+          }
+        }
+        if (opts.pointsEl)  opts.pointsEl.textContent = totalPoints;
+        if (opts.flaggedEl) opts.flaggedEl.textContent = flaggedCount;
+        if (opts.rateEl)    opts.rateEl.textContent = totalPoints > 0 ? ((flaggedCount / totalPoints) * 100).toFixed(1) + '%' : '0%';
+        timerId = setTimeout(tick, 350);
+      }
+
+      // Pause when off-screen to save battery
+      if ('IntersectionObserver' in window) {
+        new IntersectionObserver(function (entries) {
+          entries.forEach(function (e) {
+            visible = e.isIntersecting;
+            if (visible && running) { cancelAnimationFrame(rafId); rafId = requestAnimationFrame(draw); }
+          });
+        }, { threshold: 0.01 }).observe(canvas);
+      }
+
+      var api = {
+        start: function () { if (!running) { running = true; tick(); draw(); } },
+        stop: function () { running = false; clearTimeout(timerId); cancelAnimationFrame(rafId); },
+        toggle: function () { running ? api.stop() : api.start(); return running; },
+        inject: function () { pendingInject = true; pushLog('Inject queued', false); },
+        reset: function () {
+          data = []; totalPoints = 0; flaggedCount = 0; t = 0;
+          if (opts.pointsEl) opts.pointsEl.textContent = 0;
+          if (opts.flaggedEl) opts.flaggedEl.textContent = 0;
+          if (opts.rateEl) opts.rateEl.textContent = '0%';
+          if (opts.logEl) opts.logEl.innerHTML = '<p>Stream reset.</p>';
+        },
+        isRunning: function () { return running; }
+      };
+      tick(); draw();
+      return api;
+    }
+
+    function debounce(fn, ms) { var id; return function () { clearTimeout(id); id = setTimeout(fn, ms); }; }
+    function hexA(hex, a) {
+      hex = hex.replace('#', '');
+      var r = parseInt(hex.substring(0, 2), 16), g = parseInt(hex.substring(2, 4), 16), b = parseInt(hex.substring(4, 6), 16);
+      return 'rgba(' + r + ',' + g + ',' + b + ',' + a + ')';
+    }
+
+    /* Hero ambient stream */
+    makeAnomalyStream({
+      canvas: document.getElementById('hero-canvas'),
+      height: 200,
+      pointsEl: document.getElementById('hero-points'),
+      flaggedEl: document.getElementById('hero-flagged'),
+      series: '#5EE6D0', flag: '#FF6B5E', sigma: '#C9A24B'
+    });
+
+    /* Full anomaly demo */
+    (function () {
+      var demo = makeAnomalyStream({
+        canvas: document.getElementById('a-canvas'),
+        height: 150,
+        pointsEl: document.getElementById('a-points'),
+        flaggedEl: document.getElementById('a-flagged'),
+        rateEl: document.getElementById('a-rate'),
+        logEl: document.getElementById('a-log'),
+        series: '#5EE6D0', flag: '#FF6B5E', sigma: '#C9A24B'
+      });
+      if (!demo) return;
+      var toggleBtn = document.getElementById('a-toggle');
+      var injectBtn = document.getElementById('a-inject');
+      var resetBtn  = document.getElementById('a-reset');
+      toggleBtn.addEventListener('click', function () {
+        var running = demo.toggle();
+        toggleBtn.textContent = running ? '■ Stop stream' : '▶ Start stream';
+      });
+      injectBtn.addEventListener('click', function () { demo.inject(); });
+      resetBtn.addEventListener('click', function () { demo.reset(); });
+      if (!demo.isRunning()) toggleBtn.textContent = '▶ Start stream';
+    })();
+  </script>
+</body>
+</html>
