@@ -255,29 +255,32 @@ section:first-of-type{border-top:0}
 
       <div class="exhibit">
         <p class="exhibit-cap"><span>What happens when it breaks</span><span>the loop, and its exits</span></p>
-        <pre class="log cols">Graph returns 429/5xx  <span class="path">→</span> back off and retry ×3, honouring Retry-After
-Model rate-limits      <span class="path">→</span> retry on the provider's own schedule
-Context window exceeded<span class="path">→</span> compact the tool-call history and retry the turn
-Content filter trips   <span class="path">→</span> fall back rather than fail the request
-Same call 8× in a row  <span class="path">→</span> <b>loop detected, stop</b>
-35 tool calls in a task<span class="path">→</span> <b>hard cap, abort cleanly</b>
+        <pre class="log cols">Graph returns 429/5xx    <span class="path">→</span> back off and retry ×3, honouring Retry-After
+Model rate-limits        <span class="path">→</span> wait the provider's interval, bounded to 4 and to 90s
+Request times out        <span class="path">→</span> keep the system prompt + last 15 messages, retry once
+Content filter trips     <span class="path">→</span> fall back rather than fail the request
+Same tool, same args, 8× <span class="path">→</span> <b>block that call, tell the model to try another way</b>
+35 tool calls in a turn  <span class="path">→</span> <b>hard cap, abort before the batch fires</b>
 
 <span class="path">// one iteration emitting &gt;3 tool calls escalates the small model to the large
 // one for the rest of the turn — most requests never pay for the large model</span></pre>
         <p style="font-size:.93rem;color:var(--ink-muted);margin:.7rem 0 0">An agent that keeps going
-          is not the hard part. An agent that knows when to stop is. Every exit above is a decision
-          about when the right answer is to give up rather than burn a user's tokens producing
-          something plausible. Narrowing the tools before the model sees them cuts input tokens by
-          about a third; the escalation rule above is a separate mechanism and it is where the cost
-          saving actually comes from.</p>
+          is not the hard part. Knowing when to stop, and when to nudge instead of stopping, is. The
+          repeat guard does not kill the turn &mdash; it blocks the offending call and hands the model a
+          note telling it to try another approach, so a run survives its own mistake. The rate-limit
+          wait is bounded twice over, because an earlier version retried forever and left someone
+          waiting on a reply that never came. Narrowing the tools first means about six reach the
+          model instead of all eighty-five; the escalation rule above is a separate mechanism and it
+          is where the cost saving comes from.</p>
       </div>
 
       <div class="hard">
         <span class="label">What it does not do</span>
-        <p>It is synchronous, with progress streamed mid-task — not long-running or resumable. It is
-          a single agent in a loop, not a planner and executor. System-level approval gates were
-          built and then abandoned; confirmation is prompt policy for bulk-destructive actions only.
-          It is listed and transactable, and it has no paying customers.</p>
+        <p>It is synchronous, with progress streamed mid-task &mdash; not long-running or resumable. It
+          is a single agent in a loop, not a planner and executor. There is no system-level approval
+          gate: confirmation is prompt policy, required before an irreversible multi-item delete and
+          before sending anything drafted, with everything else acting immediately inside the user's
+          own permission toggles. It is listed and transactable, and it has no paying customers.</p>
       </div>
 
       <p class="stack">TypeScript · Azure OpenAI · Microsoft Graph · Azure Postgres (row-level security) ·
