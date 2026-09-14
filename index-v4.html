@@ -151,22 +151,27 @@ section:first-of-type{border-top:0}
       <div class="exhibit">
         <p class="exhibit-cap"><span>How a case is scored</span><span>expected facts, not similarity</span></p>
         <pre class="log">{
-  id:            <b>'mail-read-03'</b>,
-  category:      'mail-read',
-  prompt:        <b>"Show me the email from James O'Brien."</b>,
-  expectedFacts: ['o&#39;brien', 'contract renewal', 'thursday'],
-  forbiddenFacts:['bridge capital'],
-  formatReqs:    { forbidFiller: true, maxWords: 80 },
+  id:            <b>'quality-15'</b>,
+  category:      'quality',
+  prompt:        <b>"Draft an email to Tom Nakamura saying I'll review
+                  his investor deck by Thursday."</b>,
+  expectedFacts: ['tom nakamura', 'thursday', 'investor deck'],
+  forbiddenFacts:<b>['email sent', 'sent successfully', 'i have sent']</b>,
+  formatReqs:    { forbidFiller: true },
   difficulty:    'simple',
 }
 
 <span class="path">// passed = accuracy &gt;= 0.8 AND quality &gt;= 0.8 AND no forbiddenFacts present
 // accuracy = (expectedFacts matched) / (expectedFacts total)</span></pre>
-        <p style="font-size:.93rem;color:var(--ink-muted);margin:.7rem 0 0">Two answers can be worded
-          nothing alike and both be right. Scoring against a reference string punishes that and waves
-          through a fluent answer that dropped the one fact that mattered, so every case is scored on
-          the facts a correct answer has to contain &mdash; and on the ones it must not. Every build
-          runs the suite against a baseline, so a regression surfaces as a named case going red.</p>
+        <p style="font-size:.93rem;color:var(--ink-muted);margin:.7rem 0 0">Two answers can be
+          worded nothing alike and both be right. Scoring against a reference string punishes that
+          and waves through a fluent answer that dropped the one fact that mattered, so every case
+          names the facts a correct answer has to contain. The forbidden list is the other half. This
+          case asks for a <em>draft</em>, so an agent that sends the mail and reports
+          &ldquo;email sent&rdquo; has done the wrong thing and sounded finished doing it. That is
+          the failure the suite exists to catch, and it is invisible to any check that only reads
+          for fluency. Every build runs the suite against a baseline, so a regression surfaces as a
+          named case going red.</p>
       </div>
 
       <p class="stack">TypeScript · Azure OpenAI · Microsoft Graph · Azure Postgres (RLS) · Bicep</p>
@@ -215,7 +220,7 @@ section:first-of-type{border-top:0}
 <!-- ══ 3. THE PROBE STUDY ══ -->
 <section>
   <div class="wrap">
-    <p class="eyebrow">Research &middot; 142 probes, 139 logged runs</p>
+    <p class="eyebrow">Research &middot; 138 probes</p>
     <h2>What it takes to stump a coding agent</h2>
 
     <div class="work">
@@ -239,6 +244,28 @@ section:first-of-type{border-top:0}
 
       <p>Both survivors had misleading evidence. All thirty-one dead probes had none of the
         three.</p>
+
+      <p>Then I built the task the finding pointed at. It runs on the benchmark's own harness,
+        and I ran it under the exact agent and model pairs the project's continuous integration
+        uses by default, three trials each.</p>
+
+      <div class="exhibit">
+        <p class="exhibit-cap"><span>The finished task, scored</span><span>reward 0 = the agent failed</span></p>
+        <pre class="log">agent         model                     effort   trials   reward
+<b>claude-code   anthropic/claude-opus-5   max      3        0.000</b>
+<b>codex         openai/gpt-5.6-sol        xhigh    3        0.000</b>
+oracle        (reference solution)      &mdash;        1        1.000
+nop           (do nothing)              &mdash;        1        0.000
+
+<span class="path">// no crash, no rate limit, no timeout — read from the harness's own result.json
+// 22 of 22 repository static checks pass; verifier runs in a separate container</span></pre>
+        <p style="font-size:.93rem;color:var(--ink-muted);margin:.7rem 0 0">The oracle and no-op
+          rows are the controls: they prove the task is solvable and that doing nothing scores
+          nothing, so a zero from a real agent means the agent failed rather than the grader being
+          broken. Six frontier trials, six failures. Every one of them reconciled the numbers
+          correctly and then grouped the causes wrongly, which is the failure the task was built
+          to provoke.</p>
+      </div>
 
       <div class="exhibit">
         <p class="exhibit-cap"><span>A solve log, verbatim</span><span>17 lines &middot; one pass</span></p>
