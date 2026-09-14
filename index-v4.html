@@ -308,21 +308,36 @@ Same call 8× in a row  <span class="path">→</span> <b>loop detected, stop</b>
         <pre class="log"><b>[error]</b>   edge touches unknown step 'summarise'
 <b>[error]</b>   step 'rank' is unreachable from any entry
 <b>[error]</b>   loop edge review-&gt;extract has no `when` — it can only stop at the guard
-<b>[error]</b>   step 'verify' (verify) is missing contract inputs {'threshold'}
+<b>[error]</b>   step 'verify' (verify) is missing contract inputs ['threshold']
 <b>[warning]</b> step 'classify' has a single guarded out-edge (when 'score &gt; 0.8')
           and no other path — the work-item dead-ends whenever that guard is
           false; add an else/fail path or make it a deliberate endpoint</pre>
         <p style="font-size:.93rem;color:var(--ink-muted);margin:.7rem 0 0">The last one is the check
           worth having. A step whose only exit is conditional silently swallows every work-item the
           guard rejects, and nothing errors &mdash; the run just comes back with fewer results than it
-          started with. The graph is rejected before a single model call is made.</p>
+          started with. The four errors above it reject the graph before a single model call is made.
+          That last one is a warning and the graph still runs, because a deliberate endpoint is
+          legitimate &mdash; but it is surfaced before the run rather than discovered as a short result
+          afterwards. Deciding which findings block and which only warn is the judgment, not blocking
+          everything.</p>
       </div>
 
       <div class="hard">
         <span class="label">What it does not do</span>
-        <p>The held-out set I judge it against is eight cases. That is enough to catch a graph that
-          stopped working and nowhere near enough to call a benchmark, and I would rather say so than
-          quote a percentage off it.</p>
+        <p>The headline result here &mdash; a weak specialist going from half right to fully right on
+          examples it had not seen &mdash; rests on an evaluation set of <b>eight cases</b>. There are
+          larger surfaces behind it, a suite per specialist and leave-one-out over about a thousand
+          curated examples, but eight is the number under that particular claim and eight is nowhere
+          near a benchmark. I would rather name it than quote a percentage and hope nobody asks.</p>
+      </div>
+
+      <div class="exhibit">
+        <p class="exhibit-cap"><span>A real workflow, drawn by the engine</span><span>recipe: refine</span></p>
+        <img src="workflow-graph.svg" alt="Workflow graph: a write step feeds a verify step, which has two guarded exits — pass goes forward to a human-gated act step, fail loops back to write, carrying the issues found as feedback." style="width:100%;height:auto;display:block;border:1px solid var(--border);border-radius:4px;background:#fff" />
+        <p style="font-size:.93rem;color:var(--ink-muted);margin:.7rem 0 0">Not drawn for this page &mdash;
+          laid out by the engine's own renderer from the recipe object. It is the mirror of the warning
+          above: the check step has <em>two</em> conditional exits, so nothing is dropped. A step with
+          only one is the case the validator flags.</p>
       </div>
 
       <p class="stack">Python · agentic orchestration · MCP client and server · static graph validation</p>

@@ -1,0 +1,92 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 888.0 345.0" width="700" role="img" aria-labelledby="ttl desc" style="max-width:100%;height:auto;font-family:ui-sans-serif,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif">
+<title id="ttl">A validated workflow graph: draft, check, and either loop back or publish</title>
+<desc id="desc">Four steps left to right. An input feeds a draft step. The draft flows to a check step. The check step has two guarded exits: when the verdict is fail it loops back to the draft step carrying the issues as feedback; when the verdict is pass it flows to a human-gated publish step and then to the output. Because both outcomes are covered, no work item can be silently dropped.</desc>
+<rect width="100%" height="100%" fill="#fbfcfd"/>
+<g transform="translate(-8.0,-124.5)">
+<path d="M 136 276 L 127.5 276 Q 119 276 119 284.5 L 119 290 Q 119 299 128 299 L 178 299" fill="none" stroke="#b9c2cf" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" opacity="0.75"/>
+<path d="M 114 299 L 128 299 Q 137 299 137 308 L 137 313 Q 137 322 146 322 L 178 322" fill="none" stroke="#b9c2cf" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" opacity="0.75"/>
+<path d="M 114 322 L 155 322 Q 164 322 164 331 L 164 338 Q 164 345 171 345 L 178 345" fill="none" stroke="#b9c2cf" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" opacity="0.75"/>
+<path d="M 522 276 L 535 276 Q 544 276 544 267 L 544 178.5 Q 544 169.5 535 169.5 L 165 169.5 Q 156 169.5 156 178.5 L 156 359 Q 156 368 165 368 L 178 368" fill="none" stroke="#8fa0b5" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="3 4" opacity="0.85"/>
+<path d="M 340 253 L 340.5 253 Q 341 253 341 253.5 L 341 313 Q 341 322 350 322 L 382 322" fill="none" stroke="#b9c2cf" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" opacity="0.75"/>
+<path d="M 136 276 L 141 276 Q 146 276 146 281 L 146 397.5 Q 146 406.5 155 406.5 L 350 406.5 Q 359 406.5 359 397.5 L 359 354 Q 359 345 368 345 L 382 345" fill="none" stroke="#b9c2cf" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" opacity="0.75"/>
+<path d="M 340 253 L 345 253 Q 350 253 350 248 L 350 225.5 Q 350 216.5 359 216.5 L 536 216.5 Q 545 216.5 545 225.5 L 545 313 Q 545 322 554 322 L 586 322" fill="none" stroke="#b9c2cf" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" opacity="0.75"/>
+<path d="M 114 345 L 164 345 Q 173 345 173 354 L 173 406.5 Q 173 415.5 182 415.5 L 554 415.5 Q 563 415.5 563 406.5 L 563 354 Q 563 345 572 345 L 586 345" fill="none" stroke="#b9c2cf" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" opacity="0.75"/>
+<path d="M 522 299 L 550 299 Q 559 299 559 290 L 559 163.5 Q 559 154.5 550 154.5 L 150 154.5 Q 141 154.5 141 163.5 L 141 267 Q 141 276 150 276 L 178 276" fill="none" stroke="#c4614c" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 4" opacity="1"/>
+<path d="M 522 299 L 586 299" fill="none" stroke="#c08a2e" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" opacity="1"/>
+<path d="M 726 276 L 749 276 Q 758 276 758 285 L 758 301.5 Q 758 310.5 767 310.5 L 790 310.5" fill="none" stroke="#b9c2cf" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" opacity="0.75"/>
+<g>
+<rect x="22" y="236.5" width="92" height="127" rx="7" fill="#eef1f5" stroke="#b7c0cd" stroke-width="1.4"/>
+<line x1="22" y1="264.5" x2="114" y2="264.5" stroke="#b7c0cd" stroke-width="1" opacity=".55"/>
+<text x="31" y="254" font-size="14" font-weight="700" fill="#57606f" font-family="ui-monospace,'SF Mono',Menlo,monospace">work item</text>
+<circle cx="114" cy="276.0" r="3.1" fill="#ffffff" stroke="#8c98a8" stroke-width="1.4"/>
+<text x="105" y="279.6" font-size="12.6" text-anchor="end" fill="#4b5563" font-weight="400" font-family="ui-monospace,'SF Mono',Menlo,monospace">topic</text>
+<circle cx="114" cy="299.0" r="3.1" fill="#ffffff" stroke="#8c98a8" stroke-width="1.4"/>
+<text x="105" y="302.6" font-size="12.6" text-anchor="end" fill="#4b5563" font-weight="400" font-family="ui-monospace,'SF Mono',Menlo,monospace">sources</text>
+<circle cx="114" cy="322.0" r="3.1" fill="#ffffff" stroke="#8c98a8" stroke-width="1.4"/>
+<text x="105" y="325.6" font-size="12.6" text-anchor="end" fill="#4b5563" font-weight="400" font-family="ui-monospace,'SF Mono',Menlo,monospace">brief</text>
+<circle cx="114" cy="345.0" r="3.1" fill="#ffffff" stroke="#8c98a8" stroke-width="1.4"/>
+<text x="105" y="348.6" font-size="12.6" text-anchor="end" fill="#4b5563" font-weight="400" font-family="ui-monospace,'SF Mono',Menlo,monospace">slug</text>
+</g>
+<g>
+<rect x="178" y="213.5" width="140" height="173" rx="7" fill="#ffffff" stroke="#9aa6b6" stroke-width="1.4"/>
+<line x1="178" y1="241.5" x2="318" y2="241.5" stroke="#9aa6b6" stroke-width="1" opacity=".55"/>
+<text x="187" y="231" font-size="14" font-weight="700" fill="#1f2937" font-family="ui-monospace,'SF Mono',Menlo,monospace">write</text>
+<circle cx="318" cy="253.0" r="3.1" fill="#ffffff" stroke="#8c98a8" stroke-width="1.4"/>
+<text x="309" y="256.6" font-size="12.6" text-anchor="end" fill="#4b5563" font-weight="400" font-family="ui-monospace,'SF Mono',Menlo,monospace">post</text>
+<circle cx="178" cy="276.0" r="3.1" fill="#c08a2e" stroke="#c08a2e" stroke-width="1.4"/>
+<text x="187" y="279.6" font-size="12.6" text-anchor="start" fill="#8a6516" font-weight="700" font-family="ui-monospace,'SF Mono',Menlo,monospace">when fail</text>
+<circle cx="178" cy="299.0" r="3.1" fill="#ffffff" stroke="#8c98a8" stroke-width="1.4"/>
+<text x="187" y="302.6" font-size="12.6" text-anchor="start" fill="#4b5563" font-weight="400" font-family="ui-monospace,'SF Mono',Menlo,monospace">topic</text>
+<circle cx="178" cy="322.0" r="3.1" fill="#ffffff" stroke="#8c98a8" stroke-width="1.4"/>
+<text x="187" y="325.6" font-size="12.6" text-anchor="start" fill="#4b5563" font-weight="400" font-family="ui-monospace,'SF Mono',Menlo,monospace">sources</text>
+<circle cx="178" cy="345.0" r="3.1" fill="#ffffff" stroke="#8c98a8" stroke-width="1.4"/>
+<text x="187" y="348.6" font-size="12.6" text-anchor="start" fill="#4b5563" font-weight="400" font-family="ui-monospace,'SF Mono',Menlo,monospace">brief</text>
+<circle cx="178" cy="368.0" r="3.1" fill="#ffffff" stroke="#8c98a8" stroke-width="1.4"/>
+<text x="187" y="371.6" font-size="12.6" text-anchor="start" fill="#4b5563" font-weight="400" font-family="ui-monospace,'SF Mono',Menlo,monospace">feedback</text>
+</g>
+<g>
+<rect x="382" y="236.5" width="140" height="127" rx="7" fill="#ffffff" stroke="#9aa6b6" stroke-width="1.4"/>
+<line x1="382" y1="264.5" x2="522" y2="264.5" stroke="#9aa6b6" stroke-width="1" opacity=".55"/>
+<text x="391" y="254" font-size="14" font-weight="700" fill="#1f2937" font-family="ui-monospace,'SF Mono',Menlo,monospace">verify</text>
+<circle cx="522" cy="276.0" r="3.1" fill="#ffffff" stroke="#8c98a8" stroke-width="1.4"/>
+<text x="513" y="279.6" font-size="12.6" text-anchor="end" fill="#4b5563" font-weight="400" font-family="ui-monospace,'SF Mono',Menlo,monospace">issues</text>
+<circle cx="522" cy="299.0" r="3.1" fill="#ffffff" stroke="#8c98a8" stroke-width="1.4"/>
+<text x="513" y="302.6" font-size="12.6" text-anchor="end" fill="#4b5563" font-weight="400" font-family="ui-monospace,'SF Mono',Menlo,monospace">verdict</text>
+<circle cx="382" cy="322.0" r="3.1" fill="#ffffff" stroke="#8c98a8" stroke-width="1.4"/>
+<text x="391" y="325.6" font-size="12.6" text-anchor="start" fill="#4b5563" font-weight="400" font-family="ui-monospace,'SF Mono',Menlo,monospace">draft</text>
+<circle cx="382" cy="345.0" r="3.1" fill="#ffffff" stroke="#8c98a8" stroke-width="1.4"/>
+<text x="391" y="348.6" font-size="12.6" text-anchor="start" fill="#4b5563" font-weight="400" font-family="ui-monospace,'SF Mono',Menlo,monospace">topic</text>
+</g>
+<g>
+<rect x="586" y="236.5" width="140" height="127" rx="7" fill="#fffaf0" stroke="#c9a860" stroke-width="1.4"/>
+<line x1="586" y1="264.5" x2="726" y2="264.5" stroke="#c9a860" stroke-width="1" opacity=".55"/>
+<text x="595" y="254" font-size="14" font-weight="700" fill="#7a5d18" font-family="ui-monospace,'SF Mono',Menlo,monospace">act</text>
+<text x="718" y="254" font-size="11" text-anchor="end" fill="#a8842c" font-weight="600">human gate</text>
+<circle cx="726" cy="276.0" r="3.1" fill="#ffffff" stroke="#8c98a8" stroke-width="1.4"/>
+<text x="717" y="279.6" font-size="12.6" text-anchor="end" fill="#4b5563" font-weight="400" font-family="ui-monospace,'SF Mono',Menlo,monospace">result</text>
+<circle cx="586" cy="299.0" r="3.1" fill="#c08a2e" stroke="#c08a2e" stroke-width="1.4"/>
+<text x="595" y="302.6" font-size="12.6" text-anchor="start" fill="#8a6516" font-weight="700" font-family="ui-monospace,'SF Mono',Menlo,monospace">when pass</text>
+<circle cx="586" cy="322.0" r="3.1" fill="#ffffff" stroke="#8c98a8" stroke-width="1.4"/>
+<text x="595" y="325.6" font-size="12.6" text-anchor="start" fill="#4b5563" font-weight="400" font-family="ui-monospace,'SF Mono',Menlo,monospace">content</text>
+<circle cx="586" cy="345.0" r="3.1" fill="#ffffff" stroke="#8c98a8" stroke-width="1.4"/>
+<text x="595" y="348.6" font-size="12.6" text-anchor="start" fill="#4b5563" font-weight="400" font-family="ui-monospace,'SF Mono',Menlo,monospace">name</text>
+</g>
+<g>
+<rect x="790" y="271" width="92" height="58" rx="7" fill="#eef1f5" stroke="#b7c0cd" stroke-width="1.4"/>
+<line x1="790" y1="299" x2="882" y2="299" stroke="#b7c0cd" stroke-width="1" opacity=".55"/>
+<text x="799" y="288.5" font-size="14" font-weight="700" fill="#57606f" font-family="ui-monospace,'SF Mono',Menlo,monospace">done</text>
+<circle cx="790" cy="310.5" r="3.1" fill="#ffffff" stroke="#8c98a8" stroke-width="1.4"/>
+<text x="799" y="314.1" font-size="12.6" text-anchor="start" fill="#4b5563" font-weight="400" font-family="ui-monospace,'SF Mono',Menlo,monospace">result</text>
+</g>
+</g>
+<text x="14" y="15" font-size="14.5" font-weight="700" fill="#1f2937">Draft → check → publish — a real workflow graph, both guarded exits covered</text>
+<text x="14" y="313" font-size="12.5" fill="#6b7280">The check step has two conditional exits, so no work item is silently dropped. A step with only one would be.</text>
+<line x1="14" y1="330.5" x2="31" y2="330.5" stroke="#b9c2cf" stroke-width="2.4" stroke-linecap="round"/>
+<text x="36" y="334" font-size="12" fill="#57606f">data</text>
+<line x1="83.2" y1="330.5" x2="100.2" y2="330.5" stroke="#c08a2e" stroke-width="2.4" stroke-linecap="round"/>
+<text x="105.2" y="334" font-size="12" fill="#57606f">guarded exit: when verdict == 'pass'</text>
+<line x1="353.99999999999994" y1="330.5" x2="370.99999999999994" y2="330.5" stroke="#c4614c" stroke-width="2.4" stroke-linecap="round" stroke-dasharray="8 4"/>
+<text x="375.99999999999994" y="334" font-size="12" fill="#57606f">guarded loop back: when verdict == 'fail'</text>
+<line x1="656.3" y1="330.5" x2="673.3" y2="330.5" stroke="#8fa0b5" stroke-width="2.4" stroke-linecap="round" stroke-dasharray="3 4"/>
+<text x="678.3" y="334" font-size="12" fill="#57606f">feedback carried into the retry</text>
+</svg>
