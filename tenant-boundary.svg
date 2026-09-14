@@ -18,7 +18,7 @@
 <text x="234.0" y="206.0" text-anchor="middle" style="font-family:ui-monospace,SFMono-Regular,Menlo,monospace" font-size="10" fill="#6e6960">subscription &#183; seat</text>
 <rect x="322" y="168" width="152" height="48" rx="5" fill="#fbfaf7" stroke="#d2cec8" stroke-width="1.2"/>
 <text x="398.0" y="190.0" text-anchor="middle" style="font-family:-apple-system,BlinkMacSystemFont,system-ui,sans-serif" font-size="13" font-weight="600" fill="#1a1814">Narrow tools</text>
-<text x="398.0" y="206.0" text-anchor="middle" style="font-family:ui-monospace,SFMono-Regular,Menlo,monospace" font-size="10" fill="#6e6960">85 &#8594; about 6</text>
+<text x="398.0" y="206.0" text-anchor="middle" style="font-family:ui-monospace,SFMono-Regular,Menlo,monospace" font-size="10" fill="#6e6960">85 &#8594; about 26</text>
 <rect x="492" y="168" width="140" height="48" rx="5" fill="#fbfaf7" stroke="#d2cec8" stroke-width="1.2"/>
 <text x="562.0" y="190.0" text-anchor="middle" style="font-family:-apple-system,BlinkMacSystemFont,system-ui,sans-serif" font-size="13" font-weight="600" fill="#1a1814">Memory</text>
 <text x="562.0" y="206.0" text-anchor="middle" style="font-family:ui-monospace,SFMono-Regular,Menlo,monospace" font-size="10" fill="#6e6960">top-5 by cosine</text>

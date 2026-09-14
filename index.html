@@ -275,6 +275,17 @@ Same tool, same args, 8× <span class="path">→</span> <b>block that call, tell
           the cost saving comes from.</p>
       </div>
 
+      <div class="exhibit">
+        <p class="exhibit-cap"><span>Where the tenant boundary actually is</span><span>and what sits outside it</span></p>
+        <img src="tenant-boundary.svg" alt="A Teams message arrives outside the tenant boundary. Binding the tenant context is the only entry point. Inside the boundary: gates, tool narrowing from 85 to about 26, memory retrieval, the agent loop, and Microsoft Graph. Drawn outside, dashed: getSystemDb, a BYPASSRLS escape hatch for cron, retention and metering paths." style="width:100%;height:auto;display:block;border:1px solid var(--border);border-radius:4px;background:#fff" />
+        <p style="font-size:.93rem;color:var(--ink-muted);margin:.7rem 0 0">Isolation is a context object
+          and a Postgres session variable, not a network edge. The interesting part is the dashed box.
+          About ten cron, retention and metering paths legitimately need to span tenants, so they run
+          as a separate role that bypasses the policies &mdash; and drawing them inside the boundary would
+          make the picture a lie. The app pool cannot cross tenants even by mistake; a small named set
+          of system paths can, on purpose.</p>
+      </div>
+
       <div class="hard">
         <span class="label">What it does not do</span>
         <p>It is synchronous, with progress streamed mid-task &mdash; not long-running or resumable. It
