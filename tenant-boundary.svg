@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 980 400" width="700" style="max-width:100%;height:auto" role="img" aria-labelledby="ti-t ti-d">
+<title id="ti-t">Tenant isolation boundary</title>
+<desc id="ti-d">A Teams message arrives outside the boundary. Binding the tenant context is the single entry point. Inside sit the gates, tool narrowing, memory retrieval, the agent loop and every Microsoft Graph call. Drawn deliberately outside is getSystemDb, a BYPASSRLS escape hatch for cron, retention and metering paths that legitimately span tenants.</desc>
+<rect width="980" height="400" fill="#ffffff"/>
+<defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#6e6960"/></marker><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#b8863a"/></marker></defs>
+<text x="0" y="15" style="font-family:-apple-system,BlinkMacSystemFont,system-ui,sans-serif" font-size="13.5" font-weight="700" fill="#1a1814">Tenant isolation &#8212; what sits inside the boundary, and what deliberately does not</text>
+<rect x="132" y="50" width="848" height="236" rx="8" fill="#f7f6f2" stroke="#1a3a5c" stroke-width="1.6"/>
+<text x="148" y="72" style="font-family:ui-monospace,SFMono-Regular,Menlo,monospace" font-size="10.5" font-weight="600" fill="#1a3a5c">AsyncLocalStorage {userId, tenantId} &#43; Postgres app.tenant_id</text>
+<rect x="0" y="92" width="112" height="46" rx="5" fill="#fff" stroke="#d2cec8" stroke-width="1.2"/>
+<text x="56.0" y="113.0" text-anchor="middle" style="font-family:-apple-system,BlinkMacSystemFont,system-ui,sans-serif" font-size="13" font-weight="600" fill="#1a1814">Teams</text>
+<text x="56.0" y="129.0" text-anchor="middle" style="font-family:ui-monospace,SFMono-Regular,Menlo,monospace" font-size="10" fill="#6e6960">message in</text>
+<path d="M112,115 L160,115" stroke="#6e6960" stroke-width="1.4" fill="none" marker-end="url(#a)"/>
+<rect x="132" y="92" width="152" height="46" rx="5" fill="#fff" stroke="#1a3a5c" stroke-width="1.2"/>
+<text x="208.0" y="113.0" text-anchor="middle" style="font-family:-apple-system,BlinkMacSystemFont,system-ui,sans-serif" font-size="13" font-weight="600" fill="#1a1814">Bind context</text>
+<text x="208.0" y="129.0" text-anchor="middle" style="font-family:ui-monospace,SFMono-Regular,Menlo,monospace" font-size="10" fill="#6e6960">the only entry</text>
+<rect x="164" y="168" width="140" height="48" rx="5" fill="#fbfaf7" stroke="#d2cec8" stroke-width="1.2"/>
+<text x="234.0" y="190.0" text-anchor="middle" style="font-family:-apple-system,BlinkMacSystemFont,system-ui,sans-serif" font-size="13" font-weight="600" fill="#1a1814">Gates</text>
+<text x="234.0" y="206.0" text-anchor="middle" style="font-family:ui-monospace,SFMono-Regular,Menlo,monospace" font-size="10" fill="#6e6960">subscription &#183; seat</text>
+<rect x="322" y="168" width="152" height="48" rx="5" fill="#fbfaf7" stroke="#d2cec8" stroke-width="1.2"/>
+<text x="398.0" y="190.0" text-anchor="middle" style="font-family:-apple-system,BlinkMacSystemFont,system-ui,sans-serif" font-size="13" font-weight="600" fill="#1a1814">Narrow tools</text>
+<text x="398.0" y="206.0" text-anchor="middle" style="font-family:ui-monospace,SFMono-Regular,Menlo,monospace" font-size="10" fill="#6e6960">85 &#8594; about 6</text>
+<rect x="492" y="168" width="140" height="48" rx="5" fill="#fbfaf7" stroke="#d2cec8" stroke-width="1.2"/>
+<text x="562.0" y="190.0" text-anchor="middle" style="font-family:-apple-system,BlinkMacSystemFont,system-ui,sans-serif" font-size="13" font-weight="600" fill="#1a1814">Memory</text>
+<text x="562.0" y="206.0" text-anchor="middle" style="font-family:ui-monospace,SFMono-Regular,Menlo,monospace" font-size="10" fill="#6e6960">top-5 by cosine</text>
+<rect x="650" y="168" width="148" height="48" rx="5" fill="#fbfaf7" stroke="#d2cec8" stroke-width="1.2"/>
+<text x="724.0" y="190.0" text-anchor="middle" style="font-family:-apple-system,BlinkMacSystemFont,system-ui,sans-serif" font-size="13" font-weight="600" fill="#1a1814">Agent loop</text>
+<text x="724.0" y="206.0" text-anchor="middle" style="font-family:ui-monospace,SFMono-Regular,Menlo,monospace" font-size="10" fill="#6e6960">plan &#183; act &#183; observe</text>
+<rect x="816" y="168" width="148" height="48" rx="5" fill="#fbfaf7" stroke="#d2cec8" stroke-width="1.2"/>
+<text x="890.0" y="190.0" text-anchor="middle" style="font-family:-apple-system,BlinkMacSystemFont,system-ui,sans-serif" font-size="13" font-weight="600" fill="#1a1814">Graph</text>
+<text x="890.0" y="206.0" text-anchor="middle" style="font-family:ui-monospace,SFMono-Regular,Menlo,monospace" font-size="10" fill="#6e6960">delegated token</text>
+<path d="M304,192 L322,192" stroke="#6e6960" stroke-width="1.4" fill="none" marker-end="url(#a)"/>
+<path d="M474,192 L492,192" stroke="#6e6960" stroke-width="1.4" fill="none" marker-end="url(#a)"/>
+<path d="M632,192 L650,192" stroke="#6e6960" stroke-width="1.4" fill="none" marker-end="url(#a)"/>
+<path d="M798,192 L816,192" stroke="#6e6960" stroke-width="1.4" fill="none" marker-end="url(#a)"/>
+<path d="M240,138 L234,162" stroke="#6e6960" stroke-width="1.4" fill="none" marker-end="url(#a)"/>
+<path d="M724,216 C724,242 398,242 398,216" stroke="#b8863a" stroke-width="1.4" fill="none" marker-end="url(#ar)"/>
+<text x="561" y="256" text-anchor="middle" style="font-family:ui-monospace,SFMono-Regular,Menlo,monospace" font-size="10" fill="#b8863a">tool results re-enter the loop</text>
+<text x="148" y="258" style="font-family:-apple-system,BlinkMacSystemFont,system-ui,sans-serif" font-size="11.5" font-weight="600" fill="#1a3a5c">Fail-closed by construction.</text>
+<text x="148" y="274" style="font-family:-apple-system,BlinkMacSystemFont,system-ui,sans-serif" font-size="11.5" fill="#57534c">With no context bound the tenant id resolves to <tspan style="font-family:ui-monospace,SFMono-Regular,Menlo,monospace" font-size="10.5" fill="#1a3a5c">&#39;default&#39;</tspan>, which matches no tenant, so a forgotten WHERE returns zero rows.</text>
+<rect x="132" y="306" width="848" height="52" rx="5" fill="#fff" stroke="#a83d22" stroke-width="1.3" stroke-dasharray="5 4"/>
+<text x="148" y="327" style="font-family:ui-monospace,SFMono-Regular,Menlo,monospace" font-size="11.5" font-weight="600" fill="#a83d22">getSystemDb() &#8212; BYPASSRLS, drawn outside on purpose</text>
+<text x="148" y="345" style="font-family:-apple-system,BlinkMacSystemFont,system-ui,sans-serif" font-size="11.5" fill="#57534c">About ten cron, retention and metering paths that legitimately span tenants. Separate Postgres role.</text>
+<text x="0" y="390" style="font-family:-apple-system,BlinkMacSystemFont,system-ui,sans-serif" font-size="11.5" fill="#57534c">The app pool cannot cross tenants even by mistake. A small, named set of system paths can, by design. RLS is skipped entirely on single-tenant self-hosted.</text>
+</svg>

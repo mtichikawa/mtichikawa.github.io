@@ -269,9 +269,10 @@ Same tool, same args, 8× <span class="path">→</span> <b>block that call, tell
           repeat guard does not kill the turn &mdash; it blocks the offending call and hands the model a
           note telling it to try another approach, so a run survives its own mistake. The rate-limit
           wait is bounded twice over, because an earlier version retried forever and left someone
-          waiting on a reply that never came. Narrowing the tools first means about six reach the
-          model instead of all eighty-five; the escalation rule above is a separate mechanism and it
-          is where the cost saving comes from.</p>
+          waiting on a reply that never came. Narrowing the tools first takes eighty-five down to a
+          mean of twenty-six per request, a <b>46% cut in input tokens, measured</b> rather than
+          estimated; the escalation rule above is a separate mechanism and it is where the rest of
+          the cost saving comes from.</p>
       </div>
 
       <div class="hard">
