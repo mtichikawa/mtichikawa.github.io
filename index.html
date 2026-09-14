@@ -249,7 +249,35 @@ section:first-of-type{border-top:0}
           named case going red.</p>
       </div>
 
-      <p class="stack">TypeScript · Azure OpenAI · Microsoft Graph · Azure Postgres (RLS) · Bicep</p>
+      <div class="exhibit">
+        <p class="exhibit-cap"><span>What happens when it breaks</span><span>the loop, and its exits</span></p>
+        <pre class="log">Graph returns 429/5xx  <span class="path">→</span> back off and retry ×3, honouring Retry-After
+Model rate-limits      <span class="path">→</span> retry on the provider's own schedule
+Context window exceeded<span class="path">→</span> compact the tool-call history and retry the turn
+Content filter trips   <span class="path">→</span> fall back rather than fail the request
+Same call 8× in a row  <span class="path">→</span> <b>loop detected, stop</b>
+35 tool calls in a task<span class="path">→</span> <b>hard cap, abort cleanly</b>
+
+<span class="path">// one iteration emitting &gt;3 tool calls escalates the small model to the large
+// one for the rest of the turn — most requests never pay for the large model</span></pre>
+        <p style="font-size:.93rem;color:var(--ink-muted);margin:.7rem 0 0">An agent that keeps going
+          is not the hard part. An agent that knows when to stop is. Every exit above is a decision
+          about when the right answer is to give up rather than burn a user's tokens producing
+          something plausible. Narrowing the tools before the model sees them cuts input tokens by
+          about a third; the escalation rule above is a separate mechanism and it is where the cost
+          saving actually comes from.</p>
+      </div>
+
+      <div class="hard">
+        <span class="label">What it does not do</span>
+        <p>It is synchronous, with progress streamed mid-task — not long-running or resumable. It is
+          a single agent in a loop, not a planner and executor. System-level approval gates were
+          built and then abandoned; confirmation is prompt policy for bulk-destructive actions only.
+          It is listed and transactable, and it has no paying customers.</p>
+      </div>
+
+      <p class="stack">TypeScript · Azure OpenAI · Microsoft Graph · Azure Postgres (row-level security) ·
+        Azure Container Apps · Bicep · Docker to GHCR via GitHub Actions</p>
     </div>
   </div>
 </section>
@@ -284,6 +312,13 @@ section:first-of-type{border-top:0}
           worth having. A step whose only exit is conditional silently swallows every work-item the
           guard rejects, and nothing errors &mdash; the run just comes back with fewer results than it
           started with. The graph is rejected before a single model call is made.</p>
+      </div>
+
+      <div class="hard">
+        <span class="label">What it does not do</span>
+        <p>The held-out set I judge it against is eight cases. That is enough to catch a graph that
+          stopped working and nowhere near enough to call a benchmark, and I would rather say so than
+          quote a percentage off it.</p>
       </div>
 
       <p class="stack">Python · agentic orchestration · MCP client and server · static graph validation</p>
