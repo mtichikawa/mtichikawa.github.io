@@ -262,7 +262,7 @@
       <span class="proj-name">Multi-Agent Workflow Engine — built from scratch</span>
       <a class="proj-link" href="https://mtichikawa.github.io/workflow-engine/" target="_blank">mtichikawa.github.io/workflow-engine</a>
     </div>
-    <p class="proj-desc">A Python engine that turns a plain-English request into a control-flow graph of single-purpose agents, validated before it runs and gated on human approval before anything acts. The agents are a shared library reused across workflows rather than duplicated, and a learning loop improves each one from corrected examples rather than a fine-tune, taking a deliberately crippled specialist to a perfect score on a held-out eval after six exemplars. Tested on real public data in 12 unrelated domains, with bidirectional MCP interop as an edge-only adapter.</p>
+    <p class="proj-desc">A Python engine that turns a plain-English request into a control-flow graph of single-purpose agents, validated before it runs and gated on human approval before anything acts. The agents are a shared library reused across workflows rather than duplicated, and a learning loop improves each one from corrected examples rather than a fine-tune, taking a deliberately crippled specialist to 100 percent on a held-out eval after six exemplars. Tested on real public data in 12 unrelated domains, with bidirectional MCP interop as an edge-only adapter.</p>
     <p class="proj-stack">Python &nbsp;·&nbsp; agentic orchestration &nbsp;·&nbsp; MCP (client + server) &nbsp;·&nbsp; contracts + recipes &nbsp;·&nbsp; static graph validation</p>
   </div>
 </div>
@@ -303,7 +303,7 @@
     </div>
     <p class="exp-org">Microclaw LLC &nbsp;·&nbsp; Portland, OR</p>
     <ul class="exp-bullets">
-      <li>Built the agent loop and the retrieval layer that decides which of 85 tools it may call, taking retrieval recall from 92.7 to 95.0 percent against an embedding-only baseline, and the 107-case eval that gated every release</li>
+      <li>Built the agent loop and the retrieval layer that decides which of 85 tools it may call, taking retrieval recall from 92.7 to 95.0 percent on 1,020 labelled requests against an embedding-only baseline, and the eval suite that gated every release</li>
       <li>Eleven weeks from first commit to a transactable Marketplace listing, solo, through Microsoft AppSource certification and the Fulfillment and Metering API work that makes it billable</li>
       <li>Multi-tenant isolation via Postgres row-level security: FORCE policies on every tenant-scoped table, an app role that cannot bypass them, and delegated Entra auth</li>
     </ul>
