@@ -3,19 +3,19 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Mike Ichikawa — AI engineer</title>
+<title>Mike Ichikawa · AI engineer</title>
 <meta name="description" content="I build production AI agents, and the evaluations every build has to pass." />
 <link rel="icon" href="favicon.svg" type="image/svg+xml" />
 <link rel="canonical" href="https://mtichikawa.github.io/" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://mtichikawa.github.io/" />
-<meta property="og:title" content="Mike Ichikawa — AI engineer" />
+<meta property="og:title" content="Mike Ichikawa · AI engineer" />
 <meta property="og:description" content="I build production AI agents, and the evaluations every build has to pass." />
 <meta property="og:image" content="https://mtichikawa.github.io/og-card.png" />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
 <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:title" content="Mike Ichikawa — AI engineer" />
+<meta name="twitter:title" content="Mike Ichikawa · AI engineer" />
 <meta name="twitter:description" content="I build production AI agents, and the evaluations every build has to pass." />
 <meta name="twitter:image" content="https://mtichikawa.github.io/og-card.png" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -55,6 +55,7 @@ section:first-of-type{border-top:0}
 .hero .lede em{color:var(--deep-accent);font-style:normal}
 .hero .meta{font-family:var(--mono);font-size:.8rem;color:var(--deep-faint);
             display:flex;flex-wrap:wrap;gap:.5rem 1.5rem}
+.hero .links-row{margin-top:.75rem}
 .hero .meta a{color:var(--deep-accent);text-decoration:none;border-bottom:1px solid var(--deep-border)}
 
 /* ── WORK ── */
@@ -141,6 +142,8 @@ section:first-of-type{border-top:0}
 .ledger td{padding:.35rem .6rem .35rem 0;border-bottom:1px solid var(--border-soft);color:var(--ink-muted)}
 .v-solved{color:var(--ink-soft)} .v-fail{color:var(--red);font-weight:500} .v-void{color:#b08968}
 .note{font-family:var(--mono);font-size:.72rem;color:var(--ink-soft);margin-top:2.5rem}
+.cap{font-size:.93rem;color:var(--ink-muted);margin:.7rem 0 0}
+.fig{width:100%;height:auto;display:block;border:1px solid var(--border);border-radius:4px;background:#fff;cursor:zoom-in}
 </style>
 </head>
 <body>
@@ -154,9 +157,12 @@ section:first-of-type{border-top:0}
     <p class="meta">
       <span>Founding AI/ML Engineer, Microclaw LLC</span>
       <span>Portland, Oregon</span>
-      <span>Remote</span>
+      <span>Remote, or on-site in Portland</span>
+    </p>
+    <p class="meta links-row">
       <a href="mailto:projects.ichikawa@gmail.com">projects.ichikawa@gmail.com</a>
-      <a href="https://github.com/mtichikawa">github.com/mtichikawa</a>
+      <a href="https://www.linkedin.com/in/mike-ichikawa/">LinkedIn</a>
+      <a href="https://github.com/mtichikawa">GitHub</a>
       <a href="resume.html">Résumé</a>
     </p>
   </div>
@@ -180,8 +186,8 @@ section:first-of-type{border-top:0}
 
       <div class="idx-row">
         <p class="idx-name"><a href="#engine">Workflow engine</a></p>
-        <p class="idx-what">A multi-agent engine for long jobs, with a validator that reports the
-          work a step quietly dropped instead of returning a green check.</p>
+        <p class="idx-what">A multi-agent engine for long jobs, with a validator that checks the
+          graph before it runs.</p>
         <p class="idx-meta">
           <span>Python &middot; multi-agent orchestration</span>
           <a href="https://mtichikawa.github.io/workflow-engine">Walkthrough &rarr;</a>
@@ -190,9 +196,8 @@ section:first-of-type{border-top:0}
 
       <div class="idx-row">
         <p class="idx-name"><a href="#study">Coding-agent probe study</a></p>
-        <p class="idx-what">138 built environments testing what actually defeats a frontier coding
-          agent. It is not complexity. The task it produced fails Opus 5 and GPT-5.6 three times out
-          of three.</p>
+        <p class="idx-what">138 probes testing what defeats a frontier coding agent. The task it
+          produced fails Opus 5 and GPT-5.6 three times out of three.</p>
         <p class="idx-meta">
           <span>Python &middot; Docker &middot; harbor</span>
           <a href="https://github.com/mtichikawa/klavis-tb3-submission">Repository &rarr;</a>
@@ -214,21 +219,18 @@ section:first-of-type{border-top:0}
         language and it works out which actions to take across your mail, calendar and
         files, checks what comes back, and keeps going until the job is done.</p>
 
-      <p>I did the product, the engineering and the compliance. Making it fit for a regulated
-        tenant meant per-customer data isolation enforced in Postgres rather than in
-        application code, a permission model, and a review step before anything destructive
-        ran. It went through Microsoft's marketplace certification on that basis.</p>
+      <p>I did the product, the engineering and the compliance. Each customer's data is
+        kept apart by the database itself, not by application code, and it passed
+        Microsoft's marketplace certification.</p>
 
       <div class="hard">
         <span class="label">The hard part</span>
-        <p>Choosing. The agent picks one action out of eighty-five for a request written in
-          plain English, and a wrong pick comes back looking like finished work rather than
-          an error. Handing the model every tool made it worse, so a retrieval step narrows
-          the candidates before the model ever sees them.</p>
+        <p>It has to choose the right action out of eighty-five. Giving the model every tool made
+          it pick worse, so a retrieval step narrows the list before the model sees it.</p>
       </div>
 
       <div class="exhibit">
-        <p class="exhibit-cap"><span>How a case is scored</span><span>expected facts, not similarity</span></p>
+        <p class="exhibit-cap"><span>How a test case is scored</span><span>expected facts, not similarity</span></p>
         <pre class="log">{
   id:            <b>'quality-15'</b>,
   category:      'quality',
@@ -242,19 +244,14 @@ section:first-of-type{border-top:0}
 
 <span class="path">// passed = accuracy &gt;= 0.8 AND quality &gt;= 0.8 AND no forbiddenFacts present
 // accuracy = (expectedFacts matched) / (expectedFacts total)</span></pre>
-        <p style="font-size:.93rem;color:var(--ink-muted);margin:.7rem 0 0">Two answers can be
-          worded nothing alike and both be right. Scoring against a reference string punishes that
-          and waves through a fluent answer that dropped the one fact that mattered, so every case
-          names the facts a correct answer has to contain. The forbidden list is the other half. This
-          case asks for a <em>draft</em>, so an agent that sends the mail and reports
-          &ldquo;email sent&rdquo; has done the wrong thing and sounded finished doing it. That is
-          the failure the suite exists to catch, and it is invisible to any check that only reads
-          for fluency. Every build runs the suite against a baseline, so a regression surfaces as a
-          named case going red.</p>
+        <p class="cap">Each case lists the facts a right answer must contain and the claims it
+          must never make. This one asks for a <em>draft</em>. An agent that sends the email and
+          says &ldquo;email sent&rdquo; fails, however well it's written. Every build runs the
+          suite against a baseline bot, so a regression shows up as a named case going red.</p>
       </div>
 
       <div class="exhibit">
-        <p class="exhibit-cap"><span>What happens when it breaks</span><span>the loop, and its exits</span></p>
+        <p class="exhibit-cap"><span>What happens when it breaks</span><span>the loop and its exits</span></p>
         <pre class="log cols">Graph returns 429/5xx    <span class="path">→</span> back off and retry ×3, honouring Retry-After
 Model rate-limits        <span class="path">→</span> wait the provider's interval, bounded to 4 and to 90s
 Request times out        <span class="path">→</span> keep the system prompt + last 15 messages, retry once
@@ -263,40 +260,33 @@ Same tool, same args, 8× <span class="path">→</span> <b>block that call, tell
 35 tool calls in a turn  <span class="path">→</span> <b>hard cap, abort before the batch fires</b>
 
 <span class="path">// one iteration emitting &gt;3 tool calls escalates the small model to the large
-// one for the rest of the turn — most requests never pay for the large model</span></pre>
-        <p style="font-size:.93rem;color:var(--ink-muted);margin:.7rem 0 0">An agent that keeps going
-          is not the hard part. Knowing when to stop, and when to nudge instead of stopping, is. The
-          repeat guard does not kill the turn &mdash; it blocks the offending call and hands the model a
-          note telling it to try another approach, so a run survives its own mistake. The rate-limit
-          wait is bounded twice over, because an earlier version retried forever and the
-          reply never came. Narrowing the tools first takes eighty-five down to a
-          mean of twenty-six per request, a <b>46% cut in input tokens, measured</b> rather than
-          estimated; the escalation rule above is a separate mechanism and it is where the rest of
-          the cost saving comes from.</p>
+// one for the rest of the turn, so most requests never pay for the large model</span></pre>
+        <p class="cap">The repeat guard doesn't end the turn. It blocks the looping call and
+          tells the model to try something else. Rate-limit waits have a hard limit because an
+          early version retried forever. Narrowing the tools takes eighty-five down to about
+          twenty-six per request, which I measured as a 46% cut in input tokens.</p>
       </div>
 
       <div class="exhibit">
-        <p class="exhibit-cap"><span>Where the tenant boundary actually is</span><span>and what sits outside it</span></p>
-        <img src="tenant-boundary.svg" alt="A Teams message arrives outside the tenant boundary. Binding the tenant context is the only entry point. Inside the boundary: gates, tool narrowing from 85 to about 26, memory retrieval, the agent loop, and Microsoft Graph. Drawn outside, dashed: getSystemDb, a BYPASSRLS escape hatch for cron, retention and metering paths." style="width:100%;height:auto;display:block;border:1px solid var(--border);border-radius:4px;background:#fff" />
-        <p style="font-size:.93rem;color:var(--ink-muted);margin:.7rem 0 0">Isolation is a context object
-          and a Postgres session variable, not a network edge. The interesting part is the dashed box.
-          About ten cron, retention and metering paths legitimately need to span tenants, so they run
-          as a separate role that bypasses the policies &mdash; and drawing them inside the boundary would
-          make the picture a lie. The app pool cannot cross tenants even by mistake; a small named set
-          of system paths can, on purpose.</p>
+        <p class="exhibit-cap"><span>Where the tenant boundary is</span><span>click to enlarge</span></p>
+        <a href="tenant-boundary.svg" target="_blank" rel="noopener"><img src="tenant-boundary.svg" alt="A Teams message arrives outside the tenant boundary. Binding the tenant context is the only entry point. Inside the boundary: gates, tool narrowing from 85 to about 26, memory retrieval, the agent loop, and Microsoft Graph. Drawn outside, dashed: getSystemDb, a BYPASSRLS escape hatch for cron, retention and metering paths." class="fig" /></a>
+        <p class="cap">Everything a user triggers runs inside the boundary, where the database
+          returns only that customer's rows. About ten scheduled jobs need to see every
+          customer, so they run outside it as a separate database role. The diagram shows
+          them outside on purpose.</p>
       </div>
 
       <div class="hard">
         <span class="label">What it does not do</span>
-        <p>It is synchronous, with progress streamed mid-task &mdash; not long-running or resumable. It
-          is a single agent in a loop, not a planner and executor. There is no system-level approval
-          gate: confirmation is prompt policy, required before an irreversible multi-item delete and
-          before sending anything drafted, with everything else acting immediately inside the user's
-          own permission toggles. It is listed and transactable, and it has no paying customers.</p>
+        <p>It's one agent in a loop, not a planner and executor, and it works synchronously
+          while streaming progress. It asks before a bulk delete or before sending something
+          it drafted, and that rule lives in the prompt, not in a separate approval system.
+          It's listed and can be bought. Nobody has bought it yet.</p>
       </div>
 
       <p class="stack">TypeScript · Azure OpenAI · Microsoft Graph · Azure Postgres (row-level security) ·
         Azure Container Apps · Bicep · Docker to GHCR via GitHub Actions</p>
+      <p class="links"><a href="https://marketplace.microsoft.com/en-us/product/saas/microclaw.microclaw?tab=Overview">Marketplace listing &rarr;</a></p>
     </div>
   </div>
 </section>
@@ -308,15 +298,14 @@ Same tool, same args, 8× <span class="path">→</span> <b>block that call, tell
     <h2>A multi-agent workflow engine</h2>
 
     <div class="work">
-      <p>A Python engine that turns a plain-English request into a control-flow graph of
-        single-purpose agents. The graph is validated before it runs, and a person approves
-        it before anything acts.</p>
+      <p>A Python engine that turns a plain-English request into a graph of small agents,
+        each with one job. The graph is checked before it runs, and a person approves it
+        before anything acts.</p>
 
-      <p>The specialists are a shared library reused across workflows rather than duplicated
-        per workflow, so reuse is structural rather than a convention. A learning loop
-        improves a specialist from corrected examples instead of a fine-tune. It speaks MCP
-        in both directions: it can call an external MCP tool, and it publishes its own
-        workflows as MCP tools.</p>
+      <p>The agents are one shared library that every workflow reuses. A learning loop
+        improves an agent from corrected examples, with no fine-tuning. It works with MCP
+        both ways: it can call outside MCP tools, and it offers its own workflows as MCP
+        tools.</p>
 
       <div class="exhibit">
         <p class="exhibit-cap"><span>The validator, before anything runs</span><span>9 checks</span></p>
@@ -327,35 +316,27 @@ Same tool, same args, 8× <span class="path">→</span> <b>block that call, tell
 <b>[warning]</b> step 'classify' has a single guarded out-edge (when 'score &gt; 0.8')
           and no other path — the work-item dead-ends whenever that guard is
           false; add an else/fail path or make it a deliberate endpoint</pre>
-        <p style="font-size:.93rem;color:var(--ink-muted);margin:.7rem 0 0">The last one is the check
-          worth having. A step whose only exit is conditional silently swallows every work-item the
-          guard rejects, and nothing errors &mdash; the run just comes back with fewer results than it
-          started with. The four errors above it reject the graph before a single model call is made.
-          That last one is a warning and the graph still runs, because a deliberate endpoint is
-          legitimate &mdash; but it is surfaced before the run rather than discovered as a short result
-          afterwards. Deciding which findings block and which only warn is the judgment, not blocking
-          everything.</p>
+        <p class="cap">The four errors stop the graph before any model is called. The warning
+          matters most. A step whose only exit has a condition drops every item that
+          fails it, and the run just returns fewer results. That can be on purpose, so the graph
+          still runs, but you're told before it starts.</p>
+      </div>
+
+      <div class="exhibit">
+        <p class="exhibit-cap"><span>A real workflow, drawn by the engine</span><span>click to enlarge</span></p>
+        <a href="workflow-graph.svg" target="_blank" rel="noopener"><img src="workflow-graph.svg" alt="Workflow graph: a write step feeds a verify step, which has two guarded exits. Pass goes forward to a human-gated act step; fail loops back to write, carrying the issues found as feedback." class="fig" /></a>
+        <p class="cap">The engine drew this from the workflow's own definition. The check step
+          has two exits, pass and fail, so nothing gets dropped.</p>
       </div>
 
       <div class="hard">
         <span class="label">What it does not do</span>
-        <p>The headline result here &mdash; a weak specialist going from half right to fully right on
-          examples it had not seen &mdash; rests on an evaluation set of <b>eight cases</b>. There are
-          larger surfaces behind it, a suite per specialist and leave-one-out over about a thousand
-          curated examples, but eight is the number under that particular claim and eight is nowhere
-          near a benchmark. I would rather name it than quote a percentage and hope nobody asks.</p>
+        <p>The learning-loop result, a weak agent going from half right to fully right on
+          examples it hadn't seen, rests on eight test cases. That is too few to call a
+          benchmark.</p>
       </div>
 
-      <div class="exhibit">
-        <p class="exhibit-cap"><span>A real workflow, drawn by the engine</span><span>recipe: refine</span></p>
-        <img src="workflow-graph.svg" alt="Workflow graph: a write step feeds a verify step, which has two guarded exits — pass goes forward to a human-gated act step, fail loops back to write, carrying the issues found as feedback." style="width:100%;height:auto;display:block;border:1px solid var(--border);border-radius:4px;background:#fff" />
-        <p style="font-size:.93rem;color:var(--ink-muted);margin:.7rem 0 0">Not drawn for this page &mdash;
-          laid out by the engine's own renderer from the recipe object. It is the mirror of the warning
-          above: the check step has <em>two</em> conditional exits, so nothing is dropped. A step with
-          only one is the case the validator flags.</p>
-      </div>
-
-      <p class="stack">Python · agentic orchestration · MCP client and server · static graph validation</p>
+      <p class="stack">Python · agent orchestration · MCP client and server · graph validation</p>
       <p class="links"><a href="https://mtichikawa.github.io/workflow-engine">Walkthrough &rarr;</a></p>
     </div>
   </div>
@@ -368,30 +349,24 @@ Same tool, same args, 8× <span class="path">→</span> <b>block that call, tell
     <h2>What it takes to stump a coding agent</h2>
 
     <div class="work">
-      <p>I set out to build one task a frontier coding agent could not solve, and measured
-        why almost every attempt failed to stump it.</p>
+      <p>I set out to build one task a frontier coding agent couldn't solve, and kept
+        track of why almost every attempt failed.</p>
 
       <div class="finding">
-        <p class="lead">Complexity does not defeat comprehension.</p>
-        <p style="margin:0 0 .8rem;color:var(--ink-muted)">Thirty-one of thirty-three probes
-          were solved. The solve logs are thirteen and seventeen lines, with almost no
-          iteration language &mdash; no <em>then</em>, no <em>after fixing</em>, no
-          <em>turned out</em>. The agent read the environment, understood the whole system,
-          and fixed every planted defect in one pass. So adding defects, or coupling them,
-          does nothing. Three things did work.</p>
+        <p class="lead">Complexity doesn't stop it.</p>
+        <p style="margin:0 0 .8rem;color:var(--ink-muted)">The agent solved thirty-one of
+          thirty-three probes, usually in one pass. It read the whole system and fixed every
+          planted bug at once, so adding more bugs, or tangling them together, changed nothing.
+          Three things did work.</p>
         <div class="levers">
-          <div class="lever"><b>Motion</b><span>The system runs under load and cannot be stopped to inspect.</span></div>
-          <div class="lever"><b>Opacity</b><span>A component with no source, an undocumented format, or state that must be recovered rather than read.</span></div>
-          <div class="lever"><b>Misleading&nbsp;evidence</b><span>Every available observation is systematically wrong in a way no single observation reveals.</span></div>
+          <div class="lever"><b>Motion</b><span>The system runs under load and can't be stopped to inspect.</span></div>
+          <div class="lever"><b>Opacity</b><span>A component with no source, an undocumented format, or state that has to be recovered rather than read.</span></div>
+          <div class="lever"><b>Misleading&nbsp;evidence</b><span>Every available observation is wrong in a way no single observation reveals.</span></div>
         </div>
       </div>
 
-      <p>Both survivors had misleading evidence. All thirty-one dead probes had none of the
-        three.</p>
-
-      <p>Then I built the task the finding pointed at. It runs on the benchmark's own harness,
-        and I ran it under the exact agent and model pairs the project's continuous integration
-        uses by default, three trials each.</p>
+      <p>Both probes that survived had misleading evidence. So I built the final task around
+        it and ran it on the benchmark's own harness, three trials per model.</p>
 
       <div class="exhibit">
         <p class="exhibit-cap"><span>The finished task, scored</span><span>reward 0 = the agent failed</span></p>
@@ -401,46 +376,18 @@ Same tool, same args, 8× <span class="path">→</span> <b>block that call, tell
 oracle        (reference solution)      &mdash;        1        1.000
 nop           (do nothing)              &mdash;        1        0.000
 
-<span class="path">// no crash, no rate limit, no timeout — read from the harness's own result.json
+<span class="path">// no crash, no rate limit, no timeout, read from the harness's own result.json
 // 22 of 22 repository static checks pass; verifier runs in a separate container</span></pre>
-        <p style="font-size:.93rem;color:var(--ink-muted);margin:.7rem 0 0">The oracle and no-op
-          rows are the controls: they prove the task is solvable and that doing nothing scores
-          nothing, so a zero from a real agent means the agent failed rather than the grader being
-          broken. Six frontier trials, six failures. Every one of them reconciled the numbers
-          correctly and then grouped the causes wrongly, which is the failure the task was built
-          to provoke.</p>
+        <p class="cap">The reference solution scores 1 and doing nothing scores 0, so a zero
+          means the agent failed, not the grader. All six trials got the numbers right and then
+          blamed the wrong causes, which is the mistake the task was built to provoke.</p>
       </div>
 
-      <div class="exhibit">
-        <p class="exhibit-cap"><span>A solve log, verbatim</span><span>17 lines &middot; one pass</span></p>
-        <div class="fade"><pre class="log">The application now isolates tenants. Four separate paths were crossing the boundary, each for a different reason:
-
-<b>1. export-invoices — owner escaped a non-FORCEd policy</b> (<span class="path">app/policy.py:22</span>)
-invoices was ENABLE ROW LEVEL SECURITY but not FORCE, and export_invoices deliberately runs as APP_OWNER. Under PostgreSQL semantics the owner is exempt from a non-FORCEd policy, so the export returned every tenant's invoices — including the memo field, which is where the confidential strings live. Set forced: True, matching every other table.
-
-<b>2. search-docs — SECURITY DEFINER on a BYPASSRLS role</b> (<span class="path">app/functions.py:36</span>)
-search_documents was defined with definer=roles.APP_ADMIN, and APP_ADMIN carries BYPASSRLS, which no policy can constrain. The search ran with no tenant predicate at all.
-
-<b>3. usage-summary — unregistered table</b> (<span class="path">app/policy.py:27</span>)
-mv_tenant_usage predates the policy layer and had no entry in POLICIES, so the rollup was served unscoped. Registered it. Related hardening in app/db.py:60 — _scope now raises rather than serving a table with no policy.
-
-<b>4. create-doc — two leaks in the collision path</b> (<span class="path">app/api.py:86</span>)
-The IntegrityError handler opened an APP_ADMIN session to look up the colliding row, then quoted another tenant's id straight back in the error message…</pre></div>
-        <p style="font-size:.93rem;color:var(--ink-muted);margin:.7rem 0 0">Four unrelated defects,
-          diagnosed to the line, fixed in a single pass. No <em>then</em>. No <em>after fixing</em>.
-          No <em>turned out</em>. That absence is the whole finding.</p>
-      </div>
-
-      <div class="exhibit">
-        <p class="exhibit-cap"><span>And a run the ledger counted</span><span>70 bytes</span></p>
-        <pre class="log short">You've hit your session limit · resets 11:30am (America/Los_Angeles)</pre>
-        <p style="font-size:.93rem;color:var(--ink-muted);margin:.7rem 0 0">Seventy-one runs looked
-          like that and were scored as results. Five probes were marked tested and never had been.
-          A separate verifier failed a correct answer on the sixteenth digit and manufactured a
-          survivor that was not one. Both are in the repository, voided rather than deleted. The
-          rule that came out of it: <b>a failure is not a candidate until that probe's own oracle
-          passes its own verifier.</b></p>
-      </div>
+      <p>My own measurements went wrong twice, and both are in the record. A process that
+        died in three seconds produced seventy-one &ldquo;results&rdquo; that were really
+        error messages. A verifier that was too strict failed a correct answer and made a
+        probe look like a survivor. The rule I kept: <b>a probe only counts as a failure
+        after its own reference solution passes its own grader.</b></p>
 
       <table class="ledger">
         <tr><th>Probe</th><th>Runs</th><th>Verdict</th><th>Why</th></tr>
@@ -452,7 +399,7 @@ The IntegrityError handler opened an APP_ADMIN session to look up the colliding 
       </table>
 
       <p class="stack">Python · Docker · reproducible environments · oracle-verified grading</p>
-      <p class="links"><a href="https://github.com/mtichikawa/klavis-tb3-submission/blob/master/docs/search-process.md">Read the writeup &rarr;</a><a href="https://github.com/mtichikawa/klavis-tb3-submission">Repository &rarr;</a></p>
+      <p class="links"><a href="https://github.com/mtichikawa/klavis-tb3-submission/blob/master/docs/search-process.md">Read the write-up &rarr;</a><a href="https://github.com/mtichikawa/klavis-tb3-submission">Repository &rarr;</a></p>
     </div>
   </div>
 </section>
@@ -463,10 +410,9 @@ The IntegrityError handler opened an APP_ADMIN session to look up the colliding 
     <p class="eyebrow">2023 &ndash; 2026</p>
     <h2>Before this</h2>
     <p>Three years as a full-time parent while retraining into software. I started with data
-      engineering and machine learning and moved to agentic development as the field did. That
-      period produced seventeen public repositories, five of them a trading research system,
-      built while I was learning the ropes. They are learning work, kept public and no longer
-      growing.</p>
+      engineering and machine learning, then moved to building agents as the field did. That
+      period left seventeen public repositories, five of them a trading research system. They
+      were for learning, and they're no longer growing.</p>
     <p class="list">forecasting · anomaly detection · NLP · cloud ETL · ML serving ·
       a Databricks medallion lakehouse · streaming analytics · a trading backtest system</p>
     <p class="links"><a href="https://github.com/mtichikawa">All repositories &rarr;</a></p>
@@ -477,8 +423,7 @@ The IntegrityError handler opened an APP_ADMIN session to look up the colliding 
 <section class="contact">
   <div class="wrap">
     <h2>Let's talk.</h2>
-    <p>I am looking for AI engineering work, remote or in Portland, and I am most useful where an agent has
-      to be right and somebody has to prove it.</p>
+    <p>I'm looking for AI engineering work, remote or in Portland.</p>
     <p style="font-family:var(--mono);font-size:.9rem">
       <a href="mailto:projects.ichikawa@gmail.com">projects.ichikawa@gmail.com</a><br />
       <a href="https://www.linkedin.com/in/mike-ichikawa/">linkedin.com/in/mike-ichikawa</a><br />
@@ -488,11 +433,7 @@ The IntegrityError handler opened an APP_ADMIN session to look up the colliding 
 </section>
 
 
-<!-- Analytics: GoatCounter. Free, no cookies, no consent banner needed.
-     Reports referrer, so you can see WHICH application or board drove a view.
-     ACTION REQUIRED: create the account at https://www.goatcounter.com/signup
-     with code "mtichikawa", then this works with no further edits. Until then
-     the script simply fails to load and nothing on the page breaks. -->
+<!-- Analytics: GoatCounter (no cookies). Dashboard: https://mtichikawa.goatcounter.com -->
 <script data-goatcounter="https://mtichikawa.goatcounter.com/count"
         async src="https://gc.zgo.at/count.js"></script>
 </body>
