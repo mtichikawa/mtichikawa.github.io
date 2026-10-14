@@ -265,8 +265,8 @@ Same tool, same args, 8× <span class="path">→</span> <b>block that call, tell
 // escalates to the large one for the rest of the turn (87% of eval messages never did)</span></pre>
         <p class="cap">The repeat guard doesn't end the turn. It blocks the looping call and
           tells the model to try something else. Rate-limit waits have a hard limit because an
-          early version retried forever. On a 142-case eval, the narrowed list did the job as often
-          as sending all eighty-five tools, at 62% lower model cost.</p>
+          early version retried forever. On a 142-case eval, the narrowed list called the right tools
+          as often as sending all eighty-five, with 63% fewer prompt tokens per message.</p>
       </div>
 
       <div class="exhibit">
