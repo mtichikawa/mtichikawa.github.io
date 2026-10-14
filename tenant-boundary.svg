@@ -39,6 +39,6 @@
 <text x="148" y="274" style="font-family:-apple-system,BlinkMacSystemFont,system-ui,sans-serif" font-size="11.5" fill="#57534c">With no context bound the tenant id resolves to <tspan style="font-family:ui-monospace,SFMono-Regular,Menlo,monospace" font-size="10.5" fill="#1a3a5c">&#39;default&#39;</tspan>, which matches no tenant, so a forgotten WHERE returns zero rows.</text>
 <rect x="132" y="306" width="848" height="52" rx="5" fill="#fff" stroke="#a83d22" stroke-width="1.3" stroke-dasharray="5 4"/>
 <text x="148" y="327" style="font-family:ui-monospace,SFMono-Regular,Menlo,monospace" font-size="11.5" font-weight="600" fill="#a83d22">getSystemDb() &#8212; BYPASSRLS, drawn outside on purpose</text>
-<text x="148" y="345" style="font-family:-apple-system,BlinkMacSystemFont,system-ui,sans-serif" font-size="11.5" fill="#57534c">About ten cron, retention and metering paths that legitimately span tenants. Separate Postgres role.</text>
+<text x="148" y="345" style="font-family:-apple-system,BlinkMacSystemFont,system-ui,sans-serif" font-size="11.5" fill="#57534c">About twenty cron, retention and metering paths that legitimately span tenants. Separate Postgres role.</text>
 <text x="0" y="390" style="font-family:-apple-system,BlinkMacSystemFont,system-ui,sans-serif" font-size="11.5" fill="#57534c">The app pool cannot cross tenants even by mistake. A small, named set of system paths can, by design. RLS is skipped entirely on single-tenant self-hosted.</text>
 </svg>
