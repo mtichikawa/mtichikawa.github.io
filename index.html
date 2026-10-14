@@ -153,7 +153,7 @@ section:first-of-type{border-top:0}
   <div class="wrap">
     <h1>Mike Ichikawa</h1>
     <p class="lede">I build production AI agents, and the evaluations
-      <em>every build has to pass.</em></p>
+      <em>that show whether they work.</em></p>
     <p class="meta">
       <span>Founding AI/ML Engineer, Microclaw LLC</span>
       <span>Portland, Oregon</span>
@@ -221,12 +221,14 @@ section:first-of-type{border-top:0}
 
       <p>I did the product, the engineering and the compliance. Each customer's data is
         kept apart by the database itself, not by application code, and it passed
-        Microsoft's marketplace certification.</p>
+        Microsoft's Marketplace and Teams Store certifications.</p>
 
       <div class="hard">
         <span class="label">The hard part</span>
-        <p>It has to choose the right action out of eighty-five. Giving the model every tool made
-          it pick worse, so a retrieval step narrows the list before the model sees it.</p>
+        <p>It has to choose the right action out of eighty-five. Sending every tool on every
+          message is expensive, so a retrieval step narrows the list first. The risk is that the
+          short list drops the tool a request needs, so I measure that on test requests written
+          blind. The redesigned selector offers every needed tool 98.3% of the time, up from 87.3%.</p>
       </div>
 
       <div class="exhibit">
@@ -246,8 +248,8 @@ section:first-of-type{border-top:0}
 // accuracy = (expectedFacts matched) / (expectedFacts total)</span></pre>
         <p class="cap">Each case lists the facts a right answer must contain and the claims it
           must never make. This one asks for a <em>draft</em>. An agent that sends the email and
-          says &ldquo;email sent&rdquo; fails, however well it's written. Every build runs the
-          suite against a baseline bot, so a regression shows up as a named case going red.</p>
+          says &ldquo;email sent&rdquo; fails, however well it's written. The suite replays 142
+          cases offline and checks which tools were called. I run it on demand; it isn't in CI.</p>
       </div>
 
       <div class="exhibit">
@@ -255,24 +257,25 @@ section:first-of-type{border-top:0}
         <pre class="log cols">Graph returns 429/5xx    <span class="path">→</span> back off and retry ×3, honouring Retry-After
 Model rate-limits        <span class="path">→</span> wait the provider's interval, bounded to 4 and to 90s
 Request times out        <span class="path">→</span> keep the system prompt + last 15 messages, retry once
-Content filter trips     <span class="path">→</span> fall back rather than fail the request
+Content filter trips     <span class="path">→</span> ask the user to rephrase rather than fail
 Same tool, same args, 8× <span class="path">→</span> <b>block that call, tell the model to try another way</b>
 35 tool calls in a turn  <span class="path">→</span> <b>hard cap, abort before the batch fires</b>
 
-<span class="path">// one iteration emitting &gt;3 tool calls escalates the small model to the large
-// one for the rest of the turn, so most requests never pay for the large model</span></pre>
+<span class="path">// a small model by default; a long request, or one step emitting &gt;3 tool calls,
+// escalates to the large one for the rest of the turn (87% of eval messages never did)</span></pre>
         <p class="cap">The repeat guard doesn't end the turn. It blocks the looping call and
           tells the model to try something else. Rate-limit waits have a hard limit because an
-          early version retried forever. Narrowing the tools takes eighty-five down to about
-          twenty-six per request, which I measured as a 46% cut in input tokens.</p>
+          early version retried forever. On a 142-case eval, the narrowed list did the job as often
+          as sending all eighty-five tools, at 62% lower model cost.</p>
       </div>
 
       <div class="exhibit">
         <p class="exhibit-cap"><span>Where the tenant boundary is</span><span>click to enlarge</span></p>
-        <a href="tenant-boundary.svg" target="_blank" rel="noopener"><img src="tenant-boundary.svg" alt="A Teams message arrives outside the tenant boundary. Binding the tenant context is the only entry point. Inside the boundary: gates, tool narrowing from 85 to about 26, memory retrieval, the agent loop, and Microsoft Graph. Drawn outside, dashed: getSystemDb, a BYPASSRLS escape hatch for cron, retention and metering paths." class="fig" /></a>
+        <a href="tenant-boundary.svg" target="_blank" rel="noopener"><img src="tenant-boundary.svg" alt="A Teams message arrives outside the tenant boundary. Binding the tenant context is the only entry point. Inside the boundary: gates, tool narrowing from 85 to about 21, memory retrieval, the agent loop, and Microsoft Graph. Drawn outside, dashed: getSystemDb, a BYPASSRLS escape hatch for cron, retention and metering paths." class="fig" /></a>
         <p class="cap">Everything a user triggers runs inside the boundary, where the database
-          returns only that customer's rows. About ten scheduled jobs need to see every
-          customer, so they run outside it as a separate database role. The diagram shows
+          returns only that customer's rows. About twenty system paths, such as cron, retention and
+          metering, need to see every customer, so they run outside it as a separate database role,
+          each listed with its reason. The diagram shows
           them outside on purpose.</p>
       </div>
 
@@ -281,7 +284,8 @@ Same tool, same args, 8× <span class="path">→</span> <b>block that call, tell
         <p>It's one agent in a loop, not a planner and executor, and it works synchronously
           while streaming progress. It asks before a bulk delete or before sending something
           it drafted, and that rule lives in the prompt, not in a separate approval system.
-          It's listed and can be bought. Nobody has bought it yet.</p>
+          It's published on the Marketplace and the Teams Store. I've paused the hosted service for
+          now, and it has no paying customers.</p>
       </div>
 
       <p class="stack">TypeScript · Azure OpenAI · Microsoft Graph · Azure Postgres (row-level security) ·

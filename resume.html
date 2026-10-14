@@ -234,8 +234,8 @@
 <div class="r-section no-break">
   <p class="r-section-head">Summary</p>
   <p style="font-size:9.5pt; color:#4a4844; line-height:1.6;">
-    I shipped a production AI agent solo, from an empty repo to live and transactable on the
-    Microsoft Commercial Marketplace, doing the product, the engineering and the compliance myself.
+    I shipped a production AI agent solo, from an empty repo to a listing on the
+    Microsoft Commercial Marketplace and the Teams Store, doing the product, the engineering and the compliance myself.
     I built a multi-agent workflow engine from scratch for the same class of problem a level up,
     composing single-purpose agents into a validated graph a person signs off before anything runs.
     Before all of it, MS Mathematics, eight years teaching undergraduate math, and three years of
@@ -250,9 +250,9 @@
   <div class="proj no-break">
     <div class="proj-header">
       <span class="proj-name">Microclaw — Production AI Agent for Microsoft 365</span>
-      <a class="proj-link" href="https://marketplace.microsoft.com/en-us/product/saas/microclaw.microclaw?tab=Overview" target="_blank">Live on the Microsoft Marketplace</a>
+      <a class="proj-link" href="https://marketplace.microsoft.com/en-us/product/saas/microclaw.microclaw?tab=Overview" target="_blank">Microsoft Marketplace listing</a>
     </div>
-    <p class="proj-desc">One agent across 12 Microsoft 365 services, with 85 function-calling tools and a plan/act/observe loop that chains them until a task is complete. The hard part was choosing: handing the model every tool made it worse, so a two-stage retrieval step narrows the candidates before the model ever sees them. Around that: RAG semantic memory, model routing that escalates mid-task, and multi-layer failure recovery.</p>
+    <p class="proj-desc">One agent across Microsoft 365, with 85 function-calling tools and a tool-calling loop that chains them until a task is complete. The hard part was choosing: sending every tool on every message is expensive, so a retrieval step narrows the list first, and I measure how often that drops a tool the request needed. Around that: RAG semantic memory, model routing that escalates to a larger model only when a turn needs it, and multi-layer failure recovery.</p>
     <p class="proj-stack">TypeScript &nbsp;·&nbsp; Azure OpenAI &nbsp;·&nbsp; Microsoft Graph &nbsp;·&nbsp; Azure Postgres (RLS) &nbsp;·&nbsp; Bicep</p>
   </div>
 
@@ -285,7 +285,7 @@
   </div>
   <div class="skill-row">
     <span class="skill-label">Evaluation</span>
-    <span>eval design &nbsp;·&nbsp; expected-facts scoring &nbsp;·&nbsp; A/B against baselines &nbsp;·&nbsp; regression gating &nbsp;·&nbsp; pytest &nbsp;·&nbsp; Vitest &nbsp;·&nbsp; GitHub Actions CI</span>
+    <span>eval design &nbsp;·&nbsp; expected-facts scoring &nbsp;·&nbsp; A/B against baselines &nbsp;·&nbsp; blind held-out test sets &nbsp;·&nbsp; pytest &nbsp;·&nbsp; Vitest &nbsp;·&nbsp; GitHub Actions CI</span>
   </div>
   <div class="skill-row">
     <span class="skill-label">Built with</span>
@@ -304,8 +304,8 @@
     </div>
     <p class="exp-org">Microclaw LLC &nbsp;·&nbsp; Portland, OR</p>
     <ul class="exp-bullets">
-      <li>Built the agent loop and the retrieval layer that decides which of 85 tools it may call, taking retrieval recall from 92.7 to 95.0 percent on 1,020 labelled requests against an embedding-only baseline, and the eval suite that gated every release</li>
-      <li>Eleven weeks from first commit to a transactable Marketplace listing, solo, through Microsoft AppSource certification and the Fulfillment and Metering API work that makes it billable</li>
+      <li>Built the agent loop and redesigned its tool selection: on 362 blind-written test requests it offered every tool a request needed 98.3 percent of the time, up from 87.3, and on a 142-case agent eval it did the job as often as sending all 85 tools at 62 percent lower model cost</li>
+      <li>About ten weeks from first commit to a transactable Marketplace listing, solo, through Microsoft Marketplace certification and the Fulfillment and Metering API work that makes it billable, then Teams Store certification after seven review rounds</li>
       <li>Multi-tenant isolation via Postgres row-level security: FORCE policies on every tenant-scoped table, an app role that cannot bypass them, and delegated Entra auth</li>
     </ul>
   </div>
