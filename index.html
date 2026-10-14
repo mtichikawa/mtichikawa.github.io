@@ -303,16 +303,26 @@ Same tool, same args, 8× <span class="path">→</span> <b>block that call, tell
 
     <div class="work">
       <p>A Python engine that turns a plain-English request into a graph of small agents,
-        each with one job. The graph is checked before it runs, and a person approves it
-        before anything acts.</p>
+        each with one job. Every workflow is checked before it runs, and any step that acts
+        outside the engine has to sit behind a person's approval.</p>
 
-      <p>The agents are one shared library that every workflow reuses. A learning loop
-        improves an agent from corrected examples, with no fine-tuning. It works with MCP
-        both ways: it can call outside MCP tools, and it offers its own workflows as MCP
-        tools.</p>
+      <p>The agents are one shared library: every workflow uses the same registered agent by
+        name. A learning loop works out a team's unwritten rules from their corrections, with
+        no fine-tuning. It works with MCP both ways: it can call outside MCP tools, and it
+        offers each of its agents as an MCP tool, plus one that builds and runs a workflow
+        from a plain-English request.</p>
+
+      <div class="hard">
+        <span class="label">Measured on blind test sets</span>
+        <p>Routing a clinic's patient messages to the right queue, with the clinic's rules never
+          written down: accuracy rose from 59% to 97% on 150 test messages as the engine learned
+          from 291 corrections. Its triage step sent all 160 medical messages out of 320 to a
+          person, with no false alarms. On 120 requests, it refused to fake 41 of the 48 jobs
+          that needed a capability it doesn't have.</p>
+      </div>
 
       <div class="exhibit">
-        <p class="exhibit-cap"><span>The validator, before anything runs</span><span>9 checks</span></p>
+        <p class="exhibit-cap"><span>The validator, before anything runs</span><span>26% &rarr; 93% of seeded faults</span></p>
         <pre class="log"><b>[error]</b>   edge touches unknown step 'summarise'
 <b>[error]</b>   step 'rank' is unreachable from any entry
 <b>[error]</b>   loop edge review-&gt;extract has no `when` — it can only stop at the guard
@@ -320,10 +330,14 @@ Same tool, same args, 8× <span class="path">→</span> <b>block that call, tell
 <b>[warning]</b> step 'classify' has a single guarded out-edge (when 'score &gt; 0.8')
           and no other path — the work-item dead-ends whenever that guard is
           false; add an else/fail path or make it a deliberate endpoint</pre>
-        <p class="cap">The four errors stop the graph before any model is called. The warning
+        <p class="cap">The four errors stop the graph before any agent runs. The warning
           matters most. A step whose only exit has a condition drops every item that
           fails it, and the run just returns fewer results. That can be on purpose, so the graph
-          still runs, but you're told before it starts.</p>
+          still runs, but you're told before it starts. Against 615 faults seeded from a list
+          written by an agent that never saw the code, the validator caught 26%. I added data-flow
+          checks, and it now catches 93%, with no false alarms on the real workflows. The new
+          checks were written after I'd seen that list, so 93% is coverage of known faults, not of
+          unseen ones.</p>
       </div>
 
       <div class="exhibit">
@@ -335,9 +349,9 @@ Same tool, same args, 8× <span class="path">→</span> <b>block that call, tell
 
       <div class="hard">
         <span class="label">What it does not do</span>
-        <p>The learning-loop result, a weak agent going from half right to fully right on
-          examples it hadn't seen, rests on eight test cases. That is too few to call a
-          benchmark.</p>
+        <p>The test sets are synthetic. Each was written by one model and checked by a
+          second, both blind to the code, and scored once. But the writers, the checkers and the
+          engine are all Claude models, so they could share a blind spot.</p>
       </div>
 
       <p class="stack">Python · agent orchestration · MCP client and server · graph validation</p>

@@ -237,7 +237,7 @@
     I shipped a production AI agent solo, from an empty repo to a listing on the
     Microsoft Commercial Marketplace and the Teams Store, doing the product, the engineering and the compliance myself.
     I built a multi-agent workflow engine from scratch for the same class of problem a level up,
-    composing single-purpose agents into a validated graph a person signs off before anything runs.
+    composing single-purpose agents into a validated graph, with a human approval gate before any step that acts.
     Before all of it, MS Mathematics, eight years teaching undergraduate math, and three years of
     semiconductor physical design at Intel.
   </p>
@@ -263,7 +263,7 @@
       <span class="proj-name">Multi-Agent Workflow Engine — built from scratch</span>
       <a class="proj-link" href="https://mtichikawa.github.io/workflow-engine/" target="_blank">mtichikawa.github.io/workflow-engine</a>
     </div>
-    <p class="proj-desc">A Python engine that turns a plain-English request into a control-flow graph of single-purpose agents, validated before it runs and gated on human approval before anything acts. The agents are a shared library reused across workflows rather than duplicated, and a learning loop improves each one from corrected examples rather than a fine-tune, taking a deliberately crippled specialist to 100 percent on a held-out eval after six exemplars. Tested on real public data in 12 unrelated domains, with bidirectional MCP interop as an edge-only adapter.</p>
+    <p class="proj-desc">A Python engine, built from scratch on the standard library, that turns a plain-English request into a graph of single-purpose agents. Every workflow is statically validated before it runs, and any step that acts outside the engine must sit behind a human approval gate. A learning loop infers a team's unwritten rules from their corrections, with no fine-tuning: on 150 blind-written messages, routing accuracy rose from 59 to 97 percent. On 320 blind-written patient messages, its triage step sent all 160 medical ones to a person, with no false alarms.</p>
     <p class="proj-stack">Python &nbsp;·&nbsp; agentic orchestration &nbsp;·&nbsp; MCP (client + server) &nbsp;·&nbsp; contracts + recipes &nbsp;·&nbsp; static graph validation</p>
   </div>
 </div>
