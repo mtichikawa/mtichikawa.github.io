@@ -252,7 +252,7 @@
       <span class="proj-name">Microclaw — Production AI Agent for Microsoft 365</span>
       <a class="proj-link" href="https://marketplace.microsoft.com/en-us/product/saas/microclaw.microclaw?tab=Overview" target="_blank">Microsoft Marketplace listing</a>
     </div>
-    <p class="proj-desc">One agent across Microsoft 365, with 85 function-calling tools and a tool-calling loop that chains them until a task is complete. The hard part was choosing: sending every tool on every message is expensive, so a retrieval step narrows the list first, and I measure how often that drops a tool the request needed. Around that: RAG semantic memory, model routing that escalates to a larger model only when a turn needs it, and multi-layer failure recovery.</p>
+    <p class="proj-desc">One agent across Microsoft 365, with 87 function-calling tools and a tool-calling loop that chains them until a task is complete. The hard part was choosing: sending every tool on every message is expensive, so a retrieval step narrows the list first, and I measure how often that drops a tool the request needed. Around that: RAG semantic memory, model routing that escalates to a larger model only when a turn needs it, and multi-layer failure recovery.</p>
     <p class="proj-stack">TypeScript &nbsp;·&nbsp; Azure OpenAI &nbsp;·&nbsp; Microsoft Graph &nbsp;·&nbsp; Azure Postgres (RLS) &nbsp;·&nbsp; Bicep</p>
   </div>
 
@@ -304,7 +304,7 @@
     </div>
     <p class="exp-org">Microclaw LLC &nbsp;·&nbsp; Portland, OR</p>
     <ul class="exp-bullets">
-      <li>Built the agent loop and redesigned its tool selection: on 362 blind-written test requests it offered every tool a request needed 98.3 percent of the time, up from 87.3, and on a 142-case agent eval it called the right tools on 134 of 142 cases on average over three runs, with 49 percent fewer prompt tokens than sending all 85</li>
+      <li>Built the agent loop and redesigned its tool selection: on 362 blind-written test requests it offered every tool a request needed 98.1 percent of the time, up from 87.0, and on a 142-case agent eval it called the right tools on 134 of 142 cases on average over three runs, with 49 percent fewer prompt tokens than sending every tool</li>
       <li>About ten weeks from first commit to a Marketplace listing, solo, through Microsoft Marketplace certification and the Fulfillment and Metering API work that makes it billable, then Teams Store certification after seven review rounds</li>
       <li>Multi-tenant isolation via Postgres row-level security: FORCE policies on every tenant-scoped table, an app role that cannot bypass them, and delegated Entra auth</li>
     </ul>

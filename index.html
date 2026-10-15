@@ -177,7 +177,7 @@ section:first-of-type{border-top:0}
       <div class="idx-row">
         <p class="idx-name"><a href="#agent">M365 agent</a></p>
         <p class="idx-what">A production AI agent in Microsoft Teams that picks one action out of
-          eighty-five per request, and the scored test suite that tells me when it picks wrong.</p>
+          eighty-seven per request, and the scored test suite that tells me when it picks wrong.</p>
         <p class="idx-meta">
           <span>TypeScript &middot; Azure OpenAI &middot; Microsoft Graph &middot; Postgres</span>
           <a href="https://marketplace.microsoft.com/en-us/product/saas/microclaw.microclaw?tab=Overview">Marketplace listing &rarr;</a>
@@ -225,10 +225,10 @@ section:first-of-type{border-top:0}
 
       <div class="hard">
         <span class="label">The hard part</span>
-        <p>It has to choose the right action out of eighty-five. Sending every tool on every
+        <p>It has to choose the right action out of eighty-seven. Sending every tool on every
           message is expensive, so a retrieval step narrows the list first. The risk is that the
           short list drops the tool a request needs, so I measure that on test requests written
-          blind. The redesigned selector offers every needed tool 98.3% of the time, up from 87.3%.</p>
+          blind. The redesigned selector offers every needed tool 98.1% of the time, up from 87.0%.</p>
       </div>
 
       <div class="exhibit">
@@ -267,7 +267,7 @@ Same tool, same args, 8× <span class="path">→</span> <b>block that call, tell
           tells the model to try something else. Rate-limit waits have a hard limit because an
           early version retried forever. On a 142-case eval, the narrowed list called the right tools on
           134 of 142 cases on average over three runs, with 49% fewer prompt tokens than sending all
-          eighty-five.</p>
+          eighty-seven.</p>
       </div>
 
       <div class="exhibit">
