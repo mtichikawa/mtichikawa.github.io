@@ -254,7 +254,7 @@
     <p class="exp-org">Small manufacturing company (client confidential) &nbsp;·&nbsp; Remote &nbsp;·&nbsp; Contract</p>
     <ul class="exp-bullets">
       <li>Lead AI integration for the owners and deploy the company's Azure platform and CI/CD pipeline, starting with an AI quoting app and a self-hosted AI assistant</li>
-      <li>Build an LLM quoting app that extracts requirements from a customer's whole request (emails, attachments, PDFs and drawings, spreadsheets, photos and scans, and call notes) in seconds and returns product model numbers, each value linked to its source line. The owners say finding that information can take a salesperson half a day</li>
+      <li>Build an LLM quoting app that extracts requirements from a customer's whole request (emails, documents, drawings, scans and call notes) in seconds and returns product model numbers, each value linked to its source line. The owners say finding that information can take a salesperson half a day</li>
       <li>Separate extraction from decisions. The LLM only extracts and cites its sources verbatim, deterministic rules code built from the company's quoting guide makes every product decision, and the app stops for human review on missing or conflicting information</li>
       <li>Let the owners change quoting rules in natural language, regression-tested against every open and approved quote and 50,000 synthetic requests, with a diff of what would change and approval by a second person</li>
       <li>Ship through CI/CD with staging and live environments per app, rollback, managed identity with no stored secrets, private networking, and 112 automated tests on every pull request</li>
@@ -269,8 +269,7 @@
     <p class="exp-org">Microclaw LLC &nbsp;·&nbsp; Portland, OR &nbsp;·&nbsp; <a href="https://marketplace.microsoft.com/en-us/product/saas/microclaw.microclaw?tab=Overview" target="_blank" style="color:inherit">Marketplace listing</a> &nbsp;·&nbsp; <a href="https://github.com/mtichikawa/m365-agent" target="_blank" style="color:inherit">Code and evals</a></p>
     <ul class="exp-bullets">
       <li>Built Microclaw, one AI agent across Microsoft 365: 87 function-calling tools, a tool-calling loop that chains them until a task is complete, RAG semantic memory, multi-layer failure recovery, and model routing that escalates to a larger model only when a turn needs it</li>
-      <li>Redesigned how the agent picks its tools. On 362 blind-written test requests it offered every tool a request needed 98.1 percent of the time, up from 87.0</li>
-      <li>On a 142-case agent eval it called the right tools on 134 of 142 cases on average over three runs, with 49 percent fewer prompt tokens than sending every tool</li>
+      <li>Redesigned how the agent picks its tools. On 362 blind-written test requests it offered every tool a request needed 98.1 percent of the time, up from 87.0, with 49 percent fewer prompt tokens than sending every tool</li>
       <li>Took it from first commit to a Marketplace listing in about ten weeks, solo, through Marketplace certification and the Fulfillment and Metering APIs that make it billable, then Teams Store validation after seven review rounds</li>
       <li>Isolated tenants with Postgres row-level security: FORCE policies on every tenant-scoped table, an app role that cannot bypass them, and delegated Entra auth</li>
     </ul>
@@ -297,8 +296,7 @@
     <p class="exp-org">Santa Rosa Junior College &nbsp;·&nbsp; Santa Rosa, CA</p>
     <ul class="exp-bullets">
       <li>Taught mathematics for eight years at an open-enrollment college: Algebra through Calculus III, Linear Algebra, Differential Equations and introductory Statistics</li>
-      <li>Wrote my own lectures and exams, found the topics students kept missing, and reworked how I taught them</li>
-      <li>Wrote my own version of an open-source precalculus textbook in LaTeX, reorganized by concept so trig functions came in week 2 instead of week 10</li>
+      <li>Wrote my own lectures and exams, and my own version of an open-source precalculus textbook in LaTeX, reorganized by concept so trig functions came in week 2 instead of week 10</li>
     </ul>
   </div>
 
@@ -309,8 +307,7 @@
     </div>
     <p class="exp-org">Intel Corporation &nbsp;·&nbsp; Semiconductor R&D</p>
     <ul class="exp-bullets">
-      <li>Owned the layout of whole blocks in the Ivy Bridge (22nm) microprocessor, closing timing, power and design-rule checks</li>
-      <li>Kept my blocks passing every check as cell-library updates and upstream circuit changes landed in a large, version-controlled shared design</li>
+      <li>Owned the layout of whole blocks in the Ivy Bridge (22nm) microprocessor, keeping timing, power and design-rule checks passing as changes landed in a large, version-controlled shared design</li>
       <li>Wrote Python and Perl automation for physical verification</li>
     </ul>
   </div>
@@ -325,7 +322,7 @@
       <span class="proj-name">Multi-Agent Workflow Engine</span>
       <a class="proj-link" href="https://mtichikawa.github.io/workflow-engine/" target="_blank">mtichikawa.github.io/workflow-engine</a>
     </div>
-    <p class="proj-desc">A Python engine, built from scratch on the standard library, that turns a plain-English request into a graph of single-purpose agents. Every workflow is statically validated before it runs, and any step that acts outside the engine must sit behind a human approval gate. A learning loop infers a team's unwritten rules from their corrections, with no fine-tuning: on 150 blind-written messages, routing accuracy rose from 59 to 97 percent. On 320 blind-written patient messages, its triage step sent all 160 medical ones to a person, with no false alarms.</p>
+    <p class="proj-desc">A Python engine, built from scratch on the standard library, that turns a plain-English request into a graph of single-purpose agents. Every workflow is statically validated before it runs, and any step that acts outside the engine must sit behind a human approval gate. A learning loop infers a team's unwritten rules from their corrections, with no fine-tuning: on 150 blind-written messages, routing accuracy rose from 59 to 97 percent.</p>
     <p class="proj-stack">Python &nbsp;·&nbsp; agentic orchestration &nbsp;·&nbsp; MCP (client + server) &nbsp;·&nbsp; static graph validation</p>
   </div>
 
@@ -336,7 +333,7 @@
       <span class="proj-name">Terminal-Bench 3 Task</span>
       <a class="proj-link" href="https://github.com/mtichikawa/klavis-tb3-submission" target="_blank">github.com/mtichikawa/klavis-tb3-submission</a>
     </div>
-    <p class="proj-desc">An original task for the Terminal-Bench 3 agent benchmark. Two exports of the same orders disagree because of four overlapping defects, and the agent has to recover the right values and work out how many separate causes there are. Claude Code on Claude Opus 5 and Codex on GPT-5.6 failed all six trials. The reference solution scores 1 and doing nothing scores 0, so a zero means the agent failed, not the grader. Every agent got the numbers right and then reported the wrong number of causes.</p>
+    <p class="proj-desc">An original task for the Terminal-Bench 3 agent benchmark. Two exports of the same orders disagree because of four overlapping defects, and the agent has to recover the right values and work out how many separate causes there are. Claude Code on Claude Opus 5 and Codex on GPT-5.6 failed all six trials. Every agent got the numbers right and then reported the wrong number of causes.</p>
   </div>
 
   <div class="rule-light"></div>
@@ -349,15 +346,6 @@
     <p class="proj-desc">My pull request to the iTerm2 terminal found a gap in how its Lock Layout setting was enforced: lower-level paths for opening tabs, splits and files bypassed the lock. The maintainer audited it and shipped his own fix in master, with public thanks.</p>
   </div>
 
-  <div class="rule-light"></div>
-
-  <div class="proj">
-    <div class="proj-header">
-      <span class="proj-name">Earlier portfolio work</span>
-      <a class="proj-link" href="https://mtichikawa.github.io" target="_blank">mtichikawa.github.io</a>
-    </div>
-    <p class="proj-desc">Self-directed data engineering and ML projects from 2023 to 2026, including a RAG pipeline on GCP that compares three retrievers (BigQuery Vector Search, FAISS and pgvector) on one eval, streaming and lakehouse pipelines, anomaly detection and forecasting.</p>
-  </div>
 </div>
 
 <!-- SKILLS -->
@@ -381,7 +369,7 @@
   </div>
   <div class="skill-row">
     <span class="skill-label">Built with</span>
-    <span>Python &nbsp;·&nbsp; TypeScript &nbsp;·&nbsp; Node.js &nbsp;·&nbsp; SQL &nbsp;·&nbsp; Azure OpenAI &nbsp;·&nbsp; Claude API (Anthropic) &nbsp;·&nbsp; Microsoft Graph &nbsp;·&nbsp; PostgreSQL &nbsp;·&nbsp; BigQuery &nbsp;·&nbsp; Delta Lake (medallion) &nbsp;·&nbsp; Spark Structured Streaming &nbsp;·&nbsp; SQLAlchemy &nbsp;·&nbsp; pandas &nbsp;·&nbsp; scikit-learn &nbsp;·&nbsp; HuggingFace &nbsp;·&nbsp; sentence-transformers &nbsp;·&nbsp; Azure (Container Apps &nbsp;·&nbsp; Entra &nbsp;·&nbsp; managed identity &nbsp;·&nbsp; Bicep) &nbsp;·&nbsp; AWS (S3 &nbsp;·&nbsp; Lambda &nbsp;·&nbsp; DynamoDB) &nbsp;·&nbsp; GCP (Vertex AI &nbsp;·&nbsp; Cloud Run) &nbsp;·&nbsp; Docker &nbsp;·&nbsp; FastAPI / REST &nbsp;·&nbsp; Redis</span>
+    <span>Python &nbsp;·&nbsp; TypeScript &nbsp;·&nbsp; Node.js &nbsp;·&nbsp; SQL &nbsp;·&nbsp; Azure OpenAI &nbsp;·&nbsp; Claude API (Anthropic) &nbsp;·&nbsp; Microsoft Graph &nbsp;·&nbsp; PostgreSQL &nbsp;·&nbsp; BigQuery &nbsp;·&nbsp; pandas &nbsp;·&nbsp; scikit-learn &nbsp;·&nbsp; Azure (Container Apps &nbsp;·&nbsp; Entra &nbsp;·&nbsp; managed identity &nbsp;·&nbsp; Bicep) &nbsp;·&nbsp; AWS (S3 &nbsp;·&nbsp; Lambda) &nbsp;·&nbsp; GCP (Vertex AI &nbsp;·&nbsp; Cloud Run) &nbsp;·&nbsp; Docker &nbsp;·&nbsp; FastAPI / REST</span>
   </div>
 </div>
 
