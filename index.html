@@ -288,7 +288,7 @@ model numbers      in seconds, every value traceable to the request</pre>
 
       <div class="exhibit">
         <p class="exhibit-cap"><span>What happens when it breaks</span><span>the loop and its exits</span></p>
-        <pre class="log cols">Graph returns 429/5xx    <span class="path">→</span> back off and retry ×3, honouring Retry-After
+        <pre class="log cols">Graph returns 429/5xx    <span class="path">→</span> back off and retry ×3, honoring Retry-After
 Model rate-limits        <span class="path">→</span> wait the provider's interval, bounded to 4 and to 90s
 Request times out        <span class="path">→</span> keep the system prompt + last 15 messages, retry once
 Content filter trips     <span class="path">→</span> ask the user to rephrase rather than fail
