@@ -4,19 +4,19 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Mike Ichikawa · AI engineer</title>
-<meta name="description" content="I build production AI agents, and the evaluations that show whether they work." />
+<meta name="description" content="I build AI systems, and the tests that show they work." />
 <link rel="icon" href="favicon.svg" type="image/svg+xml" />
 <link rel="canonical" href="https://mtichikawa.github.io/" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://mtichikawa.github.io/" />
 <meta property="og:title" content="Mike Ichikawa · AI engineer" />
-<meta property="og:description" content="I build production AI agents, and the evaluations that show whether they work." />
+<meta property="og:description" content="I build AI systems, and the tests that show they work." />
 <meta property="og:image" content="https://mtichikawa.github.io/og-card.png" />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content="Mike Ichikawa · AI engineer" />
-<meta name="twitter:description" content="I build production AI agents, and the evaluations that show whether they work." />
+<meta name="twitter:description" content="I build AI systems, and the tests that show they work." />
 <meta name="twitter:image" content="https://mtichikawa.github.io/og-card.png" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -95,17 +95,6 @@ section:first-of-type{border-top:0}
 .links{font-family:var(--mono);font-size:.8rem;margin-top:.6rem}
 .links a{margin-right:1.25rem;text-decoration:none;border-bottom:1px solid var(--border)}
 
-/* ── FINDING (the probe study) ── */
-.finding{background:var(--bg-soft);border:1px solid var(--border);border-radius:4px;
-         padding:1.5rem;margin:1.25rem 0}
-.finding .lead{font-family:var(--serif);font-size:1.25rem;line-height:1.35;margin:0 0 .9rem;color:var(--ink)}
-.levers{display:grid;gap:.6rem;margin:1rem 0 0}
-.lever{display:grid;grid-template-columns:9rem 1fr;gap:.9rem;align-items:start;
-       font-size:.93rem;color:var(--ink-muted)}
-.lever b{font-family:var(--mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;
-         color:var(--ink);padding-top:.18rem}
-@media(max-width:34rem){.lever{grid-template-columns:1fr;gap:.15rem}}
-
 /* ── BEFORE ── */
 .before p{color:var(--ink-muted)}
 .before .list{font-family:var(--mono);font-size:.82rem;color:var(--ink-soft);
@@ -131,16 +120,6 @@ section:first-of-type{border-top:0}
 @media (max-width:640px){ .log{font-size:.68rem} .log.cols{font-size:.63rem} }
 .log b{color:var(--deep-accent);font-weight:500}
 .log .path{color:#9ec7e8}
-.fade{position:relative}
-.fade:after{content:"";position:absolute;left:0;right:0;bottom:0;height:4rem;pointer-events:none;
-            background:linear-gradient(to bottom,rgba(26,24,20,0),rgba(26,24,20,.96))}
-.two{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
-@media(max-width:40rem){.two{grid-template-columns:1fr}}
-.ledger{width:100%;border-collapse:collapse;font-family:var(--mono);font-size:.78rem;margin:1rem 0 0}
-.ledger th{text-align:left;font-weight:500;color:var(--ink-soft);border-bottom:1px solid var(--border);
-           padding:.35rem .6rem .35rem 0;font-size:.7rem;letter-spacing:.08em;text-transform:uppercase}
-.ledger td{padding:.35rem .6rem .35rem 0;border-bottom:1px solid var(--border-soft);color:var(--ink-muted)}
-.v-solved{color:var(--ink-soft)} .v-fail{color:var(--red);font-weight:500} .v-void{color:#b08968}
 .note{font-family:var(--mono);font-size:.72rem;color:var(--ink-soft);margin-top:2.5rem}
 .cap{font-size:.93rem;color:var(--ink-muted);margin:.7rem 0 0}
 .fig{width:100%;height:auto;display:block;border:1px solid var(--border);border-radius:4px;background:#fff;cursor:zoom-in}
@@ -152,10 +131,10 @@ section:first-of-type{border-top:0}
 <header class="hero">
   <div class="wrap">
     <h1>Mike Ichikawa</h1>
-    <p class="lede">I build production AI agents, and the evaluations
-      <em>that show whether they work.</em></p>
+    <p class="lede">I build AI systems,
+      <em>and the tests that show they work.</em></p>
     <p class="meta">
-      <span>Founding AI/ML Engineer, Microclaw LLC</span>
+      <span>AI Integration Lead (Fractional)</span>
       <span>Portland, Oregon</span>
       <span>Remote, or on-site in Portland</span>
     </p>
@@ -171,13 +150,24 @@ section:first-of-type{border-top:0}
 <!-- ══ PROJECT INDEX ══ -->
 <section class="index">
   <div class="wrap">
-    <p class="index-lead">What I've built</p>
+    <p class="index-lead">Work</p>
     <div class="idx">
 
       <div class="idx-row">
+        <p class="idx-name"><a href="#now">Quoting app</a></p>
+        <p class="idx-what">Now. An LLM app that turns a customer's request for a quote, from
+          emails, drawings, scans and call notes, into product model numbers in seconds.</p>
+        <p class="idx-meta">
+          <span>Python &middot; Azure &middot; GitHub Actions</span>
+          <span>Client confidential</span>
+        </p>
+      </div>
+
+      <div class="idx-row">
         <p class="idx-name"><a href="#agent">M365 agent</a></p>
-        <p class="idx-what">A production AI agent in Microsoft Teams that picks one action out of
-          eighty-seven per request, and the scored test suite that tells me when it picks wrong.</p>
+        <p class="idx-what">Before this. A production AI agent in Microsoft Teams that chooses from
+          eighty-seven tools for each request, and the scored test suite that tells me when it
+          chooses wrong.</p>
         <p class="idx-meta">
           <span>TypeScript &middot; Azure OpenAI &middot; Microsoft Graph &middot; Postgres</span>
           <a href="https://marketplace.microsoft.com/en-us/product/saas/microclaw.microclaw?tab=Overview">Marketplace listing &rarr;</a>
@@ -185,22 +175,12 @@ section:first-of-type{border-top:0}
       </div>
 
       <div class="idx-row">
-        <p class="idx-name"><a href="#engine">Workflow engine</a></p>
-        <p class="idx-what">A multi-agent engine for long jobs, with a validator that checks the
-          graph before it runs.</p>
+        <p class="idx-name"><a href="#side">Side projects</a></p>
+        <p class="idx-what">A multi-agent workflow engine, and a study of what defeats a frontier
+          coding agent.</p>
         <p class="idx-meta">
-          <span>Python &middot; multi-agent orchestration</span>
-          <a href="https://mtichikawa.github.io/workflow-engine">Walkthrough &rarr;</a>
-        </p>
-      </div>
-
-      <div class="idx-row">
-        <p class="idx-name"><a href="#study">Coding-agent probe study</a></p>
-        <p class="idx-what">138 probes testing what defeats a frontier coding agent. The task it
-          produced fails Opus 5 and GPT-5.6 three times out of three.</p>
-        <p class="idx-meta">
-          <span>Python &middot; Docker &middot; harbor</span>
-          <a href="https://github.com/mtichikawa/klavis-tb3-submission">Repository &rarr;</a>
+          <a href="https://mtichikawa.github.io/workflow-engine">Engine walkthrough &rarr;</a>
+          <a href="https://github.com/mtichikawa/klavis-tb3-submission">Study repository &rarr;</a>
         </p>
       </div>
 
@@ -208,10 +188,64 @@ section:first-of-type{border-top:0}
   </div>
 </section>
 
-<!-- ══ 1. THE AGENT ══ -->
+<!-- ══ 1. NOW ══ -->
+<section id="now">
+  <div class="wrap">
+    <p class="eyebrow">Now &middot; AI Integration Lead (Fractional)</p>
+    <h2>AI integration for a small manufacturer</h2>
+
+    <div class="work">
+      <p>I lead AI integration for a small manufacturer, working directly with the owners. I'm
+        building a quoting app for their sales team and deploying the company's Azure platform
+        and delivery pipeline, with a self-hosted AI assistant as the next app on it.</p>
+
+      <p>A customer's request for a quote arrives however they send it: emails with attachments,
+        PDFs and drawings, spreadsheets, photos and scans, and notes from a phone call. The app
+        reads all of it and returns product model numbers in seconds, with every value linked to
+        the line it came from. The owners say finding that information can take a salesperson
+        half a day.</p>
+
+      <div class="exhibit">
+        <p class="exhibit-cap"><span>How a request becomes a quote</span><span>the AI reads, code decides</span></p>
+        <pre class="log cols">customer request   emails · PDFs · drawings · spreadsheets · scans · call notes
+       <span class="path">↓</span>
+LLM extraction     <b>quotes each value word for word, linked to its source line</b>
+       <span class="path">↓</span>
+rules code         built from the company's quoting guide; makes every product decision
+       <span class="path">↓</span>
+gaps or conflicts  <b>stop for a person; the app never guesses</b>
+       <span class="path">↓</span>
+model numbers      in seconds, every value traceable to the request</pre>
+        <p class="cap">The model never makes a product decision. It only extracts and quotes. The
+          decisions are deterministic code, so every product choice traces back to a rule in the
+          company's quoting guide.</p>
+      </div>
+
+      <div class="hard">
+        <span class="label">Changing a rule</span>
+        <p>An owner changes a quoting rule in one plain-English sentence. Before it takes effect,
+          the app reruns every open and approved quote and 50,000 generated requests under the old
+          and new rules, shows what would change, and a second person approves it.</p>
+      </div>
+
+      <p>The platform under it has staging and live environments for each app, rollback, a managed
+        identity with no stored secrets, private networking, and 112 automated tests on every pull
+        request.</p>
+
+      <div class="hard">
+        <span class="label">What's not here</span>
+        <p>The client is confidential, so there's no name, code or screenshot on this page.</p>
+      </div>
+
+      <p class="stack">Python · Azure · GitHub Actions · managed identity · private networking</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══ 2. THE AGENT (before this) ══ -->
 <section id="agent">
   <div class="wrap">
-    <p class="eyebrow">Built solo, start to finish</p>
+    <p class="eyebrow">Before this &middot; built solo, start to finish</p>
     <h2>A production AI agent for Microsoft 365</h2>
 
     <div class="work">
@@ -225,7 +259,7 @@ section:first-of-type{border-top:0}
 
       <div class="hard">
         <span class="label">The hard part</span>
-        <p>It has to choose the right action out of eighty-seven. Sending every tool on every
+        <p>It chooses from eighty-seven tools for each request. Sending every tool on every
           message is expensive, so a retrieval step narrows the list first. The risk is that the
           short list drops the tool a request needs, so I measure that on test requests written
           blind. The redesigned selector offers every needed tool 98.1% of the time, up from 87.0%.</p>
@@ -296,144 +330,49 @@ Same tool, same args, 8× <span class="path">→</span> <b>block that call, tell
   </div>
 </section>
 
-<!-- ══ 2. THE ENGINE ══ -->
-<section id="engine">
+<!-- ══ 3. SIDE PROJECTS ══ -->
+<section id="side">
   <div class="wrap">
-    <p class="eyebrow">Built from scratch</p>
-    <h2>A multi-agent workflow engine</h2>
+    <p class="eyebrow">Side projects</p>
+    <h2>Built on my own time</h2>
 
     <div class="work">
-      <p>A Python engine that turns a plain-English request into a graph of small agents,
-        each with one job. Every workflow is checked before it runs, and any step that acts
-        outside the engine has to sit behind a person's approval.</p>
-
-      <p>The agents are one shared library: every workflow uses the same registered agent by
-        name. A learning loop works out a team's unwritten rules from their corrections, with
-        no fine-tuning. It works with MCP both ways: it can call outside MCP tools, and it
-        offers each of its agents as an MCP tool, plus one that builds and runs a workflow
-        from a plain-English request.</p>
-
-      <div class="hard">
-        <span class="label">Measured on blind test sets</span>
-        <p>Routing a clinic's patient messages to the right queue, with the clinic's rules never
-          written down: accuracy rose from 59% to 97% on 150 test messages as the engine learned
-          from 291 corrections. Its triage step sent all 160 medical messages out of 320 to a
-          person, with no false alarms. On 120 requests, it refused to fake 41 of the 48 jobs
-          that needed a capability it doesn't have.</p>
-      </div>
-
-      <div class="exhibit">
-        <p class="exhibit-cap"><span>The validator, before anything runs</span><span>26% &rarr; 93% of seeded faults</span></p>
-        <pre class="log"><b>[error]</b>   edge touches unknown step 'summarise'
-<b>[error]</b>   step 'rank' is unreachable from any entry
-<b>[error]</b>   loop edge review-&gt;extract has no `when` — it can only stop at the guard
-<b>[error]</b>   step 'verify' (verify) is missing contract inputs ['threshold']
-<b>[warning]</b> step 'classify' has a single guarded out-edge (when 'score &gt; 0.8')
-          and no other path — the work-item dead-ends whenever that guard is
-          false; add an else/fail path or make it a deliberate endpoint</pre>
-        <p class="cap">The four errors stop the graph before any agent runs. The warning
-          matters most. A step whose only exit has a condition drops every item that
-          fails it, and the run just returns fewer results. That can be on purpose, so the graph
-          still runs, but you're told before it starts. Against 615 faults seeded from a list
-          written by an agent that never saw the code, the validator caught 26%. I added data-flow
-          checks, and it now catches 93%, with no false alarms on the real workflows. The new
-          checks were written after I'd seen that list, so 93% is coverage of known faults, not of
-          unseen ones.</p>
-      </div>
-
-      <div class="exhibit">
-        <p class="exhibit-cap"><span>A real workflow, drawn by the engine</span><span>click to enlarge</span></p>
-        <a href="workflow-graph.svg" target="_blank" rel="noopener"><img src="workflow-graph.svg" alt="Workflow graph: a write step feeds a verify step, which has two guarded exits. Pass goes forward to a human-gated act step; fail loops back to write, carrying the issues found as feedback." class="fig" /></a>
-        <p class="cap">The engine drew this from the workflow's own definition. The check step
-          has two exits, pass and fail, so nothing gets dropped.</p>
-      </div>
-
-      <div class="hard">
-        <span class="label">What it does not do</span>
-        <p>The test sets are synthetic. Each was written by one model and checked by a
-          second, both blind to the code, and scored once. But the writers, the checkers and the
-          engine are all Claude models, so they could share a blind spot.</p>
-      </div>
-
+      <h3>A multi-agent workflow engine</h3>
+      <p>A Python engine, built from scratch, that turns a plain-English request into a graph of
+        small single-purpose agents. Every workflow is checked before it runs, and any step that
+        acts outside the engine has to sit behind a person's approval. It learns a team's
+        unwritten rules from their corrections, with no fine-tuning: on a clinic's routing rules
+        it was never shown, accuracy on 150 synthetic test messages rose from 59% to 97%.</p>
       <p class="stack">Python · agent orchestration · MCP client and server · graph validation</p>
       <p class="links"><a href="https://mtichikawa.github.io/workflow-engine">Walkthrough &rarr;</a></p>
     </div>
-  </div>
-</section>
-
-<!-- ══ 3. THE PROBE STUDY ══ -->
-<section id="study">
-  <div class="wrap">
-    <p class="eyebrow">Research &middot; 138 probes</p>
-    <h2>What it takes to stump a coding agent</h2>
 
     <div class="work">
-      <p>I set out to build one task a frontier coding agent couldn't solve, and kept
-        track of why almost every attempt failed.</p>
-
-      <div class="finding">
-        <p class="lead">Complexity doesn't stop it.</p>
-        <p style="margin:0 0 .8rem;color:var(--ink-muted)">The agent solved thirty-one of
-          thirty-three probes. In the solve logs I read, it took in the whole system and fixed every
-          planted bug at once, so adding more bugs, or tangling them together, changed nothing.
-          Three things did work.</p>
-        <div class="levers">
-          <div class="lever"><b>Motion</b><span>The system runs under load and can't be stopped to inspect.</span></div>
-          <div class="lever"><b>Opacity</b><span>A component with no source, an undocumented format, or state that has to be recovered rather than read.</span></div>
-          <div class="lever"><b>Misleading&nbsp;evidence</b><span>Every available observation is wrong in a way no single observation reveals.</span></div>
-        </div>
-      </div>
-
-      <p>Both probes that survived had misleading evidence. So I built the final task around
-        it and ran it on the benchmark's own harness, three trials per model.</p>
-
-      <div class="exhibit">
-        <p class="exhibit-cap"><span>The finished task, scored</span><span>reward 0 = the agent failed</span></p>
-        <pre class="log cols">agent         model                     effort   trials   reward
-<b>claude-code   anthropic/claude-opus-5   max      3        0.000</b>
-<b>codex         openai/gpt-5.6-sol        xhigh    3        0.000</b>
-oracle        (reference solution)      &mdash;        1        1.000
-nop           (do nothing)              &mdash;        1        0.000
-
-<span class="path">// no crash, no rate limit, no timeout, read from the harness's own result.json
-// 22 of 22 repository static checks pass; verifier runs in a separate container</span></pre>
-        <p class="cap">The reference solution scores 1 and doing nothing scores 0, so a zero
-          means the agent failed, not the grader. All six trials got the numbers right and then
-          blamed the wrong causes, which is the mistake the task was built to provoke.</p>
-      </div>
-
-      <p>My own measurements went wrong twice, and both are in the record. A process that
-        died in three seconds produced seventy-one &ldquo;results&rdquo; that were really
-        error messages. A verifier that was too strict failed a correct answer and made a
-        probe look like a survivor. The rule I kept: <b>a probe only counts as a failure
-        after its own reference solution passes its own grader.</b></p>
-
-      <table class="ledger">
-        <tr><th>Probe</th><th>Runs</th><th>Verdict</th><th>Why</th></tr>
-        <tr><td>p22-reconciliation</td><td>2</td><td class="v-fail">SURVIVED</td><td>misleading evidence</td></tr>
-        <tr><td>p18-webhook-ordering</td><td>4</td><td class="v-fail">SURVIVED</td><td>replica lag, unknown</td></tr>
-        <tr><td>p16-rls-isolation</td><td>1</td><td class="v-solved">solved</td><td>full source, static</td></tr>
-        <tr><td>p10-partition-order</td><td>1</td><td class="v-void">false survivor</td><td>my verifier was wrong</td></tr>
-        <tr><td>p01-cancellation</td><td>0</td><td class="v-void">voided</td><td>70-byte log</td></tr>
-      </table>
-
+      <h3>What it takes to stump a coding agent</h3>
+      <p>I built 138 probe environments looking for one task a frontier coding agent couldn't
+        solve. Complexity didn't stop it: it solved thirty-one of thirty-three probes.
+        Misleading evidence did, so I built the final task around it. On the benchmark's own
+        harness, Claude Code on Claude Opus 5 and Codex on GPT-5.6 failed all six trials. Every
+        agent got the numbers right and then reported the wrong number of causes.</p>
       <p class="stack">Python · Docker · reproducible environments · oracle-verified grading</p>
       <p class="links"><a href="https://github.com/mtichikawa/klavis-tb3-submission/blob/master/docs/search-process.md">Read the write-up &rarr;</a><a href="https://github.com/mtichikawa/klavis-tb3-submission">Repository &rarr;</a></p>
     </div>
   </div>
 </section>
 
-<!-- ══ 4. BEFORE THIS ══ -->
+<!-- ══ 4. EARLIER ══ -->
 <section class="before">
   <div class="wrap">
-    <p class="eyebrow">2023 &ndash; 2026</p>
-    <h2>Before this</h2>
-    <p>Three years as a full-time parent while retraining into software. I started with data
+    <p class="eyebrow">Earlier</p>
+    <h2>How I got here</h2>
+    <p>I have a BS in Mechanical Engineering from UC Berkeley and an MS in Mathematics. I spent
+      three years in chip design at Intel, then taught college math for eight years.</p>
+    <p>Then I spent three years as a full-time parent while retraining into software. I started with data
       engineering and machine learning, then moved to building agents as the field did. That
       period left seventeen public repositories, five of them a trading research system. They
       were for learning, and they're no longer growing.</p>
     <p class="list">forecasting · anomaly detection · NLP · cloud ETL · ML serving ·
-      a Databricks medallion lakehouse · streaming analytics · a trading backtest system</p>
+      a medallion lakehouse · streaming analytics · a trading backtest system</p>
     <p class="links"><a href="https://github.com/mtichikawa">All repositories &rarr;</a></p>
   </div>
 </section>
