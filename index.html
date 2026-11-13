@@ -4,19 +4,19 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Mike Ichikawa · AI engineer</title>
-<meta name="description" content="I build AI systems, and the tests that show they work." />
+<meta name="description" content="I'm the engineer for a small manufacturer, building whatever software and AI the business needs." />
 <link rel="icon" href="favicon.svg" type="image/svg+xml" />
 <link rel="canonical" href="https://mtichikawa.github.io/" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://mtichikawa.github.io/" />
 <meta property="og:title" content="Mike Ichikawa · AI engineer" />
-<meta property="og:description" content="I build AI systems, and the tests that show they work." />
+<meta property="og:description" content="I'm the engineer for a small manufacturer, building whatever software and AI the business needs." />
 <meta property="og:image" content="https://mtichikawa.github.io/og-card.png" />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content="Mike Ichikawa · AI engineer" />
-<meta name="twitter:description" content="I build AI systems, and the tests that show they work." />
+<meta name="twitter:description" content="I'm the engineer for a small manufacturer, building whatever software and AI the business needs." />
 <meta name="twitter:image" content="https://mtichikawa.github.io/og-card.png" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -131,10 +131,10 @@ section:first-of-type{border-top:0}
 <header class="hero">
   <div class="wrap">
     <h1>Mike Ichikawa</h1>
-    <p class="lede">I build AI systems,
-      <em>and the tests that show they work.</em></p>
+    <p class="lede">I'm the engineer for a small manufacturer,
+      <em>building whatever software and AI the business needs.</em></p>
     <p class="meta">
-      <span>AI Integration Lead (Fractional)</span>
+      <span>Lead AI Engineer (Fractional)</span>
       <span>Portland, Oregon</span>
       <span>Remote, or on-site in Portland</span>
     </p>
@@ -154,9 +154,10 @@ section:first-of-type{border-top:0}
     <div class="idx">
 
       <div class="idx-row">
-        <p class="idx-name"><a href="#now">Quoting app</a></p>
-        <p class="idx-what">Now. An LLM app that turns a customer's request for a quote, from
-          emails, drawings, scans and call notes, into product model numbers in seconds.</p>
+        <p class="idx-name"><a href="#now">Small manufacturer</a></p>
+        <p class="idx-what">Now. The company's engineer: its cloud platform and its software,
+          starting with an LLM quoting app that turns a customer's request into product model
+          numbers in seconds.</p>
         <p class="idx-meta">
           <span>Python &middot; Azure &middot; GitHub Actions</span>
           <span>Client confidential</span>
@@ -191,14 +192,16 @@ section:first-of-type{border-top:0}
 <!-- ══ 1. NOW ══ -->
 <section id="now">
   <div class="wrap">
-    <p class="eyebrow">Now &middot; AI Integration Lead (Fractional)</p>
-    <h2>AI integration for a small manufacturer</h2>
+    <p class="eyebrow">Now &middot; Lead AI Engineer (Fractional)</p>
+    <h2>Software and AI for a small manufacturer</h2>
 
     <div class="work">
-      <p>I lead AI integration for a small manufacturer, working directly with the owners. I'm
-        building a quoting app for their sales team and deploying the company's Azure platform
-        and delivery pipeline, with a self-hosted AI assistant as the next app on it.</p>
+      <p>I report to the owners, and I design, build, deploy, secure and run all of the
+        company's software. The platform comes first. It runs on Azure, with a
+        delivery pipeline and a self-hosted AI assistant. The first app on it is a quoting
+        app for the sales team, and production scheduling comes next.</p>
 
+      <h3>The first app: quoting</h3>
       <p>A customer's request for a quote arrives however they send it: emails with attachments,
         PDFs and drawings, spreadsheets, photos and scans, and notes from a phone call. The app
         reads all of it and returns product model numbers in seconds, with every value linked to
@@ -206,19 +209,18 @@ section:first-of-type{border-top:0}
         half a day.</p>
 
       <div class="exhibit">
-        <p class="exhibit-cap"><span>How a request becomes a quote</span><span>the AI reads, code decides</span></p>
+        <p class="exhibit-cap"><span>How a request becomes a quote</span><span>five steps</span></p>
         <pre class="log cols">customer request   emails · PDFs · drawings · spreadsheets · scans · call notes
        <span class="path">↓</span>
 LLM extraction     <b>quotes each value word for word, linked to its source line</b>
        <span class="path">↓</span>
 rules code         built from the company's quoting guide; makes every product decision
        <span class="path">↓</span>
-gaps or conflicts  <b>stop for a person; the app never guesses</b>
+gaps or conflicts  <b>the app stops and hands the quote to a person</b>
        <span class="path">↓</span>
 model numbers      in seconds, every value traceable to the request</pre>
-        <p class="cap">The model never makes a product decision. It only extracts and quotes. The
-          decisions are deterministic code, so every product choice traces back to a rule in the
-          company's quoting guide.</p>
+        <p class="cap">The model only extracts and quotes, and every product decision is
+          deterministic code, so each one traces back to a rule in the company's quoting guide.</p>
       </div>
 
       <div class="hard">
@@ -229,8 +231,8 @@ model numbers      in seconds, every value traceable to the request</pre>
       </div>
 
       <p>The platform under it has staging and live environments for each app, rollback, a managed
-        identity with no stored secrets, private networking, and 112 automated tests on every pull
-        request.</p>
+        identity with no stored secrets, and private networking. No change merges or deploys until
+        its tests pass.</p>
 
       <div class="hard">
         <span class="label">What's not here</span>
@@ -245,7 +247,7 @@ model numbers      in seconds, every value traceable to the request</pre>
 <!-- ══ 2. THE AGENT (before this) ══ -->
 <section id="agent">
   <div class="wrap">
-    <p class="eyebrow">Before this &middot; built solo, start to finish</p>
+    <p class="eyebrow">Before this &middot; built solo</p>
     <h2>A production AI agent for Microsoft 365</h2>
 
     <div class="work">
@@ -258,7 +260,7 @@ model numbers      in seconds, every value traceable to the request</pre>
         Microsoft's Marketplace certification and its Teams Store validation, seven review rounds.</p>
 
       <div class="hard">
-        <span class="label">The hard part</span>
+        <span class="label">Choosing tools</span>
         <p>It chooses from eighty-seven tools for each request. Sending every tool on every
           message is expensive, so a retrieval step narrows the list first. The risk is that the
           short list drops the tool a request needs, so I measure that on test requests written
@@ -266,7 +268,7 @@ model numbers      in seconds, every value traceable to the request</pre>
       </div>
 
       <div class="exhibit">
-        <p class="exhibit-cap"><span>How a test case is scored</span><span>expected facts, not similarity</span></p>
+        <p class="exhibit-cap"><span>How a test case is scored</span><span>one case from the suite</span></p>
         <pre class="log">{
   id:            <b>'quality-15'</b>,
   category:      'quality',
@@ -333,8 +335,7 @@ Same tool, same args, 8× <span class="path">→</span> <b>block that call, tell
 <!-- ══ 3. SIDE PROJECTS ══ -->
 <section id="side">
   <div class="wrap">
-    <p class="eyebrow">Side projects</p>
-    <h2>Built on my own time</h2>
+    <h2>Side projects</h2>
 
     <div class="work">
       <h3>A multi-agent workflow engine</h3>
@@ -350,8 +351,8 @@ Same tool, same args, 8× <span class="path">→</span> <b>block that call, tell
     <div class="work">
       <h3>What it takes to stump a coding agent</h3>
       <p>I built 138 probe environments looking for one task a frontier coding agent couldn't
-        solve. Complexity didn't stop it: it solved thirty-one of thirty-three probes.
-        Misleading evidence did, so I built the final task around it. On the benchmark's own
+        solve. It solved thirty-one of thirty-three. The two it couldn't solve both had
+        misleading evidence, so I built the final task around that. On the benchmark's own
         harness, Claude Code on Claude Opus 5 and Codex on GPT-5.6 failed all six trials. Every
         agent got the numbers right and then reported the wrong number of causes.</p>
       <p class="stack">Python · Docker · reproducible environments · oracle-verified grading</p>
@@ -380,7 +381,7 @@ Same tool, same args, 8× <span class="path">→</span> <b>block that call, tell
 <!-- ══ 5. CONTACT ══ -->
 <section class="contact">
   <div class="wrap">
-    <h2>Let's talk.</h2>
+    <h2>Contact</h2>
     <p>I'm looking for AI engineering work, remote or in Portland.</p>
     <p style="font-family:var(--mono);font-size:.9rem">
       <a href="mailto:projects.ichikawa@gmail.com">projects.ichikawa@gmail.com</a><br />
