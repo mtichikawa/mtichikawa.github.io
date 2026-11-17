@@ -53,8 +53,13 @@ figure{margin:1.5rem 0 2rem} figcaption{font-size:.9rem;color:var(--ink-muted);m
 .tbl td:first-child{color:var(--ink-muted);width:55%}
 @media (max-width:640px){ .tbl td:first-child{width:auto} }
 code{font-family:var(--mono);font-size:.85em}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:1rem 0 1.5rem}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin:1rem 0 1.5rem}
+.grid figure{margin:0} .grid figcaption{font-size:.8rem}
 @media (max-width:640px){ .grid{grid-template-columns:1fr} }
+.facts{display:grid;grid-template-columns:1fr 1fr;gap:1rem 1.5rem;margin:0 0 2.5rem;padding:1.25rem 0;border-top:1px solid var(--border-soft);border-bottom:1px solid var(--border-soft)}
+.facts dt{font-family:var(--mono);font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft)}
+.facts dd{margin:.2rem 0 0;font-size:.95rem}
+@media (max-width:640px){ .facts{grid-template-columns:1fr} }
 video{width:100%;border:1px solid var(--border);border-radius:4px;background:#000}
 .links{font-family:var(--mono);font-size:.8rem;line-height:2}
 .links a{text-decoration:none;border-bottom:1px solid var(--border);margin-right:1.25rem}
@@ -68,7 +73,7 @@ footer a{color:var(--deep-accent)}
   <div class="wrap">
     <p class="back"><a href="./">&larr; Mike Ichikawa</a></p>
     <h1>Microclaw: an AI assistant for Microsoft 365, taken through Microsoft certification</h1>
-    <p class="lede">Case study, March to November 2026.</p>
+    <p class="lede">Built solo, March to November 2026. Now a portfolio piece, with the code and evaluations public.</p>
   </div>
 </header>
 
@@ -79,6 +84,13 @@ footer a{color:var(--deep-accent)}
       <figcaption>Microclaw in Teams doing three things from one request.</figcaption>
     </figure>
 
+    <dl class="facts">
+      <div><dt>Role</dt><dd>Sole builder: product, engineering, infrastructure, compliance</dd></div>
+      <div><dt>Published</dt><dd>Microsoft AppSource (May 2026) and the Teams Store (Aug 2026)</dd></div>
+      <div><dt>Scale</dt><dd>87 tools over Microsoft Graph, 609 automated tests</dd></div>
+      <div><dt>Tool selection</dt><dd>98.1% tool coverage on 362 blind-written requests, up from 87.0%</dd></div>
+    </dl>
+
     <h2>What it was</h2>
     <p>Microclaw was an assistant that lived in Microsoft Teams. You'd ask it, in plain language, to do
       things across your Microsoft 365 account: &ldquo;Flag my last email from Marcus, add a follow-up task due
@@ -87,9 +99,31 @@ footer a{color:var(--deep-accent)}
       tools</b> over Microsoft Graph. It also ran standing jobs for you: scheduled tasks, and automations that
       fire when new mail or a calendar change arrives.</p>
     <p>I built it alone, working agent-first with Claude Code: I made the product and design calls and ran the
-      evaluations. It was published on <b>Microsoft AppSource</b> (May 2026) and the <b>Microsoft Teams Store</b>
-      (August 2026) as a paid SaaS product, sold through Microsoft's own billing. I retired it in November
-      2026.</p>
+      evaluations. It was published on <b>Microsoft AppSource</b>, the Microsoft Commercial Marketplace's storefront
+      for business apps (May 2026), and the <b>Microsoft Teams Store</b> (August 2026), as a paid SaaS product billed
+      through Microsoft.</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>Measured results</h2>
+    <table class="tbl">
+      <thead><tr><th>What</th><th>Result</th></tr></thead>
+      <tbody>
+        <tr><td><b>Tool selection</b>, on 362 requests written blind by a separate agent that saw only the tool list: was every tool the request needed offered?</td><td><b>98.1%</b> (355/362), vs <b>87.0%</b> for the earlier selector</td></tr>
+        <tr><td><b>Agent eval</b>, 142 cases replayed offline: did it call the right tools?</td><td><b>134 of 142</b> on average over three runs, with <b>49% fewer prompt tokens</b> than sending every tool</td></tr>
+        <tr><td>A rejected design: offer the top 3 tools plus a <code>find_tools</code> tool</td><td>Cheaper, but 125/142, and once it claimed to have saved an automation it hadn't. The eval killed it</td></tr>
+        <tr><td>Test suite</td><td><b>609</b> automated tests, run against a real Postgres in a container</td></tr>
+        <tr><td>Hosting cost</td><td>About <b>$22 a month</b> for the whole service (Azure invoice, September 2026)</td></tr>
+      </tbody>
+    </table>
+    <p>The selection code, test sets and an offline re-runnable eval are public:
+      <a href="https://github.com/mtichikawa/m365-agent">github.com/mtichikawa/m365-agent</a></p>
+    <figure>
+      <a href="microclaw/console.png" target="_blank" rel="noopener"><img class="fig" src="microclaw/console.png" alt="The demo console replaying one request. The left side shows a drafted reply. The right side shows tool selection with 39 of 87 tools offered, each model call, the create_draft tool call, and totals for time, model calls, tokens and cost." /></a>
+      <figcaption>The demo console: one request, step by step: model choice, tools offered, each tool call, cost.</figcaption>
+    </figure>
   </div>
 </section>
 
@@ -98,7 +132,7 @@ footer a{color:var(--deep-accent)}
     <h2>Architecture</h2>
 <pre class="log">Teams message ──► Bot Framework endpoint (Node.js / TypeScript, one process on Azure Container Apps)
                      │
-                     ├─ Tool selection: embeddings over each tool's description plus 1,053 labelled
+                     ├─ Tool selection: embeddings over each tool's description plus 1,053 labeled
                      │  example requests → about 21 of 87 tools offered per message
                      ├─ Model routing: a small model by default, a large one for multi-step work
                      ├─ Agent loop (Azure OpenAI function calling)
@@ -112,7 +146,7 @@ footer a{color:var(--deep-accent)}
         that user could. Write actions (send, edit, delete, share) each have a toggle that is <b>off by
         default</b> and is checked in code before any tool runs. An organization admin can switch a capability
         off for everyone.</li>
-      <li><b>Tenant isolation in the database, not just the code.</b> Postgres row-level security is forced on
+      <li><b>Tenant isolation in the database.</b> Postgres row-level security is forced on
         every tenant table. The app connects as a role that cannot bypass it, and the tenant is bound to each
         transaction, so a query without a tenant returns nothing instead of everything. A CI test checks every
         table.</li>
@@ -131,30 +165,8 @@ footer a{color:var(--deep-accent)}
 
 <section>
   <div class="wrap">
-    <h2>Measured results</h2>
-    <table class="tbl">
-      <thead><tr><th>What</th><th>Result</th></tr></thead>
-      <tbody>
-        <tr><td><b>Tool selection</b>, on 362 requests written blind by a separate agent that saw only the tool list: was every tool the request needed offered?</td><td><b>98.1%</b> (355/362), vs <b>87.0%</b> for the earlier selector</td></tr>
-        <tr><td><b>Agent eval</b>, 142 cases replayed offline: did it call the right tools?</td><td><b>134 of 142</b> on average over three runs. Same as sending all tools, with <b>49% fewer prompt tokens</b></td></tr>
-        <tr><td>A rejected design: offer the top 3 tools plus a <code>find_tools</code> tool</td><td>Cheaper, but 125/142, and once it claimed to have saved an automation it hadn't. The eval killed it</td></tr>
-        <tr><td>Test suite</td><td><b>609</b> automated tests, run against a real Postgres in a container</td></tr>
-        <tr><td>Running cost at its live footprint</td><td>About <b>$22 a month</b> (Azure invoice, September 2026)</td></tr>
-      </tbody>
-    </table>
-    <p>The selection code, test sets and an offline re-runnable eval are public:
-      <a href="https://github.com/mtichikawa/m365-agent">github.com/mtichikawa/m365-agent</a></p>
-    <figure>
-      <a href="microclaw/console.png" target="_blank" rel="noopener"><img class="fig" src="microclaw/console.png" alt="The demo console replaying one request. The left side shows a drafted reply. The right side shows tool selection with 39 of 87 tools offered, each model call, the create_draft tool call, and totals for time, model calls, tokens and cost." /></a>
-      <figcaption>The demo console: one request, step by step: model choice, tools offered, each tool call, cost.</figcaption>
-    </figure>
-  </div>
-</section>
-
-<section>
-  <div class="wrap">
     <h2>Getting through Microsoft certification</h2>
-    <p>Publishing meant passing three separate Microsoft gates, each with its own reviewers and rules:</p>
+    <p>Publishing meant passing three separate Microsoft reviews:</p>
     <ol>
       <li><b>Marketplace SaaS offers</b> (Standard and Self-Hosted). That meant a legal entity (Oregon LLC, EIN,
         DUNS, D&amp;B verification), Partner Center tax and payout profiles, a working purchase landing page, and
@@ -170,7 +182,7 @@ footer a{color:var(--deep-accent)}
       <li><b>Microsoft 365 App Compliance.</b> The Publisher Attestation (data handling, security, the 25 Graph
         permissions) was published in August 2026.</li>
     </ol>
-    <p>Along the way I worked a Partner Center membership verification through a formal Microsoft support case
+    <p>I worked a Partner Center membership verification through a formal Microsoft support case
       to clear the path to the Teams Store.</p>
   </div>
 </section>
@@ -179,15 +191,14 @@ footer a{color:var(--deep-accent)}
   <div class="wrap">
     <h2>What I learned</h2>
     <ul>
-      <li><b>Evals settle arguments that taste can't.</b> The leaner tool design looked better on paper and lost
+      <li><b>Measuring the tool design.</b> The leaner tool design looked better on paper and lost
         on measurement; the eval also caught a confidently false &ldquo;I saved it&rdquo;.</li>
-      <li><b>Put safety in code, not in the prompt.</b> Permissions, tenant isolation and the outbound-address
+      <li><b>Safety checks run in code.</b> Permissions, tenant isolation and the outbound-address
         guard all live in code. Prompt instructions alone didn't move the injection numbers.</li>
-      <li><b>Route by cost, escalate by need.</b> A small model handles most messages and a large one takes
-        multi-step work, which kept the whole hosted service at about $22 a month.</li>
-      <li><b>Shipping on a platform is more than code.</b> Microsoft publishing needed a legal entity, tax and
-        payout profiles, a security attestation and seven review rounds. I treated each as an engineering
-        problem, with written checklists and fixes shipped the same week.</li>
+      <li><b>Model routing.</b> A small model handles most messages and a large one takes
+        multi-step work.</li>
+      <li><b>Publishing on Microsoft's platform.</b> It needed a legal entity, tax and
+        payout profiles, a security attestation and seven review rounds.</li>
     </ul>
   </div>
 </section>
@@ -195,20 +206,19 @@ footer a{color:var(--deep-accent)}
 <section>
   <div class="wrap">
     <h2>Media</h2>
-    <p>Teams screenshots from the store listing:</p>
+    <p>Teams screenshots from the store listing. Click any one to enlarge.</p>
     <div class="grid">
-      <a href="microclaw/teams-briefing.png" target="_blank" rel="noopener"><img class="fig" src="microclaw/teams-briefing.png" alt="Microclaw in Teams building a one-page brief for a 1:1 meeting from recent emails and OneNote notes." loading="lazy" /></a>
-      <a href="microclaw/teams-automation.png" target="_blank" rel="noopener"><img class="fig" src="microclaw/teams-automation.png" alt="Microclaw in Teams saving an automation that flags emails from Marcus and creates a follow-up task." loading="lazy" /></a>
-      <a href="microclaw/teams-calendar-automations.png" target="_blank" rel="noopener"><img class="fig" src="microclaw/teams-calendar-automations.png" alt="Microclaw in Teams listing tomorrow's calendar and the user's active automations." loading="lazy" /></a>
-      <a href="microclaw/teams-compound.png" target="_blank" rel="noopener"><img class="fig" src="microclaw/teams-compound.png" alt="Microclaw in Teams handling a three-part request in one message." loading="lazy" /></a>
+      <figure><a href="microclaw/teams-briefing.png" target="_blank" rel="noopener"><img class="fig" src="microclaw/teams-briefing.png" alt="Microclaw in Teams building a one-page brief for a 1:1 meeting from recent emails and OneNote notes." loading="lazy" /></a><figcaption>A one-page brief for a 1:1, from mail and OneNote.</figcaption></figure>
+      <figure><a href="microclaw/teams-automation.png" target="_blank" rel="noopener"><img class="fig" src="microclaw/teams-automation.png" alt="Microclaw in Teams saving an automation that flags emails from Marcus and creates a follow-up task." loading="lazy" /></a><figcaption>Saving an automation from one sentence.</figcaption></figure>
+      <figure><a href="microclaw/teams-calendar-automations.png" target="_blank" rel="noopener"><img class="fig" src="microclaw/teams-calendar-automations.png" alt="Microclaw in Teams listing tomorrow's calendar and the user's active automations." loading="lazy" /></a><figcaption>Tomorrow's calendar and the active automations.</figcaption></figure>
     </div>
-    <p>Demo console walkthrough:</p>
-    <video controls preload="metadata" src="microclaw/console-walkthrough.webm"></video>
-    <p style="margin-top:1.5rem">Demo videos:</p>
+    <p>The demo console replaying recorded requests (38 seconds, no sound):</p>
+    <video controls preload="none" playsinline poster="microclaw/console-walkthrough-poster.png" src="microclaw/console-walkthrough.mp4"></video>
+    <p style="margin-top:1.5rem">Demo videos on YouTube:</p>
     <p class="links">
-      <a href="https://www.youtube.com/watch?v=5iRTAN3uJxU">Video 1 &rarr;</a>
-      <a href="https://www.youtube.com/watch?v=Ya62QEq3hFE">Video 2 &rarr;</a>
-      <a href="https://www.youtube.com/watch?v=lScyMPgGIzs">Video 3 &rarr;</a>
+      <a href="https://www.youtube.com/watch?v=5iRTAN3uJxU">The AppSource demo &rarr;</a>
+      <a href="https://www.youtube.com/watch?v=Ya62QEq3hFE">What is Microclaw? &rarr;</a>
+      <a href="https://www.youtube.com/watch?v=lScyMPgGIzs">10 minutes before every meeting &rarr;</a>
     </p>
   </div>
 </section>
